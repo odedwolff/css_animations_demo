@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>title</title>
+	<link rel="stylesheet" href="styles/styles.css">
+	<!-- <script src="scripts/changeKeyFramesAtRuntime.js"></script> -->
+	<script src="scripts/script1.js"></script>
+</head>
+
+<!-- <body  onload = "initFunc()"> -->
+<body onload ="init()">
+	<!-- 
+	<div id=div1>
+		<div id=divRot>
+			<h1>mississipi blues rocks</h1>
+		</div>
+	</div>
+	<button id=btnGo onclick="go()">go</button>
+ -->
+	<div id= divWischCont>
+		<button id=btnGoCssRot onclick="goCssRot()">rotate css</button>
+		<button id=btnStopRotate onclick="stopRotate()">stop</button>
+		<div class=wischer >
+			<h1>rotate css</h1>
+		</div>
+		<div  class=wischer >
+			<h1>rotate css</h1>
+		</div>
+
+	</div>
+
+	<div id=divPendulumCont>
+		<div id=divPndControl>
+			 <button cls=clsSwingBtn id=btnWsing onclick="startSwinging()">
+				swingSync
+			</button>
+
+			<button cls=clsSwingBtn id=btnWsingAysnc onclick="startSwingingAynch(2)">
+				swingASync
+			</button>
+
+			<button cls=clsSwingBtn id=btnWsingAysnc onclick="			startSwingingDelta(0.1)">
+				swing Sync Delayed
+			</button>
+
+		</div>
+		<div id=divPendulum>
+			<div class="clsLetterCont swingable">
+				<div class=clsLetter >
+					s
+				</div>
+			</div>
+			<div class="clsLetterCont swingable">
+				<div class=clsLetter >
+					w
+				</div>
+			</div>
+			<div class="clsLetterCont swingable">
+				<div class=clsLetter >
+					i
+				</div>
+			</div>
+			<div class="clsLetterCont swingable">
+				<div class=clsLetter >
+					n
+				</div>
+			</div>
+			<div class="clsLetterCont swingable">
+				<div class=clsLetter >
+				g
+				</div>
+			</div>	
+		</div>
+	</div>
+
+	<div id=divTwisterCont>
+		<div  id=twistControl>
+			<button id=btnGo onclick="startTwister(0.2, 1.0)">twist</button>
+			<button id=btnGo onclick="reloadTwister()">reload</button>
+			<button id=btnPreRide onclick="twisterStage3(0.8, 1.0)">stage 3</button>
+			<button  onclick="twistIntegrated()">integreated</button>
+
+
+
+		</div>
+		<div id=divTwistText> 
+			<div class="twistLetterCont">
+				<div class=clsLetterTwst >
+					t
+				</div>
+			</div>
+			<div class="twistLetterCont">
+				<div class=clsLetterTwst >
+					w
+				</div>
+			</div>
+			<div class="twistLetterCont">
+				<div class=clsLetterTwst >
+					i
+				</div>
+			</div>
+			<div class="twistLetterCont">
+				<div class=clsLetterTwst >
+					s
+				</div>
+			</div>
+			<div class="twistLetterCont">
+				<div class=clsLetterTwst >
+					t
+				</div>
+			</div>
+			<div class="twistLetterCont">
+				<div class=clsLetterTwst >
+					e
+				</div>
+			</div>
+			<div class="twistLetterCont">
+				<div class=clsLetterTwst >
+					r
+				</div>
+			</div>
+		</div>
+	</div>	
+
+
+
+	<div id=divPulsar>
+		<div id=divPulsarControl>
+			<button onclick="startPulsar(0.1)">start</button>
+			<button onclick="stopPulsar()">stop</button>
+		</div>
+		<div id=divPulsarContent>
+			<div class=letterContainerPulsar>
+				p	
+			</div>
+			<div class=letterContainerPulsar>
+				u	
+			</div>
+			<div class=letterContainerPulsar>
+				l	
+			</div>
+			<div class=letterContainerPulsar>
+				s	
+			</div>
+			<div class=letterContainerPulsar>
+				a	
+			</div>	
+			<div class=letterContainerPulsar>
+				r	
+			</div>
+		</div>
+
+	</div>
+
+	<div id=divRollerCont>
+		<div id=divRollerControl>
+			<button onclick="rollWord()">roll</button>	
+			<button onclick="resetRollWord()">reset</button>	
+			<button onclick="rollPhase2()">phase2</button>	
+			<button onclick="integratedRoll()">integreated</button>	
+			<button onclick="transformIn()">tranform in</button>	
+			<button onclick="transformOut()">tranform out</button>	
+			<button onclick="transmitRoller()">transmit</button>	
+			<button onclick="rollerLoop()">loop</button>	
+
+
+		</div>
+		<div id=divRollerContent>
+			<!-- 
+			<div id=divRollerWord>
+				Roller
+			</div>
+ 			-->
+
+			<div id=divRollerWord>
+				<div id=divContRollerR1>
+					R
+				</div>
+				<div id=divContRollerOlle></div>
+					olle
+			  	<div id=divContRollerR2>
+			  		R
+			  	</div>
+			</div>	
+
+
+			<div id=divRollerWordDouble>
+				RolleR
+			</div>	
+
+
+		</div>
+
+	</div>
+
+
+
+
+
+
+</body>
+</html>

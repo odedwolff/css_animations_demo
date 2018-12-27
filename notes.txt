@@ -1,0 +1,22 @@
+
+
+-pracice rotateY 
+-shooting of line side ways into poisition
+-binking
+-twisting, sclaing sideways and upways, then
+ becoming form 
+-2 phases of "hear bit" pulses with default progress function
+	scale is the obvious for hear related, but roation 
+	gives also a cool result 
+
+-spider building a web
+-rain!
+-flashing !
+
+-word rolling, than stops 
+
+-consider also changes in color and opacity in 
+ combination with the other tansitions 
+
+-transmit roller directly 
+ from destination to origin

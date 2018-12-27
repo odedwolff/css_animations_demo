@@ -1,0 +1,536 @@
+#div1{
+	background: blue;
+	width: 100px;
+	height: 100px
+}
+
+
+#divRot{
+
+	position: absolute;
+	left: 200px;
+	top: 200px;
+}
+
+
+ h1{
+
+ }
+
+#divWischCont{
+	padding-top: 200px;
+	width:100%;
+	height: 500px;
+	background: #179B55
+}
+
+
+
+
+.wischer h1{
+	font-family: "Georgia", "serif"
+	font-size:20px;
+}
+
+.wischer{
+	
+	width: 200px;
+	transform-origin: 100% 50%;
+  	transform: rotate(25deg);
+  	float: left;
+}
+
+.wischerRun{
+	animation-name: example;
+  	animation-duration: 4s;
+  	animation-name: rotText;
+  	animation-duration: 3s;
+  	transform-origin: 100% 50%;
+  	transform: rotate(25deg);
+  	animation-iteration-count: infinite;
+}
+
+@keyframes rotText{
+	0%{transform: rotate(25deg);}
+	50%{transform: rotate(155deg);}
+	100%{transform: rotate(25deg);}
+}
+
+
+#divPendulumCont{
+	padding-top: 200px;
+	width:100%;
+	height: 500px;
+	background: #DDDF57
+}
+
+#divPendulum{
+	margin-left: 20%
+}
+
+.clsLetterCont{
+	position: relative;
+	float:left;
+	margin-left: 70px;
+	height: 100px;
+	width:15px;
+}
+
+.clsLetter{
+	position: absolute;
+	font-size: 30px;
+	bottom:2px;
+}
+
+.swinging{
+	transform-origin: 100% 0%;
+	animation-name: swing;
+	animation-duration: 2s;
+	animation-iteration-count: infinite;
+}
+
+@keyframes swing{
+	0%{transform: rotate(-80deg);
+		animation-timing-function:cubic-bezier(.36,.01,.67,1);
+		}
+	50%{transform: rotate(80deg);
+		animation-timing-function:cubic-bezier(.36,.01,.67,1);
+		}
+	100%{transform: rotate(-80deg);
+		animation-timing-function:cubic-bezier(.36,.01,.67,1);
+	}
+}
+
+
+.clsSwingBtn{
+	position: relative;
+	width: 50px;
+	height: 30px;
+}
+
+#divPndControl{
+	wigth:100%;	
+	height: 5%;
+}
+
+
+
+#divTwisterCont{
+	padding-top: 200px;
+	width:100%;
+	height: 500px;
+	background: red;
+
+}
+
+
+
+.clsLetterTwst{
+	position: absolute;
+	font-size: 8px;
+	margin-top:30%;
+	margin-left:30%;
+
+}
+.twisting_in{
+	transform-origin: 50% 50%;
+	animation-name: twist;
+	animation-duration: 1.5s;
+	animation-fill-mode: forwards;
+	animation-timing-function: cubic-bezier(.16,.83,.31,.92);
+}
+
+
+@keyframes twist{
+	100%{	
+		transform: rotate(3600deg) scale(4);
+	}
+			
+}
+
+
+.twist_pre_ride{
+	transform-origin: 50% 50%;
+	animation-name: twist_pre_ride;
+	animation-duration: .2s;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+	transform: scale(4);
+}
+
+@keyframes twist_pre_ride{
+	from {transform: rotate(0deg) scale(4);}
+    to {transform: rotate(360deg) scale(4);}	
+}
+
+
+
+.twist_ride_away{
+	transform-origin: 50% 50%;
+	animation-name: twist_ride_away;
+	animation-duration: .7s;
+	animation-timing-function: linear;
+	transform: scale(4);
+	animation-fill-mode: forwards;
+}
+
+@keyframes twist_ride_away{
+	0%{	
+		transform: translate(0,0) scale(4) rotate(0deg);
+	}	
+	100%{	
+		transform: translate(400px,0px) scale(.1) rotate(500deg);
+	}		
+}
+
+
+.twistLetterCont{
+	position: relative;
+	float:left;
+	margin-left: 70px;
+	height: 20px;
+	width:15px;
+
+}
+
+#divTwistText{
+	margin-left: 10%
+}
+
+
+#divPulsar{
+	padding-top: 200px;
+	width:100%;
+	height: 500px;
+	background: #1c5e22;
+}
+
+.letterContainerPulsar{
+	width: 60px;
+	height: 60px;
+/*	background: white;
+*/	
+	float:left;
+	margin-left: 20px;
+	padding-left: 4%;
+	padding-bottom: 2%;
+	font-size: 60px;
+}
+
+
+.pulsarPumping{
+	animation-name: pulsar;
+	animation-duration: 1.5s;
+	animation-iteration-count: infinite;
+	transform-origin: 50% 50%;
+
+}
+
+@keyframes pulsar{
+	0%{
+		transform: scale(1);
+	}
+	30%{
+		transform: scale(1);
+	}
+	65%{
+		transform: scale(2) ;
+	}
+	100%{
+		transform: scale(1);
+	}
+
+}
+
+
+
+#divPulsarContent{
+	padding-left: 10%;
+}
+
+
+
+#divRollerCont{
+	width:100%;
+	height: 500px;
+	background: white;
+
+	position: relative;
+	left: 200px;
+}
+
+#divRollerWord{
+	position: absolute;
+	font-size: 40px;
+	width: 60px;
+	height: 50px;
+	transform: translate(30px, 30px);
+	/*background: yellow;*/
+}
+
+#divRollerWordDouble{
+	position: relative;
+	font-size: 40px;
+	width: 60px;
+	height: 50px;
+	top:30px;
+	left:3px;
+	/*color:green;*/
+	opacity: 0;	
+}
+
+.rolling{
+	animation-name: rolling;
+	animation-duration: 24s;
+	transform-origin: 50% 50%;
+	animation-fill-mode: forwards;
+}
+
+
+
+@keyframes rolling{
+	0%{
+		transform: translate(30px, 30px) rotate(0deg) ;
+		/*animation-timing-function: cubic-bezier(.51,.23,.72,.45);*/
+		animation-timing-function:cubic-bezier(.2,.01,1,.88);
+
+		
+	}
+	10%{
+		transform: translate(800px, 100px) rotate(1000deg) ;
+		/*animation-timing-function: linear;*/
+		animation-timing-function:cubic-bezier(.21,.07,.92,.78);
+		
+	}
+	18%{
+		transform: translate(0px, 200px) rotate(0deg) ;
+		/*animation-timing-function: linear;*/
+		animation-timing-function:cubic-bezier(.21,.07,.92,.78);
+		
+	}
+	24%{
+		transform: translate(800px, 300px) rotate(1000deg) ;
+		/*animation-timing-function: linear;*/
+		animation-timing-function:cubic-bezier(.21,.07,.92,.78);
+		
+	}
+	28%{
+		transform: translate(0px, 400px) rotate(0deg) ;
+		animation-timing-function:cubic-bezier(0,.42,.59,.99);	
+	}
+
+	50%{
+		transform: translate(700px, 400px) rotate(1080deg) ;
+	}
+
+	100%{
+		transform: translate(700px, 400px) rotate(1080deg) ;
+	}
+
+
+	
+}
+
+
+
+@keyframes rollingOld{
+	0%{
+		transform: translate(30px, 30px) rotate(0deg) ;
+		/*animation-timing-function: cubic-bezier(.51,.23,.72,.45);*/
+		animation-timing-function:cubic-bezier(.2,.01,1,.88);
+
+		
+	}
+	10%{
+		transform: translate(800px, 100px) rotate(1000deg) ;
+		/*animation-timing-function: linear;*/
+		animation-timing-function:cubic-bezier(.21,.07,.92,.78);
+		
+	}
+	15%{
+		transform: translate(0px, 200px) rotate(0deg) ;
+		/*animation-timing-function: linear;*/
+		animation-timing-function:cubic-bezier(.21,.07,.92,.78);
+		
+	}
+	20%{
+		transform: translate(800px, 300px) rotate(1000deg) ;
+		/*animation-timing-function: linear;*/
+		animation-timing-function:cubic-bezier(.21,.07,.92,.78);
+		
+	}
+	25%{
+		transform: translate(0px, 400px) rotate(0deg) ;
+		animation-timing-function:cubic-bezier(0,.42,.59,.99);	
+	}
+
+	50%{
+		transform: translate(700px, 400px) rotate(1080deg) ;
+	}
+
+	100%{
+		transform: translate(700px, 400px) rotate(1080deg) ;
+	}
+
+
+	
+}
+
+
+.rollingPhase2{
+	animation-name: rollingPhase2;
+	animation-duration: 4s;
+	transform-origin: 0% 100%;
+	animation-fill-mode: forwards;
+}
+
+@keyframes rollingPhase2{
+	
+	/*0%{
+		transform: translate(755px, 430px) rotate(300deg) ;
+		animation-timing-function:cubic-bezier(.58,.01,.99,.5) 
+	}
+	5%{
+		transform: translate(755px, 430px) rotate(360deg) ;
+	}
+	100%{
+		transform: translate(755px, 430px) rotate(360deg) ;
+		
+	}*/
+
+}
+
+div#divContRollerR1 {
+    position: absolute;
+    top: -1px;
+    left: -26px;
+}
+
+div#divContRollerR2 {
+    position: absolute;
+    left: 60px;
+    top: 0px;
+}
+
+
+.clsTranformInR1{
+	animation-name: tranformInR1;
+	animation-duration: 2s;
+	animation-fill-mode: forwards;
+}
+
+
+@keyframes tranformInR1{
+	 0%{	
+	 	
+	 }
+	 33%{
+	 	transform: translate(0, -16px);
+	 }
+	 66%{
+	 	transform: translate(45px, -16px);
+	 }
+	 100%{
+	 	transform: translate(45px, -16px) scale(1.5, 0.5);
+	 }
+}
+
+
+.clsTranformInR1reverse{
+	animation-name: tranformInR1reverse;
+	animation-duration: 2s;
+	animation-fill-mode: forwards;
+}
+
+
+@keyframes tranformInR1reverse{
+	 0%{	
+	 	transform: translate(45px, -16px) scale(1.5, 0.5);
+	 }
+	 
+	 33%{	
+	 	transform: translate(45px, -16px)  scale(1,1);
+	 }
+
+	66%{
+	 	transform: translate(0px, -16px);
+	 }
+	 100%{
+	 	transform: translate(0px, 0px);
+	 }
+	 
+}
+
+.clsTranformInR2{
+	animation-name: tranformInR2;
+	animation-duration: 2s;
+	animation-fill-mode: forwards;
+}
+
+
+@keyframes tranformInR2{
+	 0%{	
+	 	
+	 }
+	 33%{
+	 	transform: translate(0, 19px);
+	 }
+	 66%{
+	 	transform: translate(-41px, 19px);
+	 }
+	 100%{
+	 	transform: translate(-41px, 19px) scale(1.5, 0.5);
+	 }
+}
+
+.clsTranformInR2reverse{
+	animation-name: tranformInR2reverse;
+	animation-duration: 2s;
+	animation-fill-mode: forwards;
+}
+
+
+@keyframes tranformInR2reverse{
+	 0%{	
+	 	transform: translate(-41px, 19px) scale(1.5, 0.5);
+	 }
+	 33%{
+	 	transform: translate(-41px, 19px) scale(1,1);
+	 }
+	 66%{
+	 	transform: translate(0, 19px)
+	 }
+	 100%{
+	 	transform: translate(0, 0px)
+	 } 
+
+}
+
+
+.rollerFadeOut{
+	animation-name: rollerFadeOut;
+	animation-duration: 2s;
+	animation-fill-mode: forwards;
+}
+
+@keyframes rollerFadeOut{
+	0%{opacity:1; transform:translate(700px, 400px);  }
+	100%{opacity:0; transform:translate(700px, 400px); }
+	
+
+	/*96%{opacity:0; transform:translate(30px,30px); }
+	100%{opacity:1; transform:translate(30px,30px); }*/
+
+
+}
+
+.fakeRollerFadeIn{
+	animation-name: fakeRollerFadeIn;
+	animation-duration: 12s;
+	animation-fill-mode: forwards;
+}
+
+@keyframes fakeRollerFadeIn{
+	0%{opacity:0; }
+	30%{opacity:1; }
+}
