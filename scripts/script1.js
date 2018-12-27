@@ -214,8 +214,16 @@ function rollerLoop(){
 		setTimeout(transformOut, 15000);
 		setTimeout(transmitRoller, 17000);
 		setTimeout(loop, 18000);
-	})();
-	
+	})();	
+}
+
+function animFocus(){
+	document.getElementById("divLinesFocusText").classList.add("focusAnim");
+}
+
+function clearFocusAnim(){
+		document.getElementById("divLinesFocusText").classList.remove("focusAnim");
+
 }
 
 
