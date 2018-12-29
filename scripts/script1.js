@@ -12,6 +12,8 @@ function init(){
 	// var div = document.getElementById("div1");
 	// setTimeout(function(){div.style="background:yellow";},1000)
 	//test1();
+
+	// testBreakDown();
 }
 
 
@@ -225,6 +227,55 @@ function clearFocusAnim(){
 		document.getElementById("divLinesFocusText").classList.remove("focusAnim");
 
 }
+
+
+function breakDownTextToLtters(text, classToAdd){
+	out="";
+	var c;
+	var newElm;
+	for (var i = 0;i<text.length;i++){
+		c=text[i];
+		if(c==" "){
+			c= "&nbsp";
+		}	
+		newElm = "<div class=" +classToAdd +">" + c+ "</div>\n";
+		out+=newElm;
+	}
+	return out;
+
+}
+
+
+//the containing element is assumed to contain the prargrpah 
+// to be processed, as only child element 
+function replaceParagpheWithSplittedDives(containingElment){
+	p=containingElment.firstElementChild;
+	var text=p.innerHTML;
+	var processedText=breakDownTextToLtters(text, "classFlashLetter");
+	newDomContent="<div id='divProcessedP'>\n" +  processedText + "\n</div>"
+	containingElment.innerHTML=newDomContent;
+	console.log(text);
+}
+
+
+function preProcessFlashing(){	
+	replaceParagpheWithSplittedDives(document.getElementById("divFashingContent"));
+}
+
+function startFlashing(){
+	// document.getElementById("classFlashLetter").classList.add("flashing");		 
+
+	elms = document.getElementsByClassName("classFlashLetter");
+		for(var i = 0 ; i< elms.length ; i++){
+					elms[i].classList.add("flashing");			
+	}
+
+}
+
+
+
+
+
 
 
 

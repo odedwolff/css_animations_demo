@@ -566,6 +566,7 @@ div#divLinesFocosContent {
     text-shadow: 0 0 20px rgba(0,0,0,0.5);
     font-size: 35px;
     display: inline-block;
+    line-height: 40px
 }
 
 
@@ -573,17 +574,81 @@ div#divLinesFocosContent {
 	animation-name: focusAnim;
 	animation-duration: 8s;
 	animation-fill-mode: forwards;
+	animation-iteration-count: 3;
+	line-height: 40px
 } 
 
 @keyframes focusAnim{
 	0%{
 		text-shadow: 0 0 20px rgba(0,0,0,0.5);	
+		/*animation-timing-function: cubic-bezier(1,.01,.72,1);*/
+		color: transparent;
+		line-height: 40px
+	}
+
+	20%{
+		text-shadow: 0 0 1px rgba(0,0,0,0.5);
+		/*color: black;*/
+		/*animation-timing-function: cubic-bezier(0,1.02,.73,1);*/
+
+		line-height: 0px
+	}
+	40%{
+		text-shadow: 0 0 20px rgba(0,0,0,0.5);
+		/*color: black;*/
+
+		line-height: 40px
+	}
+
+	90%{
+		text-shadow: 0 0 0px rgba(0,0,0,0.5);
+		/*color: black;*/
+		line-height: 40px
 	}
 	100%{
-		text-shadow: 0 0 1px rgba(0,0,0,0.5);
+		text-shadow: 0 0 0px rgba(0,0,0,0.5);
+		/*color: black;*/
+		line-height: 40px
 	}
 }
 
 #pFocusText{
 	text-align: center;
 }
+
+
+#divFlashingCont{
+	width:100%;
+	height: 500px;
+	background: #ff3300;
+	position: relative;
+	
+}
+
+
+
+div#divFashingContent{
+    padding-left: 100px;
+    padding-right: 300px;
+    padding-top: 30px;
+}
+
+.classFlashLetter {
+    float: left;
+}
+
+.flashing{
+	animation-name: flashing;
+	animation-duration: .7s;
+	/*animation-fill-mode: forwards;*/
+	animation-iteration-count: infinite;
+	/*animation-timing-function: constatn*/
+}
+
+@keyframes flashing{
+	0%{opacity: 0}
+	49%{opacity: 0}
+	50%{opacity: 1}
+	100%{opacity: 1}
+}
+

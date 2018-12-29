@@ -7,7 +7,6 @@
  becoming form 
 
 
--spider building a web
 -rain!
 -flashing !
 
@@ -19,9 +18,24 @@
   a wall trying to make sense of writing 
 
 
- text lines: make lines of texts focus in while 
- spaces are getting smaller, so that they re in focus 
- but still cant be read because lines are overlapping
  
 
+-animation of "fish": letters flaten out, then shot 
+("action" "reaction")
+-also make this fish swim between different 
+themes
 
+-bicyles: 2 gears, 2 wheels ,2 pedals 
+-> either going on a big outer circle, or 
+staying still with text flying around to simlate
+motion against backgeround
+
+ -all letters are placed on the same spot 
+ -letters are showing one afger the other
+ -shown up letter is being rotated 
+ -next letter shows up
+ -when circle is full, speed up and show 
+ movement options mentioned above 
+ 
+
+-pulsing rotating 
