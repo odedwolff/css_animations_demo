@@ -283,8 +283,46 @@ function addClsToClsMmbrs(clsSelect, clsAdd, rndTimingSpectrumMs){
 	}
 }
 
-function clearFlashing(){
-	removeClassFromClass('classFlashLetter', 'flashing10');
+
+//assign sequence to individual letters
+function setSequencesToFlasingLetter(rndTimingSpectrumMs){
+	elms = document.getElementsByClassName("classFlashLetter");
+	var hasRndTiming= rndTimingSpectrumMs != null && rndTimingSpectrumMs != 0;
+	for(var i = 0 ; i< elms.length ; i++){
+		var delay= rndTimingSpectrumMs * Math.random();
+		setTimeout(function(elm){
+			setTimeout(function(){
+				elm.classList.add("flashing10")
+			},0);
+			setTimeout(function(){
+				elm.classList.add("flashing10");
+				elm.classList.add("flashing20")
+			},5000);
+			setTimeout(function(){
+				elm.classList.add("flashing20");
+				elm.classList.add("flashing40")
+			},10000);
+			setTimeout(function(){
+				elm.classList.add("flashing10");
+				elm.classList.add("flashing80")
+			},15000);
+		}.bind(null, elms[i]), delay);		
+	}
+}
+
+
+
+function clearFlashing(toTranspaerent){
+
+	var flashingChildren = document.getElementById("divProcessedP").children;
+	for (var i = 0; i<flashingChildren.length; i++){
+		if(toTranspaerent){
+			flashingChildren[i].classList= "classFlashLetterTransparent";
+		}else{
+			flashingChildren[i].classList= "classFlashLetter";
+		}
+	}
+
 	var elm = document.getElementById("divProcessedP");
 	if (elm){
 		elm.classList.remove("snychFlash1");	
@@ -303,6 +341,32 @@ function flashSync(){
 	document.getElementById("divProcessedP").classList.add("snychFlash1");
 }
 
+
+function flashingSequence(){
+	setSequencesToFlasingLetter(2000);
+
+
+	// setTimeout(function(){
+	// 	clearFlashing(true);
+	// 	addClsToClsMmbrs("classFlashLetter", "flashing10", 2000);}
+	// 	, 0 );
+
+	// setTimeout(function(){
+	// 	clearFlashing(true);
+	// 	addClsToClsMmbrs("classFlashLetter", "flashing20", 2000);}
+	// 	, 5000 );
+
+	// setTimeout(function(){
+	// 	clearFlashing(true);
+	// 	addClsToClsMmbrs("classFlashLetter", "flashing40", 2000);}
+	// 	, 10000 );
+
+	// setTimeout(function(){
+	// 	clearFlashing(true);
+	// 	addClsToClsMmbrs("classFlashLetter", "flashing80", 2000);}
+	// 	, 15000 );
+	
+}
 
 
 

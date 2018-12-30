@@ -637,18 +637,71 @@ div#divFashingContent{
     float: left;
 }
 
+.classFlashLetterTransparent {
+    float: left;
+    opacity: 0;
+}
+
+
 .flashing10{
 	animation-name: flashing10;
 	animation-duration: .7s;
 	animation-iteration-count: infinite;
+	opacity: 0;
 }
 
 @keyframes flashing10{
-	0%{opacity: 0}
-	10%{opacity: 0}
-	11%{opacity: 1}
-	100%{opacity: 1}
+	0%{opacity: 1}
+	10%{opacity: 1}
+	11%{opacity: 0}
+	100%{opacity: 0}
 }
+
+.flashing20{
+	animation-name: flashing20;
+	animation-duration: .7s;
+	animation-iteration-count: infinite;
+	opacity: 0;
+}
+
+@keyframes flashing20{
+	0%{opacity: 1}
+	20%{opacity: 1}
+	21%{opacity: 0}
+	100%{opacity: 0}
+}
+
+.flashing40{
+	animation-name: flashing40;
+	animation-duration: .7s;
+	animation-iteration-count: infinite;
+	opacity: 0;
+}
+
+@keyframes flashing40{
+	0%{opacity: 1}
+	40%{opacity: 1}
+	41%{opacity: 0}
+	100%{opacity: 0}
+}
+
+.flashing80{
+	animation-name: flashing80;
+	animation-duration: .7s;
+	animation-iteration-count: infinite;
+	opacity: 0;
+}
+
+@keyframes flashing80{
+	0%{opacity: 1}
+	80%{opacity: 1}
+	81%{opacity: 0}
+	100%{opacity: 0}
+}
+
+
+
+
 
 
 .snychFlash1{
