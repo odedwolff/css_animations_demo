@@ -263,15 +263,45 @@ function preProcessFlashing(){
 }
 
 function startFlashing(){
-	// document.getElementById("classFlashLetter").classList.add("flashing");		 
-
-	elms = document.getElementsByClassName("classFlashLetter");
-		for(var i = 0 ; i< elms.length ; i++){
-					elms[i].classList.add("flashing");			
-	}
-
+ 	addClsToClsMmbrs("classFlashLetter", "flashing10", 2000);
 }
 
+
+function addClsToClsMmbrs(clsSelect, clsAdd, rndTimingSpectrumMs){
+	elms = document.getElementsByClassName(clsSelect);
+	var hasRndTiming= rndTimingSpectrumMs != null && rndTimingSpectrumMs != 0;
+	for(var i = 0 ; i< elms.length ; i++){
+		var delay;
+		if(hasRndTiming){
+			delay= rndTimingSpectrumMs * Math.random();
+		}else{
+			delay=100;
+		}
+		setTimeout(function(elm){
+			elm.classList.add(clsAdd);
+		}.bind(null, elms[i]), delay);		
+	}
+}
+
+function clearFlashing(){
+	removeClassFromClass('classFlashLetter', 'flashing10');
+	var elm = document.getElementById("divProcessedP");
+	if (elm){
+		elm.classList.remove("snychFlash1");	
+	}
+}
+
+
+function removeClassFromClass(clsSelect, clsRmv){
+	elms = document.getElementsByClassName(clsSelect);
+	for(var i = 0 ; i< elms.length ; i++){
+		elms[i].classList.remove(clsRmv);
+	}
+}
+
+function flashSync(){
+	document.getElementById("divProcessedP").classList.add("snychFlash1");
+}
 
 
 
