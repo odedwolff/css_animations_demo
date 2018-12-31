@@ -386,6 +386,19 @@ function gradualHide(timeSpectrumMs){
 	}
 }
 
+function startSwimming(){
+	// elms = document.getElementsByClassName("clsFish1");
+	// for(var i = 0; i < elms.length; i++){
+
+	// }
+	addClsToClsMmbrs("clsFish1", "animFishTransLeft", 500);
+}
+
+function clearSwimming(){
+	removeClassFromClass("clsFish1", "animFishTransLeft");
+}
+
+
 
 
 
