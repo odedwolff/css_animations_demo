@@ -638,14 +638,14 @@ div#divFashingContent{
 }
 
 .classFlashLetterTransparent {
-    float: left;
+	float: left;
     opacity: 0;
 }
 
 
 .flashing10{
 	animation-name: flashing10;
-	animation-duration: .7s;
+	animation-duration: .3s;
 	animation-iteration-count: infinite;
 	opacity: 0;
 }
@@ -659,7 +659,7 @@ div#divFashingContent{
 
 .flashing20{
 	animation-name: flashing20;
-	animation-duration: .7s;
+	animation-duration: .3s;
 	animation-iteration-count: infinite;
 	opacity: 0;
 }
@@ -673,7 +673,7 @@ div#divFashingContent{
 
 .flashing40{
 	animation-name: flashing40;
-	animation-duration: .7s;
+	animation-duration: .3s;
 	animation-iteration-count: infinite;
 	opacity: 0;
 }
@@ -687,7 +687,7 @@ div#divFashingContent{
 
 .flashing80{
 	animation-name: flashing80;
-	animation-duration: .7s;
+	animation-duration: .3s;
 	animation-iteration-count: infinite;
 	opacity: 0;
 }

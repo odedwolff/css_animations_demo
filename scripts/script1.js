@@ -238,7 +238,7 @@ function breakDownTextToLtters(text, classToAdd){
 		if(c==" "){
 			c= "&nbsp";
 		}	
-		newElm = "<div class=" +classToAdd +">" + c+ "</div>\n";
+		newElm = "<div class='" +classToAdd +"'>" + c+ "</div>\n";
 		out+=newElm;
 	}
 	return out;
@@ -251,7 +251,8 @@ function breakDownTextToLtters(text, classToAdd){
 function replaceParagpheWithSplittedDives(containingElment){
 	p=containingElment.firstElementChild;
 	var text=p.innerHTML;
-	var processedText=breakDownTextToLtters(text, "classFlashLetter");
+	// var processedText=breakDownTextToLtters(text, "classFlashLetter");
+	var processedText=breakDownTextToLtters(text, "classFlashLetter classFlashLetterTransparent");
 	newDomContent="<div id='divProcessedP'>\n" +  processedText + "\n</div>"
 	containingElment.innerHTML=newDomContent;
 	console.log(text);
@@ -289,23 +290,29 @@ function setSequencesToFlasingLetter(rndTimingSpectrumMs){
 	elms = document.getElementsByClassName("classFlashLetter");
 	var hasRndTiming= rndTimingSpectrumMs != null && rndTimingSpectrumMs != 0;
 	for(var i = 0 ; i< elms.length ; i++){
+		elms[i].classList.add("classFlashLetterTransparent");
+
 		var delay= rndTimingSpectrumMs * Math.random();
 		setTimeout(function(elm){
 			setTimeout(function(){
+				elm.classList.remove("classFlashLetterTransparent");
 				elm.classList.add("flashing10")
 			},0);
 			setTimeout(function(){
-				elm.classList.add("flashing10");
+				elm.classList.remove("flashing10");
 				elm.classList.add("flashing20")
-			},5000);
+			},750);
 			setTimeout(function(){
-				elm.classList.add("flashing20");
+				elm.classList.remove("flashing20");
 				elm.classList.add("flashing40")
-			},10000);
+			},1500);
 			setTimeout(function(){
-				elm.classList.add("flashing10");
+				elm.classList.remove("flashing40");
 				elm.classList.add("flashing80")
-			},15000);
+			},2000);
+			setTimeout(function(){
+				elm.classList.remove("flashing80");
+			},2500);
 		}.bind(null, elms[i]), delay);		
 	}
 }
@@ -343,29 +350,7 @@ function flashSync(){
 
 
 function flashingSequence(){
-	setSequencesToFlasingLetter(2000);
-
-
-	// setTimeout(function(){
-	// 	clearFlashing(true);
-	// 	addClsToClsMmbrs("classFlashLetter", "flashing10", 2000);}
-	// 	, 0 );
-
-	// setTimeout(function(){
-	// 	clearFlashing(true);
-	// 	addClsToClsMmbrs("classFlashLetter", "flashing20", 2000);}
-	// 	, 5000 );
-
-	// setTimeout(function(){
-	// 	clearFlashing(true);
-	// 	addClsToClsMmbrs("classFlashLetter", "flashing40", 2000);}
-	// 	, 10000 );
-
-	// setTimeout(function(){
-	// 	clearFlashing(true);
-	// 	addClsToClsMmbrs("classFlashLetter", "flashing80", 2000);}
-	// 	, 15000 );
-	
+	setSequencesToFlasingLetter(1000);
 }
 
 
