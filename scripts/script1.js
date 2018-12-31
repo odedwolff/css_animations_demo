@@ -315,6 +315,29 @@ function setSequencesToFlasingLetter(rndTimingSpectrumMs){
 			},2500);
 		}.bind(null, elms[i]), delay);		
 	}
+
+
+	//now the entire div flshing 
+	var container = document.getElementById("divProcessedP");
+	setTimeout(function(){
+		container.classList.add("snychFlash1");
+	},5000);
+	setTimeout(function(){
+		container.classList.remove("snychFlash1");
+		container.classList.add("snychFlash2");
+	},7500);
+	setTimeout(function(){
+		container.classList.remove("snychFlash2");
+		container.classList.add("snychFlash3");
+	},10000);
+	setTimeout(function(){
+		container.classList.remove("snychFlash3");
+	},13000);
+
+	setTimeout(function(){
+		gradualHide(2000);
+	},17000);
+	
 }
 
 
@@ -351,6 +374,16 @@ function flashSync(){
 
 function flashingSequence(){
 	setSequencesToFlasingLetter(1000);
+}
+
+function gradualHide(timeSpectrumMs){
+	elms = document.getElementsByClassName("classFlashLetter");
+	for(var i = 0; i < elms.length; i++){
+		var delay=timeSpectrumMs*Math.random();
+		setTimeout(function(elm){
+			elm.classList.add("classFlashLetterTransparent");
+		}.bind(null, elms[i]), delay);
+	}
 }
 
 

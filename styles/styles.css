@@ -706,11 +706,37 @@ div#divFashingContent{
 
 .snychFlash1{
 	animation-name: snychFlash1;
-	animation-duration: .7s;
+	animation-duration: 1s;
 	animation-iteration-count: infinite;
 }
 
 @keyframes snychFlash1{
+	0%{opacity: 0}
+	50%{opacity: 0}
+	51%{opacity: 1}
+	100%{opacity: 1}
+}
+
+.snychFlash2{
+	animation-name: snychFlash2;
+	animation-duration: .5s;
+	animation-iteration-count: infinite;
+}
+
+@keyframes snychFlash2{
+	0%{opacity: 0}
+	50%{opacity: 0}
+	51%{opacity: 1}
+	100%{opacity: 1}
+}
+
+.snychFlash3{
+	animation-name: snychFlash3;
+	animation-duration: .25s;
+	animation-iteration-count: infinite;
+}
+
+@keyframes snychFlash3{
 	0%{opacity: 0}
 	50%{opacity: 0}
 	51%{opacity: 1}
