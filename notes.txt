@@ -39,3 +39,10 @@ motion against backgeround
  
 
 -pulsing rotating 
+
+-balls jumping over each other in different arch height, 
+ but meating at ground 
+ -grasshopers jamping over each other
+ -a row of balls dropped at constant raet, jumps in 
+  diminishing heights, than explodes 
+ -giant staps crossing- fading in and out magnitude

@@ -397,6 +397,79 @@ function startSwimming(){
 function clearSwimming(){
 	removeClassFromClass("clsFish1", "animFishTransLeft");
 }
+		 
+function startWalking(){
+	// document.getElementById("leftFoot").classList.add("walking");
+	// setTimeout(function(){
+	// 	document.getElementById("rightFoot").classList.add("walking");
+	// },800);
+	startWalkingNoCss();
+}
+
+function stopWalking(){
+	removeClassFromClass("foot", "walking");
+}
+
+
+function startWalkingNoCss(){
+	var frameRateFps=20;
+	var dTimeMs=1000/frameRateFps;
+	var latestTransforms={
+		"leftFoot":{
+			translateX:0,
+			translateY:0
+		},
+		"rightFoot":{
+			translateX:0,
+			translateY:0
+		}
+	};
+	leftFoot=document.getElementById("leftFoot");
+	rightFoot=document.getElementById("rightFoot");
+	// for(var i=0; i< 50; i++){
+	// 	//** refernce- transform: translate(-300px,0) scale(1, .5);
+	// 	// var transformCtx= "transform: translate("+10px+,0) scale(1, .5);
+	// 	// setInterval(function(transform,opacity){
+	// 	// 	leftFoot.style.transform = transform;
+	// 	// }.bind(null,transformCtx, opacity),i*dTime);
+
+	// 	setInterval(function(){
+	// 		current 
+	// 	} i*dTime);
+	// }
+	var stepSizePx=200;
+	function walkCylce(cycleBginMs, domDivElm){
+		// var currentTranslateX=latestTransforms[domDivElm.id]['translateX'];
+		// domDivElm.style.opacity=1;
+		setTimeout(function(){
+			var currentTranslateX=latestTransforms[domDivElm.id]['translateX'];
+			var newX=currentTranslateX + stepSizePx;
+			// var transform="transform: translate(" + newX + "px,0)";
+			var transform= "translate(" + newX + "px,0)";
+			domDivElm.style.opacity=0;
+			domDivElm.style.transform= transform;
+			domDivElm.style.opacity=1;
+			latestTransforms[domDivElm.id]['translateX'] = newX;
+		},cycleBginMs);
+
+	}
+
+	function preStep(domElm){
+		domElm.style.transform= "translate("+stepSizePx/2 + "px,0)";
+		latestTransforms[domElm.id]['translateX']=stepSizePx/2;
+	}
+
+	// walkCylce(100, leftFoot);
+
+	var cycleLenMs=700;
+
+	preStep(rightFoot);
+	for (var i = 1; i < 12; i++) {
+		walkCylce(i * cycleLenMs, leftFoot);
+		walkCylce(i * cycleLenMs + cycleLenMs / 2, rightFoot);
+	}
+
+}
 
 
 
