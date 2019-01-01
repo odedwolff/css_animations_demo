@@ -473,6 +473,33 @@ function startWalkingNoCss(){
 
 
 
+function hopSeq(){
+	const dTimeMs=5;
+	const hAccPxPerSecSqr = 3000;
+	const vSpeedpxPerSec = 400;
+	const shootupSpeedPxPerSec=-1000;
+	function hopStep(domElm, transX, transY, hSpeedPxPerSec){
+		//if you are falling and hit the ground, your done
+		if(hSpeedPxPerSec > 0 && transY > 0){
+			return;
+		}
+		
+		domElm.style.transform="translate("+transX + "px," + transY + "px)";
+		setTimeout(function(){
+			hopStep(
+				domElm,
+				transX + vSpeedpxPerSec * dTimeMs / 1000,
+				transY + hSpeedPxPerSec * dTimeMs / 1000,
+				hSpeedPxPerSec + hAccPxPerSecSqr * dTimeMs / 1000
+			);
+		}, dTimeMs);
+			
+	}
+
+	var gh1 = document.getElementById("divGH1"); 
+	hopStep(gh1, 0, 0, shootupSpeedPxPerSec);
+}
+
 
 
 
