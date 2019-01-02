@@ -514,7 +514,7 @@ div#divContRollerR2 {
 }
 
 @keyframes rollerFadeOut{
-	0%{opacity:1; transform:translate(700px, 400px);  }
+	  0%{opacity:1; transform:translate(700px, 400px); }
 	100%{opacity:0; transform:translate(700px, 400px); }
 	
 
@@ -915,7 +915,7 @@ div#divFashingContent{
 
 .grasshoper{
 	position: absolute;
-	background: yellow;
+	/*background: yellow;*/
 	width: 30px;
 	height: 30px;
 }
@@ -928,6 +928,10 @@ div#divFashingContent{
 #divGH1{
 	top:80%;
 	left:5%;
+}
+#divGH2{
+	top:80%;
+	left:3%;
 }
 
 div#divGHcontent {

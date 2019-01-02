@@ -46,3 +46,10 @@ motion against backgeround
  -a row of balls dropped at constant raet, jumps in 
   diminishing heights, than explodes 
  -giant staps crossing- fading in and out magnitude
+
+ -on the bottom- theme of faling down letter/words, on the very bottom
+ words and letters laying down in different rotations and angels 
+
+
+ -pulses with just rotation (this looks good!) mabybe make letter rotate 
+  in corasting directiong - like mechanical wheels

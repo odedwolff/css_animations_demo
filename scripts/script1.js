@@ -473,14 +473,18 @@ function startWalkingNoCss(){
 
 
 
-function hopSeq(){
+function hopSeq(ghDivId){
 	const dTimeMs=5;
 	const hAccPxPerSecSqr = 3000;
 	const vSpeedpxPerSec = 400;
 	const shootupSpeedPxPerSec=-1000;
+	const numHops=5;
+	const pauseBetweenHopsMs=1400;
+	var landingX = 0;
 	function hopStep(domElm, transX, transY, hSpeedPxPerSec){
 		//if you are falling and hit the ground, your done
 		if(hSpeedPxPerSec > 0 && transY > 0){
+			landingX=transX;
 			return;
 		}
 		
@@ -496,9 +500,32 @@ function hopSeq(){
 			
 	}
 
-	var gh1 = document.getElementById("divGH1"); 
-	hopStep(gh1, 0, 0, shootupSpeedPxPerSec);
+
+	var gh1 = document.getElementById(ghDivId); 
+	// var gh1 = document.getElementById("divGH1"); 
+	// hopStep(gh1, 0, 0, shootupSpeedPxPerSec);
+	for(var i = 0; i < numHops ; i++){
+		setTimeout(function(){
+			hopStep(gh1, landingX, 0, shootupSpeedPxPerSec);
+		}, pauseBetweenHopsMs * i );
+	}
 }
+
+
+
+function SpringSeqMulti(){
+	setTimeout(function(){
+		hopSeq("divGH1");
+	},0);
+	setTimeout(function(){
+		hopSeq("divGH2");
+	},400);
+}
+
+
+// function preJumpBendTest(){
+// 	tra
+// }
 
 
 
