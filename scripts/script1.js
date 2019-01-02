@@ -478,7 +478,7 @@ function hopSeq(ghDivId){
 	const hAccPxPerSecSqr = 3000;
 	const vSpeedpxPerSec = 400;
 	const shootupSpeedPxPerSec=-1000;
-	const numHops=5;
+	const numHops=1;
 	const pauseBetweenHopsMs=1400;
 	var landingX = 0;
 	function hopStep(domElm, transX, transY, hSpeedPxPerSec){
@@ -512,7 +512,6 @@ function hopSeq(ghDivId){
 }
 
 
-
 function SpringSeqMulti(){
 	setTimeout(function(){
 		hopSeq("divGH1");
@@ -526,9 +525,9 @@ function SpringSeqMulti(){
 function preJump(elmId){
 	const dTimeMs=5;
 	const fps = 1000/dTimeMs;
-	const animLenMsShrink=500;
+	const animLenMsShrink=300;
 	const animLenMsPause=200;
-	const animLenMsExpend=100;
+	const animLenMsExpend=50;
 	// const minYscale=0.3;
 	// const maxYscale=0.3;
 	//linear slopes
@@ -563,8 +562,19 @@ function preJump(elmId){
 	}
 }
 
+function jumpCombinedPeriod(elmId){
+	preJump(elmId);
+	setTimeout(
+		function(){
+			hopSeq(elmId);
+		},600
+	);
+
+}
+
 function preJumpTest(){
-	preJump("divGH1");
+	//preJump("divGH1");
+	jumpCombinedPeriod("divGH1");
 }
 
 
