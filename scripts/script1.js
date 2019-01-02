@@ -523,14 +523,49 @@ function SpringSeqMulti(){
 }
 
 
-// function preJumpBendTest(){
-// 	tra
-// }
+function preJump(elmId){
+	const dTimeMs=5;
+	const fps = 1000/dTimeMs;
+	const animLenMsShrink=500;
+	const animLenMsPause=200;
+	const animLenMsExpend=100;
+	// const minYscale=0.3;
+	// const maxYscale=0.3;
+	//linear slopes
+	const shrinkSlopePerSec=-1.2;
+	const expendSlopePerSec=12;
+	const initiailScaley=1.0;
 
+	var currentScaleY;
+	var shrinkTime=0;
+	var expendTime=0;
+	var numIterrations;
+	var domElm = document.getElementById(elmId);
 
+	shrink(initiailScaley, 0, animLenMsShrink / dTimeMs, shrinkSlopePerSec);
+	setTimeout(function(){
+		expend();
+	}, animLenMsShrink+ animLenMsPause+ animLenMsExpend);
+	
+	
+	function shrink(baseScale, i, nuItterations, slope){
+		currentScaleY=baseScale + (i/fps )* slope;
+		domElm.style.transform = "scale(1," + currentScaleY + ")";
+		if(i<nuItterations){
+			setTimeout(function(){
+				shrink(baseScale, i+1, nuItterations, slope);
+			},dTimeMs);
+		}
+	}
 
+	function expend(){
+		shrink(currentScaleY, 0, animLenMsExpend/dTimeMs, expendSlopePerSec);
+	}
+}
 
-
+function preJumpTest(){
+	preJump("divGH1");
+}
 
 
 
