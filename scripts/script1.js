@@ -596,5 +596,17 @@ function preJumpTest(){
 }
 
 
+function stopGears(){
+	removeClassFromClass("plsClockwise", "plsClockwiseGo");
+	removeClassFromClass("plsAnticlockwise", "plsAnticlockwiseGo");
+
+}
+function stratGears(){
+	addClsToClsMmbrs("plsClockwise", "plsClockwiseGo",null);
+	addClsToClsMmbrs("plsAnticlockwise", "plsAnticlockwiseGo",null);
+}
+
+
+
 
 
