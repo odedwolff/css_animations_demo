@@ -478,8 +478,8 @@ function hopSeq(ghDivId){
 	const hAccPxPerSecSqr = 3000;
 	const vSpeedpxPerSec = 400;
 	const shootupSpeedPxPerSec=-1000;
-	const numHops=1;
-	const pauseBetweenHopsMs=1400;
+	const numHops=6;
+	const pauseBetweenHopsMs=1700;
 	var landingX = 0;
 	function hopStep(domElm, transX, transY, hSpeedPxPerSec){
 		//if you are falling and hit the ground, your done
@@ -505,9 +505,15 @@ function hopSeq(ghDivId){
 	// var gh1 = document.getElementById("divGH1"); 
 	// hopStep(gh1, 0, 0, shootupSpeedPxPerSec);
 	for(var i = 0; i < numHops ; i++){
+		
+		setTimeout(function(){
+			preJump(gh1.id, landingX);
+		}, pauseBetweenHopsMs * i );
+
 		setTimeout(function(){
 			hopStep(gh1, landingX, 0, shootupSpeedPxPerSec);
-		}, pauseBetweenHopsMs * i );
+		}, pauseBetweenHopsMs * i + 600);
+		// }, pauseBetweenHopsMs * i + 600);
 	}
 }
 
@@ -522,7 +528,7 @@ function SpringSeqMulti(){
 }
 
 
-function preJump(elmId){
+function preJump(elmId, translateX){
 	const dTimeMs=5;
 	const fps = 1000/dTimeMs;
 	const animLenMsShrink=300;
@@ -531,7 +537,7 @@ function preJump(elmId){
 	// const minYscale=0.3;
 	// const maxYscale=0.3;
 	//linear slopes
-	const shrinkSlopePerSec=-1.2;
+	const shrinkSlopePerSec=-1.5;
 	const expendSlopePerSec=12;
 	const initiailScaley=1.0;
 
@@ -549,7 +555,7 @@ function preJump(elmId){
 	
 	function shrink(baseScale, i, nuItterations, slope){
 		currentScaleY=baseScale + (i/fps )* slope;
-		domElm.style.transform = "scale(1," + currentScaleY + ")";
+		domElm.style.transform = "scale(1," + currentScaleY + ") translate(" + translateX + "px,0)";
 		if(i<nuItterations){
 			setTimeout(function(){
 				shrink(baseScale, i+1, nuItterations, slope);
@@ -574,7 +580,19 @@ function jumpCombinedPeriod(elmId){
 
 function preJumpTest(){
 	//preJump("divGH1");
-	jumpCombinedPeriod("divGH1");
+	//jumpCombinedPeriod("divGH1");
+	
+	hopSeq("divGH1");
+	setTimeout(
+		function(){
+			hopSeq("divGH2");
+		},200
+	);
+	setTimeout(
+		function(){
+			hopSeq("divGH3");
+		},400
+	);
 }
 
 

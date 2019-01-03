@@ -918,6 +918,7 @@ div#divFashingContent{
 	/*background: yellow;*/
 	width: 30px;
 	height: 30px;
+	/*font-size: 20px;*/
 }
 
 
@@ -925,13 +926,19 @@ div#divFashingContent{
 	height: 500px;
 }
 
+
+#divGH3{
+	top:80%;
+	left:-2%;
+}
+
 #divGH1{
 	top:80%;
-	left:5%;
+	left:-5%;
 }
 #divGH2{
 	top:80%;
-	left:3%;
+	left:-3.5%;
 }
 
 div#divGHcontent {
