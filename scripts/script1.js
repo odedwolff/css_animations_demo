@@ -615,7 +615,39 @@ function stratGearsLinear(){
 	addClsToClsMmbrs("plsAnticlockwise", "plsAnticlockwiseGoLinear",null);
 }
 
+function startWheeling(){
+	addClsToClsMmbrs("divWhellRotatingBox", "wheeling");
+}
 
+function clearWheeling(){
+	removeClassFromClass("divWhellRotatingBox", "wheeling");
+}
+
+function wheelReedWorld(wordContainerId){
+	const timeSpaceingMs = 150;
+	// elms = document.getElementsByClassName(clsSelect);
+	var querySelector = "#" + wordContainerId + " .divWhellRotatingBox";
+	var elms = document.querySelectorAll(querySelector);
+	for (var i = 0; i < elms.length; i++){
+		setTimeout(function(elm){
+			elm.classList.add("wheeling");
+		}.bind(null, elms[i])
+		, timeSpaceingMs*i);
+	}
+}
+
+function wheelingTest(){
+	wheelReedWorld("word1");
+	var wordIds= ["wheelWord1", "wheelWord2","wheelWord3"];
+	const intervalMs = 1100;
+	for(var i = 0; i < wordIds.length ; i++){
+		setTimeout(
+			function(wordId){
+				wheelReedWorld(wordId);
+			}.bind(null, wordIds[i])
+			,intervalMs * i);
+	}
+}
 
 
 

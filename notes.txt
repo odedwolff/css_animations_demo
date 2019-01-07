@@ -1,14 +1,11 @@
 
 
--pracice rotateY 
--shooting of line side ways into poisition
--binking
+
 -twisting, sclaing sideways and upways, then
  becoming form 
 
 
 -rain!
--flashing !
 
 
 -consider also changes in color and opacity in 
@@ -38,11 +35,8 @@ motion against backgeround
  movement options mentioned above 
  
 
--pulsing rotating 
-
 -balls jumping over each other in different arch height, 
  but meating at ground 
- -grasshopers jamping over each other
  -a row of balls dropped at constant raet, jumps in 
   diminishing heights, than explodes 
  -giant staps crossing- fading in and out magnitude
@@ -51,8 +45,7 @@ motion against backgeround
  words and letters laying down in different rotations and angels 
 
 
- -pulses with just rotation (this looks good!) mabybe make letter rotate 
-  in corasting directiong - like mechanical wheels
+ 
 
 
 -the main headline should swing slightly, like it was 
@@ -74,7 +67,9 @@ subject to waves or something
   pulsar
   whistel 
   air
-  tube
+  tube (also, vacuum tube)
+  dir 
+  let
 
 
   i never believed it for a second 
