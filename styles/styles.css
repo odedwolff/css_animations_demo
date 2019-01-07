@@ -974,30 +974,65 @@ div#divLetterBox {
 }
 
 
-.plsClockwiseGo{
-	animation-name: plsClockwiseGo;
-	animation-duration: 1.5s;
+.plsClockwiseGoEase{
+	animation-name: plsClockwiseGoEase;
+	animation-duration: 2s;
 	animation-fill-mode: forwards;
 	animation-iteration-count: infinite;
 }
 
-@keyframes plsClockwiseGo{
+@keyframes plsClockwiseGoEase{
  0%{transform: rotate(0deg)}
  50%{transform: rotate(180deg)}
  100%{transform: rotate(360deg)}
 }
 
-.plsAnticlockwiseGo{
-	animation-name: plsAnticlockwiseGo;
-	animation-duration: 1.5s;
+.plsAnticlockwiseGoEase{
+	animation-name: plsAnticlockwiseGoEase;
+	animation-duration: 2s;
 	animation-fill-mode: forwards;
 	animation-iteration-count: infinite;
 }
 
-@keyframes plsAnticlockwiseGo{
+@keyframes plsAnticlockwiseGoEase{
  0%{transform: rotate(360deg)}
  50%{transform: rotate(180deg)}
  100%{transform: rotate(0deg)}
 }
 
+
+
+.plsClockwiseGoLinear{
+	animation-name: plsClockwiseGoLinear;
+	animation-duration: 2s;
+	animation-fill-mode: forwards;
+	animation-iteration-count: infinite;
+	animation-timing-function:	linear; 
+}
+
+@keyframes plsClockwiseGoLinear{
+ 0%{transform: rotate(0deg)}
+ 25%{transform: rotate(0deg)}
+ 50%{transform: rotate(180deg)}
+ 75%{transform: rotate(180deg)}
+ 100%{transform: rotate(360deg)}
+}
+
+ 
+.plsAnticlockwiseGoLinear{
+	animation-name: plsAnticlockwiseGoLinear;
+	animation-duration: 2s;
+	animation-fill-mode: forwards;
+	animation-iteration-count: infinite;
+	animation-timing-function:	linear; 
+
+}
+		 
+@keyframes plsAnticlockwiseGoLinear{
+ 0%{transform: rotate(360deg)}
+ 25%{transform: rotate(360deg)}
+ 50%{transform: rotate(180deg)}
+ 75%{transform: rotate(180deg)}
+ 100%{transform: rotate(0deg)}
+}
 

@@ -483,8 +483,9 @@ function hopSeq(ghDivId){
 	var landingX = 0;
 	function hopStep(domElm, transX, transY, hSpeedPxPerSec){
 		//if you are falling and hit the ground, your done
+		landingX=transX;
 		if(hSpeedPxPerSec > 0 && transY > 0){
-			landingX=transX;
+			// landingX=transX;
 			return;
 		}
 		
@@ -597,13 +598,21 @@ function preJumpTest(){
 
 
 function stopGears(){
-	removeClassFromClass("plsClockwise", "plsClockwiseGo");
-	removeClassFromClass("plsAnticlockwise", "plsAnticlockwiseGo");
-
+	removeClassFromClass("plsClockwise", "plsClockwiseGoEase");
+	removeClassFromClass("plsAnticlockwise", "plsAnticlockwiseGoEase");
+	removeClassFromClass("plsClockwise", "plsClockwiseGoLinear");
+	removeClassFromClass("plsAnticlockwise", "plsAnticlockwiseGoLinear");
 }
-function stratGears(){
-	addClsToClsMmbrs("plsClockwise", "plsClockwiseGo",null);
-	addClsToClsMmbrs("plsAnticlockwise", "plsAnticlockwiseGo",null);
+function stratGearsEase(){
+	stopGears();
+	addClsToClsMmbrs("plsClockwise", "plsClockwiseGoEase",null);
+	addClsToClsMmbrs("plsAnticlockwise", "plsAnticlockwiseGoEase",null);
+}
+
+function stratGearsLinear(){
+	stopGears();
+	addClsToClsMmbrs("plsClockwise", "plsClockwiseGoLinear",null);
+	addClsToClsMmbrs("plsAnticlockwise", "plsAnticlockwiseGoLinear",null);
 }
 
 
