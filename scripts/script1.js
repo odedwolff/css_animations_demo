@@ -623,7 +623,9 @@ function clearWheeling(){
 	removeClassFromClass("divWhellRotatingBox", "wheeling");
 }
 
+//starts elements containted in given word weeling graduatllly
 function wheelReedWorld(wordContainerId){
+	// const timeSpaceingMs = 100;
 	const timeSpaceingMs = 150;
 	// elms = document.getElementsByClassName(clsSelect);
 	var querySelector = "#" + wordContainerId + " .divWhellRotatingBox";
@@ -639,7 +641,8 @@ function wheelReedWorld(wordContainerId){
 function wheelingTest(){
 	wheelReedWorld("word1");
 	var wordIds= ["wheelWord1", "wheelWord2","wheelWord3"];
-	const intervalMs = 1100;
+	// const intervalMs = 700;
+	const intervalMs = 1050;
 	for(var i = 0; i < wordIds.length ; i++){
 		setTimeout(
 			function(wordId){
@@ -648,6 +651,89 @@ function wheelingTest(){
 			,intervalMs * i);
 	}
 }
+
+
+
+var wheelingConstsCtx = {
+	verRangePx: 300,
+	verRangeHr: 700, 
+	// dx: 10,
+	// dy:10,
+	veloPxPSec:400,
+	dtMs:5,
+	distThreshPx:10,
+};
+
+function wheelFinalPhase(elmId){
+	// spreadHor(elmId);
+	// spreadVer(elmId);
+	// fallDown(elmId);
+}
+
+function spreadHor(elmId){
+	//pick a traget randomely 
+	// var trgX= Math.random * verRangePx - (verRangePx / 2);
+	// function stepHor(elmId, currentTrans, targetTrans){
+	// 	if((trgX >= 0 && currentTrans > trgX) ||
+	// 		(trgX <= 0 && currentTrans < trgX)){
+	// 		return;
+	// 	}
+	// 	elmId = document.getElementById(elmId);
+	// 	elmId.style.transform="translate(" currentTrans + "px,0)";
+	// 	setTimeout(function(){
+	// 		stepHor(elmId, currentTrans + dx * dtMs, targetTrans);
+	// 	},
+
+	// 		dtMs);
+	// }
+
+}
+
+//move lineary at set speed toward given target 
+//***taget avlues are in "translate" space -***!!!
+function wheelingStepToTarget(domElm, targetX, targetY,currentTranslateX, currentTranslateY,dxMs, dyMs){
+	
+	if(close (targetX, targetY,currentTranslateX, currentTranslateY)){
+		return;
+	}
+	repostion(domElm, currentTranslateX, currentTranslateY);
+	currentTranslateX = currentTranslateX + dxMs * wheelingConstsCtx.dtMs;
+	currentTranslateY = currentTranslateY + dyMs * wheelingConstsCtx.dtMs;
+	setTimeout(
+		function(){
+		wheelingStepToTarget(domElm, targetX, targetY,currentTranslateX, currentTranslateY,dxMs, dyMs);
+		},
+		wheelingConstsCtx.dtMs);
+}
+
+function close(x1, y1, x2, y2){
+	return (x2 - x1)**2 +  (y2 - y1)**2 <=  wheelingConstsCtx.distThreshPx**2;
+}
+
+function repostion(domElm, transX, transY){
+	domElm.style.transform="translate("+ transX + "px," + transY +  "px)";
+} 
+
+//claculates dx and dy for given vector 
+//return dx and dy in px per miliSec 
+function calcAxisSpeeds(orgX,orgY,trgX,trgY){
+	//var  rawV = [trgX - orgX, trgY- orgY];
+	var rawVMag = Math.sqrt((trgX - orgX)**2 + (trgY- orgY)**2);
+	var dx= ((trgX - orgX) / rawVMag) * (wheelingConstsCtx.veloPxPSec / 1000);
+
+	var dy= (trgY - orgY) / rawVMag * (wheelingConstsCtx.veloPxPSec / 1000);
+	return {dxPxMs:dx, dyPxMs:dy};
+}
+
+function testMotion(){
+	domElm = document.getElementById("divMovableObject");
+	targetX = 800;
+	targetY = -50;
+	axSpeeds = calcAxisSpeeds(0,0,targetX, targetY);
+	wheelingStepToTarget(domElm, targetX, targetY,0, 0,axSpeeds["dxPxMs"], axSpeeds["dyPxMs"]);
+}
+
+
 
 
 
