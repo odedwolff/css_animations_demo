@@ -655,8 +655,8 @@ function wheelingTest(){
 
 
 var wheelingConstsCtx = {
-	verRangePx: 300,
-	verRangeHr: 700, 
+	rangeVr: 200,
+	rangeHor: 700, 
 	// dx: 10,
 	// dy:10,
 	veloPxPSec:400,
@@ -664,36 +664,14 @@ var wheelingConstsCtx = {
 	distThreshPx:10,
 };
 
-function wheelFinalPhase(elmId){
-	// spreadHor(elmId);
-	// spreadVer(elmId);
-	// fallDown(elmId);
-}
 
-function spreadHor(elmId){
-	//pick a traget randomely 
-	// var trgX= Math.random * verRangePx - (verRangePx / 2);
-	// function stepHor(elmId, currentTrans, targetTrans){
-	// 	if((trgX >= 0 && currentTrans > trgX) ||
-	// 		(trgX <= 0 && currentTrans < trgX)){
-	// 		return;
-	// 	}
-	// 	elmId = document.getElementById(elmId);
-	// 	elmId.style.transform="translate(" currentTrans + "px,0)";
-	// 	setTimeout(function(){
-	// 		stepHor(elmId, currentTrans + dx * dtMs, targetTrans);
-	// 	},
-
-	// 		dtMs);
-	// }
-
-}
 
 //move lineary at set speed toward given target 
 //***taget avlues are in "translate" space -***!!!
 function wheelingStepToTarget(domElm, targetX, targetY,currentTranslateX, currentTranslateY,dxMs, dyMs){
 	
 	if(close (targetX, targetY,currentTranslateX, currentTranslateY)){
+		// return {tanslationX:currentTranslateX, translationY:currentTranslateY};
 		return;
 	}
 	repostion(domElm, currentTranslateX, currentTranslateY);
@@ -711,17 +689,16 @@ function close(x1, y1, x2, y2){
 }
 
 function repostion(domElm, transX, transY){
-	domElm.style.transform="translate("+ transX + "px," + transY +  "px)";
+	domElm.style.transform="translate("+ transX + "px," + transY +  "px) rotate(180deg)";
 } 
 
 //claculates dx and dy for given vector 
 //return dx and dy in px per miliSec 
-function calcAxisSpeeds(orgX,orgY,trgX,trgY){
+function calcAxisSpeeds(orgX,orgY,trgX,trgY, veloPxPSec){
 	//var  rawV = [trgX - orgX, trgY- orgY];
 	var rawVMag = Math.sqrt((trgX - orgX)**2 + (trgY- orgY)**2);
-	var dx= ((trgX - orgX) / rawVMag) * (wheelingConstsCtx.veloPxPSec / 1000);
-
-	var dy= (trgY - orgY) / rawVMag * (wheelingConstsCtx.veloPxPSec / 1000);
+	var dx= ((trgX - orgX) / rawVMag) * (veloPxPSec / 1000);
+	var dy= (trgY - orgY) / rawVMag * (veloPxPSec / 1000);
 	return {dxPxMs:dx, dyPxMs:dy};
 }
 
@@ -729,8 +706,58 @@ function testMotion(){
 	domElm = document.getElementById("divMovableObject");
 	targetX = 800;
 	targetY = -50;
-	axSpeeds = calcAxisSpeeds(0,0,targetX, targetY);
+	axSpeeds = calcAxisSpeeds(0,0,targetX, targetY, 400);
 	wheelingStepToTarget(domElm, targetX, targetY,0, 0,axSpeeds["dxPxMs"], axSpeeds["dyPxMs"]);
+}
+
+
+
+
+function spreadHorizontally(){
+	elms= document.querySelectorAll("#divWheelContent .divWhellRotatingBox" );
+	for(var i = 0 ; i < elms.length; i++){
+		targetY= Math.random() * wheelingConstsCtx.rangeVr -  wheelingConstsCtx.rangeVr / 2;
+		axSpeeds = calcAxisSpeeds(0,0,0, targetY, 200);
+		wheelingStepToTarget(elms[i], 0, targetY,0, 0, axSpeeds["dxPxMs"], axSpeeds["dyPxMs"]);
+	}
+}
+
+
+function spreadVertically(){
+	elms= document.querySelectorAll("#divWheelContent .divWhellRotatingBox" );
+	for(var i = 0 ; i < elms.length; i++){
+		targetX= Math.random() * wheelingConstsCtx.rangeHor -  wheelingConstsCtx.rangeHor / 2;
+		axSpeeds = calcAxisSpeeds(0,0,targetX, 0, 400);
+		wheelingStepToTarget(elms[i], targetX, 0,0, 0, axSpeeds["dxPxMs"], axSpeeds["dyPxMs"]);
+	}
+}
+
+
+
+
+function spread2Phsase(elm, delayBetweenPhasesMs){
+	//spread horiznotally 
+	const targetY= Math.random() * wheelingConstsCtx.rangeVr- wheelingConstsCtx.rangeVr / 2;
+	axSpeeds = calcAxisSpeeds(0,0,0, targetY, 200);
+	const endPhaseLocation = wheelingStepToTarget(elm, 0, targetY,0, 0, axSpeeds["dxPxMs"], axSpeeds["dyPxMs"]);
+
+	const f2 = function(){
+		//spraed vertically 
+		const orgX= 0;
+		//that is, target y of previous stage
+		const orgY= targetY;
+		targetX= Math.random() * wheelingConstsCtx.rangeHor -  wheelingConstsCtx.rangeHor / 2;
+		axSpeeds = calcAxisSpeeds(orgX, orgY,targetX, orgY, 400);
+		wheelingStepToTarget(elm, targetX, orgY, orgX, orgY, axSpeeds["dxPxMs"], axSpeeds["dyPxMs"]);
+	}
+	setTimeout(f2, delayBetweenPhasesMs);
+}
+
+function spreadCombined(){
+	elms= document.querySelectorAll("#divWheelContent .divWhellRotatingBox" );
+	for(var i = 0 ; i < elms.length; i++){
+		spread2Phsase(elms[i], 1000);
+	}
 }
 
 
