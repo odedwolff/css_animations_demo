@@ -70,7 +70,7 @@ function startSwingingAynch(periodLenSec){
 	elms = document.getElementsByClassName("swingable");
 	for(var i = 0 ; i< elms.length ; i++){
 		var delay = Math.random() * periodLenSec * 1000;
-		console.log("delat=" + delay);
+		//console.log("delat=" + delay);
 		setTimeout(
 			(function(elm){
 				elm.classList.add("swinging");	
@@ -259,7 +259,7 @@ function replaceParagpheWithSplittedDives(containingElment){
 	var processedText=breakDownTextToLtters(text, "classFlashLetter classFlashLetterTransparent");
 	newDomContent="<div id='divProcessedP'>\n" +  processedText + "\n</div>"
 	containingElment.innerHTML=newDomContent;
-	console.log(text);
+	//console.log(text);
 }
 
 
@@ -642,8 +642,8 @@ function wheelReedWorld(wordContainerId){
 	}
 }
 
-function wheelingTest(){
-	wheelReedWorld("word1");
+function wheelingSpinAllWords(){
+	//wheelReedWorld("word1");
 	var wordIds= ["wheelWord1", "wheelWord2","wheelWord3"];
 	// const intervalMs = 700;
 	const intervalMs = 1050;
@@ -659,11 +659,11 @@ function wheelingTest(){
 
 
 var wheelingConstsCtx = {
-	rangeVr: 200,
-	rangeHor: 700, 
+	rangeVr: 250,
+	rangeHor: 250, 
 	// dx: 10,
 	// dy:10,
-	veloPxPSec:400,
+	veloPxPSec:300,
 	dtMs:5,
 	distThreshPx:1,
 };
@@ -676,8 +676,8 @@ function wheelingStepToTarget(domElm, targetX, targetY,currentTranslateX, curren
 	
 	if(close (targetX, targetY,currentTranslateX, currentTranslateY)){
 		// return {tanslationX:currentTranslateX, translationY:currentTranslateY};
-		console.log("targetX, targetY,currentTranslateX, currentTranslateY=" + 
-			targetX +";" + targetY +";" +  currentTranslateX+";" +  currentTranslateY);
+		//console.log("targetX, targetY,currentTranslateX, currentTranslateY=" + 
+		//	targetX +";" + targetY +";" +  currentTranslateX+";" +  currentTranslateY);
 		return;
 	}
 	repostion(domElm, currentTranslateX, currentTranslateY);
@@ -718,34 +718,11 @@ function testMotion(){
 
 
 
-
-function spreadHorizontally(){
-	elms= document.querySelectorAll("#divWheelContent .divWhellRotatingBox" );
-	for(var i = 0 ; i < elms.length; i++){
-		targetY= Math.random() * wheelingConstsCtx.rangeVr -  wheelingConstsCtx.rangeVr / 2;
-		axSpeeds = calcAxisSpeeds(0,0,0, targetY, 200);
-		wheelingStepToTarget(elms[i], 0, targetY,0, 0, axSpeeds["dxPxMs"], axSpeeds["dyPxMs"]);
-	}
-}
-
-
-function spreadVertically(){
-	elms= document.querySelectorAll("#divWheelContent .divWhellRotatingBox" );
-	for(var i = 0 ; i < elms.length; i++){
-		targetX= Math.random() * wheelingConstsCtx.rangeHor -  wheelingConstsCtx.rangeHor / 2;
-		axSpeeds = calcAxisSpeeds(0,0,targetX, 0, 400);
-		wheelingStepToTarget(elms[i], targetX, 0,0, 0, axSpeeds["dxPxMs"], axSpeeds["dyPxMs"]);
-	}
-}
-
-
-
-
 function spread2Phsase(elm, delayBetweenPhasesMs){
 	//spread horiznotally 
 
 	const targetY= Math.random() * wheelingConstsCtx.rangeVr- wheelingConstsCtx.rangeVr / 2;
-	axSpeeds = calcAxisSpeeds(0,0,0, targetY, 200);
+	axSpeeds = calcAxisSpeeds(0,0,0, targetY, wheelingConstsCtx.veloPxPSec);
 	const endPhaseLocation = wheelingStepToTarget(elm, 0, targetY,0, 0, axSpeeds["dxPxMs"], axSpeeds["dyPxMs"]);
 
 	var targetX;
@@ -755,7 +732,7 @@ function spread2Phsase(elm, delayBetweenPhasesMs){
 		//that is, target y of previous stage
 		const orgY= targetY;
 		targetX= Math.random() * wheelingConstsCtx.rangeHor -  wheelingConstsCtx.rangeHor / 2;
-		axSpeeds = calcAxisSpeeds(orgX, orgY,targetX, orgY, 400);
+		axSpeeds = calcAxisSpeeds(orgX, orgY,targetX, orgY, wheelingConstsCtx.veloPxPSec);
 		wheelingStepToTarget(elm, targetX, orgY, orgX, orgY, axSpeeds["dxPxMs"], axSpeeds["dyPxMs"]);
 	}
 	setTimeout(f2, delayBetweenPhasesMs);
@@ -763,8 +740,8 @@ function spread2Phsase(elm, delayBetweenPhasesMs){
 	const f3 = function(){
 		const initTrnsX = targetX;
 		const initTrnsY = targetY;
-		console.log("initTrnsY= " + initTrnsX );
-		freeFAllingStep(elm, 0, initTrnsX, initTrnsY, 400, 180);
+		//console.log("initTrnsY= " + initTrnsX );
+		freeFAllingStep(elm, 0, initTrnsX, initTrnsY, 700, 180);
 	};
 	setTimeout(f3, delayBetweenPhasesMs * 2);
 
@@ -773,12 +750,12 @@ function spread2Phsase(elm, delayBetweenPhasesMs){
 function spreadCombined(){
 	elms= document.querySelectorAll("#divWheelContent .divWhellRotatingBox" );
 	for(var i = 0 ; i < elms.length; i++){
-		spread2Phsase(elms[i], 1000);
+		spread2Phsase(elms[i], 1050);
 	}
 }
 
 const freeFallCtx = {
-	a_PxPerSecSqr:.3,
+	a_PxPerSecSqr:5.0,
 	thrshClosePx: 50
 }
 
@@ -811,6 +788,27 @@ function testFreeFall(){
 	freeFAllingStep(elm,0,0, 0,300,null);
 }
 
+
+function wheelElmsReset(){
+	elms= document.querySelectorAll("#divWheelContent .divWhellRotatingBox" );
+	for(var i=0; i < elms.length ; i++){
+		elms[i].classList="divWhellRotatingBox";
+		elms[i].style.transform="rotate(180deg)";
+		elms[i].style.opacity=1;
+	}
+}
+
+
+function wheelingScript(){
+	//const fullPeriodMs= 3150 * 2;
+	const fullPeriodMs= 5800;
+	wheelingSpinAllWords();
+	setTimeout(function(){
+		wheelElmsReset();
+		wheelingSpinAllWords();
+	}, fullPeriodMs);
+	setTimeout(spreadCombined, fullPeriodMs * 2);
+}
 
 
 
