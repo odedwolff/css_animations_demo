@@ -1,4 +1,8 @@
 
+const animationCtx ={
+	framesIntervalMs: 5
+}
+
 function go(){
 	console.log("go");
 	//h1.style("rotateY:30deg")
@@ -661,7 +665,7 @@ var wheelingConstsCtx = {
 	// dy:10,
 	veloPxPSec:400,
 	dtMs:5,
-	distThreshPx:10,
+	distThreshPx:1,
 };
 
 
@@ -672,6 +676,8 @@ function wheelingStepToTarget(domElm, targetX, targetY,currentTranslateX, curren
 	
 	if(close (targetX, targetY,currentTranslateX, currentTranslateY)){
 		// return {tanslationX:currentTranslateX, translationY:currentTranslateY};
+		console.log("targetX, targetY,currentTranslateX, currentTranslateY=" + 
+			targetX +";" + targetY +";" +  currentTranslateX+";" +  currentTranslateY);
 		return;
 	}
 	repostion(domElm, currentTranslateX, currentTranslateY);
@@ -737,10 +743,12 @@ function spreadVertically(){
 
 function spread2Phsase(elm, delayBetweenPhasesMs){
 	//spread horiznotally 
+
 	const targetY= Math.random() * wheelingConstsCtx.rangeVr- wheelingConstsCtx.rangeVr / 2;
 	axSpeeds = calcAxisSpeeds(0,0,0, targetY, 200);
 	const endPhaseLocation = wheelingStepToTarget(elm, 0, targetY,0, 0, axSpeeds["dxPxMs"], axSpeeds["dyPxMs"]);
 
+	var targetX;
 	const f2 = function(){
 		//spraed vertically 
 		const orgX= 0;
@@ -751,6 +759,15 @@ function spread2Phsase(elm, delayBetweenPhasesMs){
 		wheelingStepToTarget(elm, targetX, orgY, orgX, orgY, axSpeeds["dxPxMs"], axSpeeds["dyPxMs"]);
 	}
 	setTimeout(f2, delayBetweenPhasesMs);
+
+	const f3 = function(){
+		const initTrnsX = targetX;
+		const initTrnsY = targetY;
+		console.log("initTrnsY= " + initTrnsX );
+		freeFAllingStep(elm, 0, initTrnsX, initTrnsY, 400, 180);
+	};
+	setTimeout(f3, delayBetweenPhasesMs * 2);
+
 }
 
 function spreadCombined(){
@@ -758,6 +775,40 @@ function spreadCombined(){
 	for(var i = 0 ; i < elms.length; i++){
 		spread2Phsase(elms[i], 1000);
 	}
+}
+
+const freeFallCtx = {
+	a_PxPerSecSqr:.3,
+	thrshClosePx: 50
+}
+
+function freeFAll(domElm, remainingFall,trnsX, trnsY){
+}
+
+function freeFAllingStep(domElm,v_PxPSec,trnsX, trnsY,remainingFall,rotate){
+	if(remainingFall <= freeFallCtx.thrshClosePx){
+		domElm.style.opacity=0;
+		return;
+	}
+	var transStr="translate(" + trnsX + "px," + trnsY + "px)";
+	if(rotate){
+		transStr = transStr + " rotate(" + rotate + "deg)";
+	}
+	domElm.style.transform= transStr;
+	const framStranlateY = v_PxPSec * animationCtx.framesIntervalMs;
+	trnsY = trnsY + framStranlateY;
+	v_PxPSec= v_PxPSec + freeFallCtx.a_PxPerSecSqr * animationCtx.framesIntervalMs / 1000;
+	remainingFall = remainingFall-framStranlateY;
+	setTimeout(
+		function(){
+			freeFAllingStep(domElm,v_PxPSec,trnsX, trnsY,remainingFall, rotate)
+		}
+		,animationCtx.framesIntervalMs);
+}
+
+function testFreeFall(){
+	elm=document.getElementById("divMovableObject");
+	freeFAllingStep(elm,0,0, 0,300,null);
 }
 
 
