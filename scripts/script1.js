@@ -672,7 +672,7 @@ var wheelingConstsCtx = {
 
 //move lineary at set speed toward given target 
 //***taget avlues are in "translate" space -***!!!
-function wheelingStepToTarget(domElm, targetX, targetY,currentTranslateX, currentTranslateY,dxMs, dyMs){
+function wheelingStepToTargetOld(domElm, targetX, targetY,currentTranslateX, currentTranslateY,dxMs, dyMs){
 	
 	if(close (targetX, targetY,currentTranslateX, currentTranslateY)){
 		// return {tanslationX:currentTranslateX, translationY:currentTranslateY};
@@ -690,13 +690,48 @@ function wheelingStepToTarget(domElm, targetX, targetY,currentTranslateX, curren
 		wheelingConstsCtx.dtMs);
 }
 
+
+//move lineary at set speed toward given target 
+//***taget avlues are in "translate" space -***!!!
+function wheelingStepToTarget(domElm, targetX, targetY,currentTranslateX, currentTranslateY,dxMs, dyMs, staticRotate){
+	
+	if(close (targetX, targetY,currentTranslateX, currentTranslateY)){
+		// return {tanslationX:currentTranslateX, translationY:currentTranslateY};
+		//console.log("targetX, targetY,currentTranslateX, currentTranslateY=" + 
+		//	targetX +";" + targetY +";" +  currentTranslateX+";" +  currentTranslateY);
+		return;
+	}
+	repostion(domElm, currentTranslateX, currentTranslateY, staticRotate);
+	currentTranslateX = currentTranslateX + dxMs * wheelingConstsCtx.dtMs;
+	currentTranslateY = currentTranslateY + dyMs * wheelingConstsCtx.dtMs;
+	setTimeout(
+		function(){
+		wheelingStepToTarget(domElm, targetX, targetY,currentTranslateX, currentTranslateY,dxMs, dyMs, staticRotate);
+		},
+		wheelingConstsCtx.dtMs);
+}
+
+
+
+
 function close(x1, y1, x2, y2){
 	return (x2 - x1)**2 +  (y2 - y1)**2 <=  wheelingConstsCtx.distThreshPx**2;
 }
 
-function repostion(domElm, transX, transY){
+function repostionOld(domElm, transX, transY){
 	domElm.style.transform="translate("+ transX + "px," + transY +  "px) rotate(180deg)";
 } 
+
+function repostion(domElm, transX, transY, staticRotate){
+	var trnsfStr = "translate("+ transX + "px," + transY +  "px)";
+	if(staticRotate){
+		trnsfStr = trnsfStr + " rotate(" + staticRotate + "deg)"
+	}
+	 
+	domElm.style.transform=trnsfStr;
+} 
+
+
 
 //claculates dx and dy for given vector 
 //return dx and dy in px per miliSec 
@@ -713,7 +748,7 @@ function testMotion(){
 	targetX = 800;
 	targetY = -50;
 	axSpeeds = calcAxisSpeeds(0,0,targetX, targetY, 400);
-	wheelingStepToTarget(domElm, targetX, targetY,0, 0,axSpeeds["dxPxMs"], axSpeeds["dyPxMs"]);
+	wheelingStepToTarget(domElm, targetX, targetY,0, 0,axSpeeds["dxPxMs"], axSpeeds["dyPxMs"],180);
 }
 
 
@@ -723,7 +758,7 @@ function spread2Phsase(elm, delayBetweenPhasesMs){
 
 	const targetY= Math.random() * wheelingConstsCtx.rangeVr- wheelingConstsCtx.rangeVr / 2;
 	axSpeeds = calcAxisSpeeds(0,0,0, targetY, wheelingConstsCtx.veloPxPSec);
-	const endPhaseLocation = wheelingStepToTarget(elm, 0, targetY,0, 0, axSpeeds["dxPxMs"], axSpeeds["dyPxMs"]);
+	const endPhaseLocation = wheelingStepToTarget(elm, 0, targetY,0, 0, axSpeeds["dxPxMs"], axSpeeds["dyPxMs"],180);
 
 	var targetX;
 	const f2 = function(){
@@ -733,7 +768,7 @@ function spread2Phsase(elm, delayBetweenPhasesMs){
 		const orgY= targetY;
 		targetX= Math.random() * wheelingConstsCtx.rangeHor -  wheelingConstsCtx.rangeHor / 2;
 		axSpeeds = calcAxisSpeeds(orgX, orgY,targetX, orgY, wheelingConstsCtx.veloPxPSec);
-		wheelingStepToTarget(elm, targetX, orgY, orgX, orgY, axSpeeds["dxPxMs"], axSpeeds["dyPxMs"]);
+		wheelingStepToTarget(elm, targetX, orgY, orgX, orgY, axSpeeds["dxPxMs"], axSpeeds["dyPxMs"],180);
 	}
 	setTimeout(f2, delayBetweenPhasesMs);
 
@@ -811,5 +846,64 @@ function wheelingScript(){
 }
 
 
+
+//----------------------------------------------theme clouds-------------------------------------------------------
+
+function setUpLayers(){
+	elms= document.querySelectorAll("#divCloudsContent .layer" );
+ 	var color;
+ 	var colorStr;
+ 	for (var i = 0 ; i < elms.length; i++){
+ 		setRandTranslation(900, 0, elms[i]);
+ 		color = rndColor();
+ 		colorStr = "hsl(" + color['h'] + "," + color['s'] + "%," + color['l'] + "%)";
+ 		// colorStr="black";
+ 		elms[i].style.color = colorStr;
+ 	}
+}
+
+function setRandTranslation(rangeHor, rangeVer, elm){	
+	const x= Math.random() * rangeHor - rangeHor / 2;
+	const y= Math.random() * rangeVer - rangeVer / 2;
+	elm.style.transform = "translate(" +x + "px," + y + "px)";
+}
+
+function f8(){
+	console.log("f8");
+}
+
+//get some random stauration and brightness of - magnetta 
+function rndColor(){
+	return {'h':270,
+			's': Math.random() * 100,
+			'l': Math.random() * 100
+	}
+}
+
+
+//wheelingStepToTarget(domElm, targetX, targetY,currentTranslateX, currentTranslateY,dxMs, dyMs)
+
+//reuse...
+const moveThingToPlace = wheelingStepToTarget;
+constCloudCtx = {
+	totalXtranslatePx : 20,
+	dxPxSecMin: 20,
+	dxPxSecMax: 150
+}
+
+
+//move along x
+function moveCloudLayer(domElm){
+	const dxRange = constCloudCtx.dxPxSecMax - constCloudCtx.dxPxSecMin;
+	const dx = Math.random() * dxRange - constCloudCtx.dxPxSecMin;
+	moveThingToPlace(domElm, constCloudCtx.totalXtranslatePx, 0,0, 0, dx/1000, 0);
+}
+
+function moveClouds(){
+		elms= document.querySelectorAll("#divCloudsContent .layer" );
+		 for (var i = 0 ; i < elms.length; i++){
+		 	moveCloudLayer(elms[i]); 
+		 }
+}
 
 

@@ -22,10 +22,7 @@
 -also make this fish swim between different 
 themes
 
--bicyles: 2 gears, 2 wheels ,2 pedals 
--> either going on a big outer circle, or 
-staying still with text flying around to simlate
-motion against backgeround
+
 
  -all letters are placed on the same spot 
  -letters are showing one afger the other
@@ -71,6 +68,7 @@ subject to waves or something
   tube (also, vacuum tube)
   dir 
   let
+  wealth 
 
 
   i never believed it for a second 
@@ -82,3 +80,5 @@ subject to waves or something
   resonance 
 
   transform 
+
+
