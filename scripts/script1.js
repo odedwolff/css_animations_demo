@@ -665,7 +665,7 @@ var wheelingConstsCtx = {
 	// dy:10,
 	veloPxPSec:300,
 	dtMs:5,
-	distThreshPx:1,
+	distThreshPx:20,
 };
 
 
@@ -748,7 +748,9 @@ function testMotion(){
 	targetX = 800;
 	targetY = -50;
 	axSpeeds = calcAxisSpeeds(0,0,targetX, targetY, 400);
-	wheelingStepToTarget(domElm, targetX, targetY,0, 0,axSpeeds["dxPxMs"], axSpeeds["dyPxMs"],180);
+	//wheelingStepToTarget(domElm, targetX, targetY,0, 0,axSpeeds["dxPxMs"], axSpeeds["dyPxMs"],180);
+
+	moveThingToPlace(domElm, 100, -20,0,0,1, -0.2, null);
 }
 
 
@@ -849,23 +851,39 @@ function wheelingScript(){
 
 //----------------------------------------------theme clouds-------------------------------------------------------
 
-function setUpLayers(){
+function setUpLayersOld(){
 	elms= document.querySelectorAll("#divCloudsContent .layer" );
- 	var color;
- 	var colorStr;
+ 	// var color;
+ 	// var colorStr;
  	for (var i = 0 ; i < elms.length; i++){
- 		setRandTranslation(900, 0, elms[i]);
- 		color = rndColor();
- 		colorStr = "hsl(" + color['h'] + "," + color['s'] + "%," + color['l'] + "%)";
- 		// colorStr="black";
- 		elms[i].style.color = colorStr;
+ 		// setRandTranslation(900, 0, elms[i]);
+ 		// color = rndColor();
+ 		// colorStr = "hsl(" + color['h'] + "," + color['s'] + "%," + color['l'] + "%)";
+ 		// // colorStr="black";
+ 		// elms[i].style.color = colorStr;
+ 		setUpLayer(elms[i]);
  	}
 }
+
+function setUpLayer(layerDomELm){
+	var color;
+ 	var colorStr;
+ 	const trans = setRandTranslation(300, 0, layerDomELm);
+ 	color = rndColor();
+ 	colorStr = "hsl(" + color['h'] + "," + color['s'] + "%," + color['l'] + "%)";
+ 	//colorStr="black";
+ 	layerDomELm.style.color = colorStr;
+ 	return trans;
+}
+
+
+
 
 function setRandTranslation(rangeHor, rangeVer, elm){	
 	const x= Math.random() * rangeHor - rangeHor / 2;
 	const y= Math.random() * rangeVer - rangeVer / 2;
 	elm.style.transform = "translate(" +x + "px," + y + "px)";
+	return {'x':x, 'y':y};
 }
 
 function f8(){
@@ -874,7 +892,8 @@ function f8(){
 
 //get some random stauration and brightness of - magnetta 
 function rndColor(){
-	return {'h':270,
+	return {/*'h':270,*/
+			'h':146,
 			's': Math.random() * 100,
 			'l': Math.random() * 100
 	}
@@ -886,24 +905,64 @@ function rndColor(){
 //reuse...
 const moveThingToPlace = wheelingStepToTarget;
 constCloudCtx = {
-	totalXtranslatePx : 20,
-	dxPxSecMin: 20,
-	dxPxSecMax: 150
+	totalXtranslatePx : 7000,
+	dxPxSecMin: 500,
+	dxPxSecMax: 1000
 }
 
 
 //move along x
-function moveCloudLayer(domElm){
+function moveCloudLayer(domElm,initX,initY){
 	const dxRange = constCloudCtx.dxPxSecMax - constCloudCtx.dxPxSecMin;
-	const dx = Math.random() * dxRange - constCloudCtx.dxPxSecMin;
-	moveThingToPlace(domElm, constCloudCtx.totalXtranslatePx, 0,0, 0, dx/1000, 0);
+	const dx = Math.random() * dxRange + constCloudCtx.dxPxSecMin;
+	console.log("dx=" + dx);
+	moveThingToPlace(
+		/*domElm*/domElm, 
+		/*targetX*/constCloudCtx.totalXtranslatePx,
+		 /*targetY*/0,
+		/*currentTranslateX*/initX,
+		/*currentTranslateY*/initY,
+		/*dxMs*/dx/1000,
+		/*dyMs*/ 0,
+		/*staticRotate*/null
+		);
+
+	//wheelingStepToTarget(domElm, targetX, targetY,currentTranslateX, currentTranslateY,dxMs, dyMs, staticRotate)
+	//moveThingToPlace(domElm, 100, -20,0,0,1, -0.2, null);
 }
+
+
+
 
 function moveClouds(){
 		elms= document.querySelectorAll("#divCloudsContent .layer" );
 		 for (var i = 0 ; i < elms.length; i++){
-		 	moveCloudLayer(elms[i]); 
+		 	trans=setUpLayer(elms[i])
+		 	setTimeout(
+		 		function(elm,x,y){
+		 			moveCloudLayer(elm,x,y);
+		 		}.bind(null, elms[i],trans['x'],trans['y']),500
+		 	);
 		 }
+}
+
+
+var movFunctions=[];
+
+function setupLayers1(){
+	elms= document.querySelectorAll("#divCloudsContent .layer" );
+		 for (var i = 0 ; i < elms.length; i++){
+		 	trans=setUpLayer(elms[i])
+		 	movFunctions.push(function(elm,x,y){
+		 			moveCloudLayer(elm,x,y);
+		 		}.bind(null, elms[i],trans['x'],trans['y']));
+	}
+}
+
+function moveLayers1(){
+	for (var i = 0; i < movFunctions.length; i++) {
+		movFunctions[i]();
+	}
 }
 
 
