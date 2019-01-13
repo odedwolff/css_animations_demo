@@ -722,7 +722,7 @@ function repostionOld(domElm, transX, transY){
 	domElm.style.transform="translate("+ transX + "px," + transY +  "px) rotate(180deg)";
 } 
 
-function repostion(domElm, transX, transY, staticRotate){
+function repostionOld2(domElm, transX, transY, staticRotate){
 	var trnsfStr = "translate("+ transX + "px," + transY +  "px)";
 	if(staticRotate){
 		trnsfStr = trnsfStr + " rotate(" + staticRotate + "deg)"
@@ -963,6 +963,105 @@ function moveLayers1(){
 	for (var i = 0; i < movFunctions.length; i++) {
 		movFunctions[i]();
 	}
+}
+
+//*--------------------------------------utilities-------------------------------------------------------------
+
+
+// const Theta = Math.atan((trgTrsnsY-srcTrnsY) / (trgTrsnsX-srcTrnsX));
+// const dxPxFr = speedPxSec * Math.cos(Theta) / fps;
+// const dyPxFr = speedPxSec * Math.sin(Theta) / fps;
+
+//args srcTrnsX,trgTrnsX, srcTrnsY, trgTrnsY, srcRotateDeg, trgRotateDeg, srcRotateScale, trgRotateScale,  
+
+//function transformCnstSpeed(domObj, srcTrnsX, srcTrnsY, trgTrsnsX, trgTrsnsY, speedPxSec, fps, startRotate, endRotate){
+function transformCnstSpeed(domObj, trnsfParams, fps, durSec){
+	// const distance = Math.sqrt((tranformParams.trgTrsnsY- tranformParams.srcTrnsY)^^2 + 
+	// 	(tranformParams.trgTrsnsX- tranformParams.srcTrnsX)^^2);
+
+	const numFrames = fps * durSec;
+	
+	var dxPxFr = null;
+	var dyPxFr = null;
+	var dRotDegFr = null;
+	var dScaleFr = null;
+
+	if(trnsfParams.srcTrnsX != null){
+		dxPxFr = (trnsfParams.trgTrnsX-trnsfParams.srcTrnsX) /  numFrames;
+	}
+	if(trnsfParams.srcTrnsY != null){
+		dyPxFr = (trnsfParams.trgTrnsY-trnsfParams.srcTrnsY) /  numFrames;
+	}
+	if(trnsfParams.srcRotateDeg != null){
+		dRotDegFr = (trnsfParams.trgRotateDeg-trnsfParams.srcRotateDeg) /  numFrames;
+	}
+	if(trnsfParams.srcScale != null){
+		dScale = (trnsfParams.trgScale / trnsfParams.srcScale)**(1/numFrames);
+	}
+
+	var callParams= {
+		'currentTranslateX': trnsfParams.srcTrnsX, 
+		'currentTranslateY': trnsfParams.srcTrnsY, 
+		'currentRotate': trnsfParams.srcRotateDeg,
+		'currentScale': trnsfParams.srcScale,
+		'dxPxFr': dxPxFr,
+		'dyPxFr': dyPxFr,
+		'dRotDegFr': dRotDegFr,
+		'dScale': dScale
+	}
+	TranformStep(domObj, callParams, 1000/fps, numFrames, fps);
+}
+
+//function TranformStep(domObj, curTrsnslateX, curTranslateY, curRotate, dxPxFr, dyPxFr, dRotDeg, framesToGo, fps){
+function TranformStep(domObj, moveParams, intervalMs, framesToGo, fps){
+	if(framesToGo==0){
+		return;
+	}
+	repostion(domObj, moveParams.currentTranslateX, moveParams.currentTranslateY, moveParams.currentRotate, moveParams.currentScale);
+	moveParams.currentTranslateX= moveParams.currentTranslateX + moveParams.dxPxFr;
+	moveParams.currentTranslateY = moveParams.currentTranslateY + moveParams.dyPxFr;
+	moveParams.currentRotate = moveParams.currentRotate + moveParams.dRotDegFr;
+	moveParams.currentScale = moveParams.currentScale * moveParams.dScale;
+	var intervalMs = 1000 / fps;
+	setTimeout(
+		function(){
+				TranformStep(domObj, moveParams, intervalMs, framesToGo - 1, fps);
+		},intervalMs
+	);
+}
+
+//repostion(domElm, transX, transY, rotate)
+function repostion(domElm, transX, transY, rotate, scale){	
+	if(!transX){
+		transX=0;
+	}
+	if(!transY){
+		transY=0;
+	}
+	var trnsfStr = "translate("+ transX + "px," + transY +  "px)";
+	if(rotate){
+		trnsfStr = trnsfStr + " rotate(" + rotate + "deg)"
+	}if(scale){
+		trnsfStr = trnsfStr +  " scale(" + scale + ")"
+	}
+
+	domElm.style.transform=trnsfStr;
+} 
+
+
+function testTransform(){
+	domObj = document.getElementById("divMovableObject");
+	var trnfParams = {
+		srcTrnsX:0,
+		trgTrnsX:20,
+		srcTrnsY:0,
+		trgTrnsY:-200,
+		srcRotateDeg:0,
+		trgRotateDeg:2800,
+		srcScale:1,
+		trgScale:12
+	}
+	transformCnstSpeed(domObj, trnfParams, 200, 2);
 }
 
 
