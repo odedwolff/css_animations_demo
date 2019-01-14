@@ -984,24 +984,52 @@ constCloudCtx = {
 }
 
 
+
+
+
 //move along x
-function moveCloudLayer(domElm,initX,initY){
+function moveCloudLayerOld(domElm,initX,initY){
 	const dxRange = constCloudCtx.dxPxSecMax - constCloudCtx.dxPxSecMin;
 	const dx = Math.random() * dxRange + constCloudCtx.dxPxSecMin;
 	console.log("dx=" + dx);
-	moveThingToPlace(
-		/*domElm*/domElm, 
-		/*targetX*/constCloudCtx.totalXtranslatePx,
-		 /*targetY*/0,
-		/*currentTranslateX*/initX,
-		/*currentTranslateY*/initY,
-		/*dxMs*/dx/1000,
-		/*dyMs*/ 0,
-		/*staticRotate*/null
-		);
 
-	//wheelingStepToTarget(domElm, targetX, targetY,currentTranslateX, currentTranslateY,dxMs, dyMs, staticRotate)
-	//moveThingToPlace(domElm, 100, -20,0,0,1, -0.2, null);
+	// moveThingToPlace(
+	// 	/*domElm*/domElm, 
+	// 	/*targetX*/constCloudCtx.totalXtranslatePx,
+	// 	 /*targetY*/0,
+	// 	/*currentTranslateX*/initX,
+	// 	/*currentTranslateY*/initY,
+	// 	/*dxMs*/dx/1000,
+	// 	/*dyMs*/ 0,
+	// 	/*staticRotate*/null
+	// 	);
+
+	
+	
+}
+
+
+function moveCloudLayer(domElm,initX,initY){
+	const minDurationSec = 3;
+	const maxDurationSec = 5;
+	const durationSec = Math.random() * (maxDurationSec - minDurationSec) + minDurationSec
+
+	const translateYMax = 500;
+	const translateYMin = -500;
+	const translateYFinal = Math.random() * (translateYMax-translateYMin) + translateYMin;
+
+	var trnfParams = {
+		srcTrnsX:initX,
+		trgTrnsX:2000,
+		srcTrnsY:initY,
+		trgTrnsY:translateYFinal,
+		srcRotateDeg:0,
+		trgRotateDeg:0,
+		srcScale:1,
+		trgScale:1
+	}
+	transformCnstSpeed(domElm, trnfParams, 200, durationSec);
+
 }
 
 
@@ -1041,13 +1069,8 @@ function moveLayers1(){
 //*--------------------------------------utilities-------------------------------------------------------------
 
 
-// const Theta = Math.atan((trgTrsnsY-srcTrnsY) / (trgTrsnsX-srcTrnsX));
-// const dxPxFr = speedPxSec * Math.cos(Theta) / fps;
-// const dyPxFr = speedPxSec * Math.sin(Theta) / fps;
 
-//args srcTrnsX,trgTrnsX, srcTrnsY, trgTrnsY, srcRotateDeg, trgRotateDeg, srcRotateScale, trgRotateScale,  
 
-//function transformCnstSpeed(domObj, srcTrnsX, srcTrnsY, trgTrsnsX, trgTrsnsY, speedPxSec, fps, startRotate, endRotate){
 function transformCnstSpeed(domObj, trnsfParams, fps, durSec){
 	// const distance = Math.sqrt((tranformParams.trgTrsnsY- tranformParams.srcTrnsY)^^2 + 
 	// 	(tranformParams.trgTrsnsX- tranformParams.srcTrnsX)^^2);
