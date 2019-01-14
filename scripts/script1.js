@@ -823,7 +823,7 @@ function spreadPhsases(elm, delayBetweenPhasesMs){
 		const initTrnsX = targetX;
 		const initTrnsY = targetY;
 		//console.log("initTrnsY= " + initTrnsX );
-		freeFAllingStep(elm, 0, initTrnsX, initTrnsY, 700, 180);
+		freeFAllingStep(elm, 0, initTrnsX, initTrnsY, 700, 180, 200);
 	};
 	setTimeout(f3, delayBetweenPhasesMs * 2);
 
@@ -837,14 +837,42 @@ function spreadCombined(){
 }
 
 const freeFallCtx = {
-	a_PxPerSecSqr:5.0,
+	a_PxPerSecSqr:25000.0,
 	thrshClosePx: 50
 }
 
 function freeFAll(domElm, remainingFall,trnsX, trnsY){
 }
 
-function freeFAllingStep(domElm,v_PxPSec,trnsX, trnsY,remainingFall,rotate){
+
+
+function freeFAllingStep(domElm,v_PxPSec,trnsX, trnsY,remainingFall,rotate, fps){
+	const frameIntervalMs = 1000/fps;
+	if(remainingFall <= freeFallCtx.thrshClosePx){
+		domElm.style.opacity=0;
+		return;
+	}
+	var transStr="translate(" + trnsX + "px," + trnsY + "px)";
+	if(rotate){
+		transStr = transStr + " rotate(" + rotate + "deg)";
+	}
+	domElm.style.transform= transStr;
+	//const framStranlateY = v_PxPSec * animationCtx.framesIntervalMs;
+	const framStranlateY = v_PxPSec * frameIntervalMs / 1000;
+	trnsY = trnsY + framStranlateY;
+	v_PxPSec= v_PxPSec + freeFallCtx.a_PxPerSecSqr * frameIntervalMs / 1000;
+	remainingFall = remainingFall-framStranlateY;
+	setTimeout(
+		function(){
+			freeFAllingStep(domElm,v_PxPSec,trnsX, trnsY,remainingFall, rotate, fps)
+		}
+		,animationCtx.framesIntervalMs);
+}
+
+
+
+
+function freeFAllingStepOld(domElm,v_PxPSec,trnsX, trnsY,remainingFall,rotate){
 	if(remainingFall <= freeFallCtx.thrshClosePx){
 		domElm.style.opacity=0;
 		return;
