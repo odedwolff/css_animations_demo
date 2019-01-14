@@ -1,7 +1,7 @@
 
 const animationCtx ={
 	framesIntervalMs: 5
-}
+}  
 
 function go(){
 	console.log("go");
@@ -754,23 +754,68 @@ function testMotion(){
 }
 
 
+/*
+function testTransform(){
+	domObj = document.getElementById("divMovableObject");
+	var trnfParams = {
+		srcTrnsX:0,
+		trgTrnsX:20,
+		srcTrnsY:0,
+		trgTrnsY:-200,
+		srcRotateDeg:0,
+		trgRotateDeg:2800,
+		srcScale:1,
+		trgScale:12
+	}
+	transformCnstSpeed(domObj, trnfParams, 200, 2);
+}*/ 
 
-function spread2Phsase(elm, delayBetweenPhasesMs){
-	//spread horiznotally 
+
+
+
+function spreadPhsases(elm, delayBetweenPhasesMs){
+	//spread vertically 
 
 	const targetY= Math.random() * wheelingConstsCtx.rangeVr- wheelingConstsCtx.rangeVr / 2;
 	axSpeeds = calcAxisSpeeds(0,0,0, targetY, wheelingConstsCtx.veloPxPSec);
-	const endPhaseLocation = wheelingStepToTarget(elm, 0, targetY,0, 0, axSpeeds["dxPxMs"], axSpeeds["dyPxMs"],180);
+	//const endPhaseLocation = wheelingStepToTarget(elm, 0, targetY,0, 0, axSpeeds["dxPxMs"], axSpeeds["dyPxMs"],180);
+	var trnfParams = {
+		srcTrnsX:0,
+		trgTrnsX:0,
+		srcTrnsY:0,
+		trgTrnsY:targetY,
+		srcRotateDeg:180,
+		trgRotateDeg:180,
+		srcScale:1,
+		trgScale:1
+	}
+	transformCnstSpeed(elm, trnfParams, 200, .2);	
+
 
 	var targetX;
 	const f2 = function(){
-		//spraed vertically 
+		//spraed horizontally  
 		const orgX= 0;
 		//that is, target y of previous stage
 		const orgY= targetY;
 		targetX= Math.random() * wheelingConstsCtx.rangeHor -  wheelingConstsCtx.rangeHor / 2;
 		axSpeeds = calcAxisSpeeds(orgX, orgY,targetX, orgY, wheelingConstsCtx.veloPxPSec);
-		wheelingStepToTarget(elm, targetX, orgY, orgX, orgY, axSpeeds["dxPxMs"], axSpeeds["dyPxMs"],180);
+		//wheelingStepToTarget(elm, targetX, orgY, orgX, orgY, axSpeeds["dxPxMs"], axSpeeds["dyPxMs"],180);
+
+		var trnfParams = {
+			srcTrnsX:0,
+			trgTrnsX:targetX,
+			srcTrnsY:orgY,
+			trgTrnsY:orgY,
+			srcRotateDeg:180,
+			trgRotateDeg:180,
+			srcScale:1,
+			trgScale:1
+		}
+		transformCnstSpeed(elm, trnfParams, 200, .2);	
+
+
+
 	}
 	setTimeout(f2, delayBetweenPhasesMs);
 
@@ -787,7 +832,7 @@ function spread2Phsase(elm, delayBetweenPhasesMs){
 function spreadCombined(){
 	elms= document.querySelectorAll("#divWheelContent .divWhellRotatingBox" );
 	for(var i = 0 ; i < elms.length; i++){
-		spread2Phsase(elms[i], 1050);
+		spreadPhsases(elms[i], 1050);
 	}
 }
 
