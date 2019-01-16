@@ -1194,3 +1194,18 @@ div#divLayer4 {
 }
 
 
+/*----------------------------------------theme zoom steps--------------------------------------*/
+
+
+#divZoomSteps{
+	padding-top: 10px;
+	width:100%;
+	height: 500px;
+	background: rgb(95, 151, 121)
+}
+
+.zoomStep{
+	position: absolute;
+}
+
+
