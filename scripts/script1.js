@@ -1165,22 +1165,22 @@ function testTransform(){
 
 const zoomStepConsts  ={
 	
-	transXInitL:1000,
+	transXInitL:1200,
 	transYInitL:50,
-	transXInitR:1100,
+	transXInitR:1425,
 	transYInitR:80,
-	repetitions:7,
-	stepLenPx:-300,
+	repetitions:4,
+	stepLenPx:-450,
 	intrBetStepsRatio:0.2,
 	// maxScale:3.0,
 	// minScale:.5,
 	maxScale:1.5,
-	minScale:.5,
+	minScale:.25,
 
 	//const cycleDurMs = 1400;
-	stepUpDurMs:500,
-	stepDownDurMs:500,
-	postStepDownDurMs:100,
+	stepUpDurMs:400,
+	stepDownDurMs:300,
+	postStepDownDurMs:0,
 }
 zoomStepConsts.totalCycleLenMs=zoomStepConsts.stepUpDurMs + zoomStepConsts.stepDownDurMs + zoomStepConsts.postStepDownDurMs;
 
@@ -1252,7 +1252,7 @@ function zoomStep(domElm, orgX, orgY, repetitions){
 	//orgY = trgY;
 	setTimeout(function () {
 		zoomStep(domElm, trgX, trgY, repetitions - 1)
-	}, zoomStepConsts.totalCycleLenMs * 2+ 0);
+	}, zoomStepConsts.totalCycleLenMs * 2);
 }
 
 
