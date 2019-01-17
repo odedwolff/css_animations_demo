@@ -1176,7 +1176,32 @@ const zoomStepConsts = {
 zoomStepConsts.totalCycleLenMs=zoomStepConsts.stepUpDurMs + zoomStepConsts.stepDownDurMs + zoomStepConsts.postStepDownDurMs;
 
 
-function zoomStepsSequence(){
+function walkRight(){
+	const transXInitL=-75;
+	const	transYInitL=50;
+	const	transXInitR=-300;
+	const	transYInitR=80;
+	const	repetitions=4;
+	const	stepLenPx=450;
+	
+	const leftFootDomElm=document.getElementById("zoomFootL");
+	const rightFootDomElm=document.getElementById("zoomFootR"); 
+	
+	//init position 
+	repostion(rightFootDomElm, transXInitR, transYInitR, 0, zoomStepConsts.maxScale);
+	repostion(leftFootDomElm, transXInitL, transYInitL, 0, zoomStepConsts.maxScale);
+	
+	zoomStep(rightFootDomElm,  transXInitR, transYInitR, stepLenPx,  repetitions);
+	setTimeout(function() {
+		zoomStep(leftFootDomElm,  transXInitL, transYInitL, stepLenPx, repetitions);
+	//}, zoomStepConsts.totalCycleLenMs * 0.7);
+	}, zoomStepConsts.totalCycleLenMs  + 200);
+
+}
+
+
+
+function walkLeft(){
 	const transXInitL=1200;
 	const	transYInitL=50;
 	const	transXInitR=1425;
@@ -1195,7 +1220,7 @@ function zoomStepsSequence(){
 	setTimeout(function() {
 		zoomStep(leftFootDomElm,  transXInitL, transYInitL, stepLenPx, repetitions);
 	//}, zoomStepConsts.totalCycleLenMs * 0.7);
-	}, zoomStepConsts.totalCycleLenMs  + 0);
+	}, zoomStepConsts.totalCycleLenMs  + 200);
 
 }
 
@@ -1247,7 +1272,7 @@ function zoomStep(domElm, orgX, orgY, dxStep, repetitions){
 	//orgY = trgY;
 	setTimeout(function () {
 		zoomStep(domElm, trgX, trgY, dxStep, repetitions - 1)
-	}, zoomStepConsts.totalCycleLenMs * 2);
+	}, zoomStepConsts.totalCycleLenMs * 2 + 400);
 }
 
 
