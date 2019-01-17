@@ -1163,48 +1163,43 @@ function testTransform(){
 
 //------------------------------------zoom steps-----------------------------------------
 
-const zoomStepConsts  ={
-	
-	transXInitL:1200,
-	transYInitL:50,
-	transXInitR:1425,
-	transYInitR:80,
-	repetitions:4,
-	stepLenPx:-450,
-	intrBetStepsRatio:0.2,
-	// maxScale:3.0,
-	// minScale:.5,
+const zoomStepConsts = {
 	maxScale:1.5,
 	minScale:.25,
-
-	//const cycleDurMs = 1400;
+	
+		//const cycleDurMs = 1400;
 	stepUpDurMs:400,
 	stepDownDurMs:300,
 	postStepDownDurMs:0,
 }
+
 zoomStepConsts.totalCycleLenMs=zoomStepConsts.stepUpDurMs + zoomStepConsts.stepDownDurMs + zoomStepConsts.postStepDownDurMs;
 
 
-
-
 function zoomStepsSequence(){
+	const transXInitL=1200;
+	const	transYInitL=50;
+	const	transXInitR=1425;
+	const	transYInitR=80;
+	const	repetitions=4;
+	const	stepLenPx=-450;
 	
 	const leftFootDomElm=document.getElementById("zoomFootL");
 	const rightFootDomElm=document.getElementById("zoomFootR"); 
 	
 	//init position 
-	repostion(rightFootDomElm, zoomStepConsts.transXInitR, zoomStepConsts.transYInitR, 0, zoomStepConsts.maxScale);
-	repostion(leftFootDomElm, zoomStepConsts.transXInitL, zoomStepConsts.transYInitL, 0, zoomStepConsts.maxScale);
+	repostion(rightFootDomElm, transXInitR, transYInitR, 0, zoomStepConsts.maxScale);
+	repostion(leftFootDomElm, transXInitL, transYInitL, 0, zoomStepConsts.maxScale);
 	
-	zoomStep(rightFootDomElm,  zoomStepConsts.transXInitR, zoomStepConsts.transYInitR, zoomStepConsts.repetitions);
+	zoomStep(rightFootDomElm,  transXInitR, transYInitR, stepLenPx,  repetitions);
 	setTimeout(function() {
-		zoomStep(leftFootDomElm,  zoomStepConsts.transXInitL, zoomStepConsts.transYInitL, zoomStepConsts.repetitions);
+		zoomStep(leftFootDomElm,  transXInitL, transYInitL, stepLenPx, repetitions);
 	//}, zoomStepConsts.totalCycleLenMs * 0.7);
 	}, zoomStepConsts.totalCycleLenMs  + 0);
 
 }
 
-function zoomStep(domElm, orgX, orgY, repetitions){
+function zoomStep(domElm, orgX, orgY, dxStep, repetitions){
 	if(repetitions == 0){
 		return;
 	}
@@ -1213,7 +1208,7 @@ function zoomStep(domElm, orgX, orgY, repetitions){
 
 
 	//step up 
-	trgX = orgX + zoomStepConsts.stepLenPx / 2;
+	trgX = orgX + dxStep / 2;
 	trgY= orgY;
 	var trnfParams = {
 				srcTrnsX:orgX,
@@ -1230,7 +1225,7 @@ function zoomStep(domElm, orgX, orgY, repetitions){
 	//step down 
 	orgX = trgX;
 	orgY = trgY;
-	trgX = trgX + zoomStepConsts.stepLenPx / 2;
+	trgX = trgX + dxStep / 2;
 	trgY= orgY;
 	setTimeout(function(){
 		
@@ -1251,7 +1246,7 @@ function zoomStep(domElm, orgX, orgY, repetitions){
 	//orgX = trgX;
 	//orgY = trgY;
 	setTimeout(function () {
-		zoomStep(domElm, trgX, trgY, repetitions - 1)
+		zoomStep(domElm, trgX, trgY, dxStep, repetitions - 1)
 	}, zoomStepConsts.totalCycleLenMs * 2);
 }
 
