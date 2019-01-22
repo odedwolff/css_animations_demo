@@ -1357,6 +1357,57 @@ function stomp(org){
 }
 
 
+//---------------------------waves--------------------------------------------------------
+
+//split text into div, each one containing a single letter, assigned the given class. 
+//then add to current line div, eventurally yielding a 2d array of DIVs
+function split2D(textBlock, charsPerLine, classToAsign){
+	// var lines=[];
+	// for(i = 0 ; i < textBlock.length ; i++){
+	// 	var line = [];
+	// 	lines.push(line);
+	// 	for(j = 0 ; j < charsPerLine ; j++){
+	// 		line.push(textBlock[i]);
+	// 	}
+	// }
+
+	var outHtml="<div class='lines'>\r";
+
+	for(var i = 0, glb_i=0;  glb_i < textBlock.length ; i++){
+		outHtml= outHtml + "\t<div class='line'>\r\t"
+		for(j = 0 ; j < charsPerLine &&  glb_i < textBlock.length; j++){
+			outHtml= outHtml + "<div class=" + classToAsign + "> " + textBlock[glb_i]+ "</div>";
+			glb_i = glb_i + 1;
+		}
+		outHtml= outHtml + "\r</div>"
+	}
+	outHtml= outHtml + "\r</div>"
+	return outHtml;
+}
+
+
+function testSplintText(){
+	const textBlock = 
+	`physical wave*s such as those we see when a rock is thrown into water 
+	are what many people think about when they first began to think about waves. These
+	 waves have distinct properties specific to their type but also exhibit characteristics
+	  in common with more abstract waves such as sound waves and light (electromagnetic) waves.`;
+	
+	var genHtml = split2D(textBlock, 40, 'char1');
+	document.getElementById('divDynContent').innerHTML = genHtml;
+	 
+}
+
+
+
+// function charsArrayToHtml(arr2D){
+// 	outHtml="<div>"
+// 	for(i = 0 ; i < textBlock.length ; i++){
+// 	}
+// }
+
+
+
 
 
 
