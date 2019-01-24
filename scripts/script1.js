@@ -1205,11 +1205,16 @@ function walkRight(){
 
 
 function walkLeft(){
-	const transXInitL=1200;
+	//const transXInitL=1200;
+	const transXInitL=1175;
+
 	const	transYInitL=250;
-	const	transXInitR=1425;
+	//const	transXInitR=1425;
+	const	transXInitR=1400;
+
+
 	const	transYInitR=280;
-	const	repetitions=4;
+	const	steps=3;
 	const	stepLenPx=-450;
 	
 	const leftFootDomElm=document.getElementById("zoomFootL");
@@ -1219,9 +1224,9 @@ function walkLeft(){
 	repostion(rightFootDomElm, transXInitR, transYInitR, 0, zoomStepConsts.maxScale);
 	repostion(leftFootDomElm, transXInitL, transYInitL, 0, zoomStepConsts.maxScale);
 	
-	zoomStep(rightFootDomElm,  transXInitR, transYInitR, stepLenPx,  repetitions);
+	zoomStep(rightFootDomElm,  transXInitR, transYInitR, stepLenPx,  steps + 1);
 	setTimeout(function() {
-		zoomStep(leftFootDomElm,  transXInitL, transYInitL, stepLenPx, repetitions);
+		zoomStep(leftFootDomElm,  transXInitL, transYInitL, stepLenPx, steps );
 	//}, zoomStepConsts.totalCycleLenMs * 0.7);
 	}, zoomStepConsts.totalCycleLenMs  + 200);
 
@@ -1230,13 +1235,18 @@ function walkLeft(){
 
 function walkFromRightToCenter(){
 	//const transXInitL=1200;
-	const transXInitL=1425;
-	const	transYInitL=250;
+	//const transXInitL=1525;
+	const transXInitL=1000;
+
 	//const	transXInitR=1425;
-	const	transXInitR=1650;
+	//const	transXInitR=1750;
+	const transXInitR=1225;
+
+
+	const	transYInitL=250;
 
 	const	transYInitR=280;
-	const	repetitions=2;
+	const	steps=1;
 	const	stepLenPx=-450;
 	
 	const leftFootDomElm=document.getElementById("zoomFootL");
@@ -1246,17 +1256,62 @@ function walkFromRightToCenter(){
 	repostion(rightFootDomElm, transXInitR, transYInitR, 0, zoomStepConsts.maxScale);
 	repostion(leftFootDomElm, transXInitL, transYInitL, 0, zoomStepConsts.maxScale);
 	
-	zoomStep(rightFootDomElm,  transXInitR, transYInitR, stepLenPx,  repetitions);
+	zoomStep(rightFootDomElm,  transXInitR, transYInitR, stepLenPx,  steps);
 	setTimeout(function() {
-		zoomStep(leftFootDomElm,  transXInitL, transYInitL, stepLenPx, repetitions);
+		zoomStep(leftFootDomElm,  transXInitL, transYInitL, stepLenPx, steps);
 	//}, zoomStepConsts.totalCycleLenMs * 0.7);
 	}, zoomStepConsts.totalCycleLenMs  + 200);
 
 	const finalPositionL = transXInitL + stepLenPx * repetitions ;
+	const finalPositionR = transXInitR + stepLenPx * repetitions ;
+
+	
 	//const finalPositionL = 500;
 	//Y posiiton is assumed to not change
-	return {'x':finalPositionL, 'y':transYInitL};
+	//return {'x':finalPositionL, 'y':transYInitL};
+	return {'x':finalPositionR, 'y':transYInitR};
+
 }
+
+
+function walkFromLeftToCenter(){
+	
+	const transXInitL=-125;
+
+	const transXInitR=-350;
+
+
+	const	transYInitL=250;
+
+	const	transYInitR=280;
+	const	steps=2;
+	const	stepLenPx=450;
+	
+	const leftFootDomElm=document.getElementById("zoomFootL");
+	const rightFootDomElm=document.getElementById("zoomFootR"); 
+	
+	//init position 
+	repostion(rightFootDomElm, transXInitR, transYInitR, 0, zoomStepConsts.maxScale);
+	repostion(leftFootDomElm, transXInitL, transYInitL, 0, zoomStepConsts.maxScale);
+	
+	zoomStep(rightFootDomElm,  transXInitR, transYInitR, stepLenPx,  steps);
+	setTimeout(function() {
+		zoomStep(leftFootDomElm,  transXInitL, transYInitL, stepLenPx, steps - 1);
+	//}, zoomStepConsts.totalCycleLenMs * 0.7);
+	}, zoomStepConsts.totalCycleLenMs  + 200);
+
+	//const finalPositionL = transXInitL + stepLenPx * steps ;
+
+	const finalPositionR = transXInitR + stepLenPx * steps ;
+
+	//const finalPositionL = 500;
+	//Y posiiton is assumed to not change
+	//return {'x':finalPositionL, 'y':transYInitL};
+	return {'x':finalPositionR, 'y':transYInitR};
+
+}
+
+
 
 function zoomStep(domElm, orgX, orgY, dxStep, repetitions){
 	if(repetitions == 0){
@@ -1315,19 +1370,19 @@ function rootSequenceZoomStep(){
 	
 	walkLeft();
 	setTimeout(() => {
-		walkRight();
-	}, 8000);	
-	setTimeout(() => {
-		finalRpos= walkFromRightToCenter();
+		finalRpos = walkFromLeftToCenter();
 		setTimeout(() => {
 			stomp(finalRpos);
-		}, 4000);
-	}, 16000);
+		}, 3000);
+	}, 6000);	
+	
 }
 
 function stomp(org){
 	//zoom out
-	const domElm= document.getElementById("zoomFootL");
+	//const domElm= document.getElementById("zoomFootL");
+	const domElm= document.getElementById("zoomFootR");
+
 	var trnfParams = {
 		srcTrnsX:org.x,
 		trgTrnsX:org.x,
@@ -1350,9 +1405,9 @@ function stomp(org){
 		srcRotateDeg:0,
 		trgRotateDeg:0,
 		srcScale:zoomStepConsts.minScale,
-		trgScale:640
+		trgScale:1800
 	};
-	transformCnstSpeed(domElm, trnfParams, 100, 2.0);
+	transformCnstSpeed(domElm, trnfParams, 100, 1.0);
 	}, 1300);
 }
 
