@@ -1365,7 +1365,9 @@ function zoomStep(domElm, orgX, orgY, dxStep, repetitions){
 }
 
 
-function rootSequenceZoomStep(){
+function rootSequenceZoomStep(color){
+	document.querySelectorAll("#divZoomStepsContent")[0].style.color = color;
+	
 	var finalRpos;
 	
 	walkLeft();
@@ -1375,6 +1377,33 @@ function rootSequenceZoomStep(){
 			stomp(finalRpos);
 		}, 3000);
 	}, 6000);	
+	
+}
+
+
+function repeatInColors(){
+	const color1="blue";
+	const color2="red";
+	rootSequenceZoomStep(color1);
+	setTimeout(() => {
+		document.querySelectorAll("#divZoomSteps")[0].style.background = color1;
+		rootSequenceZoomStep(color2);
+	}, 11000);
+}
+
+const zoomStepColors = {
+	'colors' :  ["red", "blue"],
+	'idx': 0
+}
+
+function repeatWithColorChange(){
+	const curColor = zoomStepColors.colors[zoomStepColors.idx];
+	rootSequenceZoomStep(curColor);
+	setTimeout(() => {
+		document.querySelectorAll("#divZoomSteps")[0].style.background = curColor;
+		zoomStepColors.idx = (zoomStepColors.idx + 1 ) % (zoomStepColors.colors.length)
+		repeatWithColorChange()
+	}, 12000);
 	
 }
 
