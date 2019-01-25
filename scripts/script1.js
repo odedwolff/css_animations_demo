@@ -1375,7 +1375,7 @@ function rootSequenceZoomStep(color){
 		finalRpos = walkFromLeftToCenter();
 		setTimeout(() => {
 			stomp(finalRpos);
-		}, 3000);
+		}, /*3000*/ 3250);
 	}, 6000);	
 	
 }
@@ -1388,7 +1388,7 @@ function repeatInColors(){
 	setTimeout(() => {
 		document.querySelectorAll("#divZoomSteps")[0].style.background = color1;
 		rootSequenceZoomStep(color2);
-	}, 11000);
+	}, /*11000*/ 9000);
 }
 
 const zoomStepColors = {
@@ -1403,7 +1403,7 @@ function repeatWithColorChange(){
 		document.querySelectorAll("#divZoomSteps")[0].style.background = curColor;
 		zoomStepColors.idx = (zoomStepColors.idx + 1 ) % (zoomStepColors.colors.length)
 		repeatWithColorChange()
-	}, 12000);
+	}, /*12000*/ 12000);
 	
 }
 
@@ -1422,7 +1422,7 @@ function stomp(org){
 		srcScale:zoomStepConsts.maxScale,
 		trgScale:zoomStepConsts.minScale
 	};
-	transformCnstSpeed(domElm, trnfParams, 100, 1);
+	transformCnstSpeed(domElm, trnfParams, 100, /*1*/ .8);
 	//zoom in
 	setTimeout(() => {
 		//const domElm= document.getElementById("zoomFootL");
@@ -1436,7 +1436,7 @@ function stomp(org){
 		srcScale:zoomStepConsts.minScale,
 		trgScale:1800
 	};
-	transformCnstSpeed(domElm, trnfParams, 100, 1.0);
+	transformCnstSpeed(domElm, trnfParams, 100, 0.35);
 	}, 1300);
 }
 
