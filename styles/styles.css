@@ -1213,9 +1213,11 @@ div#divLayer4 {
 
 
 .char1{
-	display:inline;
+	/* display:inline; */
+	position: absolute;
 }
 
 .line{
-	display: block;
+	/* display: block; */
+	position: absolute;
 }

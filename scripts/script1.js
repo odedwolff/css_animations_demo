@@ -1422,7 +1422,7 @@ function stomp(org){
 		srcScale:zoomStepConsts.maxScale,
 		trgScale:zoomStepConsts.minScale
 	};
-	transformCnstSpeed(domElm, trnfParams, 100, /*1*/ .8);
+	transformCnstSpeed(domElm, trnfParams, 200, /*1*/ .8);
 	//zoom in
 	setTimeout(() => {
 		//const domElm= document.getElementById("zoomFootL");
@@ -1436,12 +1436,21 @@ function stomp(org){
 		srcScale:zoomStepConsts.minScale,
 		trgScale:1800
 	};
-	transformCnstSpeed(domElm, trnfParams, 100, 0.35);
+	transformCnstSpeed(domElm, trnfParams, 200, 0.35);
 	}, 1300);
 }
 
 
 //---------------------------waves--------------------------------------------------------
+
+
+const waveCtx={
+	waveLenPerChar : 2*Math.PI / 10
+}
+
+var waveArr;
+
+
 
 //split text into div, each one containing a single letter, assigned the given class. 
 //then add to current line div, eventurally yielding a 2d array of DIVs
@@ -1454,19 +1463,36 @@ function split2D(textBlock, charsPerLine, classToAsign){
 	// 		line.push(textBlock[i]);
 	// 	}
 	// }
-
+	waveArr = [];
 	var outHtml="<div class='lines'>\r";
-
+	var c, line, elmId;
 	for(var i = 0, glb_i=0;  glb_i < textBlock.length ; i++){
+		line = [];
 		outHtml= outHtml + "\t<div class='line'>\r\t"
 		for(j = 0 ; j < charsPerLine &&  glb_i < textBlock.length; j++){
-			outHtml= outHtml + "<div class=" + classToAsign + "> " + textBlock[glb_i]+ "</div>";
+			c=textBlock[glb_i];
+			elmId = elmIdStr(i,j);
+			if(isWhiteSpace(c)){
+				c="&nbsp";
+			}
+			outHtml= outHtml + "<div class=" + classToAsign + " id=" + elmId + "> " + c + "</div>";
 			glb_i = glb_i + 1;
+			line.push(elmId);
 		}
 		outHtml= outHtml + "\r</div>"
+		//waveArr[i,j] should contain the id of the i,j dom element 
+		waveArr.push(line);
 	}
 	outHtml= outHtml + "\r</div>"
 	return outHtml;
+}
+
+function isWhiteSpace(c){
+	return 	/\s/.test(c);
+}
+
+function elmIdStr(i,j){
+	return "elm_" + i + "_"+ j;
 }
 
 
@@ -1479,8 +1505,28 @@ function testSplintText(){
 	
 	var genHtml = split2D(textBlock, 40, 'char1');
 	document.getElementById('divDynContent').innerHTML = genHtml;
+	drawHorWaves(null);
 	 
 }
+
+function drawHorWaves(t){
+	var elm, x, y;
+	const width = waveArr[0].length;
+	const height= waveArr.length;
+	for(var i = 0; i < height; i++){
+		for(var j = 0; j < width; j++){
+			elm= document.getElementById(waveArr[i][j]);
+			x=j * 20;
+			y=i * 40;
+			if(elm!=null){
+				elm.style.transform="translate(" + x +"px," + y + "px)";
+			}
+		}
+	}
+}
+
+
+
 
 
 
