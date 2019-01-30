@@ -1445,10 +1445,41 @@ function stomp(org){
 
 
 const waveCtx={
-	waveLenPerChar : 2*Math.PI / 10
+	// waveLenPerChar : 2*Math.PI / 10,
+	periodsPerSec : .4,
+	elementsPerPeriod: 100,
+	intervalWavesVer:null, 
+	intervalWavesHor:null,
+	waveArr:null,
+	/**time beetween frames */
+	animIntervalMa: 100,
+	amp:30,
+	t:0
 }
 
-var waveArr;
+
+
+function startWavesVer(){
+	waveCtx.intervalWavesVer = setInterval(
+		function(){
+			//drawVerWaves(new Date().getMilliseconds());
+			drawVerWaves(waveCtx.t);
+			waveCtx.t = (waveCtx.t + waveCtx.animIntervalMa) % (1000 / waveCtx.periodsPerSec);
+		},waveCtx.animIntervalMa);
+}
+
+function stopWavesVer(){
+	clearInterval(waveCtx.intervalWavesVer);
+}
+
+function stopVerWaves(){
+
+}
+
+// var waveArr;
+
+
+
 
 
 
@@ -1463,7 +1494,7 @@ function split2D(textBlock, charsPerLine, classToAsign){
 	// 		line.push(textBlock[i]);
 	// 	}
 	// }
-	waveArr = [];
+	waveCtx.waveArr = [];
 	var outHtml="<div class='lines'>\r";
 	var c, line, elmId;
 	for(var i = 0, glb_i=0;  glb_i < textBlock.length ; i++){
@@ -1481,7 +1512,7 @@ function split2D(textBlock, charsPerLine, classToAsign){
 		}
 		outHtml= outHtml + "\r</div>"
 		//waveArr[i,j] should contain the id of the i,j dom element 
-		waveArr.push(line);
+		waveCtx.waveArr.push(line);
 	}
 	outHtml= outHtml + "\r</div>"
 	return outHtml;
@@ -1496,7 +1527,7 @@ function elmIdStr(i,j){
 }
 
 
-function testSplintText(){
+function prepareWaves(){
 	const textBlock = 
 	`physical wave*s such as those we see when a rock is thrown into water 
 	are what many people think about when they first began to think about waves. These
@@ -1505,25 +1536,37 @@ function testSplintText(){
 	
 	var genHtml = split2D(textBlock, 40, 'char1');
 	document.getElementById('divDynContent').innerHTML = genHtml;
-	drawHorWaves(null);
-	 
+	// drawHorWaves(null);
+	//drawVerWaves(9);
 }
 
-function drawHorWaves(t){
+function wavesVerStatic(){
+	drawVerWaves(0);
+}
+
+function drawVerWaves(tMs){
 	var elm, x, y;
-	const width = waveArr[0].length;
-	const height= waveArr.length;
+	const width = waveCtx.waveArr[0].length;
+	const height= waveCtx.waveArr.length;
 	for(var i = 0; i < height; i++){
 		for(var j = 0; j < width; j++){
-			elm= document.getElementById(waveArr[i][j]);
+			elm= document.getElementById(waveCtx.waveArr[i][j]);
 			x=j * 20;
-			y=i * 40;
+			//x = Math.sin(2*Math.PI * j/ 50) * 300;
+			
+			//y=i * 40;
+			//y = i * 40 + Math.sin((tMs * waveCtx.periodsPerSec / 1000 ) +  2*Math.PI * j/ waveCtx.elementsPerPeriod) * waveCtx.amp;
+			y = i * 40 + Math.sin( (tMs * waveCtx.periodsPerSec / 1000  +  j/ waveCtx.elementsPerPeriod) * 2*Math.PI) * waveCtx.amp;
+
+
 			if(elm!=null){
 				elm.style.transform="translate(" + x +"px," + y + "px)";
 			}
 		}
 	}
 }
+
+
 
 
 
