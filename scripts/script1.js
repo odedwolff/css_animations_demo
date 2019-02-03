@@ -1605,3 +1605,66 @@ function drawVerWaves(tMs){
 
 
 //---------------------------------------------------------------------------------------
+
+
+//detect dSpeed at constant intervals. wenn motion stops for a while, returns the heighest speed 
+//for that motion
+
+const scrollCtx = {
+	sampleIntrMs:20,
+	endSessionIntervalMs:400,
+	// lastYScrollo:0,
+	// isRecording:false,
+	sessionTopSpeed:0,
+	endSessionThresholdPxPerSec: 0,
+	timeOutIdStopScrolling:null,
+	// timeOutIdSample:null,
+}
+
+//on windowsScroll()
+
+// {
+// 	if(scrotCtx.isRecording){
+// 		return;
+// 	}
+// 	scrotCtx.intervalId = sampleSpeed();
+// }
+
+function sampleSpeed(startY){
+	var dY = Math.abs(window.scrollY - startY);
+	var dT = scrollCtx.sampleIntrMs / 1000;
+	var scrollV = dY / dT; 
+	// console.log("speed=" + scrollV);
+	if(scrollV > scrollCtx.endSessionThresholdPxPerSec){
+		if(scrollCtx.timeOutIdStopScrolling != null){
+			clearTimeout(scrollCtx.timeOutIdStopScrolling);
+			scrollCtx.timeOutIdStopScrolling = null;
+		}
+		if(scrollV > scrollCtx.sessionTopSpeed){
+			scrollCtx.sessionTopSpeed = scrollV;
+		}
+	}
+	if(scrollCtx.timeOutIdStopScrolling == null){
+		scrollCtx.timeOutIdStopScrolling = setTimeout(endScrollSession, scrollCtx.endSessionIntervalMs);
+	}
+	
+	
+}
+
+
+function launchSpeedSampler(){
+	const scrollY0=window.scrollY;
+	setTimeout(() => {
+		sampleSpeed(scrollY0);	
+	}, scrollCtx.sampleIntrMs );
+	
+}
+
+function endScrollSession(){
+	console.log(scrollCtx.sessionTopSpeed);
+	scrollCtx.sessionTopSpeed = 0;
+	scrollCtx.timeOutIdSample == null;
+}
+
+//windo.addEventListener('scroll', sampleSpeed(window.scrollY));
+//window.onscroll="sampleSpeed(window.scrollY)";
