@@ -1454,10 +1454,35 @@ const waveCtx={
 	/**time beetween frames */
 	animIntervalMa: 5,
 	amp:70,
+	ampMinRel: 1/20,
 	t:0,
 	decayIntervalId:null,
-	decayRateSec: .85
+	decayRateSec: .85,
+	fadeInRateSec:1.5,
+	handleScrollSession: _handleScrollSession,
+	/* lower scroll speed to have influence on surface */
+	minScrollSpeedPxSec:100,
+	scrollSpeedToAmpFctr: 1 / 1000
 }
+
+function _handleScrollSession(scrollSpeed){
+	// if(scrollSpeed < waveCtx.minScrollSpeedPxSec){
+	// 	return;
+	// }
+	// waveCtx.amp = scrollSpeed * waveCtx.scrollSpeedToAmpFctr;
+	// startWavesVerWDecay();
+	
+}
+
+function fadeWavesIn(){
+
+}
+
+function drawStill(){
+	drawVerWaves(null, true);
+
+}
+
 
 
 
@@ -1472,7 +1497,7 @@ function startWavesVer(){
 		
 			var d = new Date(), e = new Date(d);
 			var msSinceMidnight = e - d.setHours(0,0,0,0)
-			drawVerWaves(msSinceMidnight);
+			drawVerWaves(msSinceMidnight, false);
 			//drawVerWaves(new Date().getMilliseconds());
 		},waveCtx.animIntervalMa);
 }
@@ -1486,13 +1511,15 @@ function stopVerWaves(){
 }
 
 
-function testWavesVerWDecasy(){
+function startWavesVerWDecay(){
 	const intervalLenMs=100;
 	const minAmp = waveCtx.amp / 10;
 	waveCtx.decayIntervalId = setInterval(() => {
 		if(waveCtx.amp < minAmp){
 			clearInterval(waveCtx.decayIntervalId);
 			console.log("decay done");
+			drawStill();
+			stopWavesVer();
 		}
 		waveCtx.amp = waveCtx.amp  * Math.pow(waveCtx.decayRateSec, intervalLenMs / 1000);
 	}, intervalLenMs);
@@ -1567,10 +1594,10 @@ function prepareWaves(){
 }
 
 function wavesVerStatic(){
-	drawVerWaves(0);
+	drawVerWaves(0, false);
 }
 
-function drawVerWaves(tMs){
+function drawVerWaves(tMs, flatten){
 	var elm, x, y;
 	const width = waveCtx.waveArr[0].length;
 	const height= waveCtx.waveArr.length;
@@ -1578,12 +1605,11 @@ function drawVerWaves(tMs){
 		for(var j = 0; j < width; j++){
 			elm= document.getElementById(waveCtx.waveArr[i][j]);
 			x=j * 20;
-			//x = Math.sin(2*Math.PI * j/ 50) * 300;
-			
-			//y=i * 40;
-			//y = i * 40 + Math.sin((tMs * waveCtx.periodsPerSec / 1000 ) +  2*Math.PI * j/ waveCtx.elementsPerPeriod) * waveCtx.amp;
-			y = i * 40 + Math.sin( (tMs * waveCtx.periodsPerSec / 1000  +  j/ waveCtx.elementsPerPeriod) * 2*Math.PI) * waveCtx.amp;
-
+			// y = i * 40 + Math.sin( (tMs * waveCtx.periodsPerSec / 1000  +  j/ waveCtx.elementsPerPeriod) * 2*Math.PI) * waveCtx.amp;
+			y = i * 40;
+			if (!flatten){
+				y= y + Math.sin( (tMs * waveCtx.periodsPerSec / 1000  +  j/ waveCtx.elementsPerPeriod) * 2*Math.PI) * waveCtx.amp;
+			}
 
 			if(elm!=null){
 				elm.style.transform="translate(" + x +"px," + y + "px)";
@@ -1687,7 +1713,9 @@ function launchSpeedSampler(){
 }
 
 function endScrollSession(){
-	console.log(scrollCtx.sessionTopSpeed);
+	const lastSessionTopSpeed= scrollCtx.sessionTopSpeed;
+	console.log(lastSessionTopSpeed);
+	waveCtx.handleScrollSession();
 	scrollCtx.sessionTopSpeed = 0;
 	scrollCtx.timeOutIdSample == null;
 }
