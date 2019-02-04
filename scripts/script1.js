@@ -1446,15 +1446,17 @@ function stomp(org){
 
 const waveCtx={
 	// waveLenPerChar : 2*Math.PI / 10,
-	periodsPerSec : .4,
-	elementsPerPeriod: 100,
+	periodsPerSec : .2,
+	elementsPerPeriod: 30,
 	intervalWavesVer:null, 
 	intervalWavesHor:null,
 	waveArr:null,
 	/**time beetween frames */
-	animIntervalMa: 100,
-	amp:30,
-	t:0
+	animIntervalMa: 5,
+	amp:70,
+	t:0,
+	decayIntervalId:null,
+	decayRateSec: .85
 }
 
 
@@ -1462,9 +1464,16 @@ const waveCtx={
 function startWavesVer(){
 	waveCtx.intervalWavesVer = setInterval(
 		function(){
+			// drawVerWaves(waveCtx.t);
+			// waveCtx.t = (waveCtx.t + waveCtx.animIntervalMa) % (1000 / waveCtx.periodsPerSec);
+			
+			//const periodLenMs= 1000 /  waveCtx.periodsPerSec;
+			//drawVerWaves(new Date().getMilliseconds() / waveCtx.periodsPerSec);
+		
+			var d = new Date(), e = new Date(d);
+			var msSinceMidnight = e - d.setHours(0,0,0,0)
+			drawVerWaves(msSinceMidnight);
 			//drawVerWaves(new Date().getMilliseconds());
-			drawVerWaves(waveCtx.t);
-			waveCtx.t = (waveCtx.t + waveCtx.animIntervalMa) % (1000 / waveCtx.periodsPerSec);
 		},waveCtx.animIntervalMa);
 }
 
@@ -1474,6 +1483,21 @@ function stopWavesVer(){
 
 function stopVerWaves(){
 
+}
+
+
+function testWavesVerWDecasy(){
+	const intervalLenMs=100;
+	const minAmp = waveCtx.amp / 10;
+	waveCtx.decayIntervalId = setInterval(() => {
+		if(waveCtx.amp < minAmp){
+			clearInterval(waveCtx.decayIntervalId);
+			console.log("decay done");
+		}
+		waveCtx.amp = waveCtx.amp  * Math.pow(waveCtx.decayRateSec, intervalLenMs / 1000);
+	}, intervalLenMs);
+
+	startWavesVer();
 }
 
 // var waveArr;
@@ -1529,10 +1553,12 @@ function elmIdStr(i,j){
 
 function prepareWaves(){
 	const textBlock = 
-	`physical wave*s such as those we see when a rock is thrown into water 
-	are what many people think about when they first began to think about waves. These
-	 waves have distinct properties specific to their type but also exhibit characteristics
-	  in common with more abstract waves such as sound waves and light (electromagnetic) waves.`;
+	// `physical wave*s such as those we see when a rock is thrown into water 
+	// are what many people think about when they first began to think about waves. These
+	//  waves have distinct properties specific to their type but also exhibit characteristics
+	//   in common with more abstract waves such as sound waves and light (electromagnetic) waves.`;
+
+	`physical wave*s such as those we see when a rock is thrown into water `;
 	
 	var genHtml = split2D(textBlock, 40, 'char1');
 	document.getElementById('divDynContent').innerHTML = genHtml;
@@ -1604,7 +1630,7 @@ function drawVerWaves(tMs){
  */
 
 
-//---------------------------------------------------------------------------------------
+//-------------------------------------------scroll utils--------------------------------------------
 
 
 //detect dSpeed at constant intervals. wenn motion stops for a while, returns the heighest speed 
@@ -1665,6 +1691,9 @@ function endScrollSession(){
 	scrollCtx.sessionTopSpeed = 0;
 	scrollCtx.timeOutIdSample == null;
 }
+
+
+
 
 //windo.addEventListener('scroll', sampleSpeed(window.scrollY));
 //window.onscroll="sampleSpeed(window.scrollY)";
