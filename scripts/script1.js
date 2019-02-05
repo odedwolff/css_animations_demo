@@ -12,12 +12,15 @@ function go(){
 
 
 function init(){
-	// console.log("welcome");
+	console.log("init");
 	// var div = document.getElementById("div1");
 	// setTimeout(function(){div.style="background:yellow";},1000)
 	//test1();
 
 	// testBreakDown();
+
+	prepareWaves();
+	drawStill();
 }
 
 
@@ -1453,24 +1456,28 @@ const waveCtx={
 	waveArr:null,
 	/**time beetween frames */
 	animIntervalMa: 5,
-	amp:70,
-	ampMinRel: 1/20,
+	default_amp:40,
+	amp:null,
+	ampMinRel: 1/100,
 	t:0,
 	decayIntervalId:null,
-	decayRateSec: .85,
+	decayRateSec: .8,
 	fadeInRateSec:1.5,
 	handleScrollSession: _handleScrollSession,
 	/* lower scroll speed to have influence on surface */
 	minScrollSpeedPxSec:100,
-	scrollSpeedToAmpFctr: 1 / 1000
+	scrollSpeedToAmpFctr: 1 / 100
 }
 
 function _handleScrollSession(scrollSpeed){
-	// if(scrollSpeed < waveCtx.minScrollSpeedPxSec){
-	// 	return;
-	// }
-	// waveCtx.amp = scrollSpeed * waveCtx.scrollSpeedToAmpFctr;
-	// startWavesVerWDecay();
+	if(scrollSpeed < waveCtx.minScrollSpeedPxSec){
+		return;
+	}
+	const newAmp = scrollSpeed * waveCtx.scrollSpeedToAmpFctr;
+	if(newAmp > waveCtx.amp){
+		waveCtx.amp = newAmp;
+	}
+	startWavesVerWDecay();
 	
 }
 
@@ -1487,23 +1494,26 @@ function drawStill(){
 
 
 function startWavesVer(){
+//	stopWavesVer();
+
+	// if it's already on
+	if(waveCtx.intervalWavesVer != null){
+		return;
+	}
+	waveCtx.amp = waveCtx.default_amp;
 	waveCtx.intervalWavesVer = setInterval(
 		function(){
-			// drawVerWaves(waveCtx.t);
-			// waveCtx.t = (waveCtx.t + waveCtx.animIntervalMa) % (1000 / waveCtx.periodsPerSec);
-			
-			//const periodLenMs= 1000 /  waveCtx.periodsPerSec;
-			//drawVerWaves(new Date().getMilliseconds() / waveCtx.periodsPerSec);
-		
 			var d = new Date(), e = new Date(d);
 			var msSinceMidnight = e - d.setHours(0,0,0,0)
 			drawVerWaves(msSinceMidnight, false);
-			//drawVerWaves(new Date().getMilliseconds());
 		},waveCtx.animIntervalMa);
 }
 
 function stopWavesVer(){
-	clearInterval(waveCtx.intervalWavesVer);
+	if(waveCtx.intervalWavesVer != null){
+		clearInterval(waveCtx.intervalWavesVer);
+		waveCtx.intervalWavesVer = null;
+	}
 }
 
 function stopVerWaves(){
@@ -1512,14 +1522,20 @@ function stopVerWaves(){
 
 
 function startWavesVerWDecay(){
+	waveCtx.amp = waveCtx.default_amp;
 	const intervalLenMs=100;
 	const minAmp = waveCtx.amp / 10;
+	if(	waveCtx.decayIntervalId != null)
+	{
+		return;
+	}
 	waveCtx.decayIntervalId = setInterval(() => {
 		if(waveCtx.amp < minAmp){
 			clearInterval(waveCtx.decayIntervalId);
+			waveCtx.decayIntervalId= null;
 			console.log("decay done");
-			drawStill();
 			stopWavesVer();
+			drawStill();
 		}
 		waveCtx.amp = waveCtx.amp  * Math.pow(waveCtx.decayRateSec, intervalLenMs / 1000);
 	}, intervalLenMs);
@@ -1625,35 +1641,10 @@ function drawVerWaves(tMs, flatten){
 
 
 
-// function charsArrayToHtml(arr2D){
-// 	outHtml="<div>"
-// 	for(i = 0 ; i < textBlock.length ; i++){
-// 	}
-// }
 
 
 
-
-
-
-/* 
-// function testTransform(){
-// 	domObj = document.getElementById("divMovableObject");
-// 	var trnfParams = {
-// 		srcTrnsX:0,
-// 		trgTrnsX:20,
-// 		srcTrnsY:0,
-// 		trgTrnsY:-200,
-// 		srcRotateDeg:0,
-// 		trgRotateDeg:2800,
-// 		srcScale:1,
-// 		trgScale:12
-// 	}
-// 	transformCnstSpeed(domObj, trnfParams, 200, 2);
-// }
-
-
- */
+ 
 
 
 //-------------------------------------------scroll utils--------------------------------------------
@@ -1662,27 +1653,38 @@ function drawVerWaves(tMs, flatten){
 //detect dSpeed at constant intervals. wenn motion stops for a while, returns the heighest speed 
 //for that motion
 
+
 const scrollCtx = {
 	sampleIntrMs:20,
 	endSessionIntervalMs:400,
-	// lastYScrollo:0,
-	// isRecording:false,
 	sessionTopSpeed:0,
 	endSessionThresholdPxPerSec: 0,
-	timeOutIdStopScrolling:null,
-	// timeOutIdSample:null,
+	timeOutIdStopScrolling:null
 }
 
-//on windowsScroll()
 
-// {
-// 	if(scrotCtx.isRecording){
-// 		return;
-// 	}
-// 	scrotCtx.intervalId = sampleSpeed();
-// }
 
 function sampleSpeed(startY){
+	var dY = Math.abs(window.scrollY - startY);
+	var dT = scrollCtx.sampleIntrMs / 1000;
+	var scrollV = dY / dT; 
+	// console.log("speed=" + scrollV);
+	if(scrollV > scrollCtx.endSessionThresholdPxPerSec){
+		// console.log(scrollV);
+		waveCtx.handleScrollSession(scrollV);
+	}
+}
+
+function launchSpeedSampler(){
+	const scrollY0=window.scrollY;
+	setTimeout(() => {
+		sampleSpeed(scrollY0);	
+	}, scrollCtx.sampleIntrMs );
+}
+
+
+
+function sampleSpeedOld(startY){
 	var dY = Math.abs(window.scrollY - startY);
 	var dT = scrollCtx.sampleIntrMs / 1000;
 	var scrollV = dY / dT; 
@@ -1699,29 +1701,25 @@ function sampleSpeed(startY){
 	if(scrollCtx.timeOutIdStopScrolling == null){
 		scrollCtx.timeOutIdStopScrolling = setTimeout(endScrollSession, scrollCtx.endSessionIntervalMs);
 	}
-	
-	
-}
-
-
-function launchSpeedSampler(){
-	const scrollY0=window.scrollY;
-	setTimeout(() => {
-		sampleSpeed(scrollY0);	
-	}, scrollCtx.sampleIntrMs );
-	
-}
-
-function endScrollSession(){
-	const lastSessionTopSpeed= scrollCtx.sessionTopSpeed;
-	console.log(lastSessionTopSpeed);
-	waveCtx.handleScrollSession();
-	scrollCtx.sessionTopSpeed = 0;
-	scrollCtx.timeOutIdSample == null;
 }
 
 
 
 
-//windo.addEventListener('scroll', sampleSpeed(window.scrollY));
-//window.onscroll="sampleSpeed(window.scrollY)";
+	
+// }
+
+// function endScrollSession(){
+// 	const lastSessionTopSpeed= scrollCtx.sessionTopSpeed;
+// 	console.log(lastSessionTopSpeed);
+// 	waveCtx.handleScrollSession(lastSessionTopSpeed);
+// 	scrollCtx.sessionTopSpeed = 0;
+// 	scrollCtx.timeOutIdSample == null;
+// }
+
+
+
+
+
+// windo.addEventListener('scroll', sampleSpeed(window.scrollY));
+// window.onscroll="sampleSpeed(window.scrollY)";
