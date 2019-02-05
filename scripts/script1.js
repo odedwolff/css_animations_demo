@@ -1457,23 +1457,25 @@ const waveCtx={
 	/**time beetween frames */
 	animIntervalMa: 5,
 	default_amp:40,
-	amp:null,
+	amp:0,
 	ampMinRel: 1/100,
 	t:0,
 	decayIntervalId:null,
-	decayRateSec: .8,
+	decayRateSec: .65,
 	fadeInRateSec:1.5,
 	handleScrollSession: _handleScrollSession,
 	/* lower scroll speed to have influence on surface */
-	minScrollSpeedPxSec:100,
+	minScrollSpeedPxSec:2,
 	scrollSpeedToAmpFctr: 1 / 100
 }
 
 function _handleScrollSession(scrollSpeed){
-	if(scrollSpeed < waveCtx.minScrollSpeedPxSec){
-		return;
-	}
+	// if(scrollSpeed < waveCtx.minScrollSpeedPxSec){
+	// 	console.log("sc")
+	// 	return;
+	// }
 	const newAmp = scrollSpeed * waveCtx.scrollSpeedToAmpFctr;
+	// console.log("new amp, waveCtx.amp=" + newAmp + "," + waveCtx.amp );
 	if(newAmp > waveCtx.amp){
 		waveCtx.amp = newAmp;
 	}
@@ -1522,9 +1524,9 @@ function stopVerWaves(){
 
 
 function startWavesVerWDecay(){
-	waveCtx.amp = waveCtx.default_amp;
-	const intervalLenMs=100;
-	const minAmp = waveCtx.amp / 10;
+	//waveCtx.amp = waveCtx.default_amp;
+	const intervalLenMs=50;
+	const minAmp = waveCtx.amp / 40;
 	if(	waveCtx.decayIntervalId != null)
 	{
 		return;
