@@ -19,8 +19,8 @@ function init(){
 
 	// testBreakDown();
 
-	prepareWaves();
-	drawStill();
+	
+	initWaves();
 }
 
 
@@ -1458,29 +1458,24 @@ const waveCtx={
 	animIntervalMa: 5,
 	default_amp:40,
 	amp:0,
-	ampMinRel: 1/100,
+	ampMin:0.1,
+	ampMinRel: 1/200,
 	t:0,
 	decayIntervalId:null,
-	decayRateSec: .65,
+	decayRateSec: .05,
 	fadeInRateSec:1.5,
 	handleScrollSession: _handleScrollSession,
 	/* lower scroll speed to have influence on surface */
 	minScrollSpeedPxSec:2,
-	scrollSpeedToAmpFctr: 1 / 100
+	scrollSpeedToAmpFctr: 1 / 50
 }
 
 function _handleScrollSession(scrollSpeed){
-	// if(scrollSpeed < waveCtx.minScrollSpeedPxSec){
-	// 	console.log("sc")
-	// 	return;
-	// }
 	const newAmp = scrollSpeed * waveCtx.scrollSpeedToAmpFctr;
-	// console.log("new amp, waveCtx.amp=" + newAmp + "," + waveCtx.amp );
+	console.log("new amp, waveCtx.amp=" + newAmp + "," + waveCtx.amp );
 	if(newAmp > waveCtx.amp){
 		waveCtx.amp = newAmp;
 	}
-	startWavesVerWDecay();
-	
 }
 
 function fadeWavesIn(){
@@ -1498,18 +1493,36 @@ function drawStill(){
 function startWavesVer(){
 //	stopWavesVer();
 
-	// if it's already on
-	if(waveCtx.intervalWavesVer != null){
-		return;
-	}
-	waveCtx.amp = waveCtx.default_amp;
+	//waveCtx.amp = waveCtx.default_amp;
 	waveCtx.intervalWavesVer = setInterval(
 		function(){
+			if(waveCtx.amp <= waveCtx.minAmp ){
+				return;
+			}
 			var d = new Date(), e = new Date(d);
 			var msSinceMidnight = e - d.setHours(0,0,0,0)
 			drawVerWaves(msSinceMidnight, false);
 		},waveCtx.animIntervalMa);
 }
+
+function startWavesVerWDecay(){
+	waveCtx.decayIntervalId = setInterval(() => {
+		waveCtx.amp = waveCtx.amp  * Math.pow(waveCtx.decayRateSec, waveCtx.animIntervalMa / 1000);
+	}, waveCtx.animIntervalMa);
+
+}
+
+function initWaves(){
+	prepareWaves();
+	drawStill();
+	startWavesVer();
+	startWavesVerWDecay();
+}
+
+
+
+
+
 
 function stopWavesVer(){
 	if(waveCtx.intervalWavesVer != null){
@@ -1523,16 +1536,20 @@ function stopVerWaves(){
 }
 
 
-function startWavesVerWDecay(){
+
+
+
+function startWavesVerWDecayOld(){
 	//waveCtx.amp = waveCtx.default_amp;
 	const intervalLenMs=50;
-	const minAmp = waveCtx.amp / 40;
+	//const minAmp = waveCtx.amp / 40;
+	const minAmp = waveCtx.ampMin;
 	if(	waveCtx.decayIntervalId != null)
 	{
 		return;
 	}
 	waveCtx.decayIntervalId = setInterval(() => {
-		if(waveCtx.amp < minAmp){
+		if(waveCtx.amp <= minAmp){
 			clearInterval(waveCtx.decayIntervalId);
 			waveCtx.decayIntervalId= null;
 			console.log("decay done");
@@ -1652,12 +1669,16 @@ function drawVerWaves(tMs, flatten){
 //-------------------------------------------scroll utils--------------------------------------------
 
 
+
+
+
+
 //detect dSpeed at constant intervals. wenn motion stops for a while, returns the heighest speed 
 //for that motion
 
 
 const scrollCtx = {
-	sampleIntrMs:20,
+	sampleIntrMs:100,
 	endSessionIntervalMs:400,
 	sessionTopSpeed:0,
 	endSessionThresholdPxPerSec: 0,
@@ -1670,14 +1691,16 @@ function sampleSpeed(startY){
 	var dY = Math.abs(window.scrollY - startY);
 	var dT = scrollCtx.sampleIntrMs / 1000;
 	var scrollV = dY / dT; 
-	// console.log("speed=" + scrollV);
+	console.log("speed=" + scrollV);
 	if(scrollV > scrollCtx.endSessionThresholdPxPerSec){
 		// console.log(scrollV);
 		waveCtx.handleScrollSession(scrollV);
 	}
 }
 
+//the event handler for the scroll
 function launchSpeedSampler(){
+	console.log("launching scroll smapler");
 	const scrollY0=window.scrollY;
 	setTimeout(() => {
 		sampleSpeed(scrollY0);	
