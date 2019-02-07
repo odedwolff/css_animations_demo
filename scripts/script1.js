@@ -1680,93 +1680,48 @@ function drawVerWaves(tMs, flatten){
 
 const scrollCtx = {
 	sampleIntrMs:100,
-	endSessionIntervalMs:5,
-	sessionTopSpeed:0,
-	endSessionThresholdPxPerSec: 0,
-	timeOutIdStopScrolling:null
+	sampleSpeedIntervalMs:50,
+	lastYposition: window.scrollY
+	
+	
+	// endSessionIntervalMs:5,
+	// sessionTopSpeed:0,
+	// endSessionThresholdPxPerSec: 0,
+	// timeOutIdStopScrolling:null,
+	
 }
 
-
-
-function sampleSpeed(startY){
-	var dY = Math.abs(window.scrollY - startY);
-	var dT = scrollCtx.sampleIntrMs / 1000;
-	var scrollV = dY / dT; 
-	console.log("speed=" + scrollV);
-	if(scrollV > scrollCtx.endSessionThresholdPxPerSec){
-		// console.log(scrollV);
-		waveCtx.handleScrollSession(scrollV);
-	}
-}
-
-//the event handler for the scroll
-function launchSpeedSampler(){
-	console.log("launching scroll smapler");
-	const scrollY0=window.scrollY;
-	setTimeout(() => {
-		sampleSpeed(scrollY0);	
-	}, scrollCtx.sampleIntrMs );
-}
-
-
-
-function sampleSpeedOld(startY){
-	var dY = Math.abs(window.scrollY - startY);
-	var dT = scrollCtx.sampleIntrMs / 1000;
-	var scrollV = dY / dT; 
-	// console.log("speed=" + scrollV);
-	if(scrollV > scrollCtx.endSessionThresholdPxPerSec){
-		if(scrollCtx.timeOutIdStopScrolling != null){
-			clearTimeout(scrollCtx.timeOutIdStopScrolling);
-			scrollCtx.timeOutIdStopScrolling = null;
-		}
-		if(scrollV > scrollCtx.sessionTopSpeed){
-			scrollCtx.sessionTopSpeed = scrollV;
-		}
-	}
-	if(scrollCtx.timeOutIdStopScrolling == null){
-		scrollCtx.timeOutIdStopScrolling = setTimeout(endScrollSession, scrollCtx.endSessionIntervalMs);
-	}
-}
 
 
 
 function startScrollSample(){
 	setInterval(
-		checkScrollSpeed, sampleSpeedIntervalMs
+		checkScrollSpeed, scrollCtx.sampleSpeedIntervalMs
 	)
 }
 
-var lastYposition = window.scrollY;
-const sampleSpeedIntervalMs = 50;
+// var lastYposition = window.scrollY;
+// const sampleSpeedIntervalMs = 50;
 
 function checkScrollSpeed(){
 	const currentPos = window.scrollY
-	if(currentPos == lastYposition){
+	if(currentPos == scrollCtx.lastYposition){
 		return;
 	}
 	
-	var dY = Math.abs(currentPos - lastYposition);
+	var dY = Math.abs(currentPos - scrollCtx.lastYposition);
 	var dT = scrollCtx.sampleIntrMs / 1000;
 	var scrollV = dY / dT;
 	console.log("scroll speed=" + scrollV);
 	waveCtx.handleScrollSession(scrollV);
-	lastYposition=currentPos;
+	scrollCtx.lastYposition=currentPos;
 }
 
 
 
 
 	
-// }
 
-// function endScrollSession(){
-// 	const lastSessionTopSpeed= scrollCtx.sessionTopSpeed;
-// 	console.log(lastSessionTopSpeed);
-// 	waveCtx.handleScrollSession(lastSessionTopSpeed);
-// 	scrollCtx.sessionTopSpeed = 0;
-// 	scrollCtx.timeOutIdSample == null;
-// }
 
 
 
