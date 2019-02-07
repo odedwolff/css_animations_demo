@@ -1496,7 +1496,7 @@ function startWavesVer(){
 	//waveCtx.amp = waveCtx.default_amp;
 	waveCtx.intervalWavesVer = setInterval(
 		function(){
-			if(waveCtx.amp <= waveCtx.minAmp ){
+			if(waveCtx.amp <= waveCtx.ampMin ){
 				return;
 			}
 			var d = new Date(), e = new Date(d);
@@ -1517,6 +1517,7 @@ function initWaves(){
 	drawStill();
 	startWavesVer();
 	startWavesVerWDecay();
+	startScrollSample();
 }
 
 
@@ -1679,7 +1680,7 @@ function drawVerWaves(tMs, flatten){
 
 const scrollCtx = {
 	sampleIntrMs:100,
-	endSessionIntervalMs:400,
+	endSessionIntervalMs:5,
 	sessionTopSpeed:0,
 	endSessionThresholdPxPerSec: 0,
 	timeOutIdStopScrolling:null
@@ -1726,6 +1727,31 @@ function sampleSpeedOld(startY){
 	if(scrollCtx.timeOutIdStopScrolling == null){
 		scrollCtx.timeOutIdStopScrolling = setTimeout(endScrollSession, scrollCtx.endSessionIntervalMs);
 	}
+}
+
+
+
+function startScrollSample(){
+	setInterval(
+		checkScrollSpeed, sampleSpeedIntervalMs
+	)
+}
+
+var lastYposition = window.scrollY;
+const sampleSpeedIntervalMs = 50;
+
+function checkScrollSpeed(){
+	const currentPos = window.scrollY
+	if(currentPos == lastYposition){
+		return;
+	}
+	
+	var dY = Math.abs(currentPos - lastYposition);
+	var dT = scrollCtx.sampleIntrMs / 1000;
+	var scrollV = dY / dT;
+	console.log("scroll speed=" + scrollV);
+	waveCtx.handleScrollSession(scrollV);
+	lastYposition=currentPos;
 }
 
 
