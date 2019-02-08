@@ -1718,14 +1718,45 @@ function checkScrollSpeed(){
 }
 
 
+//-------------------------------------------tumbelweed--------------------------------------------
 
+const tumbleweedCtx = {
+	aPxSecSqr: 5,
+	animIntervalMs:20
+}
 
+function testTumbleweed(){
+	var obj = document.getElementById('tumble1');
 	
+}
+
+//a hop with a roll. also support roll with no hop (on the ground )
+//hop will stop either when absolut y post arrived (think object thrown up, then fall 
+//and hits the ground). 
+function tumbleHop(elm, rotDegSec, stopYPos, dxToGo, vxPxSec,vyPxSec, nextTnsfrPos, nextRot){
+	//hop is complete 
+	if( (stopYPos != null && elm.top <= stopYPos) || (dxToGo <= 0)){
+		return;
+	}
+	var transformStr= elm.style.transform="translate(" + nextTnsfrPos.x +"px," + nextTnsfrPos.y + "px) rotate(" + nextRot+ "deg)";
+	elm.style.transform= transformStr;
+	nextTnsfrPos.x= nextTnsfrPos.x  + vxPxSec * (tumbleweedCtx.animIntervalMs / 1000);
+	nextTnsfrPos.y= nextTnsfrPos.y  + vyPxSec * (tumbleweedCtx.animIntervalMs / 1000);
+	nextRot = nextRot + rotDegSec * (tumbleweedCtx.animIntervalMs / 1000);
+	vyPxSec = vyPxSec + tumbleweedCtx.aPxSecSqr * (tumbleweedCtx.animIntervalMs / 1000);
+	dxToGo = dxToGo + vyPxSec * (tumbleweedCtx.animIntervalMs / 1000)
+	
+	setTimeout(function(){
+		tumbleHop(elm, rotDegSec, stopYPos, dxToGo, vxPxSec,vyPxSec, nextTnsfrPos, nextRot);
+	}, tumbleweedCtx.animIntervalMs);
+}
 
 
 
 
 
 
-// windo.addEventListener('scroll', sampleSpeed(window.scrollY));
-// window.onscroll="sampleSpeed(window.scrollY)";
+
+
+
+
