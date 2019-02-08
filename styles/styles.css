@@ -1231,3 +1231,18 @@ div#divLayer4 {
 	/* display: block; */
 	position: absolute;
 }
+
+
+/*----------------------------------------theme tumbelweed--------------------------------------*/
+
+
+div#divTumbelWeed {
+    height: 400px;
+	position: relative;
+}
+
+.tumbleWeed {
+    position: absolute;
+    top: 200px;
+    left: 10px;
+}	

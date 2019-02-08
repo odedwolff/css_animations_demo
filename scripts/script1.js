@@ -1681,9 +1681,10 @@ function drawVerWaves(tMs, flatten){
 const scrollCtx = {
 	sampleIntrMs:100,
 	sampleSpeedIntervalMs:50,
-	lastYposition: window.scrollY
-	
-	
+	lastYposition: window.scrollY,
+		
+	varWavesMinActive:0,
+	varWavesMaxActive:700
 	// endSessionIntervalMs:5,
 	// sessionTopSpeed:0,
 	// endSessionThresholdPxPerSec: 0,
@@ -1705,6 +1706,8 @@ function startScrollSample(){
 
 function checkScrollSpeed(){
 	const currentPos = window.scrollY
+	
+	enableWave(currentPos);
 	if(currentPos == scrollCtx.lastYposition){
 		return;
 	}
@@ -1712,9 +1715,25 @@ function checkScrollSpeed(){
 	var dY = Math.abs(currentPos - scrollCtx.lastYposition);
 	var dT = scrollCtx.sampleIntrMs / 1000;
 	var scrollV = dY / dT;
-	console.log("scroll speed=" + scrollV);
+	// console.log("scroll speed=" + scrollV);
 	waveCtx.handleScrollSession(scrollV);
 	scrollCtx.lastYposition=currentPos;
+}
+
+
+function enableWave(scrollYpos){
+	//in range
+	if(scrollYpos > scrollCtx.varWavesMinActive && scrollYpos < scrollCtx.varWavesMaxActive){
+		if(waveCtx.intervalWavesVer == null){
+			startWavesVer();
+		}
+	}
+	//out of range
+	else{
+		if(waveCtx.intervalWavesVer != null){
+			stopWavesVer();
+		}
+	}
 }
 
 
@@ -1727,15 +1746,20 @@ const tumbleweedCtx = {
 
 function testTumbleweed(){
 	var obj = document.getElementById('tumble1');
-	
+	var startTransPos={
+		'x':0,
+		'y':0
+	}
+	tumbleHop(obj, 0, null, 200, 1500,0, startTransPos, 0, false);
 }
 
 //a hop with a roll. also support roll with no hop (on the ground )
 //hop will stop either when absolut y post arrived (think object thrown up, then fall 
 //and hits the ground). 
-function tumbleHop(elm, rotDegSec, stopYPos, dxToGo, vxPxSec,vyPxSec, nextTnsfrPos, nextRot){
+function tumbleHop(elm, rotDegSec, stopYPos, stopXposAbs, vxPxSec,vyPxSec, nextTnsfrPos, nextRot, gravityActive){
 	//hop is complete 
-	if( (stopYPos != null && elm.top <= stopYPos) || (dxToGo <= 0)){
+	if( (stopYPos != null && nextTnsfrPos.y <= stopYPos) ||
+		(stopXposAbs != null && Math.abs(nextTnsfrPos.x) >= stopXposAbs)){
 		return;
 	}
 	var transformStr= elm.style.transform="translate(" + nextTnsfrPos.x +"px," + nextTnsfrPos.y + "px) rotate(" + nextRot+ "deg)";
@@ -1743,11 +1767,14 @@ function tumbleHop(elm, rotDegSec, stopYPos, dxToGo, vxPxSec,vyPxSec, nextTnsfrP
 	nextTnsfrPos.x= nextTnsfrPos.x  + vxPxSec * (tumbleweedCtx.animIntervalMs / 1000);
 	nextTnsfrPos.y= nextTnsfrPos.y  + vyPxSec * (tumbleweedCtx.animIntervalMs / 1000);
 	nextRot = nextRot + rotDegSec * (tumbleweedCtx.animIntervalMs / 1000);
-	vyPxSec = vyPxSec + tumbleweedCtx.aPxSecSqr * (tumbleweedCtx.animIntervalMs / 1000);
-	dxToGo = dxToGo + vyPxSec * (tumbleweedCtx.animIntervalMs / 1000)
+	//dxToGo = dxToGo + vyPxSec * (tumbleweedCtx.animIntervalMs / 1000)
+	if(gravityActive){
+			vyPxSec = vyPxSec + tumbleweedCtx.aPxSecSqr * (tumbleweedCtx.animIntervalMs / 1000);
+	}
+	
 	
 	setTimeout(function(){
-		tumbleHop(elm, rotDegSec, stopYPos, dxToGo, vxPxSec,vyPxSec, nextTnsfrPos, nextRot);
+		tumbleHop(elm, rotDegSec, stopYPos, stopXposAbs, vxPxSec ,vyPxSec, nextTnsfrPos, nextRot,gravityActive);
 	}, tumbleweedCtx.animIntervalMs);
 }
 
