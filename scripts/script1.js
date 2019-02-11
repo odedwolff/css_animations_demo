@@ -1740,26 +1740,84 @@ function enableWave(scrollYpos){
 //-------------------------------------------tumbelweed--------------------------------------------
 
 const tumbleweedCtx = {
-	aPxSecSqr: 5,
+	aPxSecSqr: 150,
 	animIntervalMs:20
 }
 
-function testTumbleweed(){
+function testTumbleweedRoll(){
 	var obj = document.getElementById('tumble1');
+	
+	//roll on the ground
 	var startTransPos={
 		'x':0,
 		'y':0
 	}
-	tumbleHop(obj, 0, null, 200, 1500,0, startTransPos, 0, false);
+	tumbleHop(obj, 500, null, 200, 100,0, startTransPos, 0, false, function(){});
+	
+	//hop 	
 }
+
+
+function testTumbleweedHop(){
+	var obj = document.getElementById('tumble1');
+	
+	//roll on the ground
+	var startTransPos={
+		'x':0,
+		'y':0
+	}
+	tumbleHop(obj, 500, 0, null, 100, -70, startTransPos, 0, true,
+	function(){
+		console.log("complete hop");}
+		);
+	
+	//hop 	
+}
+
+
+function testWeedRandSequence(){
+	var pos1={
+		'x':0,
+		'y':0
+	}
+	var obj = document.getElementById('tumble1');
+	randHop(6, obj, pos1, 0);
+}
+
+
+function randHop(stepsTogo, obj, startTransPos, startRot){
+	console.log("randStep");
+	if(stepsTogo < 1){
+		return;
+	}
+	stepsTogo= stepsTogo - 1;
+	const xDis = Math.random() * 300;
+	var vy;
+	const shouldJump =  Math.random() > 0.5;
+	if(shouldJump){
+		console.log("hop");
+		vy = Math.random() * -100;
+		tumbleHop(obj, 500, 0, null, 100, vy, startTransPos, startRot, true, randHop.bind(null, stepsTogo-1));
+	}else{
+		console.log("roll");
+		tumbleHop(obj, 500, null, startTransPos.x + xDis, 100,0, startTransPos, startRot, false, randHop.bind(null, stepsTogo-1));
+	}
+}
+
+
+
 
 //a hop with a roll. also support roll with no hop (on the ground )
 //hop will stop either when absolut y post arrived (think object thrown up, then fall 
 //and hits the ground). 
-function tumbleHop(elm, rotDegSec, stopYPos, stopXposAbs, vxPxSec,vyPxSec, nextTnsfrPos, nextRot, gravityActive){
-	//hop is complete 
-	if( (stopYPos != null && nextTnsfrPos.y <= stopYPos) ||
+function tumbleHop(elm, rotDegSec, stopYPos, stopXposAbs, vxPxSec,vyPxSec, nextTnsfrPos, nextRot, gravityActive, fComplete){
+	//hop is complete when either
+	//1.hitting the ground gong down
+	//2.completing given sitance (useful when rolling on surface without actually hopping up)
+	if( (stopYPos != null && nextTnsfrPos.y >= stopYPos && vyPxSec > 0) ||
 		(stopXposAbs != null && Math.abs(nextTnsfrPos.x) >= stopXposAbs)){
+		//return;
+		fComplete(elm, nextTnsfrPos, nextRot);
 		return;
 	}
 	var transformStr= elm.style.transform="translate(" + nextTnsfrPos.x +"px," + nextTnsfrPos.y + "px) rotate(" + nextRot+ "deg)";
@@ -1774,8 +1832,9 @@ function tumbleHop(elm, rotDegSec, stopYPos, stopXposAbs, vxPxSec,vyPxSec, nextT
 	
 	
 	setTimeout(function(){
-		tumbleHop(elm, rotDegSec, stopYPos, stopXposAbs, vxPxSec ,vyPxSec, nextTnsfrPos, nextRot,gravityActive);
+		tumbleHop(elm, rotDegSec, stopYPos, stopXposAbs, vxPxSec ,vyPxSec, nextTnsfrPos, nextRot,gravityActive, fComplete);
 	}, tumbleweedCtx.animIntervalMs);
+	
 }
 
 
