@@ -1540,29 +1540,6 @@ function stopVerWaves(){
 
 
 
-function startWavesVerWDecayOld(){
-	//waveCtx.amp = waveCtx.default_amp;
-	const intervalLenMs=50;
-	//const minAmp = waveCtx.amp / 40;
-	const minAmp = waveCtx.ampMin;
-	if(	waveCtx.decayIntervalId != null)
-	{
-		return;
-	}
-	waveCtx.decayIntervalId = setInterval(() => {
-		if(waveCtx.amp <= minAmp){
-			clearInterval(waveCtx.decayIntervalId);
-			waveCtx.decayIntervalId= null;
-			console.log("decay done");
-			stopWavesVer();
-			drawStill();
-		}
-		waveCtx.amp = waveCtx.amp  * Math.pow(waveCtx.decayRateSec, intervalLenMs / 1000);
-	}, intervalLenMs);
-
-	startWavesVer();
-}
-
 // var waveArr;
 
 
@@ -1573,14 +1550,7 @@ function startWavesVerWDecayOld(){
 //split text into div, each one containing a single letter, assigned the given class. 
 //then add to current line div, eventurally yielding a 2d array of DIVs
 function split2D(textBlock, charsPerLine, classToAsign){
-	// var lines=[];
-	// for(i = 0 ; i < textBlock.length ; i++){
-	// 	var line = [];
-	// 	lines.push(line);
-	// 	for(j = 0 ; j < charsPerLine ; j++){
-	// 		line.push(textBlock[i]);
-	// 	}
-	// }
+	
 	waveCtx.waveArr = [];
 	var outHtml="<div class='lines'>\r";
 	var c, line, elmId;
@@ -1685,10 +1655,7 @@ const scrollCtx = {
 		
 	varWavesMinActive:0,
 	varWavesMaxActive:700
-	// endSessionIntervalMs:5,
-	// sessionTopSpeed:0,
-	// endSessionThresholdPxPerSec: 0,
-	// timeOutIdStopScrolling:null,
+	
 	
 }
 
@@ -1701,8 +1668,7 @@ function startScrollSample(){
 	)
 }
 
-// var lastYposition = window.scrollY;
-// const sampleSpeedIntervalMs = 50;
+
 
 function checkScrollSpeed(){
 	const currentPos = window.scrollY
