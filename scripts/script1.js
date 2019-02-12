@@ -1551,9 +1551,8 @@ function stopVerWaves(){
 //then add to current line div, eventurally yielding a 2d array of DIVs
 //function split2D(textBlock, charsPerLine, classToAsign){
 
-function split2D(textBlock, charsPerLine, classToAsign, arrKey){	
-	//waveCtx.waveArr = [];
-	waveCtx[arrKey] = [];
+function split2D(textBlock, charsPerLine, classToAsign, contextObj, arrKey){	
+	contextObj[arrKey] = [];
 	var outHtml="<div class='lines'>\r";
 	var c, line, elmId;
 	for(var i = 0, glb_i=0;  glb_i < textBlock.length ; i++){
@@ -1571,8 +1570,7 @@ function split2D(textBlock, charsPerLine, classToAsign, arrKey){
 		}
 		outHtml= outHtml + "\r</div>"
 		//waveArr[i,j] should contain the id of the i,j dom element 
-		//waveCtx.waveArr.push(line);
-		waveCtx[arrKey].push(line);
+		contextObj[arrKey].push(line);
 	}
 	outHtml= outHtml + "\r</div>"
 	return outHtml;
@@ -1596,7 +1594,10 @@ function prepareWaves(){
 
 	`physical wave*s such as those we see when a rock is thrown into water `;
 	
-	var genHtml = split2D(textBlock, 40, 'char1', 'waveArr');
+	//var genHtml = split2D(textBlock, 40, 'char1', 'waveArr');
+	var genHtml = split2D(textBlock, 40, 'char1', waveCtx, 'waveArr');
+
+	
 	document.getElementById('divDynContent').innerHTML = genHtml;
 	// drawHorWaves(null);
 	//drawVerWaves(9);
@@ -1642,7 +1643,7 @@ function prepareWavesHor(){
 	`horizontal waves let's see how it goes. we can never pathom how hard it musut be 
 	having green mustard on soft eggs if your mind is wondering the way it does`;
 	
-	var genHtml = split2D(textBlock, 40, 'char1');
+	var genHtml = split2D(textBlock, 40, 'char1', 'waveArrHor');
 	document.getElementById('divDynContentHorVave').innerHTML = genHtml;
 	
 }
@@ -1650,11 +1651,11 @@ function prepareWavesHor(){
 
 function drawHorWaves(tMs, flatten){
 	var elm, x, y;
-	const width = waveCtx.waveArr[0].length;
-	const height= waveCtx.waveArr.length;
+	const width = waveCtx.waveArrHor[0].length;
+	const height= waveCtx.waveArrHor.length;
 	for(var i = 0; i < height; i++){
 		for(var j = 0; j < width; j++){
-			elm= document.getElementById(waveCtx.waveArr[i][j]);
+			elm= document.getElementById(waveCtx.waveArrHor[i][j]);
 			x=j * 20;
 			// y = i * 40 + Math.sin( (tMs * waveCtx.periodsPerSec / 1000  +  j/ waveCtx.elementsPerPeriod) * 2*Math.PI) * waveCtx.amp;
 			y = i * 40;
