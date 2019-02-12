@@ -1125,14 +1125,7 @@ div#divLetterBox {
 
 
 
-#divWavesVer{
-	width:100%;
-	height: 500px;
-	background: green;
-	color:white;
-	position: relative;
-	height: 600px;
-}
+
 
 #divMovableObject{
 	position: absolute;
@@ -1230,6 +1223,26 @@ div#divLayer4 {
 .line{
 	/* display: block; */
 	position: absolute;
+}
+
+#divWavesVer{
+	width:100%;
+	height: 500px;
+	background: green;
+	color:white;
+	position: relative;
+	height: 600px;
+}
+
+
+
+#divWavesHor{
+	width:100%;
+	height: 500px;
+	background: blue;
+	color:white;
+	position: relative;
+	height: 600px;
 }
 
 

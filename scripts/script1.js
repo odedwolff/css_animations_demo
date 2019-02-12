@@ -1549,9 +1549,11 @@ function stopVerWaves(){
 
 //split text into div, each one containing a single letter, assigned the given class. 
 //then add to current line div, eventurally yielding a 2d array of DIVs
-function split2D(textBlock, charsPerLine, classToAsign){
-	
-	waveCtx.waveArr = [];
+//function split2D(textBlock, charsPerLine, classToAsign){
+
+function split2D(textBlock, charsPerLine, classToAsign, arrKey){	
+	//waveCtx.waveArr = [];
+	waveCtx[arrKey] = [];
 	var outHtml="<div class='lines'>\r";
 	var c, line, elmId;
 	for(var i = 0, glb_i=0;  glb_i < textBlock.length ; i++){
@@ -1569,7 +1571,8 @@ function split2D(textBlock, charsPerLine, classToAsign){
 		}
 		outHtml= outHtml + "\r</div>"
 		//waveArr[i,j] should contain the id of the i,j dom element 
-		waveCtx.waveArr.push(line);
+		//waveCtx.waveArr.push(line);
+		waveCtx[arrKey].push(line);
 	}
 	outHtml= outHtml + "\r</div>"
 	return outHtml;
@@ -1593,7 +1596,7 @@ function prepareWaves(){
 
 	`physical wave*s such as those we see when a rock is thrown into water `;
 	
-	var genHtml = split2D(textBlock, 40, 'char1');
+	var genHtml = split2D(textBlock, 40, 'char1', 'waveArr');
 	document.getElementById('divDynContent').innerHTML = genHtml;
 	// drawHorWaves(null);
 	//drawVerWaves(9);
@@ -1625,10 +1628,46 @@ function drawVerWaves(tMs, flatten){
 }
 
 
+//-------------------------------------------waves hor--------------------------------------------
 
 
 
+function prepareWavesHor(){
+	const textBlock = 
+	// `physical wave*s such as those we see when a rock is thrown into water 
+	// are what many people think about when they first began to think about waves. These
+	//  waves have distinct properties specific to their type but also exhibit characteristics
+	//   in common with more abstract waves such as sound waves and light (electromagnetic) waves.`;
 
+	`horizontal waves let's see how it goes. we can never pathom how hard it musut be 
+	having green mustard on soft eggs if your mind is wondering the way it does`;
+	
+	var genHtml = split2D(textBlock, 40, 'char1');
+	document.getElementById('divDynContentHorVave').innerHTML = genHtml;
+	
+}
+
+
+function drawHorWaves(tMs, flatten){
+	var elm, x, y;
+	const width = waveCtx.waveArr[0].length;
+	const height= waveCtx.waveArr.length;
+	for(var i = 0; i < height; i++){
+		for(var j = 0; j < width; j++){
+			elm= document.getElementById(waveCtx.waveArr[i][j]);
+			x=j * 20;
+			// y = i * 40 + Math.sin( (tMs * waveCtx.periodsPerSec / 1000  +  j/ waveCtx.elementsPerPeriod) * 2*Math.PI) * waveCtx.amp;
+			y = i * 40;
+			if (!flatten){
+				y= y + Math.sin( (tMs * waveCtx.periodsPerSec / 1000  +  j/ waveCtx.elementsPerPeriod) * 2*Math.PI) * waveCtx.amp;
+			}
+
+			if(elm!=null){
+				elm.style.transform="translate(" + x +"px," + y + "px)";
+			}
+		}
+	}
+}
 
 
 
