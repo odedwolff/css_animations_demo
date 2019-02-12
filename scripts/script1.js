@@ -1740,7 +1740,7 @@ function enableWave(scrollYpos){
 //-------------------------------------------tumbelweed--------------------------------------------
 
 const tumbleweedCtx = {
-	aPxSecSqr: 150,
+	aPxSecSqr: 70,
 	animIntervalMs:20
 }
 
@@ -1776,12 +1776,22 @@ function testTumbleweedHop(){
 
 
 function testWeedRandSequence(){
-	var pos1={
-		'x':0,
-		'y':0
+	// var pos1={
+		// 'x':0,
+		// 'y':0
+	// }
+	//var obj = document.getElementById('tumble1');
+	var elms = document.getElementsByClassName("tumbleWeed");
+	for(var i = 0; i< elms.length ; i++){
+	// for(var i = 0; i< 1 ; i++){
+		setTimeout(
+			// (function(obj){
+				// randHop(9, obj, pos1, 0);
+			// }).bind(null, elms[i])
+			randHop.bind(null, 11,  elms[i], {'x':0,'y':0}, 0)
+		, Math.random() * 1500)
 	}
-	var obj = document.getElementById('tumble1');
-	randHop(6, obj, pos1, 0);
+	//randHop(9, obj, pos1, 0);
 }
 
 
@@ -1791,16 +1801,16 @@ function randHop(stepsTogo, obj, startTransPos, startRot){
 		return;
 	}
 	stepsTogo= stepsTogo - 1;
-	const xDis = Math.random() * 300;
+	const xDis = Math.random() * 50 + 50;
 	var vy;
 	const shouldJump =  Math.random() > 0.5;
 	if(shouldJump){
-		console.log("hop");
-		vy = Math.random() * -100;
-		tumbleHop(obj, 500, 0, null, 100, vy, startTransPos, startRot, true, randHop.bind(null, stepsTogo-1));
+		//console.log("hop");
+		vy = (Math.random() * 20 + 20) * -1 ;
+		tumbleHop(obj, 500, 0, null, 100, vy, startTransPos, startRot, true, randHop.bind(null, stepsTogo));
 	}else{
-		console.log("roll");
-		tumbleHop(obj, 500, null, startTransPos.x + xDis, 100,0, startTransPos, startRot, false, randHop.bind(null, stepsTogo-1));
+		//console.log("roll");
+		tumbleHop(obj, 500, null, startTransPos.x + xDis, 100,0, startTransPos, startRot, false, randHop.bind(null, stepsTogo));
 	}
 }
 
@@ -1824,7 +1834,13 @@ function tumbleHop(elm, rotDegSec, stopYPos, stopXposAbs, vxPxSec,vyPxSec, nextT
 	elm.style.transform= transformStr;
 	nextTnsfrPos.x= nextTnsfrPos.x  + vxPxSec * (tumbleweedCtx.animIntervalMs / 1000);
 	nextTnsfrPos.y= nextTnsfrPos.y  + vyPxSec * (tumbleweedCtx.animIntervalMs / 1000);
-	nextRot = nextRot + rotDegSec * (tumbleweedCtx.animIntervalMs / 1000);
+	//if on the ground, roll
+	if(vyPxSec== null || vyPxSec == 0 ){
+		nextRot = nextRot + rotDegSec * (tumbleweedCtx.animIntervalMs / 1000);
+	//in air- roll slower
+	}else{
+		nextRot = nextRot + rotDegSec * (tumbleweedCtx.animIntervalMs / 1000) / 2;
+	}
 	//dxToGo = dxToGo + vyPxSec * (tumbleweedCtx.animIntervalMs / 1000)
 	if(gravityActive){
 			vyPxSec = vyPxSec + tumbleweedCtx.aPxSecSqr * (tumbleweedCtx.animIntervalMs / 1000);
