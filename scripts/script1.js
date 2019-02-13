@@ -1507,12 +1507,20 @@ function startWavesVer(){
 
 
 
+//initiate loops for both vertial and horizontal wave themes 
 function initWaves(){
 	prepareWaves();
 	drawStill();
 	startWavesVer();
 	startWavesVerWDecay();
+	
+	prepareWavesHor();
+	drawHorWaves(0, false);
+	startWavesHor();
+	startWavesHorWDecay();
+	
 	startScrollSample();
+
 }
 
 
@@ -1641,17 +1649,26 @@ const horWaveCtx={
 	/**time beetween frames */
 	animIntervalMa: 5,
 	default_amp:40,
-	amp:50,
+	//amp:50,
+	amp:0,
 	ampMin:0.1,
 	ampMinRel: 1/200,
 	t:0,
 	decayIntervalId:null,
-	decayRateSec: .05,
+	decayRateSec: .5,
 	fadeInRateSec:1.5,
-	handleScrollSession: _handleScrollSession,
+	handleScrollSession: _handleScrollSessionHor,
 	/* lower scroll speed to have influence on surface */
 	minScrollSpeedPxSec:2,
-	scrollSpeedToAmpFctr: 1 / 50
+	scrollSpeedToAmpFctr: 1 / 20
+}
+
+function _handleScrollSessionHor(scrollSpeed){
+	const newAmp = scrollSpeed * horWaveCtx.scrollSpeedToAmpFctr;
+	console.log("new amp, horWaveCtx.amp=" + newAmp + "," + horWaveCtx.amp );
+	if(newAmp > horWaveCtx.amp){
+		horWaveCtx.amp = newAmp;
+	}
 }
 
 
@@ -1727,6 +1744,28 @@ function stopWavesHor(){
 }
 
 
+function  drawStillHor(){
+	drawHorWaves(0, false);
+}
+
+
+// function initWaves(){
+	// prepareWaves();
+	// drawStill();
+	// startWavesVer();
+	// startWavesVerWDecay();
+	// startScrollSample();
+	
+	
+	// prepareWavesHor();
+	// drawHorWaves(0, false);
+	// startWavesHor();
+	// startWavesHorWDecay();
+	
+// }
+
+
+
 
 
 
@@ -1750,7 +1789,10 @@ const scrollCtx = {
 	lastYposition: window.scrollY,
 		
 	varWavesMinActive:0,
-	varWavesMaxActive:700
+	varWavesMaxActive:700,
+	
+	varWavesHorMinActive:2200,
+	varWavesHorMaxActive:2700
 	
 	
 }
@@ -1768,17 +1810,22 @@ function startScrollSample(){
 
 function checkScrollSpeed(){
 	const currentPos = window.scrollY
-	
 	enableWave(currentPos);
+	enableWaveHor(currentPos);
+
 	if(currentPos == scrollCtx.lastYposition){
 		return;
 	}
+	
+	console.log("scroll y:" + currentPos);
+
 	
 	var dY = Math.abs(currentPos - scrollCtx.lastYposition);
 	var dT = scrollCtx.sampleIntrMs / 1000;
 	var scrollV = dY / dT;
 	// console.log("scroll speed=" + scrollV);
 	waveCtx.handleScrollSession(scrollV);
+	horWaveCtx.handleScrollSession(scrollV);
 	scrollCtx.lastYposition=currentPos;
 }
 
@@ -1797,6 +1844,24 @@ function enableWave(scrollYpos){
 		}
 	}
 }
+
+function enableWaveHor(scrollYpos){
+	//in range
+	if(scrollYpos > scrollCtx.varWavesHorMinActive && scrollYpos < scrollCtx.varWavesHorMaxActive){
+		if(horWaveCtx.intervalWavesVer == null){
+			startWavesHor();
+		}
+	}
+	//out of range
+	else{
+		if(horWaveCtx.intervalWavesVer != null){
+			stopWavesHor();
+		}
+	}
+}
+
+
+
 
 
 //-------------------------------------------tumbelweed--------------------------------------------
