@@ -1505,12 +1505,7 @@ function startWavesVer(){
 		},waveCtx.animIntervalMa);
 }
 
-function startWavesVerWDecay(){
-	waveCtx.decayIntervalId = setInterval(() => {
-		waveCtx.amp = waveCtx.amp  * Math.pow(waveCtx.decayRateSec, waveCtx.animIntervalMa / 1000);
-	}, waveCtx.animIntervalMa);
 
-}
 
 function initWaves(){
 	prepareWaves();
@@ -1522,7 +1517,12 @@ function initWaves(){
 
 
 
+function startWavesVerWDecay(){
+	waveCtx.decayIntervalId = setInterval(() => {
+		waveCtx.amp = waveCtx.amp  * Math.pow(waveCtx.decayRateSec, waveCtx.animIntervalMa / 1000);
+	}, waveCtx.animIntervalMa);
 
+}
 
 
 function stopWavesVer(){
@@ -1630,7 +1630,7 @@ function drawVerWaves(tMs, flatten){
 }
 
 
-//-------------------------------------------waves hor--------------------------------------------
+//-------------------------------------------horizontal waves--------------------------------------------
 const horWaveCtx={
 	// waveLenPerChar : 2*Math.PI / 10,
 	periodsPerSec : .2,
@@ -1641,7 +1641,7 @@ const horWaveCtx={
 	/**time beetween frames */
 	animIntervalMa: 5,
 	default_amp:40,
-	amp:0,
+	amp:50,
 	ampMin:0.1,
 	ampMinRel: 1/200,
 	t:0,
@@ -1680,16 +1680,49 @@ function drawHorWaves(tMs, flatten){
 		for(var j = 0; j < width; j++){
 			elm= document.getElementById(horWaveCtx.waveArr[i][j]);
 			x=j * 20;
-			// y = i * 40 + Math.sin( (tMs * waveCtx.periodsPerSec / 1000  +  j/ waveCtx.elementsPerPeriod) * 2*Math.PI) * waveCtx.amp;
-			y = i * 40;
 			if (!flatten){
-				y= y + Math.sin( (tMs * horWaveCtx.periodsPerSec / 1000  +  j/ horWaveCtx.elementsPerPeriod) * 2*Math.PI) * horWaveCtx.amp;
+				x= x + Math.sin( (tMs * horWaveCtx.periodsPerSec / 1000  +  j/ horWaveCtx.elementsPerPeriod) * 2*Math.PI) * horWaveCtx.amp;
 			}
+			
+			y = i * 40;
+			// if (!flatten){
+				// y= y + Math.sin( (tMs * horWaveCtx.periodsPerSec / 1000  +  j/ horWaveCtx.elementsPerPeriod) * 2*Math.PI) * horWaveCtx.amp;
+			// }
 
 			if(elm!=null){
 				elm.style.transform="translate(" + x +"px," + y + "px)";
 			}
 		}
+	}
+}
+
+function startWavesHor(){
+//	stopWavesVer();
+
+	//waveCtx.amp = waveCtx.default_amp;
+	horWaveCtx.intervalWavesVer = setInterval(
+		function(){
+			if(horWaveCtx.amp <= horWaveCtx.ampMin ){
+				return;
+			}
+			var d = new Date(), e = new Date(d);
+			var msSinceMidnight = e - d.setHours(0,0,0,0)
+			drawHorWaves(msSinceMidnight, false);
+		},horWaveCtx.animIntervalMa);
+}
+
+function startWavesHorWDecay(){
+	horWaveCtx.decayIntervalId = setInterval(() => {
+		horWaveCtx.amp = horWaveCtx.amp  * Math.pow(horWaveCtx.decayRateSec, horWaveCtx.animIntervalMa / 1000);
+	}, horWaveCtx.animIntervalMa);
+
+}
+
+
+function stopWavesHor(){
+	if(horWaveCtx.intervalWavesVer != null){
+		clearInterval(horWaveCtx.intervalWavesVer);
+		horWaveCtx.intervalWavesVer = null;
 	}
 }
 
