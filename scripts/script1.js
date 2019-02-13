@@ -1551,7 +1551,7 @@ function stopVerWaves(){
 //then add to current line div, eventurally yielding a 2d array of DIVs
 //function split2D(textBlock, charsPerLine, classToAsign){
 
-function split2D(textBlock, charsPerLine, classToAsign, contextObj, arrKey){	
+function split2D(textBlock, charsPerLine, classToAsign, contextObj, arrKey, elmSuffix){	
 	contextObj[arrKey] = [];
 	var outHtml="<div class='lines'>\r";
 	var c, line, elmId;
@@ -1560,7 +1560,7 @@ function split2D(textBlock, charsPerLine, classToAsign, contextObj, arrKey){
 		outHtml= outHtml + "\t<div class='line'>\r\t"
 		for(j = 0 ; j < charsPerLine &&  glb_i < textBlock.length; j++){
 			c=textBlock[glb_i];
-			elmId = elmIdStr(i,j);
+			elmId = elmIdStr(i,j, elmSuffix);
 			if(isWhiteSpace(c)){
 				c="&nbsp";
 			}
@@ -1569,7 +1569,8 @@ function split2D(textBlock, charsPerLine, classToAsign, contextObj, arrKey){
 			line.push(elmId);
 		}
 		outHtml= outHtml + "\r</div>"
-		//waveArr[i,j] should contain the id of the i,j dom element 
+		//waveArr[i,j] should contain the id of the i,j dom element to allow obtaining the 
+		// i,j html element arbitrary 
 		contextObj[arrKey].push(line);
 	}
 	outHtml= outHtml + "\r</div>"
@@ -1580,8 +1581,8 @@ function isWhiteSpace(c){
 	return 	/\s/.test(c);
 }
 
-function elmIdStr(i,j){
-	return "elm_" + i + "_"+ j;
+function elmIdStr(i,j, elmSuffix){
+	return "elm_" + i + "_"+ j + "_" + elmSuffix;
 }
 
 
@@ -1595,7 +1596,7 @@ function prepareWaves(){
 	`physical wave*s such as those we see when a rock is thrown into water `;
 	
 	//var genHtml = split2D(textBlock, 40, 'char1', 'waveArr');
-	var genHtml = split2D(textBlock, 40, 'char1', waveCtx, 'waveArr');
+	var genHtml = split2D(textBlock, 40, 'char1', waveCtx, 'waveArr', 'ver');
 
 	
 	document.getElementById('divDynContent').innerHTML = genHtml;
@@ -1630,6 +1631,28 @@ function drawVerWaves(tMs, flatten){
 
 
 //-------------------------------------------waves hor--------------------------------------------
+const horWaveCtx={
+	// waveLenPerChar : 2*Math.PI / 10,
+	periodsPerSec : .2,
+	elementsPerPeriod: 30,
+	intervalWavesVer:null, 
+	intervalWavesHor:null,
+	waveArr:null,
+	/**time beetween frames */
+	animIntervalMa: 5,
+	default_amp:40,
+	amp:0,
+	ampMin:0.1,
+	ampMinRel: 1/200,
+	t:0,
+	decayIntervalId:null,
+	decayRateSec: .05,
+	fadeInRateSec:1.5,
+	handleScrollSession: _handleScrollSession,
+	/* lower scroll speed to have influence on surface */
+	minScrollSpeedPxSec:2,
+	scrollSpeedToAmpFctr: 1 / 50
+}
 
 
 
@@ -1643,7 +1666,7 @@ function prepareWavesHor(){
 	`horizontal waves let's see how it goes. we can never pathom how hard it musut be 
 	having green mustard on soft eggs if your mind is wondering the way it does`;
 	
-	var genHtml = split2D(textBlock, 40, 'char1', 'waveArrHor');
+	var genHtml = split2D(textBlock, 40, 'char1', horWaveCtx, 'waveArr', 'hor');
 	document.getElementById('divDynContentHorVave').innerHTML = genHtml;
 	
 }
@@ -1651,16 +1674,16 @@ function prepareWavesHor(){
 
 function drawHorWaves(tMs, flatten){
 	var elm, x, y;
-	const width = waveCtx.waveArrHor[0].length;
-	const height= waveCtx.waveArrHor.length;
+	const width = horWaveCtx.waveArr[0].length;
+	const height= horWaveCtx.waveArr.length;
 	for(var i = 0; i < height; i++){
 		for(var j = 0; j < width; j++){
-			elm= document.getElementById(waveCtx.waveArrHor[i][j]);
+			elm= document.getElementById(horWaveCtx.waveArr[i][j]);
 			x=j * 20;
 			// y = i * 40 + Math.sin( (tMs * waveCtx.periodsPerSec / 1000  +  j/ waveCtx.elementsPerPeriod) * 2*Math.PI) * waveCtx.amp;
 			y = i * 40;
 			if (!flatten){
-				y= y + Math.sin( (tMs * waveCtx.periodsPerSec / 1000  +  j/ waveCtx.elementsPerPeriod) * 2*Math.PI) * waveCtx.amp;
+				y= y + Math.sin( (tMs * horWaveCtx.periodsPerSec / 1000  +  j/ horWaveCtx.elementsPerPeriod) * 2*Math.PI) * horWaveCtx.amp;
 			}
 
 			if(elm!=null){
