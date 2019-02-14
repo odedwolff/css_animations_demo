@@ -21,6 +21,9 @@ function init(){
 
 	
 	initWaves();
+	
+	initTiltTracking();
+	
 }
 
 
@@ -1981,6 +1984,37 @@ function tumbleHop(elm, rotDegSec, stopYPos, stopXposAbs, vxPxSec,vyPxSec, nextT
 }
 
 
+
+
+//---------------------------------------------------------theme big swing -------------------------
+
+function trackTilt(elm){
+	//console.log(elm.style.transform);
+	//const trxMtrx= window.getComputedStyle(elm, null).getPropertyValue("transform");
+	const st = window.getComputedStyle(elm, null);
+	const trMtx = st.getPropertyValue("-webkit-transform") ||
+         st.getPropertyValue("-moz-transform") ||
+         st.getPropertyValue("-ms-transform") ||
+         st.getPropertyValue("-o-transform") ||
+         st.getPropertyValue("transform") ||
+         "Either no transform set, or browser doesn't do getComputedStyle";
+	
+	// var values = tr.split('(')[1],
+    // values = values.split(')')[0],
+    // values = values.split(',');
+	const values= trMtx.split('(')[1].split(')')[0].split(',')
+	const ret =  Math.round(Math.asin(values[1]) * (180/Math.PI));
+	//if(ret % 5 == 0 ){
+		//console.log("tilt: " + ret);
+	//}
+	console.log("tilt: " + ret);
+	return ret;
+}
+
+function initTiltTracking(){
+	const elm = document.getElementById("divBigSwingContainer");
+	const bigSwingTiltTracker = setInterval(trackTilt.bind(null,elm), 20);
+}
 
 
 
