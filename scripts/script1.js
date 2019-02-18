@@ -2014,7 +2014,13 @@ function trackTilt(elm){
 
 function initTiltTracking(){
 	const elm = document.getElementById("divBigSwingContainer");
-	const bigSwingTiltTracker = setInterval(trackTilt.bind(null,elm), 20);
+	//const bigSwingTiltTracker = setInterval(trackTilt.bind(null,elm), 20);
+	bigSwingCtx.trackingIntervalId = setInterval(trackTilt.bind(null,elm), 20);
+}
+
+function stopTiltTracking(){
+	clearInterval(bigSwingCtx.trackingIntervalId);
+	bigSwingCtx.trackingIntervalId= null;
 }
 
 
@@ -2037,7 +2043,19 @@ const bigSwingCtx = {
 	words: [ 'sunny', 'passing', 'afternoon', 'shower', 'mostly'],
 	idx:0,
 	reenablingRange:30,
-	switchEnabled:true
+	switchEnabled:true,
+	trackingIntervalId:null
+}
+
+function startBigSwing(){
+	document.getElementById("divBigSwingContainer").classList.add("swingingBig");
+	initTiltTracking();
+}
+
+function stopBigSwing(){
+	stopTiltTracking();
+	document.getElementById("divBigSwingContainer").classList.remove("swingingBig");
+	
 }
 
 
