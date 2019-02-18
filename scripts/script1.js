@@ -1989,8 +1989,6 @@ function tumbleHop(elm, rotDegSec, stopYPos, stopXposAbs, vxPxSec,vyPxSec, nextT
 //---------------------------------------------------------theme big swing -------------------------
 
 function trackTilt(elm){
-	//console.log(elm.style.transform);
-	//const trxMtrx= window.getComputedStyle(elm, null).getPropertyValue("transform");
 	const st = window.getComputedStyle(elm, null);
 	const trMtx = st.getPropertyValue("-webkit-transform") ||
          st.getPropertyValue("-moz-transform") ||
@@ -1999,21 +1997,47 @@ function trackTilt(elm){
          st.getPropertyValue("transform") ||
          "Either no transform set, or browser doesn't do getComputedStyle";
 	
-	// var values = tr.split('(')[1],
-    // values = values.split(')')[0],
-    // values = values.split(',');
+	
 	const values= trMtx.split('(')[1].split(')')[0].split(',')
 	const ret =  Math.round(Math.asin(values[1]) * (180/Math.PI));
-	//if(ret % 5 == 0 ){
-		//console.log("tilt: " + ret);
-	//}
-	console.log("tilt: " + ret);
+	//console.log("tilt: " + ret);
+	if(Math.abs(ret) >= bigSwingCtx.archTopDeg){
+		handleHighPosition(ret);
+	}else{
+		//pendelium goes throu bottom area again,re enable
+		if(Math.abs(ret) < bigSwingCtx.reenablingRange){
+			bigSwingCtx.switchEnabled=true;
+		}
+	}
 	return ret;
 }
 
 function initTiltTracking(){
 	const elm = document.getElementById("divBigSwingContainer");
 	const bigSwingTiltTracker = setInterval(trackTilt.bind(null,elm), 20);
+}
+
+
+//after switching the word, disable this switching funcitonality,
+//so it only shoots once 
+
+function handleHighPosition(ret){
+	if(bigSwingCtx.switchEnabled){
+		const curWord = bigSwingCtx.words[bigSwingCtx.idx];
+		console.log("current word=" + curWord);
+		document.getElementById("divBigSwingTextContainer").innerHTML = 
+			curWord;
+		bigSwingCtx.idx = (bigSwingCtx.idx + 1) % bigSwingCtx.words.length;
+		bigSwingCtx.switchEnabled=false;
+	}
+}
+
+const bigSwingCtx = {
+	archTopDeg:70, 	
+	words: [ 'sunny', 'passing', 'afternoon', 'shower', 'mostly'],
+	idx:0,
+	reenablingRange:30,
+	switchEnabled:true
 }
 
 
