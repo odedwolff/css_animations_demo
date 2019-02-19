@@ -2064,12 +2064,15 @@ function stopBigSwing(){
 const spasmCtx = {
 	transformMinDurMs:100,
 	transformMinMaxMs:700,
-	transformMinRatioPerFrame:1.1,
-	transformMaxRatioPerFrame:1.5,
+	transformMinRatioPerFrameX:1.01,
+	transformMaxRatioPerFrameX:1.1,
+	transformMinRatioPerFrameY:1.01,
+	transformMaxRatioPerFrameY:1.1,
 	trnasformNmSpasmInSeq:8, 
 	baseLineScalePerFrame:1.1, 
 	fPs:20, 
-	framesPerSpasm:30
+	framesPerSpasm:30, 
+	xXpanstionFactor:2
 }
 
 
@@ -2081,9 +2084,15 @@ function spasmScript(){
 }
 
 
-function randRatioSpasm(){
-	return Math.random()  * (spasmCtx.transformMaxRatioPerFrame - spasmCtx.transformMinRatioPerFrame) +
-		spasmCtx.transformMinRatioPerFrame;
+function randRatioSpasmX(){
+	return ( Math.random()  * (spasmCtx.transformMaxRatioPerFrameX - spasmCtx.transformMinRatioPerFrameX) +
+		spasmCtx.transformMinRatioPerFrameX) 
+}
+
+
+function randRatioSpasmY(){
+	return Math.random()  * (spasmCtx.transformMaxRatioPerFrameY - spasmCtx.transformMinRatioPerFrameY) +
+		spasmCtx.transformMinRatioPerFrameY;
 }
 
 function spasm(spasmsToGo, fCompleteAllSpasms, baselineScale, curScaleX,ratioXPerFrame, curScaleY, ratioYPerFrame, fCompleteThisSpasm, elm){
@@ -2093,9 +2102,9 @@ function spasm(spasmsToGo, fCompleteAllSpasms, baselineScale, curScaleX,ratioXPe
 		return;
 	}	
 	
-	curScaleX = curScaleX * baselineScale;
-	curScaleY = curScaleY * baselineScale;
-	baselineScale = baselineScale * spasmCtx.baseLineScalePerFrame;
+	// curScaleX = curScaleX * baselineScale;
+	// curScaleY = curScaleY * baselineScale;
+	// baselineScale = baselineScale * spasmCtx.baseLineScalePerFrame;
 	
 	
 	spasmStep(spasmCtx.framesPerSpasm, baselineScale, curScaleX,ratioXPerFrame, curScaleY, ratioYPerFrame ,fCompleteThisSpasm, elm);
@@ -2103,9 +2112,12 @@ function spasm(spasmsToGo, fCompleteAllSpasms, baselineScale, curScaleX,ratioXPe
 
 
 function spasmOut(spasmsToGo, fCompleteAllSpasms, baselineScale, curScalex, curScaleY, elm){
-	const scaleOutXPerFrame = randRatioSpasm();
-	const scaleOutYPerFrame = randRatioSpasm();
+	const scaleOutXPerFrame = randRatioSpasmX();
+	const scaleOutYPerFrame = randRatioSpasmY();
 	const fCompleteThisSpasm = spasmIn.bind(null, spasmsToGo - 1, fCompleteAllSpasms);
+	
+	console.log("randomal scaling x,y scale=" + scaleOutXPerFrame + "," + scaleOutYPerFrame);
+	
 	
     spasm(spasmsToGo, fCompleteAllSpasms, baselineScale, curScalex,scaleOutXPerFrame, curScaleY, scaleOutYPerFrame, fCompleteThisSpasm,elm)
 
@@ -2115,7 +2127,7 @@ function spasmOut(spasmsToGo, fCompleteAllSpasms, baselineScale, curScalex, curS
 //scale back to baseLineScale
 function spasmIn(spasmsToGo, fCompleteAllSpasms, baselineScale, curScalex, curScaleY, elm ){
 	const scaleOutXPerFrame = Math.pow( (baselineScale/curScalex), 1/spasmCtx.framesPerSpasm);
-	const scaleOutYPerFrame = Math.pow( (baselineScale/curScalex), 1/spasmCtx.framesPerSpasm);
+	const scaleOutYPerFrame = Math.pow( (baselineScale/curScaleY), 1/spasmCtx.framesPerSpasm);
 	const fCompleteThisSpasm = spasmOut.bind(null, spasmsToGo - 1, fCompleteAllSpasms);
 
 	spasm(spasmsToGo, fCompleteAllSpasms, baselineScale, curScalex,scaleOutXPerFrame, curScaleY, scaleOutYPerFrame, fCompleteThisSpasm, elm);
@@ -2138,7 +2150,7 @@ function spasmStep(numSpteps, baselineScale, curScaleX, ratioXPerStep, curScaleY
 
 	curScaleX = curScaleX * ratioXPerStep;
 	curScaleY = curScaleY * ratioYPerStep;
-	elm.style.transform = "scale(" + curScaleX + ","  + curScaleY +")";
+	elm.style.transform = "scale(" + curScaleX *  spasmCtx.xXpanstionFactor + ","  + curScaleY +")";
 	
 	setTimeout(
 	function(){
