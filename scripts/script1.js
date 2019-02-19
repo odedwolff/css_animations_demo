@@ -1475,7 +1475,7 @@ const waveCtx={
 
 function _handleScrollSession(scrollSpeed){
 	const newAmp = scrollSpeed * waveCtx.scrollSpeedToAmpFctr;
-	console.log("new amp, waveCtx.amp=" + newAmp + "," + waveCtx.amp );
+	//console.log("new amp, waveCtx.amp=" + newAmp + "," + waveCtx.amp );
 	if(newAmp > waveCtx.amp){
 		waveCtx.amp = newAmp;
 	}
@@ -1668,7 +1668,7 @@ const horWaveCtx={
 
 function _handleScrollSessionHor(scrollSpeed){
 	const newAmp = scrollSpeed * horWaveCtx.scrollSpeedToAmpFctr;
-	console.log("new amp, horWaveCtx.amp=" + newAmp + "," + horWaveCtx.amp );
+	//console.log("new amp, horWaveCtx.amp=" + newAmp + "," + horWaveCtx.amp );
 	if(newAmp > horWaveCtx.amp){
 		horWaveCtx.amp = newAmp;
 	}
@@ -1820,7 +1820,7 @@ function checkScrollSpeed(){
 		return;
 	}
 	
-	console.log("scroll y:" + currentPos);
+	//console.log("scroll y:" + currentPos);
 
 	
 	var dY = Math.abs(currentPos - scrollCtx.lastYposition);
@@ -2059,7 +2059,92 @@ function stopBigSwing(){
 }
 
 
+//---------------------------------------theme spasm------------------------------------------------------------
 
+const spasmCtx = {
+	transformMinDurMs:100,
+	transformMinMaxMs:700,
+	transformMinRatioPerFrame:1.1,
+	transformMaxRatioPerFrame:1.5,
+	trnasformNmSpasmInSeq:8, 
+	baseLineScalePerFrame:1.1, 
+	fPs:20, 
+	framesPerSpasm:30
+}
+
+
+
+function spasmScript(){
+	fComplete = function(){console.log("all spasms complete")};
+	elm= document.getElementById("divSpasmChar1Container");
+	spasmOut(8, fComplete, 0.5, 1.0, 1.0, elm);
+}
+
+
+function randRatioSpasm(){
+	return Math.random()  * (spasmCtx.transformMaxRatioPerFrame - spasmCtx.transformMinRatioPerFrame) +
+		spasmCtx.transformMinRatioPerFrame;
+}
+
+function spasm(spasmsToGo, fCompleteAllSpasms, baselineScale, curScaleX,ratioXPerFrame, curScaleY, ratioYPerFrame, fCompleteThisSpasm, elm){
+	if(spasmsToGo == 0){
+		//fCompleteAllSpasms(absScaleX, absScaleY);
+		fCompleteAllSpasms();
+		return;
+	}	
+	
+	curScaleX = curScaleX * baselineScale;
+	curScaleY = curScaleY * baselineScale;
+	baselineScale = baselineScale * spasmCtx.baseLineScalePerFrame;
+	
+	
+	spasmStep(spasmCtx.framesPerSpasm, baselineScale, curScaleX,ratioXPerFrame, curScaleY, ratioYPerFrame ,fCompleteThisSpasm, elm);
+}
+
+
+function spasmOut(spasmsToGo, fCompleteAllSpasms, baselineScale, curScalex, curScaleY, elm){
+	const scaleOutXPerFrame = randRatioSpasm();
+	const scaleOutYPerFrame = randRatioSpasm();
+	const fCompleteThisSpasm = spasmIn.bind(null, spasmsToGo - 1, fCompleteAllSpasms);
+	
+    spasm(spasmsToGo, fCompleteAllSpasms, baselineScale, curScalex,scaleOutXPerFrame, curScaleY, scaleOutYPerFrame, fCompleteThisSpasm,elm)
+
+}
+
+
+//scale back to baseLineScale
+function spasmIn(spasmsToGo, fCompleteAllSpasms, baselineScale, curScalex, curScaleY, elm ){
+	const scaleOutXPerFrame = Math.pow( (baselineScale/curScalex), 1/spasmCtx.framesPerSpasm);
+	const scaleOutYPerFrame = Math.pow( (baselineScale/curScalex), 1/spasmCtx.framesPerSpasm);
+	const fCompleteThisSpasm = spasmOut.bind(null, spasmsToGo - 1, fCompleteAllSpasms);
+
+	spasm(spasmsToGo, fCompleteAllSpasms, baselineScale, curScalex,scaleOutXPerFrame, curScaleY, scaleOutYPerFrame, fCompleteThisSpasm, elm);
+
+}
+
+
+function spasmStep(numSpteps, baselineScale, curScaleX, ratioXPerStep, curScaleY, ratioYPerStep ,fCompleteAllSteps, elm){
+	
+	if(numSpteps == 0){
+		fCompleteAllSteps( baselineScale, curScaleX, curScaleY, elm);
+		return;
+	}
+	
+	//if(elm == null)
+	if (typeof elm == 'undefined' || typeof elm.style == 'undefined')
+	{		
+		console.log("elm is nulö");
+	}
+
+	curScaleX = curScaleX * ratioXPerStep;
+	curScaleY = curScaleY * ratioYPerStep;
+	elm.style.transform = "scale(" + curScaleX + ","  + curScaleY +")";
+	
+	setTimeout(
+	function(){
+		spasmStep(numSpteps-1, baselineScale, curScaleX, ratioXPerStep, curScaleY, ratioYPerStep ,fCompleteAllSteps, elm);
+	}, 1000 / spasmCtx.fPs);
+}
 
 
 
