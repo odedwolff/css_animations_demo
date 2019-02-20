@@ -2071,10 +2071,10 @@ function stopBigSwing(){
 const spasmCtx = {
 	transformMinDurMs:100,
 	transformMinMaxMs:700,
-	transformMinRatioPerFrameX:1.05,
-	transformMaxRatioPerFrameX:1.2,
-	transformMinRatioPerFrameY:1.05,
-	transformMaxRatioPerFrameY:1.2,
+	transformMinRatioPerFrameX:1.4,
+	transformMaxRatioPerFrameX:1.5,
+	transformMinRatioPerFrameY:1.4,
+	transformMaxRatioPerFrameY:1.5,
 	trnasformNmSpasmInSeq:8, 
 	baseLineScalePerFrame:1.1, 
 	fPs:50, 
@@ -2088,7 +2088,7 @@ const spasmCtx = {
 function spasmScript(){
 	fComplete = function(){console.log("all spasms complete")};
 	elm= document.getElementById("divSpasmChar1Container");
-	spasmOut(8, fComplete, 0.5, 0.1, 1.0, elm);
+	spasmOut(8, fComplete, 1.0, 1.0, 1.0, elm);
 }
 
 
@@ -2144,8 +2144,11 @@ function spasmOut(spasmsToGo, fCompleteAllSpasms, baselineScale, curScalex, curS
 
 //scale back to baseLineScale
 function spasmIn(spasmsToGo, fCompleteAllSpasms, baselineScale, curScalex, curScaleY, elm ){
-	const scaleOutXPerFrame = Math.pow( (baselineScale/curScalex), 1/spasmCtx.framesPerSpasm);
-	const scaleOutYPerFrame = Math.pow( (baselineScale/curScaleY), 1/spasmCtx.framesPerSpasm);
+	// const scaleOutXPerFrame = Math.pow( (baselineScale/(curScalex * spasmCtx.yXpanstionFactor )), 1/spasmCtx.framesPerSpasm);
+	// const scaleOutYPerFrame = Math.pow( (baselineScale/(curScaleY * spasmCtx.xXpanstionFactor )), 1/spasmCtx.framesPerSpasm);
+	
+	const scaleOutXPerFrame = Math.pow( (baselineScale/(curScalex * 1 )), 1/spasmCtx.framesPerSpasm);
+	const scaleOutYPerFrame = Math.pow( (baselineScale/(curScaleY * 1 )), 1/spasmCtx.framesPerSpasm);
 	const fCompleteThisSpasm = spasmOut.bind(null, spasmsToGo - 1, fCompleteAllSpasms);
 
 	spasm(spasmsToGo, fCompleteAllSpasms, baselineScale, curScalex,scaleOutXPerFrame, curScaleY, scaleOutYPerFrame, fCompleteThisSpasm, elm);
@@ -2170,7 +2173,10 @@ function spasmStep(numSpteps, baselineScale, curScaleX, ratioXPerStep, curScaleY
 	curScaleY = curScaleY * ratioYPerStep;
 	
 	
-	elm.style.transform = "scale(" + curScaleX *  spasmCtx.xXpanstionFactor + ","  + curScaleY * spasmCtx.yXpanstionFactor +")";
+	//elm.style.transform = "scale(" + curScaleX *  spasmCtx.xXpanstionFactor + ","  + curScaleY * spasmCtx.yXpanstionFactor +")";
+	elm.style.transform = "scale(" + curScaleX  + ","  + curScaleY  +")";
+
+	
 	
 	setTimeout(
 	function(){
