@@ -1989,6 +1989,8 @@ function tumbleHop(elm, rotDegSec, stopYPos, stopXposAbs, vxPxSec,vyPxSec, nextT
 //---------------------------------------------------------theme big swing -------------------------
 
 function trackTilt(elm){
+	
+	
 	const st = window.getComputedStyle(elm, null);
 	const trMtx = st.getPropertyValue("-webkit-transform") ||
          st.getPropertyValue("-moz-transform") ||
@@ -1997,7 +1999,12 @@ function trackTilt(elm){
          st.getPropertyValue("transform") ||
          "Either no transform set, or browser doesn't do getComputedStyle";
 	
-	
+	//todo- stop tracing when swing doesnt swing 
+	//here's a fast fix 
+	if(trMtx == "none"){
+		return;
+	}
+		
 	const values= trMtx.split('(')[1].split(')')[0].split(',')
 	const ret =  Math.round(Math.asin(values[1]) * (180/Math.PI));
 	//console.log("tilt: " + ret);
@@ -2064,15 +2071,16 @@ function stopBigSwing(){
 const spasmCtx = {
 	transformMinDurMs:100,
 	transformMinMaxMs:700,
-	transformMinRatioPerFrameX:1.01,
-	transformMaxRatioPerFrameX:1.1,
-	transformMinRatioPerFrameY:1.01,
-	transformMaxRatioPerFrameY:1.1,
+	transformMinRatioPerFrameX:1.05,
+	transformMaxRatioPerFrameX:1.2,
+	transformMinRatioPerFrameY:1.05,
+	transformMaxRatioPerFrameY:1.2,
 	trnasformNmSpasmInSeq:8, 
 	baseLineScalePerFrame:1.1, 
-	fPs:20, 
-	framesPerSpasm:30, 
-	xXpanstionFactor:2
+	fPs:50, 
+	framesPerSpasm:10, 
+	xXpanstionFactor:90,
+	yXpanstionFactor:8
 }
 
 
@@ -2080,7 +2088,7 @@ const spasmCtx = {
 function spasmScript(){
 	fComplete = function(){console.log("all spasms complete")};
 	elm= document.getElementById("divSpasmChar1Container");
-	spasmOut(8, fComplete, 0.5, 1.0, 1.0, elm);
+	spasmOut(8, fComplete, 0.5, 0.1, 1.0, elm);
 }
 
 
@@ -2112,11 +2120,21 @@ function spasm(spasmsToGo, fCompleteAllSpasms, baselineScale, curScaleX,ratioXPe
 
 
 function spasmOut(spasmsToGo, fCompleteAllSpasms, baselineScale, curScalex, curScaleY, elm){
-	const scaleOutXPerFrame = randRatioSpasmX();
-	const scaleOutYPerFrame = randRatioSpasmY();
+	var scaleOutXPerFrame = randRatioSpasmX();
+	var scaleOutYPerFrame = randRatioSpasmY();
 	const fCompleteThisSpasm = spasmIn.bind(null, spasmsToGo - 1, fCompleteAllSpasms);
 	
 	console.log("randomal scaling x,y scale=" + scaleOutXPerFrame + "," + scaleOutYPerFrame);
+	
+	
+	//choose either axis as dominant, make the scaling of the other scale relativ to it 
+	const smallGrothRate = 1.01;
+	if(scaleOutXPerFrame > scaleOutYPerFrame){
+		scaleOutYPerFrame = smallGrothRate;
+	}else{
+		scaleOutXPerFrame = smallGrothRate;
+	}
+	
 	
 	
     spasm(spasmsToGo, fCompleteAllSpasms, baselineScale, curScalex,scaleOutXPerFrame, curScaleY, scaleOutYPerFrame, fCompleteThisSpasm,elm)
@@ -2150,7 +2168,9 @@ function spasmStep(numSpteps, baselineScale, curScaleX, ratioXPerStep, curScaleY
 
 	curScaleX = curScaleX * ratioXPerStep;
 	curScaleY = curScaleY * ratioYPerStep;
-	elm.style.transform = "scale(" + curScaleX *  spasmCtx.xXpanstionFactor + ","  + curScaleY +")";
+	
+	
+	elm.style.transform = "scale(" + curScaleX *  spasmCtx.xXpanstionFactor + ","  + curScaleY * spasmCtx.yXpanstionFactor +")";
 	
 	setTimeout(
 	function(){
