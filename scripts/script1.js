@@ -2085,10 +2085,41 @@ const spasmCtx = {
 
 
 
+function spasmPrepare(){
+	const text = "moahve desert";
+	const letterSpacintPx = 80;
+	var elm;
+	var html = "";
+	for(var i = 0; i < text.length ; i++){
+		var leftVal = i*letterSpacintPx;
+		elm = "<div class='classSpasmChar' style='top:100px;left:"+ leftVal +"px'>" + text[i] + "</div>";
+		html= html.concat(elm);
+	}
+	var parentHtml = document.getElementById("divSpasmContent");
+	parentHtml.innerHTML = html;
+}
+
+
+
 function spasmScript(){
-	fComplete = function(){console.log("all spasms complete")};
-	elm= document.getElementById("divSpasmChar1Container");
-	spasmOut(8, fComplete, 1.0, 1.0, 1.0, elm);
+	// fComplete = function(){console.log("all spasms complete")};
+	// elm= document.getElementById("divSpasmChar1Container");
+	// spasmOut(8, fComplete, 1.0, 1.0, 1.0, elm);
+	
+	
+	
+	var waitTime;
+	var elms = document.querySelectorAll(".classSpasmChar");
+	const fComplete= function(){console.log("all spasms complete")};
+	for(var i = 0 ; i < elms.length; i++){
+		waitTime = 1000 * Math.random();
+		//spasmOut(8, fComplete, 1.0, 1.0, 1.0, elms[i]);
+		setTimeout(
+			function(elm){
+				spasmOut(8, fComplete, 1.0, 1.0, 1.0,elm);
+			}.bind(null, elms[i]), waitTime
+		);
+	}
 }
 
 
@@ -2164,9 +2195,10 @@ function spasmStep(numSpteps, baselineScale, curScaleX, ratioXPerStep, curScaleY
 	}
 	
 	//if(elm == null)
-	if (typeof elm == 'undefined' || typeof elm.style == 'undefined')
+	if (elm==null || typeof elm == 'undefined' || typeof elm.style == 'undefined')
 	{		
 		console.log("elm is nulö");
+		return;
 	}
 
 	curScaleX = curScaleX * ratioXPerStep;

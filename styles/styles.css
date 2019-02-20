@@ -1315,10 +1315,13 @@ div#divTumbelWeed {
 	position: relative;
 }
 
-.classSpasmChar{
-	position:absolute;
-	left:400px;
-	top:300px;
+.classSpasmChar {
+    position: absolute;
+    left: 400px;
+    top: 300px;
+    display: inline;
+    margin-left: 60px;
+    font-size: 70px;
 }
 
 
