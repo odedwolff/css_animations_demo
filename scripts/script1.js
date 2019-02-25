@@ -2080,7 +2080,8 @@ const spasmCtx = {
 	fPs:50, 
 	framesPerSpasm:10, 
 	xXpanstionFactor:90,
-	yXpanstionFactor:8
+	yXpanstionFactor:8, 
+	hammerPauseMs: 300
 }
 
 
@@ -2221,36 +2222,64 @@ function scaleStr(x,y){
 	return "scale("+ x + "," + y + ")";
 }
 
-function pumpOut(elm, stepsLeft, startScaleX , xRatioPerFrame, startYSCale, yRatioPerframe, fComplete){
-	pumpOutStep(elm, stepsLeft, startScaleX , xRatioPerFrame, startYSCale, yRatioPerframe, fComplete);
+function expend(elm, stepsLeft, startScaleX , xRatioPerFrame, startYSCale, yRatioPerframe, fComplete){
+	expendStep(elm, stepsLeft, startScaleX , xRatioPerFrame, startYSCale, yRatioPerframe, fComplete);
 }
 
 
 
-function pumpOutStep(elm, stepsLeft, curScaleX , xRatioPerFrame, curScaleY, yRatioPerframe, fComplete){
+function expendStep(elm, stepsLeft, curScaleX , xRatioPerFrame, curScaleY, yRatioPerframe, fComplete){
 	if(stepsLeft == 0 ){
-		fComplete();
+		fComplete(elm, curScaleX, curScaleY);
 		return;
 	}
 	curScaleX = curScaleX * xRatioPerFrame;
 	curScaleY = curScaleY * yRatioPerframe;
 	elm.style.transform = scaleStr(curScaleX,curScaleY);
 	setTimeout(function(){
-		 pumpOutStep(elm, stepsLeft-1, curScaleX , xRatioPerFrame, curScaleY, yRatioPerframe, fComplete)
+		 expendStep(elm, stepsLeft-1, curScaleX , xRatioPerFrame, curScaleY, yRatioPerframe, fComplete)
 	}, 1000 / spasmCtx.fPs
 	);
 }
 
+
+
+function testHmmerDown(){
+	var elm = document.getElementById("divSpasmChar1Container");
+	const fComplete = function(){
+		console.log("hammering test complete");
+	}
+	
+	hammerDown(4, fComplete, elm, 8.0, 8.0);
+}
+
+
+function hammerDown(repeatsLeft, fComplete, elm, curXScale, curYScale){
+	if(repeatsLeft == 0){
+		fComplete(elm, curXScale, curYScale);
+		return;
+	}
+	setTimeout(
+		function(){
+			fCompleteSingleHammering = hammerDown.bind(null, repeatsLeft -1, fComplete);
+			expend(elm, 10, curXScale , 1, curYScale, 0.95, fCompleteSingleHammering);
+		},
+		spasmCtx.hammerPauseMs
+	)
+	
+}
+
+
 function testPumpOut(){
 	var elm = document.getElementById("divSpasmChar1Container");
 	var fSpasmComplete= function (curScaleX, curScaleY, elm){
-		pumpOut(elm, 15, curScaleX , 1.0, curScaleX, 1.22, function(){console.log("completed pump out ver")});
+		expend(elm, 15, curScaleX , 1.0, curScaleX, 1.22, function(){console.log("completed pump out ver")});
 	}
 
 	const fCompleteInitExp = function(){
 		spasmOut(8, fSpasmComplete, 1.0, 1.0, 1.0,elm);
 		console.log("end pump phase")};
-	pumpOut(elm, 30, 0.1 , 1.1, 0.1, 1.1, fCompleteInitExp);
+	expend(elm, 30, 0.1 , 1.1, 0.1, 1.1, fCompleteInitExp);
 }
 
 
