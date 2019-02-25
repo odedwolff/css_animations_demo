@@ -2137,7 +2137,7 @@ function randRatioSpasmY(){
 function spasm(spasmsToGo, fCompleteAllSpasms, baselineScale, curScaleX,ratioXPerFrame, curScaleY, ratioYPerFrame, fCompleteThisSpasm, elm){
 	if(spasmsToGo == 0){
 		//fCompleteAllSpasms(absScaleX, absScaleY);
-		fCompleteAllSpasms();
+		fCompleteAllSpasms(curScaleX, curScaleY, elm);
 		return;
 	}	
 	
@@ -2214,6 +2214,43 @@ function spasmStep(numSpteps, baselineScale, curScaleX, ratioXPerStep, curScaleY
 	function(){
 		spasmStep(numSpteps-1, baselineScale, curScaleX, ratioXPerStep, curScaleY, ratioYPerStep ,fCompleteAllSteps, elm);
 	}, 1000 / spasmCtx.fPs);
+}
+
+
+function scaleStr(x,y){
+	return "scale("+ x + "," + y + ")";
+}
+
+function pumpOut(elm, stepsLeft, startScaleX , xRatioPerFrame, startYSCale, yRatioPerframe, fComplete){
+	pumpOutStep(elm, stepsLeft, startScaleX , xRatioPerFrame, startYSCale, yRatioPerframe, fComplete);
+}
+
+
+
+function pumpOutStep(elm, stepsLeft, curScaleX , xRatioPerFrame, curScaleY, yRatioPerframe, fComplete){
+	if(stepsLeft == 0 ){
+		fComplete();
+		return;
+	}
+	curScaleX = curScaleX * xRatioPerFrame;
+	curScaleY = curScaleY * yRatioPerframe;
+	elm.style.transform = scaleStr(curScaleX,curScaleY);
+	setTimeout(function(){
+		 pumpOutStep(elm, stepsLeft-1, curScaleX , xRatioPerFrame, curScaleY, yRatioPerframe, fComplete)
+	}, 1000 / spasmCtx.fPs
+	);
+}
+
+function testPumpOut(){
+	var elm = document.getElementById("divSpasmChar1Container");
+	var fSpasmComplete= function (curScaleX, curScaleY, elm){
+		pumpOut(elm, 15, curScaleX , 1.0, curScaleX, 1.22, function(){console.log("completed pump out ver")});
+	}
+
+	const fCompleteInitExp = function(){
+		spasmOut(8, fSpasmComplete, 1.0, 1.0, 1.0,elm);
+		console.log("end pump phase")};
+	pumpOut(elm, 30, 0.1 , 1.1, 0.1, 1.1, fCompleteInitExp);
 }
 
 
