@@ -2081,7 +2081,8 @@ const spasmCtx = {
 	framesPerSpasm:10, 
 	xXpanstionFactor:90,
 	yXpanstionFactor:8, 
-	hammerPauseMs: 200
+	hammerPauseMs: 200,
+	timeOutBeforeHideMs: 800
 }
 
 
@@ -2271,10 +2272,17 @@ function hammerPhase1(elm, curXScale, curYScale){
 }
 
 function hammerPhase2(elm, curXScale, curYScale){
-	const fComplete =function(){
+	const fComplete =function(elm, curScaleX, curScaleY){
 		console.log("hammering phase 2 complete");
+		hideElm(elm, spasmCtx.timeOutBeforeHideMs);
 	};
 	hammerDown(8, fComplete, elm, curXScale, curYScale);
+}
+
+function hideElm(elm, timeoutMs){
+	setTimeout(function(){
+		elm.style.opacity = 0;
+	}, timeoutMs);
 }
 
 
@@ -2309,8 +2317,11 @@ function testPumpOut(){
 		});
 	}
 
-	const fCompleteInitExp = function(){
-		spasmOut(8, fSpasmComplete, 1.0, 1.0, 1.0,elm);
+	// const fCompleteInitExp = function(){
+		// spasmOut(8, fSpasmComplete, 1.0, 1.0, 1.0,elm);
+		// console.log("end pump phase")};
+	const fCompleteInitExp = function(elm, curScaleX, curScaleY){
+		spasmOut(8, fSpasmComplete, 1.0,  curScaleX, curScaleY,elm);
 		console.log("end pump phase")};
 	expend(elm, 30, 0.1 , 1.1, 0.1, 1.1, fCompleteInitExp);
 }
