@@ -2103,7 +2103,7 @@ function spasmPrepare(){
 
 
 
-function spasmScript(){
+function spasmScriptOld(){
 	// fComplete = function(){console.log("all spasms complete")};
 	// elm= document.getElementById("divSpasmChar1Container");
 	// spasmOut(8, fComplete, 1.0, 1.0, 1.0, elm);
@@ -2123,6 +2123,26 @@ function spasmScript(){
 		);
 	}
 }
+
+
+function spasmScript(){
+	
+	var waitTime;
+	var elms = document.querySelectorAll(".classSpasmChar");
+	const fComplete= function(){console.log("all spasms complete")};
+	for(var i = 0 ; i < elms.length; i++){
+		waitTime = 1000 * Math.random();
+		//spasmOut(8, fComplete, 1.0, 1.0, 1.0, elms[i]);
+		setTimeout(
+			function(elm){
+				//spasmOut(8, fComplete, 1.0, 1.0, 1.0,elm);
+				spasmSequence(elm);
+			}.bind(null, elms[i]), waitTime
+		);
+	}
+}
+
+
 
 
 function randRatioSpasmX(){
@@ -2309,6 +2329,7 @@ function hammerDown(repeatsLeft, fComplete, elm, curXScale, curYScale){
 
 function testPumpOut(){
 	var elm = document.getElementById("divSpasmChar1Container");
+	elm.style.opacity = 1;
 	var fSpasmComplete= function (curScaleX, curScaleY, elm){
 		expend(elm, 15, curScaleX , 1.0, curScaleX, 1.22, 
 		function(elm, curXScale, curYScale){
@@ -2317,15 +2338,26 @@ function testPumpOut(){
 		});
 	}
 
-	// const fCompleteInitExp = function(){
-		// spasmOut(8, fSpasmComplete, 1.0, 1.0, 1.0,elm);
-		// console.log("end pump phase")};
 	const fCompleteInitExp = function(elm, curScaleX, curScaleY){
 		spasmOut(8, fSpasmComplete, 1.0,  curScaleX, curScaleY,elm);
 		console.log("end pump phase")};
 	expend(elm, 30, 0.1 , 1.1, 0.1, 1.1, fCompleteInitExp);
 }
 
+function spasmSequence(elm){
+	elm.style.opacity = 1;
+	var fSpasmComplete= function (curScaleX, curScaleY, elm){
+		expend(elm, 15, curScaleX , 1.0, curScaleX, 1.22, 
+		function(elm, curXScale, curYScale){
+			console.log("completed pump out ver");
+			hammerPhase1(elm, curXScale, curYScale);
+		});
+	}
+	const fCompleteInitExp = function(elm, curScaleX, curScaleY){
+		spasmOut(8, fSpasmComplete, 1.0,  curScaleX, curScaleY,elm);
+		console.log("end pump phase")};
+	expend(elm, 30, 0.1 , 1.1, 0.1, 1.1, fCompleteInitExp);
+}
 
 
 
