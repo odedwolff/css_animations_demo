@@ -2081,7 +2081,7 @@ const spasmCtx = {
 	framesPerSpasm:10, 
 	xXpanstionFactor:90,
 	yXpanstionFactor:8, 
-	hammerPauseMs: 300
+	hammerPauseMs: 200
 }
 
 
@@ -2274,7 +2274,7 @@ function hammerPhase2(elm, curXScale, curYScale){
 	const fComplete =function(){
 		console.log("hammering phase 2 complete");
 	};
-	hammerDown(4, fComplete, elm, curXScale, curYScale);
+	hammerDown(8, fComplete, elm, curXScale, curYScale);
 }
 
 
@@ -2291,7 +2291,7 @@ function hammerDown(repeatsLeft, fComplete, elm, curXScale, curYScale){
 	setTimeout(
 		function(){
 			fCompleteSingleHammering = hammerDown.bind(null, repeatsLeft -1, fComplete);
-			expend(elm, 10, curXScale , 1, curYScale, 0.95, fCompleteSingleHammering);
+			expend(elm, 5, curXScale , 1, curYScale, 0.90, fCompleteSingleHammering);
 		},
 		spasmCtx.hammerPauseMs
 	)
@@ -2302,7 +2302,11 @@ function hammerDown(repeatsLeft, fComplete, elm, curXScale, curYScale){
 function testPumpOut(){
 	var elm = document.getElementById("divSpasmChar1Container");
 	var fSpasmComplete= function (curScaleX, curScaleY, elm){
-		expend(elm, 15, curScaleX , 1.0, curScaleX, 1.22, function(){console.log("completed pump out ver")});
+		expend(elm, 15, curScaleX , 1.0, curScaleX, 1.22, 
+		function(elm, curXScale, curYScale){
+			console.log("completed pump out ver");
+			hammerPhase1(elm, curXScale, curYScale);
+		});
 	}
 
 	const fCompleteInitExp = function(){
