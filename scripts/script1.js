@@ -2245,13 +2245,42 @@ function expendStep(elm, stepsLeft, curScaleX , xRatioPerFrame, curScaleY, yRati
 
 
 function testHmmerDown(){
-	var elm = document.getElementById("divSpasmChar1Container");
-	const fComplete = function(){
-		console.log("hammering test complete");
-	}
+	// var elm = document.getElementById("divSpasmChar1Container");
+	// const fComplete = function(){
+		// console.log("hammering test complete");
+	// }
 	
-	hammerDown(4, fComplete, elm, 8.0, 8.0);
+	// hammerDown(4, fComplete, elm, 8.0, 8.0);
+	
+	var elm = document.getElementById("divSpasmChar1Container");
+	hammerPhase1(elm, 8.0, 8.0);
 }
+
+
+
+function hammerPhase1(elm, curXScale, curYScale){
+	const fComplete = 
+		function(elm, curXScale, curYScale){
+			setTimeout(function(){
+				console.log("hammering phase 1 complete");
+				hammerPhase2(elm, curXScale, curYScale)
+			}, 1500
+			);
+		}
+	hammerDown(4, fComplete, elm, curXScale, curYScale);
+}
+
+function hammerPhase2(elm, curXScale, curYScale){
+	const fComplete =function(){
+		console.log("hammering phase 2 complete");
+	};
+	hammerDown(4, fComplete, elm, curXScale, curYScale);
+}
+
+
+
+
+
 
 
 function hammerDown(repeatsLeft, fComplete, elm, curXScale, curYScale){
