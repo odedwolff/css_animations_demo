@@ -2082,13 +2082,17 @@ const spasmCtx = {
 	xXpanstionFactor:90,
 	yXpanstionFactor:8, 
 	hammerPauseMs: 200,
-	timeOutBeforeHideMs: 800
+	timeOutBeforeHideMs: 800,
+	startTimeRangeMs: 700,
+	waitTimeStrechedUp:1000
 }
 
 
 
 function spasmPrepare(){
-	const text = "moahve desert";
+	//const text = "moahve desert";
+	const text = "zur moab";
+	//const text = "d";
 	const letterSpacintPx = 80;
 	var elm;
 	var html = "";
@@ -2131,7 +2135,7 @@ function spasmScript(){
 	var elms = document.querySelectorAll(".classSpasmChar");
 	const fComplete= function(){console.log("all spasms complete")};
 	for(var i = 0 ; i < elms.length; i++){
-		waitTime = 1000 * Math.random();
+		waitTime = spasmCtx.startTimeRangeMs * Math.random();
 		//spasmOut(8, fComplete, 1.0, 1.0, 1.0, elms[i]);
 		setTimeout(
 			function(elm){
@@ -2350,13 +2354,18 @@ function spasmSequence(elm){
 		expend(elm, 15, curScaleX , 1.0, curScaleX, 1.22, 
 		function(elm, curXScale, curYScale){
 			console.log("completed pump out ver");
-			hammerPhase1(elm, curXScale, curYScale);
+			//hammerPhase1(elm, curXScale, curYScale);
+			setTimeout(
+				function(){hammerPhase1(elm, curXScale, curYScale)}
+			,spasmCtx.waitTimeStrechedUp);
 		});
 	}
 	const fCompleteInitExp = function(elm, curScaleX, curScaleY){
 		spasmOut(8, fSpasmComplete, 1.0,  curScaleX, curScaleY,elm);
 		console.log("end pump phase")};
-	expend(elm, 30, 0.1 , 1.1, 0.1, 1.1, fCompleteInitExp);
+	expend(elm, 10, 0.1 , 1.1, 0.1, 1.1, fCompleteInitExp);
+	//expend(elm, 100, 0.1 , 1.1, 0.1, 1.1, fCompleteInitExp);
+
 }
 
 
