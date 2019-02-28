@@ -588,7 +588,7 @@ div#divContRollerR2 {
 }
 
 div#divLinesFocosContent {
-    padding-left: 200px;
+    padding-left: 550px;
 }
 
 
@@ -603,11 +603,12 @@ div#divLinesFocosContent {
 
 .focusAnim{
 	animation-name: focusAnim;
-	animation-duration: 8s;
+	animation-duration: 14s;
 	animation-fill-mode: forwards;
-	animation-iteration-count: 3;
+	animation-iteration-count: infinite;
 	line-height: 40px
 } 
+
 
 @keyframes focusAnim{
 	0%{
@@ -617,30 +618,52 @@ div#divLinesFocosContent {
 		line-height: 40px
 	}
 
-	20%{
+	15%{
 		text-shadow: 0 0 1px rgba(0,0,0,0.5);
 		/*color: black;*/
 		/*animation-timing-function: cubic-bezier(0,1.02,.73,1);*/
 
 		line-height: 0px
 	}
-	40%{
-		text-shadow: 0 0 20px rgba(0,0,0,0.5);
-		/*color: black;*/
-
+	30%{
+		text-shadow: 0 0 20px rgba(0,0,0,0.5);	
+		/*animation-timing-function: cubic-bezier(1,.01,.72,1);*/
+		color: transparent;
 		line-height: 40px
 	}
 
+	45%{
+		text-shadow: 0 0 1px rgba(0,0,0,0.5);
+		/*color: black;*/
+		/*animation-timing-function: cubic-bezier(0,1.02,.73,1);*/
+
+		line-height: 0px
+	}
+	60%{
+		text-shadow: 0 0 20px rgba(0,0,0,0.5);	
+		/*animation-timing-function: cubic-bezier(1,.01,.72,1);*/
+		color: transparent;
+		line-height: 40px
+	}
+	
+	75%{
+		text-shadow: 0 0 1px rgba(0,0,0,0.5);
+		/*color: black;*/
+		/*animation-timing-function: cubic-bezier(0,1.02,.73,1);*/
+
+		line-height: 0px
+	}
+	/* 90%{ */
+		/* text-shadow: 0 0 20px rgba(0,0,0,0.5);	 */
+		/* color: transparent; */
+		/* line-height: 40px */
+	/* } */
 	90%{
-		text-shadow: 0 0 0px rgba(0,0,0,0.5);
-		/*color: black;*/
+		text-shadow: 0 0 0px rgba(0,0,0,0.5);	
+		color: transparent;
 		line-height: 40px
-	}
-	100%{
-		text-shadow: 0 0 0px rgba(0,0,0,0.5);
-		/*color: black;*/
-		line-height: 40px
-	}
+	}	
+	
 }
 
 #pFocusText{
