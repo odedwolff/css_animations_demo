@@ -1670,7 +1670,8 @@ const horWaveCtx={
 	intervalWavesHor:null,
 	waveArr:null,
 	/**time beetween frames */
-	animIntervalMa: 5,
+	//animIntervalMa: 5,
+	animIntervalMa: 20,
 	default_amp:40,
 	//amp:50,
 	amp:0,
@@ -1679,12 +1680,13 @@ const horWaveCtx={
 	ampMinRel: 1/200,
 	t:0,
 	decayIntervalId:null,
-	decayRateSec: .5,
+	decayRateSec: .75,
 	fadeInRateSec:1.5,
 	handleScrollSession: _handleScrollSessionHor,
 	/* lower scroll speed to have influence on surface */
 	minScrollSpeedPxSec:2,
-	scrollSpeedToAmpFctr: 1 / 20
+	scrollSpeedToAmpFctr: 1 / 20,
+	lastExec:-1
 }
 
 function _handleScrollSessionHor(scrollSpeed){
@@ -1750,7 +1752,21 @@ function startWavesHor(){
 		},horWaveCtx.animIntervalMa);
 }
 
+
 function startWavesHorWDecay(){
+	horWaveCtx.lastExec = Date.now();
+	horWaveCtx.decayIntervalId = setInterval(() => {
+		if(!horWaveCtx.enabled){
+			return;
+		}
+		var xdMs = Date.now()- waveCtx.lastExecMs;
+		waveCtx.lastExecMs = Date.now();
+		horWaveCtx.amp = horWaveCtx.amp  * Math.pow(horWaveCtx.decayRateSec, xdMs / 1000);
+	}, horWaveCtx.animIntervalMa);
+
+}
+
+function startWavesHorWDecayOld(){
 	horWaveCtx.decayIntervalId = setInterval(() => {
 		if(!horWaveCtx.enabled){
 			return;
