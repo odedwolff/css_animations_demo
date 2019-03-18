@@ -1,6 +1,13 @@
 body {
     margin: 0;
-    display: block;
+	display: block;
+	background: #042d70;
+}
+
+body > *{
+ margin-left: 10%;
+ margin-right: 10%;
+ clip-path: inset(0px 0px 0px 0px);
 }
 
 
@@ -1183,7 +1190,7 @@ div#divLetterBox {
     top: -200px;
     position: absolute;
     font-size: 1100px;
-    width: 10000px;
+    //width: 10000px;
     font-weight: 900;
 }
 
@@ -1282,6 +1289,7 @@ div#divTumbelWeed {
 	width:100%;
 	height: 500px;
 	background: #332727;
+	clip-path: inset(0px 0px 0px 0px);
 }
 
 
