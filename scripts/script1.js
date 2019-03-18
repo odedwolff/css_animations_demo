@@ -1451,6 +1451,7 @@ function stomp(org){
 
 
 const waveCtx={
+	enabled:false,
 	// waveLenPerChar : 2*Math.PI / 10,
 	periodsPerSec : .2,
 	elementsPerPeriod: 30,
@@ -1458,19 +1459,22 @@ const waveCtx={
 	intervalWavesHor:null,
 	waveArr:null,
 	/**time beetween frames */
-	animIntervalMa: 5,
+	animIntervalMa: 20,
 	default_amp:40,
 	amp:0,
-	ampMin:0.1,
+	//ampMin:0.1,
+	ampMin:3,
 	ampMinRel: 1/200,
 	t:0,
 	decayIntervalId:null,
-	decayRateSec: .05,
+	//decayRateSec: .05,
+	decayRateSec: .85,
 	fadeInRateSec:1.5,
 	handleScrollSession: _handleScrollSession,
 	/* lower scroll speed to have influence on surface */
 	minScrollSpeedPxSec:2,
-	scrollSpeedToAmpFctr: 1 / 50
+	scrollSpeedToAmpFctr: 1 / 50,
+	lastExecMs:null
 }
 
 function _handleScrollSession(scrollSpeed){
@@ -1494,9 +1498,7 @@ function drawStill(){
 
 
 function startWavesVer(){
-//	stopWavesVer();
-
-	//waveCtx.amp = waveCtx.default_amp;
+	waveCtx.enabled = true;
 	waveCtx.intervalWavesVer = setInterval(
 		function(){
 			if(waveCtx.amp <= waveCtx.ampMin ){
@@ -1528,15 +1530,32 @@ function initWaves(){
 
 
 
-function startWavesVerWDecay(){
+function startWavesVerWDecayOld(){
 	waveCtx.decayIntervalId = setInterval(() => {
 		waveCtx.amp = waveCtx.amp  * Math.pow(waveCtx.decayRateSec, waveCtx.animIntervalMa / 1000);
 	}, waveCtx.animIntervalMa);
 
 }
 
+function startWavesVerWDecay(){
+	waveCtx.lastExecMs = Date.now();
+	waveCtx.decayIntervalId = setInterval(() => {
+		if(!waveCtx.enabled){
+			return;
+		}
+		var xdMs = Date.now()- waveCtx.lastExecMs;
+		waveCtx.lastExecMs = Date.now();
+		waveCtx.amp = waveCtx.amp  * Math.pow(waveCtx.decayRateSec, xdMs / 1000);
+	}, waveCtx.animIntervalMa);
+
+}
+
+
+
+
 
 function stopWavesVer(){
+	waveCtx.enabled=false;
 	if(waveCtx.intervalWavesVer != null){
 		clearInterval(waveCtx.intervalWavesVer);
 		waveCtx.intervalWavesVer = null;
@@ -1655,6 +1674,7 @@ const horWaveCtx={
 	//amp:50,
 	amp:0,
 	ampMin:0.1,
+	//ampMin:200,
 	ampMinRel: 1/200,
 	t:0,
 	decayIntervalId:null,
@@ -1752,27 +1772,7 @@ function  drawStillHor(){
 }
 
 
-// function initWaves(){
-	// prepareWaves();
-	// drawStill();
-	// startWavesVer();
-	// startWavesVerWDecay();
-	// startScrollSample();
-	
-	
-	// prepareWavesHor();
-	// drawHorWaves(0, false);
-	// startWavesHor();
-	// startWavesHorWDecay();
-	
-// }
 
-
-
-
-
-
- 
 
 
 //-------------------------------------------scroll utils--------------------------------------------
