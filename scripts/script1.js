@@ -1662,6 +1662,7 @@ function drawVerWaves(tMs, flatten){
 
 //-------------------------------------------horizontal waves--------------------------------------------
 const horWaveCtx={
+	enabled:false,
 	// waveLenPerChar : 2*Math.PI / 10,
 	periodsPerSec : .2,
 	elementsPerPeriod: 30,
@@ -1737,9 +1738,7 @@ function drawHorWaves(tMs, flatten){
 }
 
 function startWavesHor(){
-//	stopWavesVer();
-
-	//waveCtx.amp = waveCtx.default_amp;
+	horWaveCtx.enabled=true;
 	horWaveCtx.intervalWavesVer = setInterval(
 		function(){
 			if(horWaveCtx.amp <= horWaveCtx.ampMin ){
@@ -1753,6 +1752,9 @@ function startWavesHor(){
 
 function startWavesHorWDecay(){
 	horWaveCtx.decayIntervalId = setInterval(() => {
+		if(!horWaveCtx.enabled){
+			return;
+		}
 		horWaveCtx.amp = horWaveCtx.amp  * Math.pow(horWaveCtx.decayRateSec, horWaveCtx.animIntervalMa / 1000);
 	}, horWaveCtx.animIntervalMa);
 
@@ -1760,6 +1762,7 @@ function startWavesHorWDecay(){
 
 
 function stopWavesHor(){
+	horWaveCtx.enabled=false;
 	if(horWaveCtx.intervalWavesVer != null){
 		clearInterval(horWaveCtx.intervalWavesVer);
 		horWaveCtx.intervalWavesVer = null;
