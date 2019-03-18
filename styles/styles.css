@@ -1,7 +1,9 @@
 body {
     margin: 0;
 	display: block;
-	background: #042d70;
+	background: #a194a0;
+	max-width: 100%;
+    overflow-x: hidden;
 }
 
 body > *{
@@ -37,6 +39,7 @@ body > *{
 	div#divHeader {
 		height: 250px;
 		text-align: center;
+		background: white;
 	}
 
 	div#divHeader h2{
@@ -47,7 +50,7 @@ body > *{
 
 #divWischCont{
 	padding-top: 200px;
-	width:100%;
+	//width:100%;
 	height: 500px;
 	background: #179B55
 }
@@ -90,7 +93,7 @@ body > *{
 
 #divPendulumCont{
 	padding-top: 200px;
-	width:100%;
+	//width:100%;
 	height: 500px;
 	background: #DDDF57
 }
@@ -149,7 +152,7 @@ body > *{
 
 #divTwisterCont{
 	padding-top: 200px;
-	width:100%;
+	//width:100%;
 	height: 500px;
 	background: red;
 
@@ -237,7 +240,7 @@ body > *{
 
 #divPulsar{
 	padding-top: 200px;
-	width:100%;
+	//width:100%;
 	height: 500px;
 	background: #1c5e22;
 }
@@ -289,12 +292,12 @@ body > *{
 /*-------------------------------------theme rolling-------------------------------------------------------------------
 */
 #divRollerCont{
-	width:100%;
+	//width:100%;
 	height: 500px;
 	background: white;
 
 	position: relative;
-	left: 200px;
+	//left: 200px;
 }
 
 #divRollerWord{
@@ -576,7 +579,7 @@ div#divContRollerR2 {
 
 #divLinesFocusCont{
 	padding-top: 200px;
-	width:100%;
+	//width:100%;
 	height: 500px;
 	background: #c6a665;
 }
@@ -683,7 +686,7 @@ div#divLinesFocosContent {
 
 
 #divFlashingCont{
-	width:100%;
+	//width:100%;
 	height: 500px;
 	background: #ff3300;
 	position: relative;
@@ -810,7 +813,7 @@ div#divFashingContent{
 
 
 #div3fish{
-	width:100%;
+	//width:100%;
 	height: 300px;
 	background: #042d70;
 	position: relative;
@@ -891,7 +894,7 @@ div#divFashingContent{
 
 
 #divFoosteps{
-	width:100%;
+	//width:100%;
 	height: 500px;
 	background: pink;
 	position: relative;
@@ -984,7 +987,7 @@ div#divFashingContent{
 */
 .grasshoper{
 	position: absolute;
-	/*background: yellow;*/
+	//background: yellow;
 	width: 30px;
 	height: 30px;
 	/*font-size: 20px;*/
@@ -993,6 +996,7 @@ div#divFashingContent{
 
 #divGrasshoppers{
 	height: 500px;
+	background: yellow;
 }
 
 
@@ -1020,7 +1024,7 @@ div#divGHcontent {
 */
 
 #divGears{
-	width:100%;
+	//width:100%;
 	height: 500px;
 	background: gray;
 	position: relative;
@@ -1112,7 +1116,7 @@ div#divLetterBox {
 */
 
 #divWheel{
-	width:100%;
+	//width:100%;
 	height: 500px;
 	background: black;
 	position: relative;
@@ -1175,7 +1179,7 @@ div#divLetterBox {
 */
 
 #divClouds{
-	width:100%;
+	//width:100%;
 	height: 500px;
 	background: #4766eb;
 	position: relative;
@@ -1223,7 +1227,7 @@ div#divLetterBox {
 
 #divZoomSteps{
 	padding-top: 10px;
-	width:100%;
+	//width:100%;
 	height: 500px;
 	background: rgb(95, 151, 121)
 }
@@ -1247,7 +1251,7 @@ div#divLetterBox {
 }
 
 #divWavesVer{
-	width:100%;
+	//width:100%;
 	height: 500px;
 	background: green;
 	color:white;
@@ -1258,7 +1262,7 @@ div#divLetterBox {
 
 
 #divWavesHor{
-	width:100%;
+	//width:100%;
 	height: 500px;
 	background: blue;
 	color:white;
@@ -1273,6 +1277,7 @@ div#divLetterBox {
 div#divTumbelWeed {
     height: 400px;
 	position: relative;
+	background: brown;
 }
 
 .tumbleWeed {
@@ -1286,7 +1291,7 @@ div#divTumbelWeed {
 
 #divBigSwing{
 	padding-top: 10px;
-	width:100%;
+	//width:100%;
 	height: 500px;
 	background: #332727;
 	clip-path: inset(0px 0px 0px 0px);
@@ -1345,7 +1350,7 @@ div#divTumbelWeed {
 
 #divSpasm{
 	padding-top: 10px;
-	width:100%;
+	//width:100%;
 	height: 500px;
 	background: pink;
 }
