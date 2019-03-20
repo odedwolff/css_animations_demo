@@ -1369,4 +1369,18 @@ div#divTumbelWeed {
 }
 
 
+/*----------------------------------theme bottom --------------------------------------------*/
+#divBottom{
+	height: 500px;
+	background: red;
+}
+
+/* #divBottomContent{
+	position: absolute;
+} */
+
+.debryElm{
+	position: absolute;
+}
+
 

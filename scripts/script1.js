@@ -2390,3 +2390,64 @@ function spasmSequence(elm){
 
 
 
+//---------------the bottom-----------------------------------------
+
+var bottomCtx = {
+	dyMin:10,
+	dyMax:40,
+	fPs:50,
+	noDerbyElm:20, 
+	intervalRainMs:2000,
+	elmId:0,
+	intervalId:null
+};
+
+function sinkElm(elm,totalDepth, sinkPxPerSec, rotDegPerSec,currentDepth, currentRot, x){
+	if(currentDepth >= totalDepth){
+		return;
+	}
+	var dtSec = 1 / bottomCtx.fPs; 
+	currentDepth = currentDepth + sinkPxPerSec * dtSec;
+	currentRot = currentRot + rotDegPerSec * dtSec;
+	var trxStr = "translate(" + x + "px, " + currentDepth + "px)" 
+		+ " rotate(" + currentRot + "deg)";
+	elm.style.transform = trxStr;
+	setTimeout(
+		function(){
+			sinkElm(elm,totalDepth, sinkPxPerSec, rotDegPerSec,currentDepth, currentRot, x)
+		}, 1000/ bottomCtx.fps
+	)
+}
+
+
+function testBottom(){
+	/* elm=document.getElementById("divTestBottom");
+	sinkElm(elm,200, 40, 11, 0, 0, 200); */
+	rainDebry();
+}
+
+
+function rainDebry(){
+	var parentElm = document.getElementById("divBottomContent");
+	bottomCtx.intervalId = setInterval(
+		function(){
+			var x = Math.random() * 1000;
+			var c = 'y';
+			var id = "divDerbyElm" + bottomCtx.elmId;
+			bottomCtx.elmId = bottomCtx.elmId + 1;
+			var newElmHtml = "<div id=" + id + " class=debryElm>" + c + "<div>";
+			divBottomContent.innerHTML = divBottomContent.innerHTML + newElmHtml;
+			var newElm = document.getElementById(id);
+			sinkElm(newElm,200, 40, 11, 0, 0, x);
+		}
+	,bottomCtx.intervalRainMs)
+}
+
+
+function stopRain(){
+	clearInterval(bottomCtx.intervalId);
+}
+
+
+
+
