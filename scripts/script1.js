@@ -2397,9 +2397,15 @@ var bottomCtx = {
 	dyMax:40,
 	fPs:50,
 	noDerbyElm:20, 
-	intervalRainMs:2000,
+	intervalRainMs:1000,
 	elmId:0,
-	intervalId:null
+	intervalId:null,
+	rotMinDegSec:-30,
+	rotMaxDegSec:30, 
+	sinkPxPerSec:15, 
+	xRange:1000, 
+	sinkPx:200,
+	numberOfElm:42
 };
 
 function sinkElm(elm,totalDepth, sinkPxPerSec, rotDegPerSec,currentDepth, currentRot, x){
@@ -2407,14 +2413,14 @@ function sinkElm(elm,totalDepth, sinkPxPerSec, rotDegPerSec,currentDepth, curren
 		return;
 	}
 	var dtSec = 1 / bottomCtx.fPs; 
-	currentDepth = currentDepth + sinkPxPerSec * dtSec;
-	currentRot = currentRot + rotDegPerSec * dtSec;
-	var trxStr = "translate(" + x + "px, " + currentDepth + "px)" 
-		+ " rotate(" + currentRot + "deg)";
+	var nextDepth = currentDepth + sinkPxPerSec * dtSec;
+	var nextRot = currentRot + rotDegPerSec * dtSec;
+	var trxStr = "translate(" + x + "px, " + nextDepth + "px)" 
+		+ " rotate(" + nextRot + "deg)";
 	elm.style.transform = trxStr;
 	setTimeout(
 		function(){
-			sinkElm(elm,totalDepth, sinkPxPerSec, rotDegPerSec,currentDepth, currentRot, x)
+			sinkElm(elm,totalDepth, sinkPxPerSec, rotDegPerSec,nextDepth, nextRot, x)
 		}, 1000/ bottomCtx.fps
 	)
 }
@@ -2428,20 +2434,70 @@ function testBottom(){
 
 
 function rainDebry(){
-	var parentElm = document.getElementById("divBottomContent");
+	/* var parentElm = document.getElementById("divBottomContent");
 	bottomCtx.intervalId = setInterval(
 		function(){
 			var x = Math.random() * 1000;
+			var rotRate = Math.random() * (bottomCtx.rotMaxDegSec - bottomCtx.rotMinDegSec) + bottomCtx.rotMinDegSec;
 			var c = 'y';
 			var id = "divDerbyElm" + bottomCtx.elmId;
 			bottomCtx.elmId = bottomCtx.elmId + 1;
 			var newElmHtml = "<div id=" + id + " class=debryElm>" + c + "<div>";
 			divBottomContent.innerHTML = divBottomContent.innerHTML + newElmHtml;
 			var newElm = document.getElementById(id);
-			sinkElm(newElm,200, 40, 11, 0, 0, x);
+			sinkElm(newElm,2000, bottomCtx.sinkPxPerSec, rotRate, 0, 0, x);
 		}
-	,bottomCtx.intervalRainMs)
+	,bottomCtx.intervalRainMs) */
+	parentElm = document.getElementById("divBottomContent");
+	createRandomElm(parentElm);
 }
+
+
+function createRandomElmOld(parentElm){
+	var x = Math.random() * bottomCtx.xRange;
+	var rotRate = Math.random() * (bottomCtx.rotMaxDegSec - bottomCtx.rotMinDegSec) + bottomCtx.rotMinDegSec;
+	var c = 'y';
+	var id = "divDerbyElm" + bottomCtx.elmId;
+	var newElmHtml = "<div id=" + id + " class=debryElm>" + c + "<div>";
+	
+	parentElm.innerHTML = divBottomContent.innerHTML + newElmHtml;
+	
+	/* if(parentElm.innerHTML){
+		parentElm.innerHTML.concat(newElmHtml);
+	}else{
+		parentElm.innerHTML=newElmHtml;
+	} */
+
+	parentElm.innerHTML.concat(newElmHtml);
+	var newElm = document.getElementById(id);
+	sinkElm(newElm,bottomCtx.sinkPx, bottomCtx.sinkPxPerSec, rotRate, 0, 0, x);
+	bottomCtx.elmId = bottomCtx.elmId + 1;
+	if (bottomCtx.elmId < bottomCtx.numberOfElm){
+		setTimeout(createRandomElm.bind(null, parentElm), bottomCtx.intervalRainMs);	
+	}
+}
+
+
+function createRandomElm(parentElm){
+	var x = Math.random() * bottomCtx.xRange;
+	var rotRate = Math.random() * (bottomCtx.rotMaxDegSec - bottomCtx.rotMinDegSec) + bottomCtx.rotMinDegSec;
+	var c = 'y';
+	var id = "divDerbyElm" + bottomCtx.elmId;
+	//var newElmHtml = "<div id=" + id + " class=debryElm>" + c + "<div>";
+	var newElm = document.createElement("div");
+	newElm.setAttribute("id", id);
+	newElm.setAttribute("class", "debryElm");
+	newElm.innerHTML = c;
+	//add new element 
+    parentElm.appendChild(newElm);
+	
+	sinkElm(newElm,bottomCtx.sinkPx, bottomCtx.sinkPxPerSec, rotRate, 0, 0, x);
+	bottomCtx.elmId = bottomCtx.elmId + 1;
+	if (bottomCtx.elmId < bottomCtx.numberOfElm){
+		setTimeout(createRandomElm.bind(null, parentElm), bottomCtx.intervalRainMs);	
+	}
+}
+
 
 
 function stopRain(){
