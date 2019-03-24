@@ -2405,8 +2405,16 @@ var bottomCtx = {
 	sinkPxPerSec:15, 
 	xRange:1000, 
 	sinkPx:200,
-	numberOfElm:42
+	numberOfElm:400,
+	sinkDistancesPx:[300, 350, 400], 
+	randSinkMin:300,
+	randSinkMax:400
 };
+
+function randSinkD(){
+	//return bottomCtx.sinkDistancesPx[Math.floor(Math.random() * bottomCtx.sinkDistancesPx.length)];
+	return Math.random() * (bottomCtx.randSinkMax - bottomCtx.randSinkMin) +  bottomCtx.randSinkMin;
+}
 
 function sinkElm(elm,totalDepth, sinkPxPerSec, rotDegPerSec,currentDepth, currentRot, x){
 	if(currentDepth >= totalDepth){
@@ -2470,7 +2478,8 @@ function createRandomElmOld(parentElm){
 
 	parentElm.innerHTML.concat(newElmHtml);
 	var newElm = document.getElementById(id);
-	sinkElm(newElm,bottomCtx.sinkPx, bottomCtx.sinkPxPerSec, rotRate, 0, 0, x);
+	var sinkD = randSinkD();
+	sinkElm(newElm,bottomCtx.sinkD, bottomCtx.sinkPxPerSec, rotRate, 0, 0, x);
 	bottomCtx.elmId = bottomCtx.elmId + 1;
 	if (bottomCtx.elmId < bottomCtx.numberOfElm){
 		setTimeout(createRandomElm.bind(null, parentElm), bottomCtx.intervalRainMs);	
@@ -2490,8 +2499,8 @@ function createRandomElm(parentElm){
 	newElm.innerHTML = c;
 	//add new element 
     parentElm.appendChild(newElm);
-	
-	sinkElm(newElm,bottomCtx.sinkPx, bottomCtx.sinkPxPerSec, rotRate, 0, 0, x);
+	sinkD = randSinkD();
+	sinkElm(newElm,sinkD, bottomCtx.sinkPxPerSec, rotRate, 0, 0, x);
 	bottomCtx.elmId = bottomCtx.elmId + 1;
 	if (bottomCtx.elmId < bottomCtx.numberOfElm){
 		setTimeout(createRandomElm.bind(null, parentElm), bottomCtx.intervalRainMs);	
