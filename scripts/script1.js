@@ -2405,10 +2405,11 @@ var bottomCtx = {
 	sinkPxPerSec:15, 
 	xRange:1000, 
 	sinkPx:200,
-	numberOfElm:400,
+	numberOfElm:300,
 	sinkDistancesPx:[300, 350, 400], 
 	randSinkMin:300,
-	randSinkMax:400
+	randSinkMax:400,
+	selfDestructionTimeoutMs:1000 * 60
 };
 
 function randSinkD(){
@@ -2418,6 +2419,11 @@ function randSinkD(){
 
 function sinkElm(elm,totalDepth, sinkPxPerSec, rotDegPerSec,currentDepth, currentRot, x){
 	if(currentDepth >= totalDepth){
+		setTimeout(
+			function(){
+				elm.parentNode.removeChild(elm);
+			},bottomCtx.selfDestructionTimeoutMs
+		);
 		return;
 	}
 	var dtSec = 1 / bottomCtx.fPs; 
@@ -2431,6 +2437,7 @@ function sinkElm(elm,totalDepth, sinkPxPerSec, rotDegPerSec,currentDepth, curren
 			sinkElm(elm,totalDepth, sinkPxPerSec, rotDegPerSec,nextDepth, nextRot, x)
 		}, 1000/ bottomCtx.fps
 	)
+
 }
 
 
