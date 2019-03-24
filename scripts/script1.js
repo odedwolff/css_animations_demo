@@ -2417,6 +2417,13 @@ function randSinkD(){
 	return Math.random() * (bottomCtx.randSinkMax - bottomCtx.randSinkMin) +  bottomCtx.randSinkMin;
 }
 
+var toC = str => str.charCodeAt(0);
+var fromC = asciiCode => String.fromCharCode(asciiCode);
+
+function randChar(){
+	return fromC(toC('a') + Math.random() * (toC('z') - toC('a')));
+}
+
 function sinkElm(elm,totalDepth, sinkPxPerSec, rotDegPerSec,currentDepth, currentRot, x){
 	if(currentDepth >= totalDepth){
 		setTimeout(
@@ -2471,7 +2478,8 @@ function rainDebry(){
 function createRandomElmOld(parentElm){
 	var x = Math.random() * bottomCtx.xRange;
 	var rotRate = Math.random() * (bottomCtx.rotMaxDegSec - bottomCtx.rotMinDegSec) + bottomCtx.rotMinDegSec;
-	var c = 'y';
+	//var c = 'y';
+	var c= randChar();
 	var id = "divDerbyElm" + bottomCtx.elmId;
 	var newElmHtml = "<div id=" + id + " class=debryElm>" + c + "<div>";
 	
@@ -2497,7 +2505,8 @@ function createRandomElmOld(parentElm){
 function createRandomElm(parentElm){
 	var x = Math.random() * bottomCtx.xRange;
 	var rotRate = Math.random() * (bottomCtx.rotMaxDegSec - bottomCtx.rotMinDegSec) + bottomCtx.rotMinDegSec;
-	var c = 'y';
+	//var c = 'y';
+	var c= randChar();
 	var id = "divDerbyElm" + bottomCtx.elmId;
 	//var newElmHtml = "<div id=" + id + " class=debryElm>" + c + "<div>";
 	var newElm = document.createElement("div");
