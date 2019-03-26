@@ -47,18 +47,18 @@ function rotateAnimate(startEngle, endEngle, frameRate, degPerSec){
 
 
 
-function goCssRot(){
+function startWischer1(){
 	//divRotCss.classList.add("cssRotGo");
-	elms = document.getElementsByClassName("wischer");
+	elms = document.getElementsByClassName("wischer1");
 	for(var i = 0 ; i< elms.length ; i++){
-		elms[i].classList.add("wischerRun");	
+		elms[i].classList.add("wischer1Run");	
 	}
 }
 
-function stopRotate(){
-	elms = document.getElementsByClassName("wischer");
+function stopWischer1(){
+	elms = document.getElementsByClassName("wischer1");
 	for(var i = 0 ; i< elms.length ; i++){
-		elms[i].classList.remove("wischerRun");	
+		elms[i].classList.remove("wischer1Run");	
 	}
 }
 
@@ -268,9 +268,16 @@ function replaceParagpheWithSplittedDives(containingElment){
 	//console.log(text);
 }
 
-
+flshingCtx = {
+	processed:false
+}
 function preProcessFlashing(){	
-	replaceParagpheWithSplittedDives(document.getElementById("divFashingContent"));
+	if(flshingCtx.processed){
+		clearFlashing(false);
+	}else{
+		replaceParagpheWithSplittedDives(document.getElementById("divFashingContent"));
+		flshingCtx.processed = true;
+	}
 }
 
 function startFlashing(){
@@ -347,12 +354,17 @@ function setSequencesToFlasingLetter(rndTimingSpectrumMs){
 	setTimeout(function(){
 		gradualHide(2000);
 	},17000);
+
+	setTimeout(function(){
+		console.log("end Cycle flashing text");
+	},19000);
+
 	
 }
 
 
 
-function clearFlashing(toTranspaerent){
+function clearFlashingOld(toTranspaerent){
 
 	var flashingChildren = document.getElementById("divProcessedP").children;
 	for (var i = 0; i<flashingChildren.length; i++){
@@ -368,6 +380,25 @@ function clearFlashing(toTranspaerent){
 		elm.classList.remove("snychFlash1");	
 	}
 }
+
+function clearFlashing(toTranspaerent){
+
+	var flashingChildren = document.getElementById("divProcessedP").children;
+	for (var i = 0; i<flashingChildren.length; i++){
+		if(toTranspaerent){
+			flashingChildren[i].className= "classFlashLetter classFlashLetterTransparent";
+		}else{
+			flashingChildren[i].className= "classFlashLetter";
+		}
+	}
+
+	var elm = document.getElementById("divProcessedP");
+	if (elm){
+		elm.removeAttribute("class");	
+	}
+}
+
+
 
 
 function removeClassFromClass(clsSelect, clsRmv){
@@ -2403,13 +2434,13 @@ var bottomCtx = {
 	rotMinDegSec:-30,
 	rotMaxDegSec:30, 
 	sinkPxPerSec:15, 
-	xRange:1000, 
+	xRange:1400, 
 	sinkPx:200,
-	numberOfElm:300,
+	numberOfElm:30000,
 	sinkDistancesPx:[300, 350, 400], 
 	randSinkMin:300,
 	randSinkMax:400,
-	selfDestructionTimeoutMs:1000 * 60
+	selfDestructionTimeoutMs:1000 * 50
 };
 
 function randSinkD(){

@@ -2,7 +2,13 @@
 <html>
 <head>
 	<title>title</title>
-	<link rel="stylesheet" href="styles/styles.css">
+	
+
+<!-- 	<link rel="stylesheet" href="styles/styles.css">
+ -->
+ 	<link rel="stylesheet/less" type="text/css" href="styles/styles.less" />
+	<script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js" ></script>	 
+	
 	<script src="scripts/script1.js"></script>
 </head>
 
@@ -35,527 +41,547 @@
 			</div>
 		</div>
 	</div>	
-	
-	 <div id= divTumbelWeed>
-			 <div id=divTumbelWeedControl>	
-			 	<button onclick='testTumbleweedRoll()'>roll</button>	
-				<button onclick='testTumbleweedHop()'>hop</button>
-				<button onclick='testWeedRandSequence()'>sequene</button>
 
-				
-
-
-			 </div>	
-			 <div id= divTumbelWeedContent>
-				<div id='tumble1' class='tumbleWeed'>e</div>	
-				<div class='tumbleWeed'>m</div>	
-				<div class='tumbleWeed'>G</div>	
-				<div class='tumbleWeed'>3</div>	
-			 </div>	
-
-
-	</div>	
- 
- 
- 
-	<div id= divWischCont>
-		<button id=btnGoCssRot onclick="goCssRot()">rotate css</button>
-		<button id=btnStopRotate onclick="stopRotate()">stop</button>
-		<div class=wischer >
+	<!-- <div id= divWischCont> -->
+	<div id= divWischer1>
+		<!-- <button id=btnGoCssRot onclick="goCssRot()">rotate css</button>
+		<button id=btnStopRotate onclick="stopRotate()">stop</button> -->
+		<button id=btnGoCssRot onclick="startWischer1()">rotate css</button>
+		<button id=btnStopRotate onclick="stopWischer1()">stop</button>
+		<div class=wischer1 >
 			<h1>rotate css</h1>
 		</div>
-		<div  class=wischer >
+		<div  class=wischer1 >
 			<h1>rotate css</h1>
-		</div>
-
-	</div>
-
-	<div id=divPendulumCont>
-		<div id=divPndControl>
-			 <button cls=clsSwingBtn id=btnWsing onclick="startSwinging()">
-				swingSync
-			</button>
-
-			<button cls=clsSwingBtn id=btnWsingAysnc onclick="startSwingingAynch(2)">
-				swingASync
-			</button>
-
-			<button cls=clsSwingBtn id=btnWsingAysnc onclick="startSwingingDelta(0.1)">
-				swing Sync Delayed
-			</button>
-
-		</div>
-		<div id=divPendulum>
-			<div class="clsLetterCont swingable">
-				<div class=clsLetter >
-					s
-				</div>
-			</div>
-			<div class="clsLetterCont swingable">
-				<div class=clsLetter >
-					w
-				</div>
-			</div>
-			<div class="clsLetterCont swingable">
-				<div class=clsLetter >
-					i
-				</div>
-			</div>
-			<div class="clsLetterCont swingable">
-				<div class=clsLetter >
-					n
-				</div>
-			</div>
-			<div class="clsLetterCont swingable">
-				<div class=clsLetter >
-				g
-				</div>
-			</div>	
-		</div>
-	</div>
-	
-	
-	<div id=divWavesHor>
-		<!-- <div id=divTestMotionControl> -->
-		
-			
-			<button onclick="prepareWavesHor()">prepare</button>
-			<button onclick="stopWavesVer()">stop waves ver</button>
-			<button onclick="drawHorWaves(0, false)">draw flat</button>
-			<button onclick="startWavesHor()">start waves</button>
-			<button onclick="stopWavesHor()">stop waves</button>
-
-		
-			
-		<!-- </div> -->
-		<div id=divWavesHorContent>
-			
-			<div id=divDynContentHorVave>
-
-			</div>
-		</div>
-	</div>	
-	
-	
-	
-
-	<div id=divTwisterCont>
-		<div  id=twistControl>
-			<button id=btnGo onclick="startTwister(0.2, 1.0)">twist</button>
-			<button id=btnGo onclick="reloadTwister()">reload</button>
-			<button id=btnPreRide onclick="twisterStage3(0.8, 1.0)">stage 3</button>
-			<button  onclick="twistIntegrated()">integreated</button>
-
-
-
-		</div>
-		<div id=divTwistText> 
-			<div class="twistLetterCont">
-				<div class=clsLetterTwst >
-					t
-				</div>
-			</div>
-			<div class="twistLetterCont">
-				<div class=clsLetterTwst >
-					w
-				</div>
-			</div>
-			<div class="twistLetterCont">
-				<div class=clsLetterTwst >
-					i
-				</div>
-			</div>
-			<div class="twistLetterCont">
-				<div class=clsLetterTwst >
-					s
-				</div>
-			</div>
-			<div class="twistLetterCont">
-				<div class=clsLetterTwst >
-					t
-				</div>
-			</div>
-			<div class="twistLetterCont">
-				<div class=clsLetterTwst >
-					e
-				</div>
-			</div>
-			<div class="twistLetterCont">
-				<div class=clsLetterTwst >
-					r
-				</div>
-			</div>
-		</div>
-	</div>	
-
-
-
-	<div id=divPulsar>
-		<div id=divPulsarControl>
-			<button onclick="startPulsar(0.1)">start</button>
-			<button onclick="stopPulsar()">stop</button>
-		</div>
-		<div id=divPulsarContent>
-			<div class=letterContainerPulsar>
-				p	
-			</div>
-			<div class=letterContainerPulsar>
-				u	
-			</div>
-			<div class=letterContainerPulsar>
-				l	
-			</div>
-			<div class=letterContainerPulsar>
-				s	
-			</div>
-			<div class=letterContainerPulsar>
-				a	
-			</div>	
-			<div class=letterContainerPulsar>
-				r	
-			</div>
-		</div>
-
-	</div>
-
-	<div id=divRollerCont>
-		<div id=divRollerControl>
-			<button onclick="rollWord()">roll</button>	
-			<button onclick="resetRollWord()">reset</button>	
-			<button onclick="rollPhase2()">phase2</button>	
-			<button onclick="integratedRoll()">integreated</button>	
-			<button onclick="transformIn()">tranform in</button>	
-			<button onclick="transformOut()">tranform out</button>	
-			<button onclick="transmitRoller()">transmit</button>	
-			<button onclick="rollerLoop()">loop</button>	
-
-
-		</div>
-		<div id=divRollerContent>
-			<!-- 
-			<div id=divRollerWord>
-				Roller
-			</div>
- 			-->
-
-			<div id=divRollerWord>
-				<div id=divContRollerR1>
-					R
-				</div>
-				<div id=divContRollerOlle></div>
-					olle
-			  	<div id=divContRollerR2>
-			  		R
-			  	</div>
-			</div>	
-
-
-			<div id=divRollerWordDouble>
-				RolleR
-			</div>	
-
-
-		</div>
-
-	</div>
-
-	<div id=divLinesFocusCont>
-		<div id=divLinesFocusControls>
-			<button onclick="animFocus()">focus Play</button>
-			<button onclick="clearFocusAnim()">focus stop</button>
-
-		</div>
-
-		<div id=divLinesFocosContent>
-			<div id=divLinesFocusText>
-				<p id=pFocusText>
-					focus<br>
-					clarity<br>
-					instructions<br>
-					ignite<br>
-					leftovers<br>
-				</p> 
-			</div>
-		</div>
-	</div>
-
-	<div id=divFlashingCont>
-		<div id=flashingCont></div>
-			<button onclick="preProcessFlashing()">on</button>
-			<button onclick= "clearFlashing(false)">off</button>
-			<button onclick="startFlashing()">flash</button>
-			<button onclick="flashSync()">flash synched</button>
-			<button onclick="flashingSequence()">sequence</button>
-			<button onclick="gradualHide(4000)">fade away</button>
-
-
-			
-		<div id=divFashingContent>
-			<p id=pFlash>
-				i am so glad to be here
-				so many would giveall the money in the wolrd 
-				at one of the local hospitels 
-				they had just said to her there is nothing more medical science 
-				recgnizing, she has called my name
-				what can i do about the siutation
-				i said, let not your hear be troubled
-				hes gonna take you from this old wolrd of sorrow
-				lift their spirits 
-
-			</p>
-			
-		</div>
-
-	</div>
-
-	<div id=div3fish>
-		<div id=div3fishConotrols>
-			<button onclick="startSwimming()">go</button>
-			<button onclick="clearSwimming()">stop</button>
-
-		</div>
-		<div id=div3fishContent>
-			<div id=fish1 class=clsFish1>CH:K</div>
-			<div id=fish2 class=clsFish1>CH:K</div>
-			<div id=fish3 class=clsFish1>CH:K</div>
-		</div>
-
-	</div>
-
-	<div id=divFoosteps>
-		<div id=divFootstepsControls>
-			<button onclick="startWalking()">start</button>
-			<button onclick="stopWalking()">stop</button>
-		</div>
-		<div id=divFootstepsContent>
-			<div id=leftFoot class=foot>gate27</div>
-			<div id=rightFoot class=foot>cheese</div>
 		</div>
 
 	</div>
 
 	<div id="divGrasshoppers">
-		<div id=divGHcontrol>
-			<!-- <button  onclick="SpringSeqMulti()">go</button> -->
-			<button  onclick="preJumpTest()">go</button>
-
-
-		</div>
-		<div id=divGHcontent>
-			<div id=divGH1 class=grasshoper>
-				U
-			</div>
-			<div id=divGH2 class=grasshoper>
-				N
-			</div>
-			<div id=divGH3 class=grasshoper>
-				O
-			</div>
-
-		</div>
-
-	</div>
-
-	<div id=divGears>
-		<div id=divGearsControls>
-			<button onclick=" stratGearsLinear()">go linear</button>
-			<button onclick=" stratGearsEase()">go smooth</button>
-			<button onclick=" stopGears()">stop</button>
-
-		</div>
-		<div id=divGerasContent>
-			<div id=divLetterBox>
-				<div class="gear plsClockwise">i</div>
-				<div class="gear plsAnticlockwise">g</div>
-				<div class="gear plsClockwise">n</div>
-				<div class="gear plsAnticlockwise">i</div>
-				<div class="gear plsClockwise">t</div>
-				<div class="gear plsAnticlockwise">e</div>
-			</div>
-		</div>
-
-	</div>
-
-	<div id=divWheel>
-		<div id=divWheelControl>
-			
-			<button onclick="spreadCombined()">spread combined</button>
-			<button onclick="wheelingSpinAllWords()">go</button>
-			<button onclick="spreadHorizontally()">spread hor</button>
-			<button onclick="spreadVertically()">spread ver</button>
-			<button onclick="clearWheeling()">stop</button>
-			<button onclick="wheelElmsReset()">reset</button>
-			<button onclick="wheelingScript()">script</button>
-
-			
-		</div>
-
-		<div id=divWheelContent >
-			<div  id="wheelWord1" class=divWheelBox>
-				<div class=divWhellRotatingBox>
-					<div class=letterWheel>b</div>
-				</div>
-				<div class=divWhellRotatingBox>
-					<div class=letterWheel>l</div>
-				</div>
-				<div class=divWhellRotatingBox>
-					<div class=letterWheel>e</div>
-				</div>
-				<div class=divWhellRotatingBox>
-					<div class=letterWheel>s</div>
-				</div>
-				<div class=divWhellRotatingBox>
-					<div class=letterWheel>s</div>
-				</div>
-			</div>
-
-			<div  id="wheelWord2" class=divWheelBox>
-				<div class=divWhellRotatingBox>
-					<div class=letterWheel>y</div>
-				</div>
-				<div class=divWhellRotatingBox>
-					<div class=letterWheel>o</div>
-				</div>
-				<div class=divWhellRotatingBox>
-					<div class=letterWheel>u</div>
-				</div>
-				<div class=divWhellRotatingBox>
-					<div class=letterWheel>r</div>
-				</div>
-			</div>
-
-			<div  id="wheelWord3" class=divWheelBox>
-				<div class=divWhellRotatingBox>
-					<div class=letterWheel>s</div>
-				</div>
-				<div class=divWhellRotatingBox>
-					<div class=letterWheel>o</div>
-				</div>
-				<div class=divWhellRotatingBox>
-					<div class=letterWheel>u</div>
-				</div>
-				<div class=divWhellRotatingBox>
-					<div class=letterWheel>l</div>
-				</div>
-			</div>
-
-
-		</div>
-
-	</div>
-
+			<div id=divGHcontrol>
+				<!-- <button  onclick="SpringSeqMulti()">go</button> -->
+				<button  onclick="preJumpTest()">go</button>
 	
-
-	<div id=divClouds>
-		<div id=divCloudsControls>
-			<!-- <button class=clouldBtn id=btnCloudrndPos onclick="setUpLayers()">init</button>
-			<button class=clouldBtn onclick="moveClouds()">move</button>
- -->
-			<button class=clouldBtn id=btnCloudrndPos onclick="setupLayers1()">init</button>
-			<button class=clouldBtn onclick="moveLayers1()">move</button>
-
-			
-		</div>
-		<div id=divCloudsContent>
-			<div id=cloudsMsg>37.971617, 23.726532</div>
-			<div id=divLayer1 class=layer>
-				<div class=prefix>
-					make1
-				</div>
-				<!-- <div class=suffix>
-					1
-				</div>	 -->
+	
 			</div>
-			<div id=divLayer2 class=layer>
-				<div class=prefix>
-					game2
+			<div id=divGHcontent>
+				<div id=divGH1 class=grasshoper>
+					U
 				</div>
-			<!-- 	<div class=suffix>
-					2
-				</div>	 -->
-			</div>	
-			<div id=divLayer3 class=layer>
-				<div class=prefix>
-					face3
+				<div id=divGH2 class=grasshoper>
+					N
 				</div>
-				<!-- <div class=suffix>
-					3
-				</div>	 -->
-			</div>	
-			<div id=divLayer4 class=layer>
-				<div class=prefix>
-					blow4
+				<div id=divGH3 class=grasshoper>
+					O
 				</div>
-				<!-- <div class=suffix>
-					4
-				</div>	 -->	
+	
+			</div>
+	
+	</div>
+
+	<div id=divPulsar>
+			<div id=divPulsarControl>
+				<button onclick="startPulsar(0.1)">start</button>
+				<button onclick="stopPulsar()">stop</button>
+			</div>
+			<div id=divPulsarContent>
+				<div class=letterContainerPulsar>
+					p	
+				</div>
+				<div class=letterContainerPulsar>
+					u	
+				</div>
+				<div class=letterContainerPulsar>
+					l	
+				</div>
+				<div class=letterContainerPulsar>
+					s	
+				</div>
+				<div class=letterContainerPulsar>
+					a	
+				</div>	
+				<div class=letterContainerPulsar>
+					r	
+				</div>
+			</div>
+	
+	</div>
+
+	<div id=divPendulumCont>
+			<div id=divPndControl>
+				 <button cls=clsSwingBtn id=btnWsing onclick="startSwinging()">
+					swingSync
+				</button>
+	
+				<button cls=clsSwingBtn id=btnWsingAysnc onclick="startSwingingAynch(2)">
+					swingASync
+				</button>
+	
+				<button cls=clsSwingBtn id=btnWsingAysnc onclick="startSwingingDelta(0.1)">
+					swing Sync Delayed
+				</button>
+	
+			</div>
+			<div id=divPendulum>
+				<div class="clsLetterCont swingable">
+					<div class=clsLetter >
+						s
+					</div>
+				</div>
+				<div class="clsLetterCont swingable">
+					<div class=clsLetter >
+						w
+					</div>
+				</div>
+				<div class="clsLetterCont swingable">
+					<div class=clsLetter >
+						i
+					</div>
+				</div>
+				<div class="clsLetterCont swingable">
+					<div class=clsLetter >
+						n
+					</div>
+				</div>
+				<div class="clsLetterCont swingable">
+					<div class=clsLetter >
+					g
+					</div>
+				</div>	
 			</div>
 		</div>
+
+		<div id=divWheel>
+				<div id=divWheelControl>
+					
+					<button onclick="spreadCombined()">spread combined</button>
+					<button onclick="wheelingSpinAllWords()">go</button>
+					<button onclick="spreadHorizontally()">spread hor</button>
+					<button onclick="spreadVertically()">spread ver</button>
+					<button onclick="clearWheeling()">stop</button>
+					<button onclick="wheelElmsReset()">reset</button>
+					<button onclick="wheelingScript()">script</button>
+		
+					
+				</div>
+		
+				<div id=divWheelContent >
+					<div  id="wheelWord1" class=divWheelBox>
+						<div class=divWhellRotatingBox>
+							<div class=letterWheel>b</div>
+						</div>
+						<div class=divWhellRotatingBox>
+							<div class=letterWheel>l</div>
+						</div>
+						<div class=divWhellRotatingBox>
+							<div class=letterWheel>e</div>
+						</div>
+						<div class=divWhellRotatingBox>
+							<div class=letterWheel>s</div>
+						</div>
+						<div class=divWhellRotatingBox>
+							<div class=letterWheel>s</div>
+						</div>
+					</div>
+		
+					<div  id="wheelWord2" class=divWheelBox>
+						<div class=divWhellRotatingBox>
+							<div class=letterWheel>y</div>
+						</div>
+						<div class=divWhellRotatingBox>
+							<div class=letterWheel>o</div>
+						</div>
+						<div class=divWhellRotatingBox>
+							<div class=letterWheel>u</div>
+						</div>
+						<div class=divWhellRotatingBox>
+							<div class=letterWheel>r</div>
+						</div>
+					</div>
+		
+					<div  id="wheelWord3" class=divWheelBox>
+						<div class=divWhellRotatingBox>
+							<div class=letterWheel>s</div>
+						</div>
+						<div class=divWhellRotatingBox>
+							<div class=letterWheel>o</div>
+						</div>
+						<div class=divWhellRotatingBox>
+							<div class=letterWheel>u</div>
+						</div>
+						<div class=divWhellRotatingBox>
+							<div class=letterWheel>l</div>
+						</div>
+					</div>
+		
+		
+				</div>
+		
+		</div>
+
+		<div id=divFoosteps>
+				<div id=divFootstepsControls>
+					<button onclick="startWalking()">start</button>
+					<button onclick="stopWalking()">stop</button>
+				</div>
+				<div id=divFootstepsContent>
+					<div id=leftFoot class=foot>gate27</div>
+					<div id=rightFoot class=foot>cheese</div>
+				</div>
+		
+		</div>
+		
+		<div id=divWavesHor>
+				<!-- <div id=divTestMotionControl> -->
+				
+					
+					<button onclick="prepareWavesHor()">prepare</button>
+					<button onclick="stopWavesVer()">stop waves ver</button>
+					<button onclick="drawHorWaves(0, false)">draw flat</button>
+					<button onclick="startWavesHor()">start waves</button>
+					<button onclick="stopWavesHor()">stop waves</button>
+		
+				
+					
+				<!-- </div> -->
+				<div id=divWavesHorContent>
+					
+					<div id=divDynContentHorVave>
+		
+					</div>
+				</div>
+		</div>
+
+		<div id= divWischer2>
+				<!-- <button id=btnGoCssRot onclick="goCssRot()">rotate css</button>
+				<button id=btnStopRotate onclick="stopRotate()">stop</button> -->
+				<button id=btnGoCssRot onclick="startWischer2()">rotate css</button>
+				<button id=btnStopRotate onclick="stopWischer2()">stop</button>
+				<div class=wischer2 >
+					<h1>rotate css</h1>
+				</div>
+				<div  class=wischer2 >
+					<h1>rotate css</h1>
+				</div>
+		</div>
+
+		<div id=div3fish>
+				<div id=div3fishConotrols>
+					<button onclick="startSwimming()">go</button>
+					<button onclick="clearSwimming()">stop</button>
+		
+				</div>
+				<div id=div3fishContent>
+					<div id=fish1 class=clsFish1>CH:K</div>
+					<div id=fish2 class=clsFish1>CH:K</div>
+					<div id=fish3 class=clsFish1>CH:K</div>
+				</div>
+		
+		</div>
+
+		<div id=divGears>
+				<div id=divGearsControls>
+					<button onclick=" stratGearsLinear()">go linear</button>
+					<button onclick=" stratGearsEase()">go smooth</button>
+					<button onclick=" stopGears()">stop</button>
+		
+				</div>
+				<div id=divGerasContent>
+					<div id=divLetterBox>
+						<div class="gear plsClockwise">i</div>
+						<div class="gear plsAnticlockwise">g</div>
+						<div class="gear plsClockwise">n</div>
+						<div class="gear plsAnticlockwise">i</div>
+						<div class="gear plsClockwise">t</div>
+						<div class="gear plsAnticlockwise">e</div>
+					</div>
+				</div>
+		
+		</div>
+
+		
+	<div id="divBigSwing">
+			<div id="divBigSwingControl">
+				<button onclick="startBigSwing()">start</button>
+				<button onclick="stopBigSwing()">stop</button>
+			</div>
+			<div id="divBigSwingContent">
+				<!-- <div class='swingingBig' id="divBigSwingContainer"> -->
+				<div id="divBigSwingContainer">
+	
+					<div id="divBigSwingTextContainer">
+						mostly
+					</div>
+				</div>
+			</div>
+	</div>
+
+	<div id=divRollerCont>
+			<div id=divRollerControl>
+				<button onclick="rollWord()">roll</button>	
+				<button onclick="resetRollWord()">reset</button>	
+				<button onclick="rollPhase2()">phase2</button>	
+				<button onclick="integratedRoll()">integreated</button>	
+				<button onclick="transformIn()">tranform in</button>	
+				<button onclick="transformOut()">tranform out</button>	
+				<button onclick="transmitRoller()">transmit</button>	
+				<button onclick="rollerLoop()">loop</button>	
+	
+	
+			</div>
+			<div id=divRollerContent>
+				<!-- 
+				<div id=divRollerWord>
+					Roller
+				</div>
+				 -->
+	
+				<div id=divRollerWord>
+					<div id=divContRollerR1>
+						R
+					</div>
+					<div id=divContRollerOlle></div>
+						olle
+					  <div id=divContRollerR2>
+						  R
+					  </div>
+				</div>	
+	
+	
+				<div id=divRollerWordDouble>
+					RolleR
+				</div>	
+	
+	
+			</div>
+	
 	</div>
 
 	<div id="divZoomSteps">
-		<div id="divZoomStepsControls">
-			<button onclick="walkLeft()">walk left</button>
-			<button onclick="walkRight()">walk right</button>
-			<button onclick="walkFromLeftToCenter()">walk to center</button>
-			<button class=clouldBtn onclick="rootSequenceZoomStep()">root seq</button>
-			<button onclick="repeatWithColorChange()">seq w colors</button>
-
-
-		</div>
+			<div id="divZoomStepsControls">
+				<button onclick="walkLeft()">walk left</button>
+				<button onclick="walkRight()">walk right</button>
+				<button onclick="walkFromLeftToCenter()">walk to center</button>
+				<button class=clouldBtn onclick="rootSequenceZoomStep()">root seq</button>
+				<button onclick="repeatWithColorChange()">seq w colors</button>
 	
-		<div id="divZoomStepsContent">
-			<div class="zoomStep" id="zoomFootL">submission</div>
-			<div class="zoomStep" id="zoomFootR">harmoniumm</div>
-			
-			<!-- 3rd letter should be an o -->   
-			<!-- <div class="zoomStep" id="zoomFootR">whistel</div>
-			<div class="zoomStep" id="zoomFootL">broncos</div> -->
-												 
-		</div>
-
+	
+			</div>
+		
+			<div id="divZoomStepsContent">
+				<div class="zoomStep" id="zoomFootL">submission</div>
+				<div class="zoomStep" id="zoomFootR">harmoniumm</div>
+				
+				<!-- 3rd letter should be an o -->   
+				<!-- <div class="zoomStep" id="zoomFootR">whistel</div>
+				<div class="zoomStep" id="zoomFootL">broncos</div> -->
+													 
+			</div>
 
 	</div>
+
+	<div id=divLinesFocusCont>
+			<div id=divLinesFocusControls>
+				<button onclick="animFocus()">focus Play</button>
+				<button onclick="clearFocusAnim()">focus stop</button>
 	
+			</div>
 	
-
-
-	<div id="divBigSwing">
-		<div id="divBigSwingControl">
-			<button onclick="startBigSwing()">start</button>
-			<button onclick="stopBigSwing()">stop</button>
-		</div>
-		<div id="divBigSwingContent">
-			<!-- <div class='swingingBig' id="divBigSwingContainer"> -->
-			<div id="divBigSwingContainer">
-
-				<div id="divBigSwingTextContainer">
-					mostly
+			<div id=divLinesFocosContent>
+				<div id=divLinesFocusText>
+					<p id=pFocusText>
+						focus<br>
+						clarity<br>
+						instructions<br>
+						ignite<br>
+						leftovers<br>
+					</p> 
 				</div>
 			</div>
+	</div>
+
+	<div id= divTumbelWeed>
+			<div id=divTumbelWeedControl>	
+				<button onclick='testTumbleweedRoll()'>roll</button>	
+			   <button onclick='testTumbleweedHop()'>hop</button>
+			   <button onclick='testWeedRandSequence()'>sequene</button>
+
+			   
+
+
+			</div>	
+			<div id= divTumbelWeedContent>
+			   <div id='tumble1' class='tumbleWeed'>e</div>	
+			   <div class='tumbleWeed'>m</div>	
+			   <div class='tumbleWeed'>G</div>	
+			   <div class='tumbleWeed'>3</div>	
+			</div>	
+
+   </div>	
+
+
+   <div id= divWischer3>
+		<!-- <button id=btnGoCssRot onclick="goCssRot()">rotate css</button>
+		<button id=btnStopRotate onclick="stopRotate()">stop</button> -->
+		<button id=btnGoCssRot onclick="startWischer3()">rotate css</button>
+		<button id=btnStopRotate onclick="stopWischer3()">stop</button>
+		<div class=wischer3 >
+			<h1>rotate css</h1>
+		</div>
+		<div  class=wischer3 >
+			<h1>rotate css</h1>
 		</div>
 	</div>
-	
-	
-	
-	
-	<div id="divSpasm">
-		<div id="divSpasmControl">
-			<button onclick="spasmScript()">start</button>
-			<button onclick="spasmPrepare()">prepare</button>
-			<button onclick="testPumpOut()">pump out</button>
-			<button onclick="testHmmerDown()">test hummer</button>
 
-			
-
-			
-		</div>
-		<div id="divSpasmContent">
-			<div class='classSpasmChar' id="divSpasmChar1Container">
-				t
+	<div id=divClouds>
+			<div id=divCloudsControls>
+				<!-- <button class=clouldBtn id=btnCloudrndPos onclick="setUpLayers()">init</button>
+				<button class=clouldBtn onclick="moveClouds()">move</button>
+	 -->
+				<button class=clouldBtn id=btnCloudrndPos onclick="setupLayers1()">init</button>
+				<button class=clouldBtn onclick="moveLayers1()">move</button>
+	
+				
 			</div>
-		</div>
+			<div id=divCloudsContent>
+				<div id=cloudsMsg>37.971617, 23.726532</div>
+				<div id=divLayer1 class=layer>
+					<div class=prefix>
+						make1
+					</div>
+					<!-- <div class=suffix>
+						1
+					</div>	 -->
+				</div>
+				<div id=divLayer2 class=layer>
+					<div class=prefix>
+						game2
+					</div>
+				<!-- 	<div class=suffix>
+						2
+					</div>	 -->
+				</div>	
+				<div id=divLayer3 class=layer>
+					<div class=prefix>
+						face3
+					</div>
+					<!-- <div class=suffix>
+						3
+					</div>	 -->
+				</div>	
+				<div id=divLayer4 class=layer>
+					<div class=prefix>
+						blow4
+					</div>
+					<!-- <div class=suffix>
+						4
+					</div>	 -->	
+				</div>
+			</div>
 	</div>
+
+	<div id=divTwisterCont>
+			<div  id=twistControl>
+				<button id=btnGo onclick="startTwister(0.2, 1.0)">twist</button>
+				<button id=btnGo onclick="reloadTwister()">reload</button>
+				<button id=btnPreRide onclick="twisterStage3(0.8, 1.0)">stage 3</button>
+				<button  onclick="twistIntegrated()">integreated</button>
+	
+	
+	
+			</div>
+			<div id=divTwistText> 
+				<div class="twistLetterCont">
+					<div class=clsLetterTwst >
+						t
+					</div>
+				</div>
+				<div class="twistLetterCont">
+					<div class=clsLetterTwst >
+						w
+					</div>
+				</div>
+				<div class="twistLetterCont">
+					<div class=clsLetterTwst >
+						i
+					</div>
+				</div>
+				<div class="twistLetterCont">
+					<div class=clsLetterTwst >
+						s
+					</div>
+				</div>
+				<div class="twistLetterCont">
+					<div class=clsLetterTwst >
+						t
+					</div>
+				</div>
+				<div class="twistLetterCont">
+					<div class=clsLetterTwst >
+						e
+					</div>
+				</div>
+				<div class="twistLetterCont">
+					<div class=clsLetterTwst >
+						r
+					</div>
+				</div>
+			</div>
+	</div>	
+	
+	
+
+	<div id=divFlashingCont>
+			<div id=flashingCont></div>
+				<button onclick="preProcessFlashing()">init</button>
+				<button onclick="flashingSequence()">start</button>
+				<button onclick= "clearFlashing(true)">stop</button>
+	<!-- 
+				<button onclick= "clearFlashing(false)">off</button>
+				<button onclick="startFlashing()">flash</button>
+				<button onclick="flashSync()">flash synched</button>
+				<button onclick="gradualHide(4000)">fade away</button>
+	 -->
+	
+				
+			<div id=divFashingContent>
+				<p id=pFlash>
+					i am so glad to be here
+					so many would giveall the money in the wolrd 
+					at one of the local hospitels 
+					they had just said to her there is nothing more medical science 
+					recgnizing, she has called my name
+					what can i do about the siutation
+					i said, let not your hear be troubled
+					hes gonna take you from this old wolrd of sorrow
+					lift their spirits 
+	
+				</p>
+				
+			</div>
+	
+	</div>
+
+	<div id="divSpasm">
+			<div id="divSpasmControl">
+				<button onclick="spasmScript()">start</button>
+				<button onclick="spasmPrepare()">prepare</button>
+				<button onclick="testPumpOut()">pump out</button>
+				<button onclick="testHmmerDown()">test hummer</button>
+	
+				
+	
+				
+			</div>
+			<div id="divSpasmContent">
+				<div class='classSpasmChar' id="divSpasmChar1Container">
+					t
+				</div>
+			</div>
+	</div>
+		
+	
+	
 
 	<div id=divBottom>
 		<div id=divBottomControls>
