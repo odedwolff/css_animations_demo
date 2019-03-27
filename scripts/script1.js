@@ -1494,7 +1494,7 @@ const waveCtx={
 	default_amp:40,
 	amp:0,
 	//ampMin:0.1,
-	ampMin:3,
+	ampMin:1,
 	ampMinRel: 1/200,
 	t:0,
 	decayIntervalId:null,
@@ -1505,7 +1505,12 @@ const waveCtx={
 	/* lower scroll speed to have influence on surface */
 	minScrollSpeedPxSec:2,
 	scrollSpeedToAmpFctr: 1 / 50,
-	lastExecMs:null
+	lastExecMs:null, 
+	spacingXPx:12, 
+	spacingYPx:30, 
+	marginTopPx:50,
+	marginLeftPx:50, 
+	flatenned:false
 }
 
 function _handleScrollSession(scrollSpeed){
@@ -1527,16 +1532,33 @@ function drawStill(){
 
 
 
+function msSinceMidnightF(){
+	var now = new Date(),
+    then = new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        now.getDate(),
+        0,0,0),
+	diff = now.getTime() - then.getTime();
+	return diff;
+}
+
 
 function startWavesVer(){
 	waveCtx.enabled = true;
 	waveCtx.intervalWavesVer = setInterval(
 		function(){
 			if(waveCtx.amp <= waveCtx.ampMin ){
+				if(!waveCtx.flatenned){
+					drawVerWaves(msSinceMidnight, true);
+					waveCtx.flatenned= true;
+				}
 				return;
 			}
-			var d = new Date(), e = new Date(d);
-			var msSinceMidnight = e - d.setHours(0,0,0,0)
+			waveCtx.flatenned= false;
+			/* var d = new Date(), e = new Date(d);
+			var msSinceMidnight = e - d.setHours(0,0,0,0) */
+			var msSinceMidnight = msSinceMidnightF();
 			drawVerWaves(msSinceMidnight, false);
 		},waveCtx.animIntervalMa);
 }
@@ -1676,12 +1698,15 @@ function drawVerWaves(tMs, flatten){
 	for(var i = 0; i < height; i++){
 		for(var j = 0; j < width; j++){
 			elm= document.getElementById(waveCtx.waveArr[i][j]);
-			x=j * 20;
+			x=j * waveCtx.spacingXPx;
 			// y = i * 40 + Math.sin( (tMs * waveCtx.periodsPerSec / 1000  +  j/ waveCtx.elementsPerPeriod) * 2*Math.PI) * waveCtx.amp;
-			y = i * 40;
+			y = i * waveCtx.spacingYPx;
 			if (!flatten){
 				y= y + Math.sin( (tMs * waveCtx.periodsPerSec / 1000  +  j/ waveCtx.elementsPerPeriod) * 2*Math.PI) * waveCtx.amp;
 			}
+
+			x = x + waveCtx.marginLeftPx;
+			y = y + waveCtx.marginTopPx;
 
 			if(elm!=null){
 				elm.style.transform="translate(" + x +"px," + y + "px)";

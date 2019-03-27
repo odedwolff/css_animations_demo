@@ -1,0 +1,16 @@
+fonts: 
+FrankRuehl, ariel 
+ 
+references:
+natonal geographic- 'GeoEditRegular', 'Franklin Gothic Medium', 'Franklin Gothic', 'ITC Franklin Gothic', Helvetica, Arial, sans-serif;
+haaretz.com- Georgia,Times,"Times New Roman",serif (applied to body) 
+zeit online- "TabletGothic","Helvetica Neue",Helvetica,Arial,FreeSans,sans-serif (applied to body) ;
+
+
+marstard scheme
+
+   shade 0 = #F6A400 = rgb(246,164,  0) = rgba(246,164,  0,1) = rgb0(0.965,0.643,0)
+   shade 1 = #9E6900 = rgb(158,105,  0) = rgba(158,105,  0,1) = rgb0(0.62,0.412,0)
+   shade 2 = #FFC145 = rgb(255,193, 69) = rgba(255,193, 69,1) = rgb0(1,0.757,0.271)
+   shade 3 = #FFC145 = rgb(255,193, 69) = rgba(255,193, 69,1) = rgb0(1,0.757,0.271)
+   shade 4 = #FFC145 = rgb(255,193, 69) = rgba(255,193, 69,1) = rgb0(1,0.757,0.271)
