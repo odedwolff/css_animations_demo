@@ -1510,7 +1510,8 @@ const waveCtx={
 	spacingYPx:30, 
 	marginTopPx:50,
 	marginLeftPx:50, 
-	flatenned:false
+	flatenned:false,
+	charsInLines:90
 }
 
 function _handleScrollSession(scrollSpeed){
@@ -1671,16 +1672,16 @@ function elmIdStr(i,j, elmSuffix){
 
 function prepareWaves(){
 	const textBlock = 
-	// `physical wave*s such as those we see when a rock is thrown into water 
-	// are what many people think about when they first began to think about waves. These
-	//  waves have distinct properties specific to their type but also exhibit characteristics
-	//   in common with more abstract waves such as sound waves and light (electromagnetic) waves.`;
+	`physical wave*s such as those we see when a rock is thrown into water 
+	 are what many people think about when they first began to think about waves. These
+	waves have distinct properties specific to their type but also exhibit characteristics
+	in common with more abstract waves such as sound waves and light (electromagnetic) waves.`;
 
-	`physical wave*s such as those we see when a rock is thrown into water `;
+	//`physical wave*s such as those we see when a rock is thrown into water `;
 	
 	//var genHtml = split2D(textBlock, 40, 'char1', 'waveArr');
-	var genHtml = split2D(textBlock, 40, 'char1', waveCtx, 'waveArr', 'ver');
-
+	var genHtml = split2D(textBlock, waveCtx.charsInLines , 'char1', waveCtx, 'waveArr', 'ver');
+	
 	
 	document.getElementById('divDynContent').innerHTML = genHtml;
 	// drawHorWaves(null);
