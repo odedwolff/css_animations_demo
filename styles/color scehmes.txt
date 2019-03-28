@@ -14,3 +14,12 @@ marstard scheme
    shade 2 = #FFC145 = rgb(255,193, 69) = rgba(255,193, 69,1) = rgb0(1,0.757,0.271)
    shade 3 = #FFC145 = rgb(255,193, 69) = rgba(255,193, 69,1) = rgb0(1,0.757,0.271)
    shade 4 = #FFC145 = rgb(255,193, 69) = rgba(255,193, 69,1) = rgb0(1,0.757,0.271)
+
+
+
+
+some nice gray scale combinnations:
+
+ background 332727 (blackish)  to    fore 777374 (gray)
+
+ background aaa18e (gray)  to  fore 777374 (white)

@@ -1248,7 +1248,7 @@ const zoomStepConsts = {
 }
 
 zoomStepConsts.totalCycleLenMs=zoomStepConsts.stepUpDurMs + zoomStepConsts.stepDownDurMs + zoomStepConsts.postStepDownDurMs;
-
+/* 
 
 function walkRight(){
 	const transXInitL=-75;
@@ -1257,6 +1257,7 @@ function walkRight(){
 	const	transYInitR=280;
 	const	repetitions=4;
 	const	stepLenPx=450;
+
 	
 	const leftFootDomElm=document.getElementById("zoomFootL");
 	const rightFootDomElm=document.getElementById("zoomFootR"); 
@@ -1274,7 +1275,7 @@ function walkRight(){
 }
 
 
-
+ */
 
 
 
@@ -1350,13 +1351,17 @@ function walkFromRightToCenter(){
 
 function walkFromLeftToCenter(){
 	
-	const transXInitL=-125;
-
+	/* const transXInitL=-125;
 	const transXInitR=-350;
-
-
 	const	transYInitL=250;
+	const	transYInitR=280;
+	const	steps=2;
+	const	stepLenPx=450; */
 
+    const offSetX =70;
+	const transXInitL=-125 + offSetX;
+	const transXInitR=-350 + offSetX;
+	const	transYInitL=250;
 	const	transYInitR=280;
 	const	steps=2;
 	const	stepLenPx=450;
@@ -1466,9 +1471,13 @@ function repeatInColors(){
 }
 
 const zoomStepColors = {
-	'colors' :  ["red", "blue"],
+	//'colors' :  ["red", "blue"],
+	'colors' :  ["#ffc145", "#9f6900"],
 	'idx': 0
 }
+
+
+
 
 function repeatWithColorChange(){
 	const curColor = zoomStepColors.colors[zoomStepColors.idx];
