@@ -49,18 +49,55 @@ function rotateAnimate(startEngle, endEngle, frameRate, degPerSec){
 
 function startWischer1(){
 	//divRotCss.classList.add("cssRotGo");
-	elms = document.getElementsByClassName("wischer1");
+	elms = document.getElementsByClassName("wischerMoveObj1");
 	for(var i = 0 ; i< elms.length ; i++){
 		elms[i].classList.add("wischer1Run");	
 	}
 }
 
 function stopWischer1(){
-	elms = document.getElementsByClassName("wischer1");
+	elms = document.getElementsByClassName("wischerMoveObj1");
 	for(var i = 0 ; i< elms.length ; i++){
 		elms[i].classList.remove("wischer1Run");	
 	}
 }
+
+function startWischer2(){
+	//divRotCss.classList.add("cssRotGo");
+	elms = document.getElementsByClassName("wischerMoveObj2");
+	for(var i = 0 ; i< elms.length ; i++){
+		elms[i].classList.add("wischer2Run");	
+	}
+}
+
+function stopWischer2(){
+	elms = document.getElementsByClassName("wischerMoveObj2");
+	for(var i = 0 ; i< elms.length ; i++){
+		elms[i].classList.remove("wischer2Run");	
+	}
+}
+
+function startWischer3(){
+	//divRotCss.classList.add("cssRotGo");
+	elms = document.getElementsByClassName("wischerMoveObj3");
+	for(var i = 0 ; i< elms.length ; i++){
+		elms[i].classList.add("wischer3Run");	
+	}
+}
+
+function stopWischer3(){
+	elms = document.getElementsByClassName("wischerMoveObj3");
+	for(var i = 0 ; i< elms.length ; i++){
+		elms[i].classList.remove("wischer3Run");	
+	}
+}
+
+
+
+
+
+
+
 
 function startSwinging(){
 
@@ -1743,7 +1780,8 @@ const horWaveCtx={
 	/* lower scroll speed to have influence on surface */
 	minScrollSpeedPxSec:2,
 	scrollSpeedToAmpFctr: 1 / 20,
-	lastExec:-1
+	lastExec:-1, 
+	charsPerLine:50
 }
 
 function _handleScrollSessionHor(scrollSpeed){
@@ -1766,7 +1804,7 @@ function prepareWavesHor(){
 	`horizontal waves let's see how it goes. we can never pathom how hard it musut be 
 	having green mustard on soft eggs if your mind is wondering the way it does`;
 	
-	var genHtml = split2D(textBlock, 40, 'char1', horWaveCtx, 'waveArr', 'hor');
+	var genHtml = split2D(textBlock, horWaveCtx.charsPerLine, 'char1', horWaveCtx, 'waveArr', 'hor');
 	document.getElementById('divDynContentHorVave').innerHTML = genHtml;
 	
 }

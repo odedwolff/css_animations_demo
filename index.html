@@ -49,7 +49,7 @@
 
 	</div>
 
-	<div id=divWavesVer>
+	<div id=divWavesVer class=themePanel>
 		<!-- <div id=divTestMotionControl> -->
 		
 			<!-- <button onclick="prepareWaves()">prepare</button> -->
@@ -73,16 +73,18 @@
 	</div>	
 
 	<!-- <div id= divWischCont> -->
-	<div id= divWischer1>
+	<div id= divWischer1 class="themePanel divThemeWischer">
 		<!-- <button id=btnGoCssRot onclick="goCssRot()">rotate css</button>
 		<button id=btnStopRotate onclick="stopRotate()">stop</button> -->
 		<button id=btnGoCssRot onclick="startWischer1()">rotate css</button>
 		<button id=btnStopRotate onclick="stopWischer1()">stop</button>
-		<div id=divWischer1Content>
-			<div class=wischer1 >
+<!-- 		<div id=divWischer1Content>
+-->			
+		<div class=divWischerContent>
+			<div class="wischer wischerMoveObj1" >
 				<h1>wischer1</h1>
 			</div>
-			<div  class=wischer1 >
+			<div  class="wischer wischerMoveObj1" >
 				<h1>wischer1</h1>
 			</div>
 		</div>
@@ -90,7 +92,7 @@
 
 	</div>
 
-	<div id="divGrasshoppers">
+	<div id="divGrasshoppers" class=themePanel>
 			<div id=divGHcontrol>
 				<!-- <button  onclick="SpringSeqMulti()">go</button> -->
 				<button  onclick="preJumpTest()">go</button>
@@ -112,7 +114,7 @@
 	
 	</div>
 
-	<div id=divPulsar>
+	<div id=divPulsar class=themePanel>
 			<div id=divPulsarControl>
 				<button onclick="startPulsar(0.1)">start</button>
 				<button onclick="stopPulsar()">stop</button>
@@ -140,7 +142,7 @@
 	
 	</div>
 
-	<div id=divPendulumCont>
+	<div id=divPendulumCont class=themePanel>
 			<div id=divPndControl>
 				 <button cls=clsSwingBtn id=btnWsing onclick="startSwinging()">
 					swingSync
@@ -184,7 +186,7 @@
 			</div>
 		</div>
 
-		<div id=divWheel>
+		<div id=divWheel class=themePanel>
 				<div id=divWheelControl>
 					
 					<button onclick="spreadCombined()">spread combined</button>
@@ -252,7 +254,7 @@
 		
 		</div>
 
-		<div id=divFoosteps>
+		<div id=divFoosteps class=themePanel>
 				<div id=divFootstepsControls>
 					<button onclick="startWalking()">start</button>
 					<button onclick="stopWalking()">stop</button>
@@ -264,7 +266,7 @@
 		
 		</div>
 		
-		<div id=divWavesHor>
+		<div id=divWavesHor class=themePanel>
 				<!-- <div id=divTestMotionControl> -->
 				
 					
@@ -285,20 +287,23 @@
 				</div>
 		</div>
 
-		<div id= divWischer2>
+		<div id= divWischer2 class="themePanel divThemeWischer">
 				<!-- <button id=btnGoCssRot onclick="goCssRot()">rotate css</button>
 				<button id=btnStopRotate onclick="stopRotate()">stop</button> -->
 				<button id=btnGoCssRot onclick="startWischer2()">rotate css</button>
 				<button id=btnStopRotate onclick="stopWischer2()">stop</button>
-				<div class=wischer2 >
-					<h1>rotate css</h1>
+				<div class=divWischerContent>
+					<div class="wischer wischerMoveObj2" >
+						<h1>rotate css</h1>
+					</div>
+					<div  class="wischer wischerMoveObj2" >
+						<h1>rotate css</h1>
+					</div>
 				</div>
-				<div  class=wischer2 >
-					<h1>rotate css</h1>
-				</div>
+				
 		</div>
 
-		<div id=div3fish>
+		<div id=div3fish class=themePanel>
 				<div id=div3fishConotrols>
 					<button onclick="startSwimming()">go</button>
 					<button onclick="clearSwimming()">stop</button>
@@ -312,7 +317,7 @@
 		
 		</div>
 
-		<div id=divGears>
+		<div id=divGears class=themePanel>
 				<div id=divGearsControls>
 					<button onclick=" stratGearsLinear()">go linear</button>
 					<button onclick=" stratGearsEase()">go smooth</button>
@@ -333,7 +338,7 @@
 		</div>
 
 		
-	<div id="divBigSwing">
+	<div id="divBigSwing" class=themePanel>
 			<div id="divBigSwingControl">
 				<button onclick="startBigSwing()">start</button>
 				<button onclick="stopBigSwing()">stop</button>
@@ -349,7 +354,7 @@
 			</div>
 	</div>
 
-	<div id=divRollerCont>
+	<div id=divRollerCont class=themePanel>
 			<div id=divRollerControl>
 				<button onclick="rollWord()">roll</button>	
 				<button onclick="resetRollWord()">reset</button>	
@@ -390,7 +395,7 @@
 	
 	</div>
 
-	<div id="divZoomSteps">
+	<div id="divZoomSteps" class=themePanel>
 			<div id="divZoomStepsControls">
 				<button onclick="walkLeft()">walk left</button>
 				<button onclick="walkRight()">walk right</button>
@@ -413,7 +418,7 @@
 
 	</div>
 
-	<div id=divLinesFocusCont>
+	<div id=divLinesFocusCont class=themePanel>
 			<div id=divLinesFocusControls>
 				<button onclick="animFocus()">focus Play</button>
 				<button onclick="clearFocusAnim()">focus stop</button>
@@ -453,20 +458,24 @@
    </div>	
  -->
 
-   <div id= divWischer3>
-		<!-- <button id=btnGoCssRot onclick="goCssRot()">rotate css</button>
-		<button id=btnStopRotate onclick="stopRotate()">stop</button> -->
-		<button id=btnGoCssRot onclick="startWischer3()">rotate css</button>
-		<button id=btnStopRotate onclick="stopWischer3()">stop</button>
-		<div class=wischer3 >
-			<h1>rotate css</h1>
-		</div>
-		<div  class=wischer3 >
-			<h1>rotate css</h1>
-		</div>
+   
+
+	<div id= divWischer3 class="themePanel divThemeWischer">
+			<!-- <button id=btnGoCssRot onclick="goCssRot()">rotate css</button>
+			<button id=btnStopRotate onclick="stopRotate()">stop</button> -->
+			<button id=btnGoCssRot onclick="startWischer3()">rotate css</button>
+			<button id=btnStopRotate onclick="stopWischer3()">stop</button>
+			<div class=divWischerContent>
+				<div class="wischer wischerMoveObj3" >
+					<h1>rotate css</h1>
+				</div>
+				<div  class="wischer wischerMoveObj3" >
+					<h1>rotate css</h1>
+				</div>
+			</div>	
 	</div>
 
-	<div id=divClouds>
+	<div id=divClouds class=themePanel>
 			<div id=divCloudsControls>
 				<!-- <button class=clouldBtn id=btnCloudrndPos onclick="setUpLayers()">init</button>
 				<button class=clouldBtn onclick="moveClouds()">move</button>
@@ -513,7 +522,7 @@
 			</div>
 	</div>
 
-	<div id=divTwisterCont>
+	<div id=divTwisterCont class=themePanel>
 			<div  id=twistControl>
 				<button id=btnGo onclick="startTwister(0.2, 1.0)">twist</button>
 				<button id=btnGo onclick="reloadTwister()">reload</button>
@@ -564,7 +573,7 @@
 	
 	
 
-	<div id=divFlashingCont>
+	<div id=divFlashingCont class=themePanel>
 			<div id=flashingCont></div>
 				<button onclick="preProcessFlashing()">init</button>
 				<button onclick="flashingSequence()">start</button>
@@ -595,7 +604,7 @@
 	
 	</div>
 
-	<div id="divSpasm">
+	<div id="divSpasm" class=themePanel>
 			<div id="divSpasmControl">
 				<button onclick="spasmScript()">start</button>
 				<button onclick="spasmPrepare()">prepare</button>
@@ -616,7 +625,7 @@
 	
 	
 
-	<div id=divBottom>
+	<div id=divBottom class=themePanel>
 		<div id=divBottomControls>
 			<button id="go" onclick="testBottom()">go</button>
 			<button onclick="stopRain()">stop</button>

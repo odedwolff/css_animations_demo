@@ -5,6 +5,14 @@
 @colorDarker:#9f6900;
 
 
+
+//------------------------------------------------------------------------
+button {
+    background:#00000000;
+   	border-style: none;
+   	border-color: @colorCentral;
+	color: rgb(96, 131, 96);
+}
 //--------------------------------------------------
 #overTitleSpace{
 	height:80px;
@@ -43,11 +51,31 @@ body {
 	font-family: 'FrankRuehl', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
 }
 
-body > *{
- margin-left: 10%;
- margin-right: 10%;
- clip-path: inset(0px 0px 0px 0px);
+
+//the main theme pannels 
+/* body > *{
+	margin-left: 10%;
+	margin-right: 10%;
+	clip-path: inset(0px 0px 0px 0px);
+
+	border-style: solid;
+	border-width: 1px;
+	border-color: black;
+	margin-bottom: 5px;
+} */
+
+.themePanel{
+	margin-left: 10%;
+ 	margin-right: 10%;
+ 	clip-path: inset(0px 0px 0px 0px);
 }
+
+.simpleFrame{
+	border-style: solid;
+	border-width: 1px;
+	border-color: black;
+	margin-bottom: 5px;
+} 
 
 
 //------------------------------------------------------------------------------------------------
@@ -89,13 +117,30 @@ body > *{
 */
 
 #divWischer1{
+/* 	padding-top: 200px;
+	height: 300px;
+	background: @colorDarker;
+	color: @colorLighter; */
+}
+
+.divThemeWischer{
 	padding-top: 200px;
 	//width:100%;
 	height: 300px;
 	background: @colorDarker;
+	color: @colorLighter;
 }
 
+/* 
 #divWischer1Content{
+	left:30%;
+	top:20%;
+	color: white;
+	position: relative;
+}
+ */
+
+.divWischerContent{
 	left:30%;
 	top:20%;
 	color: white;
@@ -105,12 +150,13 @@ body > *{
 
 
 
-.wischer1 h1{
+.wischer h1{
 	font-family: "Georgia", "serif";
 	font-size:20px;
+	color: @colorLighter;
 }
 
-.wischer1{
+.wischer{
 	
 	width: 200px;
 	transform-origin: 100% 50%;
@@ -134,16 +180,58 @@ body > *{
 	100%{transform: rotate(25deg);}
 }
 
+.wischer2Run{
+	animation-name: example;
+  	animation-duration: 4s;
+  	animation-name: rotText2;
+  	animation-duration: 2s;
+  	transform-origin: 100% 50%;
+  	transform: rotate(25deg);
+  	animation-iteration-count: infinite;
+}
+
+@keyframes rotText2{
+	0%{transform: rotate(25deg);}
+	50%{transform: rotate(155deg);}
+	100%{transform: rotate(25deg);}
+}
+
+
+.wischer3Run{
+	animation-name: example;
+  	animation-duration: 4s;
+  	animation-name: rotText3;
+  	animation-duration: 1s;
+  	transform-origin: 100% 50%;
+  	transform: rotate(25deg);
+  	animation-iteration-count: infinite;
+}
+
+@keyframes rotText3{
+	0%{transform: rotate(25deg);}
+	50%{transform: rotate(155deg);}
+	100%{transform: rotate(25deg);}
+}
+
+
 
 /*-------------------------------------theme swing-------------------------------------------------------------------
 */
 
-#divPendulumCont{
-	padding-top: 200px;
-	//width:100%;
-	height: 500px;
-	background: #DDDF57
+
+
+#divPendulumCont {
+    padding-top: 200px;
+    padding-left: 150px;
+    height: 350px;
+    background: #ffc145;
+    color: #000000;
+    /* border-style: solid; */
+    border-width: 1px;
+    border-color: #000000;
 }
+
+
 
 #divPendulum{
 	margin-left: 20%
@@ -285,11 +373,12 @@ body > *{
 
 
 
-#divPulsar{
-	padding-top: 200px;
-	//width:100%;
-	height: 500px;
-	background: #1c5e22;
+
+#divPulsar {
+    padding-top: 200px;
+    height: 300px;
+	background: #aaa18e;
+	color: rgb(252, 252, 252);
 }
 
 .letterContainerPulsar{
@@ -332,7 +421,8 @@ body > *{
 
 
 #divPulsarContent{
-	padding-left: 10%;
+	padding-left: 18%;
+    padding-top: 2%;
 }
 
 
@@ -940,12 +1030,14 @@ div#divFashingContent{
 */
 
 
-#divFoosteps{
-	//width:100%;
-	height: 500px;
-	background: pink;
-	position: relative;
-	height: 300px;
+
+
+#divFoosteps {
+    height: 500px;
+    background: #f6a400;
+    position: relative;
+    height: 300px;
+    color: #9f6900;
 }
 
 .foot{
@@ -1165,7 +1257,8 @@ div#divLetterBox {
 #divWheel{
 	//width:100%;
 	height: 500px;
-	background: black;
+	background: #aaa18e;
+	color: rgb(252, 252, 252);
 	position: relative;
 	height: 600px;
 }
@@ -1177,7 +1270,8 @@ div#divLetterBox {
     position: absolute;
     bottom: 2px;
     left: 11px;
-    font-size: 32px;
+	font-size: 32px;
+	color: rgb(252, 252, 252);
 }
 
 
@@ -1188,7 +1282,7 @@ div#divLetterBox {
     width: 30px;
     text-align: center;
     /* background: #ffff002e; */
-    color: darkorange;
+    color: rgb(15, 15, 15);
     left: 500px;
     top: 300px;
     transform-origin: 50% 0%;
@@ -1309,12 +1403,19 @@ div#divLetterBox {
 
 
 
-#divWavesHor{
-	height: 500px;
-	background: @colorCentral;
-	color:white;
-	position: relative;
-	height: 600px;
+
+
+#divWavesHor {
+    height: 500px;
+    background: #aaa18e;
+    color: white;
+    position: relative;
+    height: 400px;
+}
+
+div#divDynContentHorVave {
+    padding-left: 100px;
+    padding-top: 50px;
 }
 
 
