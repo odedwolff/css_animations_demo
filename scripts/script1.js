@@ -998,19 +998,7 @@ function wheelingScript(){
 
 //----------------------------------------------theme clouds-------------------------------------------------------
 
-function setUpLayersOld(){
-	elms= document.querySelectorAll("#divCloudsContent .layer" );
- 	// var color;
- 	// var colorStr;
- 	for (var i = 0 ; i < elms.length; i++){
- 		// setRandTranslation(900, 0, elms[i]);
- 		// color = rndColor();
- 		// colorStr = "hsl(" + color['h'] + "," + color['s'] + "%," + color['l'] + "%)";
- 		// // colorStr="black";
- 		// elms[i].style.color = colorStr;
- 		setUpLayer(elms[i]);
- 	}
-}
+
 
 function setUpLayer(layerDomELm){
 	var color;
@@ -1126,7 +1114,7 @@ function moveCloudLayer(domElm,initX,initY){
 function moveClouds(){
 		elms= document.querySelectorAll("#divCloudsContent .layer" );
 		 for (var i = 0 ; i < elms.length; i++){
-		 	trans=setUpLayer(elms[i])
+		 	var trans=setUpLayer(elms[i])
 		 	setTimeout(
 		 		function(elm,x,y){
 		 			moveCloudLayer(elm,x,y);
@@ -1139,6 +1127,7 @@ function moveClouds(){
 var movFunctions=[];
 
 function setupLayers1(){
+	movFunctions=[];
 	elms= document.querySelectorAll("#divCloudsContent .layer" );
 		 for (var i = 0 ; i < elms.length; i++){
 		 	trans=setUpLayer(elms[i])
