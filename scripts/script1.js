@@ -183,11 +183,19 @@ function twisterStage3(dPhaseSec, idleSpinSec){
 
 function twistIntegrated(){
 	 
-	 startTwister(.75, null);
+	/*  startTwister(.75, null);
 	 setTimeout(function(){
 	 	twisterStage3(.7, .7);
 	 }
-	 	,6000);
+		 ,6000); */
+		 
+	var dPhase = 1.5;
+
+		 startTwister(dPhase, null);
+		 setTimeout(function(){
+			 twisterStage3(dPhase, .7);
+		 }
+			 ,12000);
 }
 
 
