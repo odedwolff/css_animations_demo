@@ -1039,10 +1039,19 @@ function f8(){
 
 //get some random stauration and brightness of - magnetta 
 function rndColor(){
-	return {/*'h':270,*/
+	
+	/* sort of pale gree 
+	return {
 			'h':146,
 			's': Math.random() * 100,
 			'l': Math.random() * 100
+	} */
+
+	//grayscale 
+	return {/*'h':270,*/
+			'h':0,
+			's': 0,
+			'l': Math.random() * 11
 	}
 }
 
@@ -1084,17 +1093,22 @@ function moveCloudLayerOld(domElm,initX,initY){
 
 
 function moveCloudLayer(domElm,initX,initY){
-	const minDurationSec = 3;
-	const maxDurationSec = 5;
+	/* const minDurationSec = 3;
+	const maxDurationSec = 5; */
+
+	const minDurationSec = 5;
+	const maxDurationSec = 7;
 	const durationSec = Math.random() * (maxDurationSec - minDurationSec) + minDurationSec
 
+	
 	const translateYMax = 500;
 	const translateYMin = -500;
 	const translateYFinal = Math.random() * (translateYMax-translateYMin) + translateYMin;
 
 	var trnfParams = {
 		srcTrnsX:initX,
-		trgTrnsX:2000,
+		//trgTrnsX:2000,
+		trgTrnsX:2750,
 		srcTrnsY:initY,
 		trgTrnsY:translateYFinal,
 		srcRotateDeg:0,
@@ -1184,7 +1198,7 @@ function transformCnstSpeed(domObj, trnsfParams, fps, durSec){
 
 //function TranformStep(domObj, curTrsnslateX, curTranslateY, curRotate, dxPxFr, dyPxFr, dRotDeg, framesToGo, fps){
 function TranformStep(domObj, moveParams, intervalMs, framesToGo, fps){
-	if(framesToGo==0){
+	if(framesToGo <= 0){
 		return;
 	}
 	repostion(domObj, moveParams.currentTranslateX, moveParams.currentTranslateY, moveParams.currentRotate, moveParams.currentScale);
