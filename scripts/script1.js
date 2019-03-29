@@ -23,6 +23,8 @@ function init(){
 	initWaves();
 	
 	initTiltTracking();
+
+	setTwissterOpacity(0);
 	
 }
 
@@ -136,11 +138,13 @@ function startSwingingDelta(dPhaseSec){
 }
 
 function startTwister(dPhaseSec, defuseSec){
+	//setTwissterOpacity(1);
 	elms = document.getElementsByClassName("twistLetterCont");
 		for(var i = 0 ; i< elms.length ; i++){
 			//console.log("delat=" + delay);
 			setTimeout(
 				(function(elm){
+					elm.style.opacity = 1;
 					elm.classList.add("twisting_in");	
 				}).bind(null, elms[i])
 				,dPhaseSec * 1000 * i);
@@ -157,8 +161,21 @@ function reloadTwister(){
 		elms[i].classList.remove("twisting_in");
 		elms[i].classList.remove("twist_pre_ride");	
 		elms[i].classList.remove("twist_ride_away");	
-
+		setTwissterOpacity(0);
 	}
+}
+
+function setTwissterOpacity(val){
+	elms = document.getElementsByClassName("twistLetterCont");
+	for(var i = 0 ; i< elms.length ; i++){
+		elms[i].style.opacity = val;
+	}
+}
+
+
+
+function initTwisster(){
+	setTwissterOpacity(0);
 }
 
 function twisterStage3(dPhaseSec, idleSpinSec){
@@ -209,6 +226,9 @@ function startPulsar(dPhaseSec){
 				,dPhaseSec * 1000 * i);		
 	}
 }
+
+
+
 
 
 function stopPulsar(){
