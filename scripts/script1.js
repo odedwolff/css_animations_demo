@@ -411,33 +411,33 @@ function setSequencesToFlasingLetter(rndTimingSpectrumMs){
 		}.bind(null, elms[i]), delay);		
 	} */
 
-	showLettersGrad(1200);
+	showLettersGrad(8000);
 
 	//now the entire div flshing 
 	var container = document.getElementById("divProcessedP");
 	setTimeout(function(){
 		container.classList.add("snychFlash1");
-	},/*5000*/3000);
+	},/*5000*/8800);
 	setTimeout(function(){
 		container.classList.remove("snychFlash1");
 		container.classList.add("snychFlash2");
-	},/* 7500 */ 5500);
+	},/* 7500 */ 10800);
 	setTimeout(function(){
 		container.classList.remove("snychFlash2");
 		container.classList.add("snychFlash3");
-	},/* 10000 */ 8000);
+	},/* 10000 */ 12800);
 	setTimeout(function(){
 		container.classList.remove("snychFlash3");
-	},/* 13000 */11000);
+	},/* 13000 */14800);
 
 	setTimeout(function(){
-		gradualHide(700);
+		gradualHide(300);
 	//},17000);
-	},15000);
+	},15600);
 
 	setTimeout(function(){
 		console.log("end Cycle flashing text");
-	},16000);
+	},17000);
 
 	
 }
