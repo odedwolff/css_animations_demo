@@ -2239,7 +2239,7 @@ function stopBigSwing(){
 //---------------------------------------theme spasm------------------------------------------------------------
 
 const spasmCtx = {
-	transformMinDurMs:100,
+	/* transformMinDurMs:100,
 	transformMinMaxMs:700,
 	transformMinRatioPerFrameX:1.4,
 	transformMaxRatioPerFrameX:1.5,
@@ -2248,13 +2248,34 @@ const spasmCtx = {
 	trnasformNmSpasmInSeq:8, 
 	baseLineScalePerFrame:1.1, 
 	fPs:50, 
-	framesPerSpasm:10, 
+	framesPerSpasm:40, 
 	xXpanstionFactor:90,
 	yXpanstionFactor:8, 
 	hammerPauseMs: 200,
 	timeOutBeforeHideMs: 800,
 	startTimeRangeMs: 700,
-	waitTimeStrechedUp:1000
+	waitTimeStrechedUp:1000,
+	xOffsetPx:250, 
+	yOffsetPx:200 */
+
+	transformMinDurMs:100,
+	transformMinMaxMs:700,
+	transformMinRatioPerFrameX:1.04,
+	transformMaxRatioPerFrameX:1.08,
+	transformMinRatioPerFrameY:1.04,
+	transformMaxRatioPerFrameY:1.08,
+	trnasformNmSpasmInSeq:8, 
+	baseLineScalePerFrame:1.1, 
+	fPs:50, 
+	framesPerSpasm:40, 
+	xXpanstionFactor:3,
+	yXpanstionFactor:1, 
+	hammerPauseMs: 200,
+	timeOutBeforeHideMs: 800,
+	startTimeRangeMs: 700,
+	waitTimeStrechedUp:1000,
+	xOffsetPx:250, 
+	yOffsetPx:200
 }
 
 
@@ -2267,8 +2288,11 @@ function spasmPrepare(){
 	var elm;
 	var html = "";
 	for(var i = 0; i < text.length ; i++){
-		var leftVal = i*letterSpacintPx;
-		elm = "<div class='classSpasmChar' style='top:100px;left:"+ leftVal +"px'>" + text[i] + "</div>";
+		//var leftVal = i*letterSpacintPx;
+		var leftVal = i*letterSpacintPx + spasmCtx.xOffsetPx;
+		var topOffset = spasmCtx.yOffsetPx;
+		//elm = "<div class='classSpasmChar' style='top:100px;left:"+ leftVal +"px'>" + text[i] + "</div>";
+		elm = "<div class='classSpasmChar' style='top:" + topOffset + "px;left:"+ leftVal +"px'>" + text[i] + "</div>";
 		html= html.concat(elm);
 	}
 	var parentHtml = document.getElementById("divSpasmContent");
