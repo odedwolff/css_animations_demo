@@ -367,9 +367,22 @@ function addClsToClsMmbrs(clsSelect, clsAdd, rndTimingSpectrumMs){
 }
 
 
+
+function showLettersGrad(timeSpectrumMs){
+	var elms  = document.getElementsByClassName("classFlashLetter");
+	var delayMs;
+	for(var i = 0 ; i< elms.length ; i++){
+		delayMs = Math.random() * timeSpectrumMs;
+		setTimeout(function(elm){
+			elm.style.opacity = 1;
+		}.bind(null, elms[i]), delayMs);
+	}
+}
+
+
 //assign sequence to individual letters
 function setSequencesToFlasingLetter(rndTimingSpectrumMs){
-	elms = document.getElementsByClassName("classFlashLetter");
+	/* elms = document.getElementsByClassName("classFlashLetter");
 	var hasRndTiming= rndTimingSpectrumMs != null && rndTimingSpectrumMs != 0;
 	for(var i = 0 ; i< elms.length ; i++){
 		elms[i].classList.add("classFlashLetterTransparent");
@@ -396,33 +409,35 @@ function setSequencesToFlasingLetter(rndTimingSpectrumMs){
 				elm.classList.remove("flashing80");
 			},2500);
 		}.bind(null, elms[i]), delay);		
-	}
+	} */
 
+	showLettersGrad(1200);
 
 	//now the entire div flshing 
 	var container = document.getElementById("divProcessedP");
 	setTimeout(function(){
 		container.classList.add("snychFlash1");
-	},5000);
+	},/*5000*/3000);
 	setTimeout(function(){
 		container.classList.remove("snychFlash1");
 		container.classList.add("snychFlash2");
-	},7500);
+	},/* 7500 */ 5500);
 	setTimeout(function(){
 		container.classList.remove("snychFlash2");
 		container.classList.add("snychFlash3");
-	},10000);
+	},/* 10000 */ 8000);
 	setTimeout(function(){
 		container.classList.remove("snychFlash3");
-	},13000);
+	},/* 13000 */11000);
 
 	setTimeout(function(){
-		gradualHide(2000);
-	},17000);
+		gradualHide(700);
+	//},17000);
+	},15000);
 
 	setTimeout(function(){
 		console.log("end Cycle flashing text");
-	},19000);
+	},16000);
 
 	
 }
@@ -483,11 +498,12 @@ function flashingSequence(){
 }
 
 function gradualHide(timeSpectrumMs){
-	elms = document.getElementsByClassName("classFlashLetter");
+	var elms = document.getElementsByClassName("classFlashLetter");
 	for(var i = 0; i < elms.length; i++){
 		var delay=timeSpectrumMs*Math.random();
 		setTimeout(function(elm){
 			elm.classList.add("classFlashLetterTransparent");
+			elm.style.opacity=0;
 		}.bind(null, elms[i]), delay);
 	}
 }

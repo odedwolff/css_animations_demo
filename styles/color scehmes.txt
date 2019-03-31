@@ -6,6 +6,9 @@ natonal geographic- 'GeoEditRegular', 'Franklin Gothic Medium', 'Franklin Gothic
 haaretz.com- Georgia,Times,"Times New Roman",serif (applied to body) 
 zeit online- "TabletGothic","Helvetica Neue",Helvetica,Arial,FreeSans,sans-serif (applied to body) ;
 
+also, look for refernce:
+https://land-der-ideen.de/bewerbung 
+
 
 marstard scheme
 
