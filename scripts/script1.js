@@ -1668,7 +1668,7 @@ function initWaves(){
 	
 	prepareWavesHor();
 	drawHorWaves(0, false);
-	startWavesHor();
+	//startWavesHor();
 	startWavesHorWDecay();
 	
 	startScrollSample();
@@ -1891,7 +1891,9 @@ function drawHorWaves(tMs, flatten){
 }
 
 function startWavesHor(){
-	horWaveCtx.enabled=true;
+	if(horWaveCtx.enabled){
+		return;
+	}	
 	horWaveCtx.intervalWavesVer = setInterval(
 		function(){
 			if(horWaveCtx.amp <= horWaveCtx.ampMin ){
@@ -1901,6 +1903,7 @@ function startWavesHor(){
 			var msSinceMidnight = e - d.setHours(0,0,0,0)
 			drawHorWaves(msSinceMidnight, false);
 		},horWaveCtx.animIntervalMa);
+	horWaveCtx.enabled=true;
 }
 
 
@@ -2019,6 +2022,7 @@ function enableWave(scrollYpos){
 }
 
 function enableWaveHor(scrollYpos){
+	/* 
 	//in range
 	if(scrollYpos > scrollCtx.varWavesHorMinActive && scrollYpos < scrollCtx.varWavesHorMaxActive){
 		if(horWaveCtx.intervalWavesVer == null){
@@ -2030,7 +2034,19 @@ function enableWaveHor(scrollYpos){
 		if(horWaveCtx.intervalWavesVer != null){
 			stopWavesHor();
 		}
+	} */
+
+	if (panelInViewPortWavesHor()){
+		startWavesHor();
+	}else{
+		stopWavesHor();
 	}
+}
+
+
+function panelInViewPortWavesHor(){
+	var topPosInViewPort = document.getElementById("viewpointDetectorWavesHor").getBoundingClientRect().top;
+	return topPosInViewPort > 100 && topPosInViewPort < 400;
 }
 
 
