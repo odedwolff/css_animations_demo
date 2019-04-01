@@ -4,6 +4,12 @@
 @colorLighter:#ffc145;
 @colorDarker:#9f6900;
 
+//@rollerFunctionParmams : cubic-bezier(.47,.01,.98,.59);
+
+@rollerFunctionParmams :cubic-bezier(.31,.01,1,.73);
+
+@fontFamilyFrankRuhl:'FrankRuehl', 'Franklin Gothic Medium', 'Arial Narrow', 'Arial', 'sans-serif';
+@fontFamilyFutura:'Futura LT W01','HelveticaNeue','Helvetica Neue','Helvetica','Arial','sans-serif';
 
 
 //------------------------------------------------------------------------
@@ -467,14 +473,18 @@ body {
 */
 #divRollerCont{
 	//width:100%;
+	margin-top: 20px;
 	height: 500px;
 	background:@colorCentral;
 	color: white;
+	background: black;
 	position: relative;
 	//left: 200px;
+	font-family:@fontFamilyFutura;
 }
 
 #divRollerWord{
+	margin-left: 150px;
 	position: absolute;
 	font-size: 40px;
 	width: 60px;
@@ -484,6 +494,7 @@ body {
 }
 
 #divRollerWordDouble{
+	margin-left: 150px;
 	position: relative;
 	font-size: 40px;
 	width: 60px;
@@ -506,30 +517,23 @@ body {
 @keyframes rolling{
 	0%{
 		transform: translate(30px, 30px) rotate(0deg) ;
-		/*animation-timing-function: cubic-bezier(.51,.23,.72,.45);*/
-		animation-timing-function:cubic-bezier(.2,.01,1,.88);
-
-		
+		animation-timing-function: @rollerFunctionParmams;
 	}
-	10%{
+	12%{
 		transform: translate(800px, 100px) rotate(1000deg) ;
-		/*animation-timing-function: linear;*/
-		animation-timing-function:cubic-bezier(.21,.07,.92,.78);
+		animation-timing-function: @rollerFunctionParmams;
 		
 	}
-	18%{
+	17%{
 		transform: translate(0px, 200px) rotate(0deg) ;
-		/*animation-timing-function: linear;*/
-		animation-timing-function:cubic-bezier(.21,.07,.92,.78);
-		
+		animation-timing-function: @rollerFunctionParmams;
 	}
-	24%{
+	22%{
 		transform: translate(800px, 300px) rotate(1000deg) ;
-		/*animation-timing-function: linear;*/
-		animation-timing-function:cubic-bezier(.21,.07,.92,.78);
+		animation-timing-function: @rollerFunctionParmams;
 		
 	}
-	28%{
+	26%{
 		transform: translate(0px, 400px) rotate(0deg) ;
 		animation-timing-function:cubic-bezier(0,.42,.59,.99);	
 	}
@@ -1597,7 +1601,7 @@ div#divTumbelWeedControl {
 /*----------------------------------theme bottom --------------------------------------------*/
 #divBottom{
 	height: 500px;
-	background: red;
+	background: @colorLighter;
 }
 
 /* #divBottomContent{
