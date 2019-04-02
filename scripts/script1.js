@@ -1688,7 +1688,7 @@ function startWavesVer(){
 
 
 
-//initiate loops for both vertial and horizontal wave themes 
+//initiate loops for both vertial and horizontal wave themes !!!!
 function initWaves(){
 	prepareWaves();
 	drawStill();
@@ -1857,9 +1857,11 @@ const horWaveCtx={
 	ampMin:0.1,
 	//ampMin:200,
 	ampMinRel: 1/200,
+	ampMaxAbs:110,
 	t:0,
 	decayIntervalId:null,
-	decayRateSec: .75,
+	//decayRateSec: .75,
+	decayRateSec: .5,
 	fadeInRateSec:1.5,
 	handleScrollSession: _handleScrollSessionHor,
 	/* lower scroll speed to have influence on surface */
@@ -1873,7 +1875,12 @@ function _handleScrollSessionHor(scrollSpeed){
 	const newAmp = scrollSpeed * horWaveCtx.scrollSpeedToAmpFctr;
 	//console.log("new amp, horWaveCtx.amp=" + newAmp + "," + horWaveCtx.amp );
 	if(newAmp > horWaveCtx.amp){
-		horWaveCtx.amp = newAmp;
+		//horWaveCtx.amp = newAmp;
+		if (newAmp > horWaveCtx.ampMaxAbs){
+			horWaveCtx.amp = horWaveCtx.ampMaxAbs
+		}else{
+			horWaveCtx.amp = newAmp;
+		}
 	}
 }
 
