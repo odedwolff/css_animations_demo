@@ -4,6 +4,8 @@
 @colorLighter:#ffc145;
 @colorDarker:#9f6900;
 
+@colorViewPointDetector:red;
+
 //@rollerFunctionParmams : cubic-bezier(.47,.01,.98,.59);
 
 @rollerFunctionParmams :cubic-bezier(.31,.01,1,.73);
@@ -467,7 +469,23 @@ body {
 	padding-left: 18%;
     padding-top: 2%;
 }
-
+/*-------------------------------------over wipers-------------------------------------------------------*/
+#overWipers{
+	position: fixed;
+	/* widows: 100%;
+	height: 100%; */
+} 
+.clsOverWiper{
+	position: relative;
+	width:400px;
+	height: 100px;
+	font-size: 60px;
+	transform-origin: 0% 50%;
+	margin-left:300px;
+	display: inline;
+	//color:yellow;
+	transform: rotate(30deg);
+}
 
 /*-------------------------------------theme rolling-------------------------------------------------------------------
 */
@@ -1208,6 +1226,11 @@ div#divGHcontent {
     height: 80%;
 }
 
+
+#viewpointDetectorGrasshopper{
+	top:180px;
+}
+
 /*-------------------------------------theme gears-------------------------------------------------------------------
 */
 
@@ -1453,6 +1476,10 @@ div#divLetterBox {
 	height: 600px;
 }
 
+#viewpointDetectorWavesVer{
+	top:300px;
+}
+
 
 
 
@@ -1471,12 +1498,19 @@ div#divDynContentHorVave {
 }
 
 #viewpointDetectorWavesHor{
-	width:10px;
-	height:10px;
-	background:red;
-	position: absolute;
+	
 	top:200px;
 }
+
+
+.viewPortDetector{
+	width:10px;
+	height:10px;
+	background:@colorViewPointDetector;
+	position: absolute;
+}
+
+
 
 
 /*----------------------------------------theme tumbelweed--------------------------------------*/
@@ -1607,11 +1641,7 @@ div#divTumbelWeedControl {
 
 
 #viewportDetectorSpasm{
-	position: absolute;
-	width:10px;
 	height:400px;
-	background: red;
-
 }
 
 

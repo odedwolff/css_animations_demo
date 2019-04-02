@@ -595,7 +595,7 @@ function startWalkingNoCss(){
 
 
 
-function hopSeq(ghDivId){
+function hopSeq(ghDivId, fComplete){
 	const dTimeMs=5;
 	const hAccPxPerSecSqr = 3000;
 	const vSpeedpxPerSec = 400;
@@ -603,11 +603,14 @@ function hopSeq(ghDivId){
 	const numHops=6;
 	const pauseBetweenHopsMs=1700;
 	var landingX = 0;
-	function hopStep(domElm, transX, transY, hSpeedPxPerSec){
+	function hopStep(domElm, transX, transY, hSpeedPxPerSec, fComplete){
 		//if you are falling and hit the ground, your done
 		landingX=transX;
 		if(hSpeedPxPerSec > 0 && transY > 0){
 			// landingX=transX;
+			if(fComplete){
+				fComplete();
+			}
 			return;
 		}
 		
@@ -617,7 +620,8 @@ function hopSeq(ghDivId){
 				domElm,
 				transX + vSpeedpxPerSec * dTimeMs / 1000,
 				transY + hSpeedPxPerSec * dTimeMs / 1000,
-				hSpeedPxPerSec + hAccPxPerSecSqr * dTimeMs / 1000
+				hSpeedPxPerSec + hAccPxPerSecSqr * dTimeMs / 1000, 
+				fComplete
 			);
 		}, dTimeMs);
 			
@@ -633,9 +637,13 @@ function hopSeq(ghDivId){
 			preJump(gh1.id, landingX);
 		}, pauseBetweenHopsMs * i );
 
-		setTimeout(function(){
-			hopStep(gh1, landingX, 0, shootupSpeedPxPerSec);
-		}, pauseBetweenHopsMs * i + 600);
+		setTimeout(function(hopNr){
+			var f=null;
+			if(hopNr == numHops-1){
+				f= fComplete;
+			}
+			hopStep(gh1, landingX, 0, shootupSpeedPxPerSec, f);
+		}.bind(null,i), pauseBetweenHopsMs * i + 600);
 		// }, pauseBetweenHopsMs * i + 600);
 	}
 }
@@ -705,15 +713,17 @@ function preJumpTest(){
 	//preJump("divGH1");
 	//jumpCombinedPeriod("divGH1");
 	
-	hopSeq("divGH1");
+	hopSeq("divGH1", null);
 	setTimeout(
 		function(){
-			hopSeq("divGH2");
+			hopSeq("divGH2", null);
 		},200
 	);
 	setTimeout(
 		function(){
-			hopSeq("divGH3");
+			hopSeq("divGH3", function(){
+				console.log("seq ended grasshopper")
+			});
 		},400
 	);
 }
@@ -1639,7 +1649,10 @@ function msSinceMidnightF(){
 
 
 function startWavesVer(){
-	waveCtx.enabled = true;
+	if (waveCtx.enabled){
+		return;
+	}
+
 	waveCtx.intervalWavesVer = setInterval(
 		function(){
 			if(waveCtx.amp <= waveCtx.ampMin ){
@@ -1655,6 +1668,8 @@ function startWavesVer(){
 			var msSinceMidnight = msSinceMidnightF();
 			drawVerWaves(msSinceMidnight, false);
 		},waveCtx.animIntervalMa);
+
+	waveCtx.enabled = true;
 }
 
 
@@ -1988,6 +2003,7 @@ function checkScrollSpeed(){
 	const currentPos = window.scrollY
 	enableWave(currentPos);
 	enableWaveHor(currentPos);
+	enableGrasshoppers();
 
 	if(currentPos == scrollCtx.lastYposition){
 		return;
@@ -2007,35 +2023,15 @@ function checkScrollSpeed(){
 
 
 function enableWave(scrollYpos){
-	//in range
-	if(scrollYpos > scrollCtx.varWavesMinActive && scrollYpos < scrollCtx.varWavesMaxActive){
-		if(waveCtx.intervalWavesVer == null){
-			startWavesVer();
-		}
-	}
-	//out of range
-	else{
-		if(waveCtx.intervalWavesVer != null){
-			stopWavesVer();
-		}
+	if(panelInViewPortWavesVer()){
+		startWavesVer();
+	}else{
+		stopWavesVer();
 	}
 }
 
 function enableWaveHor(scrollYpos){
-	/* 
-	//in range
-	if(scrollYpos > scrollCtx.varWavesHorMinActive && scrollYpos < scrollCtx.varWavesHorMaxActive){
-		if(horWaveCtx.intervalWavesVer == null){
-			startWavesHor();
-		}
-	}
-	//out of range
-	else{
-		if(horWaveCtx.intervalWavesVer != null){
-			stopWavesHor();
-		}
-	} */
-
+	
 	if (panelInViewPortWavesHor()){
 		startWavesHor();
 	}else{
@@ -2043,10 +2039,31 @@ function enableWaveHor(scrollYpos){
 	}
 }
 
+function enableGrasshoppers(){
+	if(panelInViewGrasshoppers){
+
+	}
+}
+
 
 function panelInViewPortWavesHor(){
 	var topPosInViewPort = document.getElementById("viewpointDetectorWavesHor").getBoundingClientRect().top;
-	return topPosInViewPort > 100 && topPosInViewPort < 400;
+	return topPosInViewPort > -250 && topPosInViewPort < 1200;
+}
+
+function panelInViewPortWavesVer(){
+	var topPosInViewPort = document.getElementById("viewpointDetectorWavesVer").getBoundingClientRect().top;
+	//return topPosInViewPort > 200 && topPosInViewPort < 300;
+	
+	//don't block from above, because the engaging is not smooth and should not happen 
+	//insode viewport 
+	return topPosInViewPort < 1300;
+}
+
+
+function panelInViewGrasshoppers(){
+	var topPosInViewPort = document.getElementById("viewpointDetectorGrasshopper").getBoundingClientRect().top;
+	return topPosInViewPort > 50 && topPosInViewPort < 600;
 }
 
 
