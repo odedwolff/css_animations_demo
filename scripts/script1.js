@@ -95,7 +95,28 @@ function stopWischer3(){
 }
 
 
+const swingCtx ={
+	isOn:false
+}
 
+function swingStart(){
+	if(swingCtx.isOn){
+		return;
+	}
+	swingCtx.isOn = true;
+	startSwingingDelta(0.1);
+}
+
+function SwingStop(){
+	if(!swingCtx.isOn){
+		return;
+	}
+	swingCtx.isOn = false;
+	elms = document.getElementsByClassName("swingable");
+	for(var i = 0 ; i< elms.length ; i++){
+		elms[i].classList.remove("swinging");	
+	}
+}
 
 
 
@@ -123,6 +144,9 @@ function startSwingingAynch(periodLenSec){
 			,delay);
 	}
 }
+
+
+
 
 function startSwingingDelta(dPhaseSec){
 	
@@ -2041,6 +2065,7 @@ function checkScrollSpeed(){
 	enableWaveHor(currentPos);
 	enableGrasshoppers();
 	enablePulsar();
+	enablePendel();
 
 	if(currentPos == scrollCtx.lastYposition){
 		return;
@@ -2090,6 +2115,14 @@ function enablePulsar(){
 	}
 }
 
+function enablePendel(){
+	if(panelInViewPendel()){
+		swingStart();
+	}else{
+		SwingStop();
+	}
+}
+
 
 function panelInViewPortWavesHor(){
 	var topPosInViewPort = document.getElementById("viewpointDetectorWavesHor").getBoundingClientRect().top;
@@ -2115,6 +2148,11 @@ function panelInViewGrasshoppers(){
 function panelInViewPulsar(){
 	var topPosInViewPort = document.getElementById("viewpointDetectorPulsar").getBoundingClientRect().top;
 	return topPosInViewPort > 0 && topPosInViewPort < 1200;
+}
+
+function panelInViewPendel(){
+	var topPosInViewPort = document.getElementById("viewpointDetectorPendel").getBoundingClientRect().top;
+	return topPosInViewPort > 0 && topPosInViewPort < 1100;
 }
 
 
