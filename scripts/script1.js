@@ -215,8 +215,15 @@ function twistIntegrated(){
 			 ,12000);
 }
 
+const pulsarCtx = {
+	isRunning:false
+}
 
 function startPulsar(dPhaseSec){
+	if(pulsarCtx.isRunning){
+		return;
+	}
+	pulsarCtx.isRunning = true;
 	elms = document.getElementsByClassName("letterContainerPulsar");
 		for(var i = 0 ; i< elms.length ; i++){
 			setTimeout(
@@ -227,15 +234,23 @@ function startPulsar(dPhaseSec){
 	}
 }
 
+//start pulsar if not already started
+function resumePulsar(){
+	startPulsar(0.1);
+}
+
 
 
 
 
 function stopPulsar(){
-	elms = document.getElementsByClassName("letterContainerPulsar");
-		for(var i = 0 ; i< elms.length ; i++){
-					elms[i].classList.remove("pulsarPumping");			
-		}
+	if(pulsarCtx.isRunning){
+		pulsarCtx.isRunning=false;
+		elms = document.getElementsByClassName("letterContainerPulsar");
+			for(var i = 0 ; i< elms.length ; i++){
+				elms[i].classList.remove("pulsarPumping");			
+		}	
+	}
 }
 
 function rollWord(){
@@ -2025,6 +2040,7 @@ function checkScrollSpeed(){
 	enableWave(currentPos);
 	enableWaveHor(currentPos);
 	enableGrasshoppers();
+	enablePulsar();
 
 	if(currentPos == scrollCtx.lastYposition){
 		return;
@@ -2066,6 +2082,14 @@ function enableGrasshoppers(){
 	}
 }
 
+function enablePulsar(){
+	if(panelInViewPulsar()){
+		resumePulsar();
+	}else{
+		stopPulsar();
+	}
+}
+
 
 function panelInViewPortWavesHor(){
 	var topPosInViewPort = document.getElementById("viewpointDetectorWavesHor").getBoundingClientRect().top;
@@ -2086,6 +2110,15 @@ function panelInViewGrasshoppers(){
 	var topPosInViewPort = document.getElementById("viewpointDetectorGrasshopper").getBoundingClientRect().top;
 	return topPosInViewPort > 50 && topPosInViewPort < 600;
 }
+
+
+function panelInViewPulsar(){
+	var topPosInViewPort = document.getElementById("viewpointDetectorPulsar").getBoundingClientRect().top;
+	return topPosInViewPort > 0 && topPosInViewPort < 1200;
+}
+
+
+
 
 
 
