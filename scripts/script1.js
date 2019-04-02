@@ -593,6 +593,19 @@ function startWalkingNoCss(){
 
 }
 
+const grasshoppCtx={
+	sequenceRunning:false
+}
+
+function startGrassHoppersSeq(){
+	if(grasshoppCtx.sequenceRunning){
+		return;
+	}
+	grasshoppCtx.sequenceRunning=true;
+	//preJumpTest();
+	grasshopperSequence();
+}
+
 
 
 function hopSeq(ghDivId, fComplete){
@@ -709,7 +722,7 @@ function jumpCombinedPeriod(elmId){
 
 }
 
-function preJumpTest(){
+function grasshopperSequence(){
 	//preJump("divGH1");
 	//jumpCombinedPeriod("divGH1");
 	
@@ -722,7 +735,8 @@ function preJumpTest(){
 	setTimeout(
 		function(){
 			hopSeq("divGH3", function(){
-				console.log("seq ended grasshopper")
+				console.log("seq ended grasshopper");
+				grasshoppCtx.sequenceRunning=false;
 			});
 		},400
 	);
@@ -2040,8 +2054,8 @@ function enableWaveHor(scrollYpos){
 }
 
 function enableGrasshoppers(){
-	if(panelInViewGrasshoppers){
-
+	if(panelInViewGrasshoppers()){
+		startGrassHoppersSeq();
 	}
 }
 
