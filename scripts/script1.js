@@ -2101,6 +2101,7 @@ function checkScrollSpeed(){
 	enableGrasshoppers();
 	enablePulsar();
 	enablePendel();
+	enableWheel();
 
 	if(currentPos == scrollCtx.lastYposition){
 		return;
@@ -2157,6 +2158,12 @@ function enablePendel(){
 		SwingStop();
 	}
 }
+function enableWheel(){
+	if(panelInViewWheell()){
+		wheelingOn();
+	}
+}
+
 
 
 function panelInViewPortWavesHor(){
@@ -2188,6 +2195,11 @@ function panelInViewPulsar(){
 function panelInViewPendel(){
 	var topPosInViewPort = document.getElementById("viewpointDetectorPendel").getBoundingClientRect().top;
 	return topPosInViewPort > 0 && topPosInViewPort < 1100;
+}
+
+function panelInViewWheell(){
+	var topPosInViewPort = document.getElementById("viewpointDetectorWheel").getBoundingClientRect().top;
+	return topPosInViewPort > 0 && topPosInViewPort < 1000;
 }
 
 
