@@ -95,6 +95,8 @@ function stopWischer3(){
 }
 
 
+/**-------------------small swing-------------------------------------- */
+
 const swingCtx ={
 	isOn:false
 }
@@ -104,7 +106,8 @@ function swingStart(){
 		return;
 	}
 	swingCtx.isOn = true;
-	startSwingingDelta(0.1);
+	//startSwingingDelta(0.1);
+	startSwingingDelta(0.05);
 }
 
 function SwingStop(){
@@ -178,6 +181,8 @@ function startTwister(dPhaseSec, defuseSec){
 	}
 	
 }
+
+/*--------------------------------twistter---------------------*/
 
 function reloadTwister(){
 	elms = document.getElementsByClassName("twistLetterCont");
@@ -847,6 +852,7 @@ var wheelingConstsCtx = {
 	veloPxPSec:300,
 	dtMs:5,
 	distThreshPx:20,
+	isRunning:false
 };
 
 
@@ -1015,6 +1021,7 @@ function spreadCombined(){
 	for(var i = 0 ; i < elms.length; i++){
 		spreadPhsases(elms[i], 1050);
 	}
+	
 }
 
 const freeFallCtx = {
@@ -1099,7 +1106,35 @@ function wheelingScript(){
 		wheelingSpinAllWords();
 	}, fullPeriodMs);
 	setTimeout(spreadCombined, fullPeriodMs * 2);
+	setTimeout(wheelingScriptComplete, fullPeriodMs * 2 + 4000);
 }
+
+function wheelingScriptComplete(){
+	console.log("wheeling script complete");
+	resetWheeling();
+	wheelingConstsCtx.isRunning = false;
+	
+}
+
+function wheelingOn(){
+	if(wheelingConstsCtx.isRunning){
+		return;
+	}
+	wheelingConstsCtx.isRunning=true;
+	wheelingScript();
+}
+
+function resetWheeling(){
+	//wheelingElms = document.getElementsByClassName("wheeling");
+	wheelingElms = document.querySelectorAll(".divWheelBox *")
+	for(var i = 0 ; i < wheelingElms.length ; i++){
+		wheelingElms[i].style.transform = "";
+		wheelingElms[i].style.opacity = 1;
+		wheelingElms[i].classList.remove("wheeling");
+	}
+}
+
+
 
 
 
