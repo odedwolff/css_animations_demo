@@ -563,14 +563,29 @@ function startSwimming(){
 function clearSwimming(){
 	removeClassFromClass("clsFish1", "animFishTransLeft");
 }
+
+
+/*-------------------------------------------------------simple steps--------------------------------------------------*/
+const simpleStepsCtx = {
+	isRunning:false,
+	stepsPersSession:12,
+	timeBetweenTespsMs:400
+}
+
 		 
 function startWalking(){
-	// document.getElementById("leftFoot").classList.add("walking");
-	// setTimeout(function(){
-	// 	document.getElementById("rightFoot").classList.add("walking");
-	// },800);
 	startWalkingNoCss();
 }
+
+
+function startSimpleStepsSession(){
+	if(simpleStepsCtx.isRunning){
+		return;
+	}
+	simpleStepsCtx.isRunning = true;
+	startWalking();
+}
+
 
 function stopWalking(){
 	removeClassFromClass("foot", "walking");
@@ -611,15 +626,25 @@ function startWalkingNoCss(){
 		latestTransforms[domElm.id]['translateX']=stepSizePx/2;
 	}
 
-	var cycleLenMs=400;
-
-	preStep(rightFoot);
-	for (var i = 1; i < 12; i++) {
-		walkCylce(i * cycleLenMs, leftFoot);
-		walkCylce(i * cycleLenMs + cycleLenMs / 2, rightFoot);
+	function sessionComplete(){
+		console.log("simple stpes session complete");
+		simpleStepsCtx.isRunning= false;
 	}
 
+	
+
+	preStep(rightFoot);
+	for (var i = 1; i < simpleStepsCtx.stepsPersSession; i++) {
+		walkCylce(i * simpleStepsCtx.timeBetweenTespsMs, leftFoot);
+		walkCylce(i * simpleStepsCtx.timeBetweenTespsMs 
+			+ simpleStepsCtx.timeBetweenTespsMs / 2, rightFoot);
+	}
+	setTimeout(sessionComplete,
+		 simpleStepsCtx.timeBetweenTespsMs * simpleStepsCtx.stepsPersSession);
 }
+
+
+/*----------------------------grasshoppers-------------------------------------------------------------- */
 
 const grasshoppCtx={
 	sequenceRunning:false
@@ -2086,6 +2111,7 @@ function checkScrollSpeed(){
 	enablePulsar();
 	enablePendel();
 	enableWheel();
+	enableSimpleSteps();
 
 	if(currentPos == scrollCtx.lastYposition){
 		return;
@@ -2148,6 +2174,12 @@ function enableWheel(){
 	}
 }
 
+function enableSimpleSteps(){
+	if(panelInViewSimpleSteps()){
+		startSimpleStepsSession();
+	}
+}
+
 
 
 function panelInViewPortWavesHor(){
@@ -2185,6 +2217,12 @@ function panelInViewWheell(){
 	var topPosInViewPort = document.getElementById("viewpointDetectorWheel").getBoundingClientRect().top;
 	return topPosInViewPort > 0 && topPosInViewPort < 1000;
 }
+
+function panelInViewSimpleSteps(){
+	var topPosInViewPort = document.getElementById("viewpointDetectorSimpleSteps").getBoundingClientRect().top;
+	return topPosInViewPort > 0 && topPosInViewPort < 1000;
+}
+
 
 
 
