@@ -2143,6 +2143,7 @@ function checkScrollSpeed(){
 	enableSimpleSteps();
 	enableFish();
 	enableGears();
+	enableBigSwing();
 
 	if(currentPos == scrollCtx.lastYposition){
 		return;
@@ -2222,6 +2223,14 @@ function enableGears(){
 		runGears();
 	}else{
 		stopGears();
+	}
+}
+
+function enableBigSwing(){
+	if(inViewPort("viewpointDetectorBigSwing", -100, 1200)){
+		startBigSwing();
+	}else{
+		stopBigSwing();
 	}
 }
 
@@ -2413,6 +2422,10 @@ function tumbleHop(elm, rotDegSec, stopYPos, stopXposAbs, vxPxSec,vyPxSec, nextT
 
 //---------------------------------------------------------theme big swing -------------------------
 
+/* const ctxBigSwing = {
+	isRunning:false
+} */
+
 function trackTilt(elm){
 	
 	
@@ -2424,7 +2437,7 @@ function trackTilt(elm){
          st.getPropertyValue("transform") ||
          "Either no transform set, or browser doesn't do getComputedStyle";
 	
-	//todo- stop tracing when swing doesnt swing 
+	
 	//here's a fast fix 
 	if(trMtx == "none"){
 		return;
