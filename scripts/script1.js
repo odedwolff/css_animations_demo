@@ -299,8 +299,9 @@ function runRoller(){
 
 function rollerCycleComplete(){
 	console.log("roller cycle complete");
+	resetRollWord();
 	ctxRoller.isRunning=false;
-}
+} 
 
 
 
@@ -328,7 +329,7 @@ function resetRollWord(){
 	document.getElementById("divRollerWord").classList.remove("rollerFadeOut");
 	document.getElementById("divRollerWordDouble").classList.remove("fakeRollerFadeIn");
 
-
+	ctxRoller.isRunning=false;
 	/* document.querySelectorAll("#divRollerWord *").className ="";
 	document.querySelectorAll("#divRollerWord").className =""; */
 }
@@ -370,12 +371,14 @@ function rollerLoop(){
 	})();	 */
 
 	(function loop(){
-		resetRollWord();
+		//resetRollWord();
 		ctxRoller.timedIntervals.push(setTimeout(transformIn,1000));
 		ctxRoller.timedIntervals.push(setTimeout(rollWord, 3000));
 		ctxRoller.timedIntervals.push(setTimeout(transformOut, 15000));
 		ctxRoller.timedIntervals.push(setTimeout(transmitRoller, 17000));
-		ctxRoller.timedIntervals.push(setTimeout(loop, 18000));
+		ctxRoller.timedIntervals.push(setTimeout(rollerCycleComplete, 20000));
+		
+		//ctxRoller.timedIntervals.push(setTimeout(loop, 18000));
 	})();	 
 }
 
@@ -2189,6 +2192,7 @@ function checkScrollSpeed(){
 	enableFish();
 	enableGears();
 	enableBigSwing();
+	enableRoller();
 
 	if(currentPos == scrollCtx.lastYposition){
 		return;
@@ -2278,6 +2282,16 @@ function enableBigSwing(){
 		stopBigSwing();
 	}
 }
+
+function enableRoller(){
+	if(inViewPort("viewpointDetectorRoller", -100, 1200)){
+		runRoller();
+	}else{
+		resetRollWord();
+	}
+}
+
+
 
 
 
