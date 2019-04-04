@@ -281,6 +281,29 @@ function stopPulsar(){
 	}
 }
 
+
+/*************************************theme roller****************************************** */
+const ctxRoller={
+	isRunning:false,
+	timedIntervals:[]
+}
+
+
+function runRoller(){
+	if(ctxRoller.isRunning){
+		return;
+	}
+	ctxRoller.isRunning=true;
+	rollerLoop();
+}
+
+function rollerCycleComplete(){
+	console.log("roller cycle complete");
+	ctxRoller.isRunning=false;
+}
+
+
+
 function rollWord(){
 	document.getElementById("divRollerWord").classList.add("rolling");		 
 }
@@ -290,6 +313,12 @@ function rollPhase2(){
 }
 
 function resetRollWord(){
+	//cancell timed tasks
+	for(i=0; i < ctxRoller.timedIntervals.length ; i++){
+		clearInterval(ctxRoller.timedIntervals[i]);
+	}
+	ctxRoller.timedIntervals=[];
+
 	document.getElementById("divRollerWord").classList.remove("rolling");
 	document.getElementById("divRollerWord").classList.remove("rollingPhase2");
 	document.getElementById("divContRollerR1").classList.remove("clsTranformInR1");
@@ -298,6 +327,10 @@ function resetRollWord(){
 	document.getElementById("divContRollerR2").classList.remove("clsTranformInR2reverse");	 
 	document.getElementById("divRollerWord").classList.remove("rollerFadeOut");
 	document.getElementById("divRollerWordDouble").classList.remove("fakeRollerFadeIn");
+
+
+	/* document.querySelectorAll("#divRollerWord *").className ="";
+	document.querySelectorAll("#divRollerWord").className =""; */
 }
 
 function integratedRoll(){
@@ -327,15 +360,27 @@ function transmitRoller(){
 }
 
 function rollerLoop(){
-	(function loop(){
+	/* (function loop(){
 		resetRollWord();
 		setTimeout(transformIn,1000);
 		setTimeout(rollWord, 3000);
 		setTimeout(transformOut, 15000);
 		setTimeout(transmitRoller, 17000);
 		setTimeout(loop, 18000);
-	})();	
+	})();	 */
+
+	(function loop(){
+		resetRollWord();
+		ctxRoller.timedIntervals.push(setTimeout(transformIn,1000));
+		ctxRoller.timedIntervals.push(setTimeout(rollWord, 3000));
+		ctxRoller.timedIntervals.push(setTimeout(transformOut, 15000));
+		ctxRoller.timedIntervals.push(setTimeout(transmitRoller, 17000));
+		ctxRoller.timedIntervals.push(setTimeout(loop, 18000));
+	})();	 
 }
+
+
+/******************************************************************************************* */
 
 function animFocus(){
 	document.getElementById("divLinesFocusText").classList.add("focusAnim");
