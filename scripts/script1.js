@@ -126,7 +126,6 @@ function SwingStop(){
 
 
 function startSwinging(){
-
 	elms = document.getElementsByClassName("swingable");
 	for(var i = 0 ; i< elms.length ; i++){
 		elms[i].classList.add("swinging");	
@@ -552,12 +551,25 @@ function gradualHide(timeSpectrumMs){
 	}
 }
 
-function startSwimming(){
-	// elms = document.getElementsByClassName("clsFish1");
-	// for(var i = 0; i < elms.length; i++){
 
-	// }
+const ctxFish= {
+	isRunning:false,
+	completeTimeoutMs:8000
+}
+
+function startSwimming(){
+	if(ctxFish.isRunning){
+		return;
+	}
+	ctxFish.isRunning=true;
 	addClsToClsMmbrs("clsFish1", "animFishTransLeft", 500);
+	setTimeout(swimmingComplete, ctxFish.completeTimeoutMs)
+}
+
+function swimmingComplete(){
+	console.log("finished wimming session");
+	clearSwimming();
+	ctxFish.isRunning=false;
 }
 
 function clearSwimming(){
@@ -796,20 +808,37 @@ function grasshopperSequence(){
 }
 
 
+/********************************************theme gears***************************************** */
+
+const ctxGears = {
+	isRunning:false
+}
+
+function runGears(){
+	if(ctxGears.isRunning){
+		return;
+	}
+	ctxGears.isRunning=true;
+	stratGearsLinear();
+	//stratGearsEase();
+}
+
 function stopGears(){
 	removeClassFromClass("plsClockwise", "plsClockwiseGoEase");
 	removeClassFromClass("plsAnticlockwise", "plsAnticlockwiseGoEase");
 	removeClassFromClass("plsClockwise", "plsClockwiseGoLinear");
 	removeClassFromClass("plsAnticlockwise", "plsAnticlockwiseGoLinear");
+
+	ctxGears.isRunning=false;
 }
 function stratGearsEase(){
-	stopGears();
+	//stopGears();
 	addClsToClsMmbrs("plsClockwise", "plsClockwiseGoEase",null);
 	addClsToClsMmbrs("plsAnticlockwise", "plsAnticlockwiseGoEase",null);
 }
 
 function stratGearsLinear(){
-	stopGears();
+	//stopGears();
 	addClsToClsMmbrs("plsClockwise", "plsClockwiseGoLinear",null);
 	addClsToClsMmbrs("plsAnticlockwise", "plsAnticlockwiseGoLinear",null);
 }
@@ -851,7 +880,7 @@ function wheelingSpinAllWords(){
 	}
 }
 
-
+/************************************************************************************ */
 
 var wheelingConstsCtx = {
 	rangeVr: 250,
@@ -2112,6 +2141,8 @@ function checkScrollSpeed(){
 	enablePendel();
 	enableWheel();
 	enableSimpleSteps();
+	enableFish();
+	enableGears();
 
 	if(currentPos == scrollCtx.lastYposition){
 		return;
@@ -2180,6 +2211,21 @@ function enableSimpleSteps(){
 	}
 }
 
+function enableFish(){
+	if(inViewPort("viewpointDetectorFish", 0, 1000)){
+		startSwimming();
+	}
+}
+
+function enableGears(){
+	if(inViewPort("viewpointDetectorGears", 0, 1000)){
+		runGears();
+	}else{
+		stopGears();
+	}
+}
+
+
 
 
 function panelInViewPortWavesHor(){
@@ -2222,6 +2268,21 @@ function panelInViewSimpleSteps(){
 	var topPosInViewPort = document.getElementById("viewpointDetectorSimpleSteps").getBoundingClientRect().top;
 	return topPosInViewPort > 0 && topPosInViewPort < 1000;
 }
+
+/* function panelInViewFish(){
+	var topPosInViewPort = document.getElementById("viewpointDetectorFish").getBoundingClientRect().top;
+	return topPosInViewPort > 0 && topPosInViewPort < 1000;
+}
+ */
+
+function inViewPort(panelViewName, bottomLimit, topLimit){
+	var topPosInViewPort = document.getElementById(panelViewName).getBoundingClientRect().top;
+	return topPosInViewPort >  bottomLimit && topPosInViewPort < topLimit;
+}
+
+
+
+
 
 
 
