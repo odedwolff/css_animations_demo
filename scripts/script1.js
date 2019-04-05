@@ -1630,6 +1630,15 @@ function rootSequenceZoomStep(color){
 }
 
 
+function shortSuquence(color){
+	document.querySelectorAll("#divZoomStepsContent")[0].style.color = color;
+	finalRpos = walkFromLeftToCenter();
+		zoomStepsRunningCtx.walkBackIntervalId = setTimeout(() => {
+			stomp(finalRpos);
+	}, /*3000*/ 3250);
+}
+
+
 const zoomStepColors = {
 	//'colors' :  ["red", "blue"],
 	'colors' :  ["#ffc145", "#9f6900"],
@@ -1683,14 +1692,15 @@ function reArmZoomStep(curColor){
 function repeatWithColorChange(){
 	const curColor = zoomStepColors.colors[zoomStepColors.idx];
 	
-	rootSequenceZoomStep(curColor);
-	/* setTimeout(() => {
-		document.querySelectorAll("#divZoomSteps")[0].style.background = curColor;
-		zoomStepColors.idx = (zoomStepColors.idx + 1 ) % (zoomStepColors.colors.length)
-		repeatWithColorChange()
-	}, 12000); */
+	/* rootSequenceZoomStep(curColor);
 	setTimeout(reArmZoomStep.bind(null,curColor), 12000);
-	
+ */
+
+	shortSuquence(curColor);
+	setTimeout(reArmZoomStep.bind(null,curColor), 5800);
+
+
+
 }
 
 function stomp(org){
