@@ -525,13 +525,13 @@
 
 	<div id=divClouds class=themePanel>
 			<div id=divCloudsControls>
-				<!-- <button class=clouldBtn id=btnCloudrndPos onclick="setUpLayers()">init</button>
-				<button class=clouldBtn onclick="moveClouds()">move</button>
+ <!-- 
+ 				<button class=clouldBtn onclick="moveLayers1()">move</button>
+				<button onclick="resetCloudsTransforms()">reset trnsfnorm</button>
 	 -->
-				<button class=clouldBtn id=btnCloudrndPos onclick="setupLayers1()">init</button>
-				<button class=clouldBtn onclick="moveLayers1()">move</button>
-	
 				
+	 			<button class=clouldBtn onclick="runClouds()">run clouds</button>
+
 			</div>
 			<div id=divCloudsContent>
 				<div id=cloudsMsg>37.971617, 23.726532</div>
@@ -568,7 +568,14 @@
 					</div>	 -->	
 				</div>
 			</div>
+			
+			<div id=viewpointDetectorClouds class=viewPortDetector>
+
+			</div>
 	</div>
+
+
+	
 
 	<div id=divTwisterCont class=themePanel>
 			<div  id=twistControl>

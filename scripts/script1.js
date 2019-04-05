@@ -25,6 +25,8 @@ function init(){
 	initTiltTracking();
 
 	setTwissterOpacity(0);
+
+	setupCloudLayers();
 	
 }
 
@@ -1285,28 +1287,7 @@ constCloudCtx = {
 
 
 
-
-//move along x
-function moveCloudLayerOld(domElm,initX,initY){
-	const dxRange = constCloudCtx.dxPxSecMax - constCloudCtx.dxPxSecMin;
-	const dx = Math.random() * dxRange + constCloudCtx.dxPxSecMin;
-	console.log("dx=" + dx);
-
-	// moveThingToPlace(
-	// 	/*domElm*/domElm, 
-	// 	/*targetX*/constCloudCtx.totalXtranslatePx,
-	// 	 /*targetY*/0,
-	// 	/*currentTranslateX*/initX,
-	// 	/*currentTranslateY*/initY,
-	// 	/*dxMs*/dx/1000,
-	// 	/*dyMs*/ 0,
-	// 	/*staticRotate*/null
-	// 	);
-
-	
-	
-}
-
+//**************************************theme clouds********************************************* */
 
 function moveCloudLayer(domElm,initX,initY){
 	/* const minDurationSec = 3;
@@ -1354,7 +1335,7 @@ function moveClouds(){
 
 var movFunctions=[];
 
-function setupLayers1(){
+function setupCloudLayers(){
 	movFunctions=[];
 	elms= document.querySelectorAll("#divCloudsContent .layer" );
 		 for (var i = 0 ; i < elms.length; i++){
@@ -1369,6 +1350,33 @@ function moveLayers1(){
 	for (var i = 0; i < movFunctions.length; i++) {
 		movFunctions[i]();
 	}
+}
+
+function resetCloudsTransforms(){
+	elms= document.querySelectorAll("#divCloudsContent .layer" );
+		 for (var i = 0 ; i < elms.length; i++){
+			elms[i].style.transform="";
+		}
+}
+
+function runClouds(){
+	if(!couldsCtx.isArmed){
+		return;
+	}
+	couldsCtx.isArmed=false;
+	moveLayers1();
+	setTimeout(reArmClouds,15000);
+	
+}
+
+function reArmClouds(){
+	console.log("re arming coulds");
+	resetCloudsTransforms();
+	couldsCtx.isArmed=true;
+}
+
+const couldsCtx = {
+	isArmed:true
 }
 
 //*--------------------------------------utilities-------------------------------------------------------------
@@ -2176,6 +2184,7 @@ function checkScrollSpeed(){
 	enableBigSwing();
 	enableRoller();
 	enableZoomSteps();
+	enableClouds();
 
 	if(currentPos == scrollCtx.lastYposition){
 		return;
@@ -2280,6 +2289,13 @@ function enableZoomSteps(){
 	}else{
 		resetSequenceZoomSteps();
 	}
+}
+
+function enableClouds(){
+	if(inViewPort("viewpointDetectorClouds", 100, 900)){
+		runClouds();
+	}
+	
 }
 
 
