@@ -1479,46 +1479,14 @@ const zoomStepConsts = {
 }
 
 zoomStepConsts.totalCycleLenMs=zoomStepConsts.stepUpDurMs + zoomStepConsts.stepDownDurMs + zoomStepConsts.postStepDownDurMs;
-/* 
 
-function walkRight(){
-	const transXInitL=-75;
-	const	transYInitL=250;
-	const	transXInitR=-300;
-	const	transYInitR=280;
-	const	repetitions=4;
-	const	stepLenPx=450;
-
-	
-	const leftFootDomElm=document.getElementById("zoomFootL");
-	const rightFootDomElm=document.getElementById("zoomFootR"); 
-	
-	//init position 
-	repostion(rightFootDomElm, transXInitR, transYInitR, 0, zoomStepConsts.maxScale);
-	repostion(leftFootDomElm, transXInitL, transYInitL, 0, zoomStepConsts.maxScale);
-	
-	zoomStep(rightFootDomElm,  transXInitR, transYInitR, stepLenPx,  repetitions);
-	setTimeout(function() {
-		zoomStep(leftFootDomElm,  transXInitL, transYInitL, stepLenPx, repetitions);
-	//}, zoomStepConsts.totalCycleLenMs * 0.7);
-	}, zoomStepConsts.totalCycleLenMs  + 200);
-
-}
-
-
- */
 
 
 
 function walkLeft(){
-	//const transXInitL=1200;
 	const transXInitL=1175;
-
 	const	transYInitL=250;
-	//const	transXInitR=1425;
 	const	transXInitR=1400;
-
-
 	const	transYInitR=280;
 	const	steps=3;
 	const	stepLenPx=-450;
@@ -1533,24 +1501,15 @@ function walkLeft(){
 	zoomStep(rightFootDomElm,  transXInitR, transYInitR, stepLenPx,  steps + 1);
 	setTimeout(function() {
 		zoomStep(leftFootDomElm,  transXInitL, transYInitL, stepLenPx, steps );
-	//}, zoomStepConsts.totalCycleLenMs * 0.7);
 	}, zoomStepConsts.totalCycleLenMs  + 200);
 
 }
 
 
 function walkFromRightToCenter(){
-	//const transXInitL=1200;
-	//const transXInitL=1525;
 	const transXInitL=1000;
-
-	//const	transXInitR=1425;
-	//const	transXInitR=1750;
 	const transXInitR=1225;
-
-
 	const	transYInitL=250;
-
 	const	transYInitR=280;
 	const	steps=1;
 	const	stepLenPx=-450;
@@ -1565,16 +1524,10 @@ function walkFromRightToCenter(){
 	zoomStep(rightFootDomElm,  transXInitR, transYInitR, stepLenPx,  steps);
 	setTimeout(function() {
 		zoomStep(leftFootDomElm,  transXInitL, transYInitL, stepLenPx, steps);
-	//}, zoomStepConsts.totalCycleLenMs * 0.7);
 	}, zoomStepConsts.totalCycleLenMs  + 200);
 
 	const finalPositionL = transXInitL + stepLenPx * repetitions ;
 	const finalPositionR = transXInitR + stepLenPx * repetitions ;
-
-	
-	//const finalPositionL = 500;
-	//Y posiiton is assumed to not change
-	//return {'x':finalPositionL, 'y':transYInitL};
 	return {'x':finalPositionR, 'y':transYInitR};
 
 }
@@ -1582,13 +1535,6 @@ function walkFromRightToCenter(){
 
 function walkFromLeftToCenter(){
 	
-	/* const transXInitL=-125;
-	const transXInitR=-350;
-	const	transYInitL=250;
-	const	transYInitR=280;
-	const	steps=2;
-	const	stepLenPx=450; */
-
     const offSetX =70;
 	const transXInitL=-125 + offSetX;
 	const transXInitR=-350 + offSetX;
@@ -1607,16 +1553,9 @@ function walkFromLeftToCenter(){
 	zoomStep(rightFootDomElm,  transXInitR, transYInitR, stepLenPx,  steps);
 	setTimeout(function() {
 		zoomStep(leftFootDomElm,  transXInitL, transYInitL, stepLenPx, steps - 1);
-	//}, zoomStepConsts.totalCycleLenMs * 0.7);
 	}, zoomStepConsts.totalCycleLenMs  + 200);
 
-	//const finalPositionL = transXInitL + stepLenPx * steps ;
-
 	const finalPositionR = transXInitR + stepLenPx * steps ;
-
-	//const finalPositionL = 500;
-	//Y posiiton is assumed to not change
-	//return {'x':finalPositionL, 'y':transYInitL};
 	return {'x':finalPositionR, 'y':transYInitR};
 
 }
@@ -1624,7 +1563,7 @@ function walkFromLeftToCenter(){
 
 
 function zoomStep(domElm, orgX, orgY, dxStep, repetitions){
-	if(repetitions == 0){
+	if(repetitions == 0 || zoomStepsRunningCtx.isStopped){
 		return;
 	}
 	//var trgX, trgY, orgX, orgY;
@@ -1681,9 +1620,9 @@ function rootSequenceZoomStep(color){
 	var finalRpos;
 	
 	walkLeft();
-	setTimeout(() => {
+	  setTimeout(() => {
 		finalRpos = walkFromLeftToCenter();
-		setTimeout(() => {
+		zoomStepsRunningCtx.walkBackIntervalId = setTimeout(() => {
 			stomp(finalRpos);
 		}, /*3000*/ 3250);
 	}, 6000);	
@@ -1691,42 +1630,42 @@ function rootSequenceZoomStep(color){
 }
 
 
-function repeatInColors(){
-	const color1="blue";
-	const color2="red";
-	rootSequenceZoomStep(color1);
-	setTimeout(() => {
-		document.querySelectorAll("#divZoomSteps")[0].style.background = color1;
-		rootSequenceZoomStep(color2);
-	}, /*11000*/ 9000);
-}
-
 const zoomStepColors = {
 	//'colors' :  ["red", "blue"],
 	'colors' :  ["#ffc145", "#9f6900"],
 	'idx': 0
 }
 
-/* const STATUS_PENDING_STOP=1;
-const SATUS_RUNNING=2;
-const STATUS_IDLE=3; */
+
 
 const zoomStepsRunningCtx = {
-	/* currentStatus:STATUS_IDLE,
-	intervalNoNextSeq:null, */
-	isArmed:true
-	
+	//is armed is used at squecne level, a new sequence of setps will not initiate if false 
+	isArmed:true,
+	//is stopped is used to stop sequence at step level, to avoid waste of cpu
+	isStopped:false,
+	walkBackIntervalId:null,
+	//squenceActive:false
 }
 
-function stopSequenceZoomSteps(){
+function resetSequenceZoomSteps(){
 
+	/* if(!zoomStepsRunningCtx.squenceActive){
+		return;
+	}
+	console.log("zoom steps reset");
+	zoomStepsRunningCtx.isStopped=true;
+	clearInterval(zoomStepsRunningCtx.walkBackIntervalId);
+	setInterval(reArmZoomStep,1500);
+	 */
 }
 
 function runSequenceZoomSteps(){
 	if(!zoomStepsRunningCtx.isArmed){
 		return;
 	}
+	console.log("runSequenceZoomSteps started a new squence");
 	zoomStepsRunningCtx.isArmed=false;
+	//zoomStepsRunningCtx.squenceActive=true;
 	repeatWithColorChange();
 }
 
@@ -1734,7 +1673,10 @@ function reArmZoomStep(curColor){
 	console.log("zoom steps re armed");
 	document.querySelectorAll("#divZoomSteps")[0].style.background = curColor;
 	zoomStepColors.idx = (zoomStepColors.idx + 1 ) % (zoomStepColors.colors.length);
+	zoomStepsRunningCtx.isStopped=false;
 	zoomStepsRunningCtx.isArmed=true;
+	//zoomStepsRunningCtx.squenceActive=false;
+
 }
 
 
@@ -2223,6 +2165,7 @@ function checkScrollSpeed(){
 	enableGears();
 	enableBigSwing();
 	enableRoller();
+	enableZoomSteps();
 
 	if(currentPos == scrollCtx.lastYposition){
 		return;
@@ -2318,6 +2261,14 @@ function enableRoller(){
 		runRoller();
 	}else{
 		resetRollWord();
+	}
+}
+
+function enableZoomSteps(){
+	if(inViewPort("viewpointDetectorZoomSteps", 100, 900)){
+		runSequenceZoomSteps();
+	}else{
+		resetSequenceZoomSteps();
 	}
 }
 
