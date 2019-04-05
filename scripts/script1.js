@@ -1707,17 +1707,47 @@ const zoomStepColors = {
 	'idx': 0
 }
 
+/* const STATUS_PENDING_STOP=1;
+const SATUS_RUNNING=2;
+const STATUS_IDLE=3; */
 
+const zoomStepsRunningCtx = {
+	/* currentStatus:STATUS_IDLE,
+	intervalNoNextSeq:null, */
+	isArmed:true
+	
+}
+
+function stopSequenceZoomSteps(){
+
+}
+
+function runSequenceZoomSteps(){
+	if(!zoomStepsRunningCtx.isArmed){
+		return;
+	}
+	zoomStepsRunningCtx.isArmed=false;
+	repeatWithColorChange();
+}
+
+function reArmZoomStep(curColor){
+	console.log("zoom steps re armed");
+	document.querySelectorAll("#divZoomSteps")[0].style.background = curColor;
+	zoomStepColors.idx = (zoomStepColors.idx + 1 ) % (zoomStepColors.colors.length);
+	zoomStepsRunningCtx.isArmed=true;
+}
 
 
 function repeatWithColorChange(){
 	const curColor = zoomStepColors.colors[zoomStepColors.idx];
+	
 	rootSequenceZoomStep(curColor);
-	setTimeout(() => {
+	/* setTimeout(() => {
 		document.querySelectorAll("#divZoomSteps")[0].style.background = curColor;
 		zoomStepColors.idx = (zoomStepColors.idx + 1 ) % (zoomStepColors.colors.length)
 		repeatWithColorChange()
-	}, /*12000*/ 12000);
+	}, 12000); */
+	setTimeout(reArmZoomStep.bind(null,curColor), 12000);
 	
 }
 
