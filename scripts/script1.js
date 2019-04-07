@@ -1395,10 +1395,12 @@ const couldsCtx = {
 	maxLeftTargetPx:3500,
 	minTopTargetPx:-200,
 	maxTopTargetPx:200,
-	initLeftShiftPxRange:800
+	initLeftShiftPxRange:800,
+	halfCycleLenMs:11000,
+	cyclePhaseIdle:true
 }
 
-function testCloudTranform(){
+function clearCloudsOff(){
 	//document.getElementById("divLayer2").style.left="-800px";
 
 	elms= document.getElementsByClassName("clsSlowLeft");
@@ -1406,7 +1408,6 @@ function testCloudTranform(){
 	for (var i = 0 ; i < elms.length; i++){
 		trnsX = Math.random()* (couldsCtx.maxLeftTargetPx-couldsCtx.minLeftTargetPx) + couldsCtx.minLeftTargetPx;
 		trnsY = Math.random()* (couldsCtx.maxTopTargetPx-couldsCtx.minTopTargetPx) + couldsCtx.minTopTargetPx;
-		
 		elms[i].style.transform = "translate(" + trnsX + "px," + trnsY + "px)";
 	}
 }
@@ -1418,6 +1419,29 @@ function extractLeftVal(elmId){
 	rawVal = rawVal.substring(0, rawVal.length - 2);
 	var intVal = parseInt(rawVal, 10);
 	return intVal;
+}
+
+function resetCloudsPositions(){
+	elms= document.getElementsByClassName("clsSlowLeft");
+	for (var i = 0 ; i < elms.length; i++){
+		elms[i].style.transform = "translate(0,0)";
+	}
+}
+
+function cloudsCylce(){
+	if(!couldsCtx.cyclePhaseIdle){
+		return;
+	}
+	couldsCtx.cyclePhaseIdle=false;
+	clearCloudsOff();
+	setTimeout(() => {
+		resetCloudsPositions();
+		setTimeout(cloudCyclcComplete, couldsCtx.halfCycleLenMs);
+	}, couldsCtx.halfCycleLenMs);
+}
+
+function cloudCyclcComplete(){
+	couldsCtx.cyclePhaseIdle=true;
 }
 
 
@@ -2337,6 +2361,7 @@ function enableZoomSteps(){
 function enableClouds(){
 	if(inViewPort("viewpointDetectorClouds", 100, 900)){
 		//runClouds();
+		cloudsCylce();
 	}
 	
 }
