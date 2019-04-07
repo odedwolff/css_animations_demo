@@ -165,6 +165,14 @@ function startSwingingDelta(dPhaseSec){
 	}
 }
 
+
+/**********************************twister****************************** */
+const twisterCtx = {
+	isRunning:false
+}
+
+
+
 function startTwister(dPhaseSec, defuseSec){
 	//setTwissterOpacity(1);
 	elms = document.getElementsByClassName("twistLetterCont");
@@ -183,7 +191,6 @@ function startTwister(dPhaseSec, defuseSec){
 	
 }
 
-/*--------------------------------twistter---------------------*/
 
 function reloadTwister(){
 	elms = document.getElementsByClassName("twistLetterCont");
@@ -229,13 +236,7 @@ function twisterStage3(dPhaseSec, idleSpinSec){
 }
 
 function twistIntegrated(){
-	 
-	/*  startTwister(.75, null);
-	 setTimeout(function(){
-	 	twisterStage3(.7, .7);
-	 }
-		 ,6000); */
-		 
+	 	 
 	var dPhase = 1.5;
 
 		 startTwister(dPhase, null);
@@ -245,9 +246,31 @@ function twistIntegrated(){
 			 ,12000);
 }
 
+
+function twisterComplete(){
+	console.log("twister complete");
+	reloadTwister();
+	twisterCtx.isRunning= false;
+}
+
+function triggerTwister(){
+	if(twisterCtx.isRunning){
+		return;
+	}
+	twisterCtx.isRunning= true;
+	twistIntegrated();
+	setTimeout(twisterComplete, 23000);
+}
+
+
+
+
+/************************pulsar******************************** */
+
 const pulsarCtx = {
 	isRunning:false
 }
+
 
 function startPulsar(dPhaseSec){
 	if(pulsarCtx.isRunning){
@@ -2252,6 +2275,7 @@ function checkScrollSpeed(){
 	enableRoller();
 	enableZoomSteps();
 	enableClouds();
+	enableTwister();
 
 	if(currentPos == scrollCtx.lastYposition){
 		return;
@@ -2363,8 +2387,17 @@ function enableClouds(){
 		//runClouds();
 		cloudsCylce();
 	}
-	
 }
+
+function enableTwister(){
+	if(inViewPort("viewpointDetectorTwistter", 0, 1000)){
+		//runClouds();
+		triggerTwister();
+	}
+}
+
+
+
 
 
 
