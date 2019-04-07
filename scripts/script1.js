@@ -27,6 +27,8 @@ function init(){
 	setTwissterOpacity(0);
 
 	setupCloudLayers();
+
+	preProcessFlashing();
 	
 }
 
@@ -437,6 +439,8 @@ function breakDownTextToLtters(text, classToAdd){
 }
 
 
+/************************tehem flashing*********************** */
+
 //the containing element is assumed to contain the prargrpah 
 // to be processed, as only child element 
 function replaceParagpheWithSplittedDives(containingElment){
@@ -450,7 +454,8 @@ function replaceParagpheWithSplittedDives(containingElment){
 }
 
 flshingCtx = {
-	processed:false
+	processed:false,
+	isRunning:false
 }
 function preProcessFlashing(){	
 	if(flshingCtx.processed){
@@ -498,34 +503,7 @@ function showLettersGrad(timeSpectrumMs){
 
 //assign sequence to individual letters
 function setSequencesToFlasingLetter(rndTimingSpectrumMs){
-	/* elms = document.getElementsByClassName("classFlashLetter");
-	var hasRndTiming= rndTimingSpectrumMs != null && rndTimingSpectrumMs != 0;
-	for(var i = 0 ; i< elms.length ; i++){
-		elms[i].classList.add("classFlashLetterTransparent");
-
-		var delay= rndTimingSpectrumMs * Math.random();
-		setTimeout(function(elm){
-			setTimeout(function(){
-				elm.classList.remove("classFlashLetterTransparent");
-				elm.classList.add("flashing10")
-			},0);
-			setTimeout(function(){
-				elm.classList.remove("flashing10");
-				elm.classList.add("flashing20")
-			},750);
-			setTimeout(function(){
-				elm.classList.remove("flashing20");
-				elm.classList.add("flashing40")
-			},1500);
-			setTimeout(function(){
-				elm.classList.remove("flashing40");
-				elm.classList.add("flashing80")
-			},2000);
-			setTimeout(function(){
-				elm.classList.remove("flashing80");
-			},2500);
-		}.bind(null, elms[i]), delay);		
-	} */
+	
 
 	showLettersGrad(8000);
 
@@ -623,6 +601,23 @@ function gradualHide(timeSpectrumMs){
 		}.bind(null, elms[i]), delay);
 	}
 }
+
+function triggerFlashing(){
+	if(flshingCtx.isRunning){
+		return;
+	}
+	flshingCtx.isRunning=true;
+	console.log("flashing cycle begins");
+	flashingSequence();
+	setTimeout(flashingComplete,18000);
+}
+
+function flashingComplete(){
+	console.log("flashing cycle complete");
+	flshingCtx.isRunning=false;
+}
+
+/**************************theme fish**************************************** */
 
 
 const ctxFish= {
@@ -2276,6 +2271,7 @@ function checkScrollSpeed(){
 	enableZoomSteps();
 	enableClouds();
 	enableTwister();
+	enableFlashing();
 
 	if(currentPos == scrollCtx.lastYposition){
 		return;
@@ -2394,6 +2390,13 @@ function enableTwister(){
 		//runClouds();
 		triggerTwister();
 	}
+}
+
+function enableFlashing(){
+	if(inViewPort("viewpointDetectorFlashing", 300, 600)){
+		triggerFlashing();
+	}
+	
 }
 
 
