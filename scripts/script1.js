@@ -1230,7 +1230,7 @@ function resetWheeling(){
 
 
 
-function setUpLayer(layerDomELm){
+function setUpLayerOld(layerDomELm){
 	var color;
  	var colorStr;
  	const trans = setRandTranslation(300, 0, layerDomELm);
@@ -1239,6 +1239,20 @@ function setUpLayer(layerDomELm){
  	//colorStr="black";
  	layerDomELm.style.color = colorStr;
  	return trans;
+}
+
+
+function setUpLayer(layerDomELm, idx){
+	var color;
+ 	var colorStr;
+	var oldLeftVal = extractLeftVal(layerDomELm.id);
+	//var newLeftVal = oldLeftVal + Math.random() + couldsCtx.initLeftShiftPxRange;
+	var newLeftVal = oldLeftVal + idx * 200;
+	layerDomELm.style.left = newLeftVal + "px";
+	color = rndColor();
+ 	colorStr = "hsl(" + color['h'] + "," + color['s'] + "%," + color['l'] + "%)";
+ 	layerDomELm.style.color = colorStr;
+
 }
 
 
@@ -1269,7 +1283,7 @@ function rndColor(){
 	return {/*'h':270,*/
 			'h':0,
 			's': 0,
-			'l': Math.random() * 11
+			'l': Math.random() * 50
 	}
 }
 
@@ -1287,7 +1301,6 @@ constCloudCtx = {
 
 
 
-//**************************************theme clouds********************************************* */
 
 function moveCloudLayer(domElm,initX,initY){
 	/* const minDurationSec = 3;
@@ -1323,7 +1336,7 @@ function moveCloudLayer(domElm,initX,initY){
 function moveClouds(){
 		elms= document.querySelectorAll("#divCloudsContent .layer" );
 		 for (var i = 0 ; i < elms.length; i++){
-		 	var trans=setUpLayer(elms[i])
+		 	var trans=setUpLayer(elms[i], i)
 		 	setTimeout(
 		 		function(elm,x,y){
 		 			moveCloudLayer(elm,x,y);
@@ -1339,10 +1352,11 @@ function setupCloudLayers(){
 	movFunctions=[];
 	elms= document.querySelectorAll("#divCloudsContent .layer" );
 		 for (var i = 0 ; i < elms.length; i++){
-		 	trans=setUpLayer(elms[i])
+			setUpLayer(elms[i], i);
+		 	/* trans=setUpLayer(elms[i])
 		 	movFunctions.push(function(elm,x,y){
 		 			moveCloudLayer(elm,x,y);
-		 		}.bind(null, elms[i],trans['x'],trans['y']));
+		 		}.bind(null, elms[i],trans['x'],trans['y'])); */
 	}
 }
 
@@ -1376,8 +1390,37 @@ function reArmClouds(){
 }
 
 const couldsCtx = {
-	isArmed:true
+	isArmed:true, 
+	minLeftTargetPx:3000,
+	maxLeftTargetPx:3500,
+	minTopTargetPx:-200,
+	maxTopTargetPx:200,
+	initLeftShiftPxRange:800
 }
+
+function testCloudTranform(){
+	//document.getElementById("divLayer2").style.left="-800px";
+
+	elms= document.getElementsByClassName("clsSlowLeft");
+	var leftTarget, trnsX, trnsY;
+	for (var i = 0 ; i < elms.length; i++){
+		trnsX = Math.random()* (couldsCtx.maxLeftTargetPx-couldsCtx.minLeftTargetPx) + couldsCtx.minLeftTargetPx;
+		trnsY = Math.random()* (couldsCtx.maxTopTargetPx-couldsCtx.minTopTargetPx) + couldsCtx.minTopTargetPx;
+		
+		elms[i].style.transform = "translate(" + trnsX + "px," + trnsY + "px)";
+	}
+}
+
+function extractLeftVal(elmId){
+	var elem = document.getElementById(elmId);
+	var rawVal = window.getComputedStyle(elem,null).getPropertyValue("left");
+	//remove the "px" bit
+	rawVal = rawVal.substring(0, rawVal.length - 2);
+	var intVal = parseInt(rawVal, 10);
+	return intVal;
+}
+
+
 
 //*--------------------------------------utilities-------------------------------------------------------------
 
@@ -2293,7 +2336,7 @@ function enableZoomSteps(){
 
 function enableClouds(){
 	if(inViewPort("viewpointDetectorClouds", 100, 900)){
-		runClouds();
+		//runClouds();
 	}
 	
 }
