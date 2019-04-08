@@ -2275,6 +2275,7 @@ function checkScrollSpeed(){
 	enableTwister();
 	enableFlashing();
 	enableSpasm();
+	enableFocus();
 
 	if(currentPos == scrollCtx.lastYposition){
 		return;
@@ -2405,6 +2406,15 @@ function enableFlashing(){
 function enableSpasm(){
 	if(inViewPort("viewportDetectorSpasm", 300, 600)){
 		triggerSpasm();
+	}
+}
+
+
+function enableFocus(){
+	if(inViewPort("viewpointDetectorFocus", 300, 600)){
+		animFocus();
+	}else{
+		clearFocusAnim();
 	}
 }
 
