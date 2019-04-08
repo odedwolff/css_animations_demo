@@ -31,6 +31,8 @@ function init(){
 	preProcessFlashing();
 
 	spasmPrepare();
+
+	rainDebry();
 	
 }
 
@@ -3022,7 +3024,7 @@ function spasmSequence(elm){
 
 const spasmRunCtx= {
 	isRunning:false,
-	completeTimeoutMs:16000
+	completeTimeoutMs:17000
 }
 
 function triggerSpasm(){
@@ -3048,7 +3050,8 @@ var bottomCtx = {
 	dyMax:40,
 	fPs:50,
 	noDerbyElm:20, 
-	intervalRainMs:1000,
+	//intervalRainMs:1000,
+	intervalRainMs:3000,
 	elmId:0,
 	intervalId:null,
 	rotMinDegSec:-30,
@@ -3058,9 +3061,13 @@ var bottomCtx = {
 	sinkPx:200,
 	numberOfElm:30000,
 	sinkDistancesPx:[300, 350, 400], 
-	randSinkMin:300,
-	randSinkMax:400,
-	selfDestructionTimeoutMs:1000 * 50
+	/* randSinkMin:300,
+	randSinkMax:400, */
+
+	randSinkMin:600,
+	randSinkMax:650,
+	//selfDestructionTimeoutMs:1000 * 50
+	selfDestructionTimeoutMs:1000 * 150
 };
 
 function randSinkD(){
@@ -3100,27 +3107,11 @@ function sinkElm(elm,totalDepth, sinkPxPerSec, rotDegPerSec,currentDepth, curren
 
 
 function testBottom(){
-	/* elm=document.getElementById("divTestBottom");
-	sinkElm(elm,200, 40, 11, 0, 0, 200); */
 	rainDebry();
 }
 
 
 function rainDebry(){
-	/* var parentElm = document.getElementById("divBottomContent");
-	bottomCtx.intervalId = setInterval(
-		function(){
-			var x = Math.random() * 1000;
-			var rotRate = Math.random() * (bottomCtx.rotMaxDegSec - bottomCtx.rotMinDegSec) + bottomCtx.rotMinDegSec;
-			var c = 'y';
-			var id = "divDerbyElm" + bottomCtx.elmId;
-			bottomCtx.elmId = bottomCtx.elmId + 1;
-			var newElmHtml = "<div id=" + id + " class=debryElm>" + c + "<div>";
-			divBottomContent.innerHTML = divBottomContent.innerHTML + newElmHtml;
-			var newElm = document.getElementById(id);
-			sinkElm(newElm,2000, bottomCtx.sinkPxPerSec, rotRate, 0, 0, x);
-		}
-	,bottomCtx.intervalRainMs) */
 	parentElm = document.getElementById("divBottomContent");
 	createRandomElm(parentElm);
 }
@@ -3135,12 +3126,7 @@ function createRandomElmOld(parentElm){
 	var newElmHtml = "<div id=" + id + " class=debryElm>" + c + "<div>";
 	
 	parentElm.innerHTML = divBottomContent.innerHTML + newElmHtml;
-	
-	/* if(parentElm.innerHTML){
-		parentElm.innerHTML.concat(newElmHtml);
-	}else{
-		parentElm.innerHTML=newElmHtml;
-	} */
+
 
 	parentElm.innerHTML.concat(newElmHtml);
 	var newElm = document.getElementById(id);
