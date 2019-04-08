@@ -29,6 +29,8 @@ function init(){
 	setupCloudLayers();
 
 	preProcessFlashing();
+
+	spasmPrepare();
 	
 }
 
@@ -2272,6 +2274,7 @@ function checkScrollSpeed(){
 	enableClouds();
 	enableTwister();
 	enableFlashing();
+	enableSpasm();
 
 	if(currentPos == scrollCtx.lastYposition){
 		return;
@@ -2396,7 +2399,13 @@ function enableFlashing(){
 	if(inViewPort("viewpointDetectorFlashing", 300, 600)){
 		triggerFlashing();
 	}
-	
+}
+
+
+function enableSpasm(){
+	if(inViewPort("viewportDetectorSpasm", 300, 600)){
+		triggerSpasm();
+	}
 }
 
 
@@ -3000,6 +3009,25 @@ function spasmSequence(elm){
 
 }
 
+
+const spasmRunCtx= {
+	isRunning:false,
+	completeTimeoutMs:16000
+}
+
+function triggerSpasm(){
+	if(spasmRunCtx.isRunning){
+		return;
+	}
+	spasmRunCtx.isRunning=true;
+	spasmScript();
+	setTimeout(spasmScriptComplete, spasmRunCtx.completeTimeoutMs);
+}
+
+function spasmScriptComplete(){
+	spasmRunCtx.isRunning=false;
+	console.log("spasem sequence cycle complete");
+}
 
 
 
