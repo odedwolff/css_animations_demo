@@ -32,7 +32,7 @@ function init(){
 
 	spasmPrepare();
 
-	rainDebry();
+	//rainDebry();
 	
 }
 
@@ -2263,7 +2263,7 @@ function checkScrollSpeed(){
 	const currentPos = window.scrollY
 	enableWave(currentPos);
 	enableWaveHor(currentPos);
-	enableGrasshoppers();
+	//enableGrasshoppers();
 	enablePulsar();
 	enablePendel();
 	enableWheel();
@@ -2272,11 +2272,11 @@ function checkScrollSpeed(){
 	enableGears();
 	enableBigSwing();
 	enableRoller();
-	enableZoomSteps();
+	//enableZoomSteps();
 	enableClouds();
 	enableTwister();
 	enableFlashing();
-	enableSpasm();
+	//enableSpasm();
 	enableFocus();
 
 	if(currentPos == scrollCtx.lastYposition){
@@ -3167,5 +3167,10 @@ function stopRain(){
 }
 
 
+/*************************theme grahsshopppers no timeout ******** */
 
+
+function preJumpGH1(dElm,dElmCurTransition){
+
+}
 
