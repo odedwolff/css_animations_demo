@@ -3177,7 +3177,9 @@ const gh2Ctx = {
 	finalPreJumpCompression:0.2,
 	vxPxSec:400,
 	initJuampVyPxSec:-2000,
-	leapsPerCycls:3
+	leapsPerCycls:4,
+	initOffsetRange:80,
+	timingPhaseRangeMs:900
 }
 const stepIntervalMs = 1000/gh2Ctx.fps;
 const shrinkRatioPerFrame = Math.pow(gh2Ctx.preJumpCompressRatePerSec, 1 / gh2Ctx.fps);
@@ -3268,6 +3270,20 @@ function gh2Cycle(elm,initX, initY1){
 function gh2Sequence(){
 	var elm=document.getElementById("ghNoTo1");
 	gh2Cycle(elm,0, 0);
+}
+
+
+function gh2SequenceBunch(){
+	//initOffsetRange
+	var delay, left,elm;
+	elms= document.getElementsByClassName("grassHopper2Box");
+	for(var i = 0; i < elms.length; i++){
+		elm=elms[i];
+		elm.style.left = (Math.random() * gh2Ctx.initOffsetRange  - 150) + "px";
+		//gh2Cycle(elm,0,0);
+		setTimeout(gh2Cycle.bind(null,elm,0,0), 
+		Math.random() * gh2Ctx.timingPhaseRangeMs);
+	}
 }
 
 
