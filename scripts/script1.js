@@ -3171,11 +3171,12 @@ function stopRain(){
 
 const gh2Ctx = {
 	fps:20,
-	aPxPerSecSqr:10,
+	//garvity
+	aPxPerSecSqr:900,
 	preJumpCompressRatePerSec:0.65,
 	finalPreJumpCompression:0.2,
-	vxPxSec:100,
-	initJuampVyPxSec:-300 ,
+	vxPxSec:110,
+	initJuampVyPxSec:-700,
 	leapsPerCycls:4
 }
 const stepIntervalMs = 1000/gh2Ctx.fps;
@@ -3186,7 +3187,7 @@ function preJumpStepGH1(dElm, jumpParams){
 	//pre jump is complete, jump up
 	if(fullyCompressed(jumpParams)){
 		//start the upward jump
-		jumpParams.vy = gh2Ctx.initJuampVyPxSec;
+		jumpParams.vyPxSec = gh2Ctx.initJuampVyPxSec;
 		jumpParams.scaleY = 1;
 		jumpStepGH1(dElm,jumpParams);
 		return;
@@ -3223,9 +3224,9 @@ function moveElm(dElm, jumpParams){
 }
 
 function jumpSetupUpdate(jumpParams){
-	jumpParams.vy = jumpParams.vy +  jumpParams.aPxPerSecSqr / 1000;
-	jumpParams.y = jumpParams.y + jumpParams.vy;
-	jumpParams.x=jumpParams.x+ gh2Ctx.vxPxSec;
+	jumpParams.vyPxSec = jumpParams.vyPxSec +  gh2Ctx.aPxPerSecSqr * stepIntervalMs / 1000;
+	jumpParams.y = jumpParams.y + jumpParams.vyPxSec * stepIntervalMs / 1000;
+	jumpParams.x=jumpParams.x+ gh2Ctx.vxPxSec * stepIntervalMs / 1000;
 }
 
 function fullyCompressed(jumpParams){
@@ -3234,33 +3235,39 @@ function fullyCompressed(jumpParams){
 
 
 function hopCompleteGH2(dElm,jumpParams){
-	if(jumpParams.remainingJump=0){
+	if(jumpParams.remainingJump==0){
 		rollerCycleComplete(dElm,jumpParams);
 		return;
 	}
 	jumpParams.remainingJump=jumpParams.remainingJump-1;
+	jumpParams.vyPxSec=0;
+	jumpParams.y=jumpParams.initY;
 	preJumpStepGH1(dElm, jumpParams);
 }
 
 function hitTheGround(jumpParams){
-	return jumpParams.y <=0;
+	var hits= jumpParams.y >= jumpParams.initY && jumpParams.vyPxSec > 0;
+	return hits;
 }
 
 
-function gh2Cycle(elm,initX, initY){
+function gh2Cycle(elm,initX, initY1){
 	var jumpParams = {
+		vy:0,
+		//y:0,
 		x:initX,
-		y:initY,
+		y:initY1,
 		scaleY:1,
 		scaleX:1,
-		remainingJump:gh2Ctx.leapsPerCycls
+		remainingJump:gh2Ctx.leapsPerCycls,
+		initY:initY1
 	}
 	preJumpStepGH1(elm, jumpParams);
 }
 
 function gh2Sequence(){
 	var elm=document.getElementById("ghNoTo1");
-	gh2Cycle(elm,500, 200);
+	gh2Cycle(elm,0, 0);
 }
 
 
