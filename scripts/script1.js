@@ -3170,14 +3170,14 @@ function stopRain(){
 /*************************theme grahsshopppers no timeout ******** */
 
 const gh2Ctx = {
-	fps:20,
+	fps:50,
 	//garvity
-	aPxPerSecSqr:900,
-	preJumpCompressRatePerSec:0.65,
+	aPxPerSecSqr:4500,
+	preJumpCompressRatePerSec:0.95,
 	finalPreJumpCompression:0.2,
-	vxPxSec:110,
-	initJuampVyPxSec:-700,
-	leapsPerCycls:4
+	vxPxSec:400,
+	initJuampVyPxSec:-2000,
+	leapsPerCycls:3
 }
 const stepIntervalMs = 1000/gh2Ctx.fps;
 const shrinkRatioPerFrame = Math.pow(gh2Ctx.preJumpCompressRatePerSec, 1 / gh2Ctx.fps);
