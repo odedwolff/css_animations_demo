@@ -3291,47 +3291,59 @@ function gh2SequenceBunch(){
 
 const giantStepsCtx = {
 	stepSizePx:500,
-	minScale:0.1,
+	minScale:0.5,
 	currentFootIdx:0,
 	footIds:["giantFootLeft", "giantFootRight"],
 	walkInfos:[null, null],
-	nmSteps:7,
+	nmSteps:4,
 	fps:50,
-	vLiftFootRatioSec:0.5,
-	vDropFootRatioSec:5,
-	vxPxSec:50,
+	vLiftFootRatioSec:.25,
+	vDropFootRatioSec:10,
+	vxPxSec:150,
 	
+}
+
+const feetTranformInfos = {
+	"giantFootLeft":{
+		x:0,
+		y:0,
+		scale:1
+	},
+	"giantFootRight":{
+		x:0,
+		y:0,
+		scale:1
+	}
 }
 
 const animIntervalMs = 1000 / giantStepsCtx.fps;
 const footLiftRatioPerFrame = Math.pow(giantStepsCtx.vLiftFootRatioSec,1/giantStepsCtx.fps);
 const footDropRatioPerFrame = Math.pow(giantStepsCtx.vDropFootRatioSec,1/giantStepsCtx.fps);
 
+
+
+
 function currentFoot(){
 	return document.getElementById(giantStepsCtx.footIds[giantStepsCtx.currentFootIdx]);
 }
 function switchFoot(){
-	giantStepsCtx.idx= ((giantStepsCtx.idx + 1) % 2 );
+	giantStepsCtx.currentFootIdx= ((giantStepsCtx.currentFootIdx + 1) % 2 );
 }
 
-/* 
-function walkstep(elm, walkInfo){
-	if(footHasReachedTop(walkInfo)){
-			
-	}
-	if(footHasLanded(walkInfo)){
 
-	}
-}
- */
-
-function liftFootStep(elm, walkInfo){
+function liftFootStep(elm){
+	var walkInfo=feetTranformInfos[elm.id];
 	if(footReachedTop(walkInfo)){
-		dropFootStep(elm, walkInfo)
+		//dropFootStep(elm, walkInfo)
+		dropFootStep(elm);
+		return;
 	}
 	updateLiftFootWalkInfo(walkInfo);
 	moveFoot(elm, walkInfo);
-	setTimeout(liftFootStep.bind(null, elm, walkInfo), animIntervalMs);
+	//setTimeout(liftFootStep.bind(null, elm), animIntervalMs);
+	setTimeout(() => {
+		liftFootStep(elm);
+	}, animIntervalMs);
 }
 
 
@@ -3357,14 +3369,18 @@ function  moveFoot(dElm, walkInfo){
 
 
 
-function dropFootStep(elm, walkInfo){
+function dropFootStep(elm){
+	var walkInfo=feetTranformInfos[elm.id];
 	if(footTouchedDown(walkInfo)){
-		handleFootTouchedDown(elm, walkInfo);
+		handleFootTouchedDown(elm);
 		return;
 	}
 	updateDropFootWalkInfo(walkInfo);
 	moveFoot(elm, walkInfo);
-	setTimeout(dropFootStep.bind(null, elm, walkInfo), animIntervalMs);
+	//setTimeout(dropFootStep.bind(null, elm, walkInfo), animIntervalMs);
+	setTimeout(() => {
+		dropFootStep(elm);
+	}, animIntervalMs);
 }
 
 
@@ -3386,26 +3402,21 @@ function stompDrop(elm, walkInfo){
 }
 
 
-function handleFootTouchedDown(elm, walkInfo){
-	if(walkInfo.nmSteps==0){
-		stompLift(elm, walkInfo);
+function handleFootTouchedDown(elm){
+	var walkInfo=feetTranformInfos[elm.id];
+	if(giantStepsCtx.nmSteps==0){
+		stompLift(elm);
 		return;
 	}
 	switchFoot();
-	walkInfo.nmSteps = walkInfo.nmSteps -1;
-	liftFootStep(foot, walkInfo);
+	giantStepsCtx.nmSteps = giantStepsCtx.nmSteps -1;
+	liftFootStep(currentFoot());
 
 }
 
 function testGiantSteps(){
 	var foot = currentFoot();
-	var walkInfo = {
-		nmSteps:giantStepsCtx.nmSteps,
-		x:0,
-		y:0,
-		scale:1
-	}
-	liftFootStep(foot, walkInfo);
+	liftFootStep(foot);
 }
 
 
