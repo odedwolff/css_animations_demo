@@ -3287,3 +3287,125 @@ function gh2SequenceBunch(){
 }
 
 
+/*****************************theme giant steps**************************** */
+
+const giantStepsCtx = {
+	stepSizePx:500,
+	minScale:0.1,
+	currentFootIdx:0,
+	footIds:["giantFootLeft", "giantFootRight"],
+	walkInfos:[null, null],
+	nmSteps:7,
+	fps:50,
+	vLiftFootRatioSec:0.5,
+	vDropFootRatioSec:5,
+	vxPxSec:50,
+	
+}
+
+const animIntervalMs = 1000 / giantStepsCtx.fps;
+const footLiftRatioPerFrame = Math.pow(giantStepsCtx.vLiftFootRatioSec,1/giantStepsCtx.fps);
+const footDropRatioPerFrame = Math.pow(giantStepsCtx.vDropFootRatioSec,1/giantStepsCtx.fps);
+
+function currentFoot(){
+	return document.getElementById(giantStepsCtx.footIds[giantStepsCtx.currentFootIdx]);
+}
+function switchFoot(){
+	giantStepsCtx.idx= ((giantStepsCtx.idx + 1) % 2 );
+}
+
+/* 
+function walkstep(elm, walkInfo){
+	if(footHasReachedTop(walkInfo)){
+			
+	}
+	if(footHasLanded(walkInfo)){
+
+	}
+}
+ */
+
+function liftFootStep(elm, walkInfo){
+	if(footReachedTop(walkInfo)){
+		dropFootStep(elm, walkInfo)
+	}
+	updateLiftFootWalkInfo(walkInfo);
+	moveFoot(elm, walkInfo);
+	setTimeout(liftFootStep.bind(null, elm, walkInfo), animIntervalMs);
+}
+
+
+function footReachedTop(walkInfo){
+	return walkInfo.scale <= giantStepsCtx.minScale;
+}
+
+function updateLiftFootWalkInfo(walkInfo){
+	walkInfo.x = walkInfo.x + giantStepsCtx.vxPxSec * animIntervalMs / 1000 * walkInfo.scale;
+	walkInfo.scale= walkInfo.scale * footLiftRatioPerFrame;
+}
+
+function updateDropFootWalkInfo(walkInfo){
+	walkInfo.x = walkInfo.x + giantStepsCtx.vxPxSec * animIntervalMs / 1000 * walkInfo.scale;
+	walkInfo.scale= walkInfo.scale * footDropRatioPerFrame;
+}
+
+function  moveFoot(dElm, walkInfo){
+	var trxStr = 
+	"translate("+ walkInfo.x + "px,0px) scale("+ walkInfo.scale + ")"; 
+	dElm.style.transform=trxStr;
+}
+
+
+
+function dropFootStep(elm, walkInfo){
+	if(footTouchedDown(walkInfo)){
+		handleFootTouchedDown(elm, walkInfo);
+		return;
+	}
+	updateDropFootWalkInfo(walkInfo);
+	moveFoot(elm, walkInfo);
+	setTimeout(dropFootStep.bind(null, elm, walkInfo), animIntervalMs);
+}
+
+
+
+
+function footTouchedDown(walkInfo){
+	//foot has touched down iff org scale been restored 
+	return walkInfo.scale >= 1;
+}
+
+
+
+function stompLift(elm, walkInfo){
+  
+}
+
+function stompDrop(elm, walkInfo){
+  
+}
+
+
+function handleFootTouchedDown(elm, walkInfo){
+	if(walkInfo.nmSteps==0){
+		stompLift(elm, walkInfo);
+		return;
+	}
+	switchFoot();
+	walkInfo.nmSteps = walkInfo.nmSteps -1;
+	liftFootStep(foot, walkInfo);
+
+}
+
+function testGiantSteps(){
+	var foot = currentFoot();
+	var walkInfo = {
+		nmSteps:giantStepsCtx.nmSteps,
+		x:0,
+		y:0,
+		scale:1
+	}
+	liftFootStep(foot, walkInfo);
+}
+
+
