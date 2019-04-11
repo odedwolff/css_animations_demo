@@ -3300,6 +3300,13 @@ const giantStepsCtx = {
 	vLiftFootRatioSec:.25,
 	vDropFootRatioSec:10,
 	vxPxSec:150,
+
+	minStompScale:0.2,
+	maxStompScale:10,
+	vStompLiftRatioSec:.25,
+	vStropDropRatioSec:10,
+
+	pauseBeforeStompMs:300
 	
 }
 
@@ -3319,6 +3326,8 @@ const feetTranformInfos = {
 const animIntervalMs = 1000 / giantStepsCtx.fps;
 const footLiftRatioPerFrame = Math.pow(giantStepsCtx.vLiftFootRatioSec,1/giantStepsCtx.fps);
 const footDropRatioPerFrame = Math.pow(giantStepsCtx.vDropFootRatioSec,1/giantStepsCtx.fps);
+const stompLiftRatioPerFrame = Math.pow(giantStepsCtx.vStompLiftRatioSec,1/giantStepsCtx.fps);
+const stompDropRatioPerFrame = Math.pow(giantStepsCtx.vStropDropRatioSec,1/giantStepsCtx.fps);
 
 
 
@@ -3393,19 +3402,56 @@ function footTouchedDown(walkInfo){
 
 
 
-function stompLift(elm, walkInfo){
-  
+function stompLiftStep(elm){
+	var walkInfo=feetTranformInfos[elm.id];
+	if(readchedStompTop(walkInfo)){
+		stompDropStep(elm);
+		return;
+	}
+	updateStompUp(walkInfo);
+	moveFoot(elm, walkInfo);
+	setTimeout(() => {
+		stompLiftStep(elm)
+	}, animIntervalMs);
 }
 
-function stompDrop(elm, walkInfo){
-  
+function updateStompUp(walkInfo){
+	walkInfo.scale = walkInfo.scale * stompLiftRatioPerFrame;
+}
+
+function readchedStompTop(walkInfo){
+	return walkInfo.scale <= giantStepsCtx.minStompScale;
+}
+
+
+function stompDropStep(elm, walkInfo){
+	var walkInfo=feetTranformInfos[elm.id];
+	if(stompTouchedDown(walkInfo)){
+		handleCycleEnd();
+		return;
+	}
+	updateStompDown(walkInfo);
+	moveFoot(elm, walkInfo);
+	setTimeout(() => {
+		stompDropStep(elm)
+	}, animIntervalMs);
+}
+
+function stompTouchedDown(walkInfo){
+	return walkInfo.scale >= giantStepsCtx.maxStompScale;
+}
+
+function updateStompDown(walkInfo){
+	walkInfo.scale = walkInfo.scale * stompDropRatioPerFrame;
 }
 
 
 function handleFootTouchedDown(elm){
 	var walkInfo=feetTranformInfos[elm.id];
 	if(giantStepsCtx.nmSteps==0){
-		stompLift(elm);
+		setTimeout(() => {
+			stompLiftStep(elm);	
+		}, giantStepsCtx.pauseBeforeStompMs);
 		return;
 	}
 	switchFoot();
