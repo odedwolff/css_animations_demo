@@ -3290,7 +3290,7 @@ function gh2SequenceBunch(){
 /*****************************theme giant steps**************************** */
 
 const giantStepsCtx = {
-	stepSizePx:500,
+	//stepSizePx:500,
 	minScale:0.5,
 	currentFootIdx:0,
 	footIds:["giantFootLeft", "giantFootRight"],
@@ -3314,12 +3314,14 @@ const feetTranformInfos = {
 	"giantFootLeft":{
 		x:0,
 		y:0,
-		scale:1
+		scale:1,
+		offset:0
 	},
 	"giantFootRight":{
 		x:0,
 		y:0,
-		scale:1
+		scale:1,
+		offset:50 
 	}
 }
 
@@ -3371,8 +3373,13 @@ function updateDropFootWalkInfo(walkInfo){
 }
 
 function  moveFoot(dElm, walkInfo){
+	var x1 = + walkInfo.offset + walkInfo.x;
 	var trxStr = 
-	"translate("+ walkInfo.x + "px,0px) scale("+ walkInfo.scale + ")"; 
+	//"translate("+ walkInfo.x + "px,0px) scale("+ walkInfo.scale + ")"; 
+	
+	
+	"translate("+ x1 + "px,0px) scale("+ walkInfo.scale + ")"; 
+	//"translate("+ walkInfo.x + 700 + "px,0px) scale("+ walkInfo.scale + ")"; 
 	dElm.style.transform=trxStr;
 }
 
@@ -3461,8 +3468,16 @@ function handleFootTouchedDown(elm){
 }
 
 function testGiantSteps(){
+	//prepHelfStop();
+	
 	var foot = currentFoot();
 	liftFootStep(foot);
+	
+}
+
+function prepHelfStop(){
+	var leftFoot=document.getElementById("giantFootLeft");
+	leftFoot.style.transform = "translate(" + giantStepsCtx.stepSizePx / 2 + "px, 0px)";
 }
 
 
