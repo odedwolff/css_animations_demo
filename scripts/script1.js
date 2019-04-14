@@ -3308,7 +3308,12 @@ const giantStepsCtx = {
 	vStropDropRatioSec:10,
 
 	pauseBeforeStompMs:300,
-	endCycleTimeoutMs:400
+	endCycleTimeoutMs:400,
+
+	backGroundColor:"black",
+	foregroundColor:"white",
+	coloredInversedBack:true,
+	coloredInversedFore:true
 	
 }
 
@@ -3334,6 +3339,50 @@ const stompLiftRatioPerFrame = Math.pow(giantStepsCtx.vStompLiftRatioSec,1/giant
 const stompDropRatioPerFrame = Math.pow(giantStepsCtx.vStropDropRatioSec,1/giantStepsCtx.fps);
 
 
+function inverseForeColor(){
+	if(giantStepsCtx.coloredInversedFore){
+		giantFeetForegroundApplyColors(true);
+		giantStepsCtx.coloredInversedFore=false;
+	}else{
+		giantFeetForegroundApplyColors(false);
+		giantStepsCtx.coloredInversedFore=true;
+	}
+}
+
+function inverseBackColors(){
+	if(giantStepsCtx.coloredInversedBack){
+		giantFeetBackgourndApplyColor(true);
+		giantStepsCtx.coloredInversedBack=false;
+	}else{
+		giantFeetBackgourndApplyColor(false);
+		giantStepsCtx.coloredInversedBack=true;
+	}
+}
+
+
+
+function giantFeetBackgourndApplyColor(inverse){
+	var parentElm = document.getElementById("divGiantSteps");
+	if(inverse){
+		parentElm.style.background = giantStepsCtx.foregroundColor;
+	}else{
+		parentElm.style.background = giantStepsCtx.backGroundColor;
+	}
+}
+
+function giantFeetForegroundApplyColors(inverse){
+	var feet = document.getElementsByClassName("giantFoot");
+	var parentElm = document.getElementById("divGiantSteps");
+	if(inverse){
+		for(var i=0;i<feet.length;i++){
+			feet[i].style.color = giantStepsCtx.backGroundColor;
+		}
+	}else{
+		for(var i=0;i<feet.length;i++){
+			feet[i].style.color = giantStepsCtx.foregroundColor;
+		}
+	}
+}
 
 
 function currentFoot(){
@@ -3499,7 +3548,9 @@ function resetGiantFeet(){
 function handleCycleEnd(){
 	console.log("giant steps end of cycle");
 	setTimeout(() => {
+		inverseBackColors();
 		resetGiantFeet();
+		inverseForeColor();
 		startOver();
 	}, giantStepsCtx.endCycleTimeoutMs);
 	
@@ -3511,6 +3562,8 @@ function startOver(){
 	var foot = currentFoot();
 	liftFootStep(foot);
 }
+
+
 
 
 
