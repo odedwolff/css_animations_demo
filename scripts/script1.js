@@ -3296,6 +3296,7 @@ const giantStepsCtx = {
 	footIds:["giantFootLeft", "giantFootRight"],
 	walkInfos:[null, null],
 	nmSteps:4,
+	initNmSteps:4,
 	fps:50,
 	vLiftFootRatioSec:.25,
 	vDropFootRatioSec:10,
@@ -3306,7 +3307,8 @@ const giantStepsCtx = {
 	vStompLiftRatioSec:.25,
 	vStropDropRatioSec:10,
 
-	pauseBeforeStompMs:300
+	pauseBeforeStompMs:300,
+	endCycleTimeoutMs:400
 	
 }
 
@@ -3479,5 +3481,37 @@ function prepHelfStop(){
 	var leftFoot=document.getElementById("giantFootLeft");
 	leftFoot.style.transform = "translate(" + giantStepsCtx.stepSizePx / 2 + "px, 0px)";
 }
+
+function resetGiantFeet(){
+	const ids = giantStepsCtx.footIds;
+	const resetTransformStr = "translate(0px,0px) scale(1)"
+	var key;
+	for (var i = 0 ; i<ids.length;i++ ){
+		key = ids[i];
+		feetTranformInfos[key].scale=1;
+		feetTranformInfos[key].x=0;
+		document.getElementById(key).style.transform = resetTransformStr;
+	}
+
+}
+
+
+function handleCycleEnd(){
+	console.log("giant steps end of cycle");
+	setTimeout(() => {
+		resetGiantFeet();
+		startOver();
+	}, giantStepsCtx.endCycleTimeoutMs);
+	
+}
+
+
+function startOver(){
+	giantStepsCtx.nmSteps = giantStepsCtx.initNmSteps;
+	var foot = currentFoot();
+	liftFootStep(foot);
+}
+
+
 
 
