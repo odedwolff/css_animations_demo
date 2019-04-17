@@ -2278,6 +2278,7 @@ function checkScrollSpeed(){
 	enableFlashing();
 	//enableSpasm();
 	enableFocus();
+	enableGiantSteps();
 
 	if(currentPos == scrollCtx.lastYposition){
 		return;
@@ -2417,6 +2418,13 @@ function enableFocus(){
 		animFocus();
 	}else{
 		clearFocusAnim();
+	}
+}
+
+
+function enableGiantSteps(){
+	if(inViewPort("viewpointDetectorGiantSteps", 300, 600)){
+		triggerGiantSteps();
 	}
 }
 
@@ -3324,35 +3332,9 @@ const giantStepsCtx = {
 	backGroundColor:"black",
 	foregroundColor:"white",
 	coloredInversedBack:true,
-	coloredInversedFore:true
+	coloredInversedFore:true,
 	
-
-	/*  
-	currentFootIdx:0,
-	footIds:["giantFootLeft", "giantFootRight"],
-	walkInfos:[null, null],
-	nmSteps:3,
-	initNmSteps:3,
-	fps:50,
-	
-	vxPxSec:300,
-
-	minScale:0.7,
-	minStompScale:0.30,
-	maxStompScale:70,
-	vLiftFootRatioSec:.65,
-	vDropFootRatioSec:2,
-	vStompLiftRatioSec:0.20,
-	vStropDropRatioSec:100000000,
-
-	pauseBeforeStompMs:170,
-	endCycleTimeoutMs:400,
-
-	backGroundColor:"black",
-	foregroundColor:"white",
-	coloredInversedBack:true,
-	coloredInversedFore:true
-	 */
+	isRunning:false
 }
 
 const feetTranformInfos = {
@@ -3601,7 +3583,8 @@ function handleCycleEnd(){
 		inverseBackColors();
 		resetGiantFeet();
 		inverseForeColor();
-		startOver();
+		//startOver();
+		giantStepsCtx.isRunning=false;
 	}, giantStepsCtx.endCycleTimeoutMs);
 	
 }
@@ -3614,6 +3597,16 @@ function startOver(){
 	setFirstFoot();
 	var foot = currentFoot();
 	liftFootStep(foot);
+}
+
+
+
+function triggerGiantSteps(){
+	if(giantStepsCtx.isRunning){
+		return;
+	}
+	giantStepsCtx.isRunning=true;
+	startOver();
 }
 
 
