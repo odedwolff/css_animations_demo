@@ -54,12 +54,15 @@ subject to waves or something
   surface
   toxicity 
   instrument
+  
+  truth
   pines
+ 
   suggest
   ignite 
   log 
   wooden / wood
-  fuzz
+  
   harmunioum
   submission 
   continum 
@@ -71,6 +74,9 @@ subject to waves or something
   let
   wealth 
   charge / charger 
+  
+  fuzz
+  tent 
 
 
   i never believed it for a second 

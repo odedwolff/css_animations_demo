@@ -3297,7 +3297,6 @@ theefore - icnreasing steps can be achieved by increasing x speed
 
 
 const giantStepsCtx = {
-	//stepSizePx:500,
 	
 	currentFootIdx:0,
 	footIds:["giantFootLeft", "giantFootRight"],
@@ -3307,10 +3306,13 @@ const giantStepsCtx = {
 	fps:50,
 	
 	vxPxSec:900,
+	//horitzontal correction for stomp, used to aim the solid part 
+	//to feel screen 
+	vxPxSecStomp:-300,
 
 	minScale:0.5,
 	minStompScale:0.30,
-	maxStompScale:150,
+	maxStompScale:110,
 	vLiftFootRatioSec:.30,
 	vDropFootRatioSec:12,
 	vStompLiftRatioSec:0.20,
@@ -3324,6 +3326,33 @@ const giantStepsCtx = {
 	coloredInversedBack:true,
 	coloredInversedFore:true
 	
+
+	/*  
+	currentFootIdx:0,
+	footIds:["giantFootLeft", "giantFootRight"],
+	walkInfos:[null, null],
+	nmSteps:3,
+	initNmSteps:3,
+	fps:50,
+	
+	vxPxSec:300,
+
+	minScale:0.7,
+	minStompScale:0.30,
+	maxStompScale:70,
+	vLiftFootRatioSec:.65,
+	vDropFootRatioSec:2,
+	vStompLiftRatioSec:0.20,
+	vStropDropRatioSec:100000000,
+
+	pauseBeforeStompMs:170,
+	endCycleTimeoutMs:400,
+
+	backGroundColor:"black",
+	foregroundColor:"white",
+	coloredInversedBack:true,
+	coloredInversedFore:true
+	 */
 }
 
 const feetTranformInfos = {
@@ -3510,6 +3539,7 @@ function stompTouchedDown(walkInfo){
 
 function updateStompDown(walkInfo){
 	walkInfo.scale = walkInfo.scale * stompDropRatioPerFrame;
+	walkInfo.x = walkInfo.x + giantStepsCtx.vxPxSecStomp * animIntervalMs / 1000 * walkInfo.scale;
 }
 
 
