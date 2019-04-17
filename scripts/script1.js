@@ -3289,25 +3289,34 @@ function gh2SequenceBunch(){
 
 /*****************************theme giant steps**************************** */
 
+/** the feet get smaller when going up(thru scaling), and vice versa. the lift and drop foot seciton ends when 
+the coresponding target scales are reached
+theefore - icnreasing steps can be achieved by increasing x speed
+*/
+
+
+
 const giantStepsCtx = {
 	//stepSizePx:500,
-	minScale:0.5,
+	
 	currentFootIdx:0,
 	footIds:["giantFootLeft", "giantFootRight"],
 	walkInfos:[null, null],
-	nmSteps:4,
-	initNmSteps:4,
+	nmSteps:2,
+	initNmSteps:2,
 	fps:50,
-	vLiftFootRatioSec:.25,
-	vDropFootRatioSec:10,
-	vxPxSec:150,
+	
+	vxPxSec:900,
 
-	minStompScale:0.2,
-	maxStompScale:10,
-	vStompLiftRatioSec:.25,
-	vStropDropRatioSec:10,
+	minScale:0.5,
+	minStompScale:0.30,
+	maxStompScale:150,
+	vLiftFootRatioSec:.30,
+	vDropFootRatioSec:12,
+	vStompLiftRatioSec:0.20,
+	vStropDropRatioSec:100000000,
 
-	pauseBeforeStompMs:300,
+	pauseBeforeStompMs:170,
 	endCycleTimeoutMs:400,
 
 	backGroundColor:"black",
@@ -3328,7 +3337,7 @@ const feetTranformInfos = {
 		x:0,
 		y:0,
 		scale:1,
-		offset:50 
+		offset:300 
 	}
 }
 
@@ -3518,9 +3527,18 @@ function handleFootTouchedDown(elm){
 
 }
 
+function firstStepFoot(){
+	return document.getElementById("giantFootRight");
+}
+
+
+function setFirstFoot(){
+	giantStepsCtx.currentFootIdx=0;
+}
+
 function testGiantSteps(){
 	//prepHelfStop();
-	
+	setFirstFoot()
 	var foot = currentFoot();
 	liftFootStep(foot);
 	
@@ -3547,6 +3565,8 @@ function resetGiantFeet(){
 
 function handleCycleEnd(){
 	console.log("giant steps end of cycle");
+	
+	
 	setTimeout(() => {
 		inverseBackColors();
 		resetGiantFeet();
@@ -3559,6 +3579,9 @@ function handleCycleEnd(){
 
 function startOver(){
 	giantStepsCtx.nmSteps = giantStepsCtx.initNmSteps;
+	//switchFoot();
+
+	setFirstFoot();
 	var foot = currentFoot();
 	liftFootStep(foot);
 }
