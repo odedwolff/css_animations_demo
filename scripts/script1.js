@@ -3610,6 +3610,134 @@ function triggerGiantSteps(){
 }
 
 
+/** **************** spasm2******************* */
+
+const spasm2Ctx = {
+	testMaxScaleHor:3,
+	testTrxTimeSec:0.2,
+	fps:50,
+	INC_MODE_EXP:1,
+	INC_MODE_LIN:2
+}
+
+
+var testSp2Ctx = {
+	objInfo:null,
+	obj:null
+}
+
+const animTimeoutMsSp2 = 1000/spasm2Ctx.fps;
+const testAvgExpRatioPerSec = spasm2Ctx.testMaxScaleHor / (spasm2Ctx.testTrxTimeSec);
+const testScalePerFrameExp = Math.pow(spasm2Ctx.testMaxScaleHor, 1/(spasm2Ctx.testTrxTimeSec*spasm2Ctx.fps));
+const testScalePerFrameLine = (spasm2Ctx.testMaxScaleHor - 1.0) / (spasm2Ctx.testTrxTimeSec*spasm2Ctx.fps);
+
+
+
+function testSpasm2exp(){
+	var obj = document.getElementById("testSpasm2CahrBox");
+	var trxInfo = {
+		scale:1.0
+	}
+	sp2StrechHorStep(obj, trxInfo, spasm2Ctx.INC_MODE_EXP);
+}
+
+function testSpasm2Lin(){
+	var obj = document.getElementById("testSpasm2CahrBox");
+	var trxInfo = {
+		scale:1.0
+	}
+	sp2StrechHorStep(obj, trxInfo, spasm2Ctx.INC_MODE_LIN);
+}
+
+
+function sp2StrechHorStep(obj, trxInfo,mode){
+	if(trxInfo.scale >= spasm2Ctx.testMaxScaleHor){
+		console.log("spasm complete");
+		return;
+	}
+
+	updateSpasm2Scale(mode, trxInfo);
+	updateObjSp2(obj, trxInfo);
+
+	setTimeout(() => {
+		sp2StrechHorStep(obj, trxInfo, mode);
+	}, animTimeoutMsSp2);
+}
+
+function updateObjSp2(obj, objInfo){
+	obj.style.transform = "scale(" + objInfo.scale + ")";
+}
+
+function updateSpasm2Scale(mode, objectInfo){
+	switch(mode) {
+		case spasm2Ctx.INC_MODE_EXP:
+		 	objectInfo.scale= objectInfo.scale* testScalePerFrameExp;
+		  	break;
+		case spasm2Ctx.INC_MODE_LIN:
+			objectInfo.scale= objectInfo.scale + testScalePerFrameLine;
+			break;
+		default:
+			console.log("invlide scale mode");
+			return;  
+	  }
+
+}	
+
+
+
+function spasmScaleSp2Step(obj, dScalePerFramX, dScalePerFramY, objInfo, remainingFrames){
+	if(remainingFrames == 0){
+		console.log("spasm complete");
+		testSp2Ctx.objInfo = objInfo;
+		testSp2Ctx.obj = obj;
+		return;
+	}
+	updateObjInfoSp2(objInfo,dScalePerFramX, dScalePerFramY);
+	applyTranform(obj, objInfo);
+	setTimeout(() => {
+		spasmScaleSp2Step(obj, dScalePerFramX, dScalePerFramY, objInfo, remainingFrames - 1);
+	}, animTimeoutMsSp2);
+}
+
+
+function updateObjInfoSp2(objInfo,dScalePerFramX, dScalePerFramY){
+	objInfo.scaleX = objInfo.scaleX + dScalePerFramX;
+	objInfo.scaleY = objInfo.scaleY + dScalePerFramY;
+}
+
+function applyTranform(obj, objInfo){
+	obj.style.transform = "scale(" + objInfo.scaleX +","+  + objInfo.scaleY + ")";
+}
+
+function startSpasmSP2(obj, objInfo, targetScaleX, targetScaleY,spasmTimeSec){
+	var nmFrames= spasmTimeSec * spasm2Ctx.fps;
+	const dScaleXframe= (targetScaleX - objInfo.scaleX) / nmFrames;
+	const dScaleYframe= (targetScaleY - objInfo.scaleY) / nmFrames;
+	spasmScaleSp2Step(obj, dScaleXframe, dScaleYframe, objInfo, nmFrames);
+}
+
+function testSP2(){
+	var obj = document.getElementById("testSpasm2CahrBox");
+	var trxInfo = {
+		scaleX:1.0,
+		scaleY:1.0
+	};
+	startSpasmSP2(obj, trxInfo, 1/5, 5, 0.1);
+}
+
+
+
+function testNormalize(){
+	normalize(testSp2Ctx.obj,testSp2Ctx.objInfo, 0.2);
+}
+
+function normalize(obj, objInfo, timeSec){
+	startSpasmSP2(obj, objInfo, 1, 1 ,timeSec);
+}
+
+
+
+
 
 
 
