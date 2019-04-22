@@ -3612,27 +3612,9 @@ function triggerGiantSteps(){
 
 /** **************** spasm2******************* */
 
-const spasm2Ctx = {
-	testMaxScaleHor:3,
-	testTrxTimeSec:0.2,
-	fps:50,
-	INC_MODE_EXP:1,
-	INC_MODE_LIN:2
-}
 
 
-var testSp2Ctx = {
-	objInfo:null,
-	obj:null
-}
-
-const animTimeoutMsSp2 = 1000/spasm2Ctx.fps;
-const testAvgExpRatioPerSec = spasm2Ctx.testMaxScaleHor / (spasm2Ctx.testTrxTimeSec);
-const testScalePerFrameExp = Math.pow(spasm2Ctx.testMaxScaleHor, 1/(spasm2Ctx.testTrxTimeSec*spasm2Ctx.fps));
-const testScalePerFrameLine = (spasm2Ctx.testMaxScaleHor - 1.0) / (spasm2Ctx.testTrxTimeSec*spasm2Ctx.fps);
-
-
-
+/* 
 function testSpasm2exp(){
 	var obj = document.getElementById("testSpasm2CahrBox");
 	var trxInfo = {
@@ -3649,7 +3631,9 @@ function testSpasm2Lin(){
 	sp2StrechHorStep(obj, trxInfo, spasm2Ctx.INC_MODE_LIN);
 }
 
+ */
 
+ /* 
 function sp2StrechHorStep(obj, trxInfo,mode){
 	if(trxInfo.scale >= spasm2Ctx.testMaxScaleHor){
 		console.log("spasm complete");
@@ -3683,19 +3667,48 @@ function updateSpasm2Scale(mode, objectInfo){
 
 }	
 
+ */
 
 
-function spasmScaleSp2Step(obj, dScalePerFramX, dScalePerFramY, objInfo, remainingFrames){
+const spasm2Ctx = {
+	testMaxScaleHor:3,
+	testTrxTimeSec:0.2,
+	fps:50,
+	INC_MODE_EXP:1,
+	INC_MODE_LIN:2,
+	PHASE_SPASM_OUT:1,
+	PAHSE_SPASM_IN:2,
+	PHASE_HAMMER_DOWN:3,
+	currentPahse:null,
+	initNmSpasms:4,
+	initNmHammers:4
+
+}
+
+
+var testSp2Ctx = {
+	objInfo:null,
+	obj:null
+}
+
+const animTimeoutMsSp2 = 1000/spasm2Ctx.fps;
+const testAvgExpRatioPerSec = spasm2Ctx.testMaxScaleHor / (spasm2Ctx.testTrxTimeSec);
+const testScalePerFrameExp = Math.pow(spasm2Ctx.testMaxScaleHor, 1/(spasm2Ctx.testTrxTimeSec*spasm2Ctx.fps));
+const testScalePerFrameLine = (spasm2Ctx.testMaxScaleHor - 1.0) / (spasm2Ctx.testTrxTimeSec*spasm2Ctx.fps);
+
+
+function spasmScaleSp2Step(obj, dScalePerFramX, dScalePerFramY, objInfo, remainingFrames, fComplete){
 	if(remainingFrames == 0){
-		console.log("spasm complete");
-		testSp2Ctx.objInfo = objInfo;
-		testSp2Ctx.obj = obj;
+		//console.log("spasm complete");
+		/* testSp2Ctx.objInfo = objInfo;
+		testSp2Ctx.obj = obj; */
+		fComplete(obj, objInfo);
 		return;
 	}
 	updateObjInfoSp2(objInfo,dScalePerFramX, dScalePerFramY);
 	applyTranform(obj, objInfo);
 	setTimeout(() => {
-		spasmScaleSp2Step(obj, dScalePerFramX, dScalePerFramY, objInfo, remainingFrames - 1);
+		spasmScaleSp2Step(obj, dScalePerFramX, dScalePerFramY, objInfo, remainingFrames - 1, fComplete);
 	}, animTimeoutMsSp2);
 }
 
@@ -3709,20 +3722,22 @@ function applyTranform(obj, objInfo){
 	obj.style.transform = "scale(" + objInfo.scaleX +","+  + objInfo.scaleY + ")";
 }
 
-function startSpasmSP2(obj, objInfo, targetScaleX, targetScaleY,spasmTimeSec){
+function startSpasmSP2(obj, objInfo, targetScaleX, targetScaleY,spasmTimeSec, fComplete){
 	var nmFrames= spasmTimeSec * spasm2Ctx.fps;
 	const dScaleXframe= (targetScaleX - objInfo.scaleX) / nmFrames;
 	const dScaleYframe= (targetScaleY - objInfo.scaleY) / nmFrames;
-	spasmScaleSp2Step(obj, dScaleXframe, dScaleYframe, objInfo, nmFrames);
+	spasmScaleSp2Step(obj, dScaleXframe, dScaleYframe, objInfo, nmFrames, fComplete);
 }
 
 function testSP2(){
 	var obj = document.getElementById("testSpasm2CahrBox");
 	var trxInfo = {
 		scaleX:1.0,
-		scaleY:1.0
+		scaleY:1.0,
+		mode:testSp2Ctx.PHASE_SPASM_OUT,
+		nmSpasmLeft:testSp2Ctx.initNmSpasms
 	};
-	startSpasmSP2(obj, trxInfo, 1/5, 5, 0.1);
+	startSpasmSP2(obj, trxInfo, 1/5, 5, 0.1,fSpasmComplete);
 }
 
 
@@ -3732,11 +3747,46 @@ function testNormalize(){
 }
 
 function normalize(obj, objInfo, timeSec){
-	startSpasmSP2(obj, objInfo, 1, 1 ,timeSec);
+	startSpasmSP2(obj, objInfo, 1, 1 ,timeSec, fSpasmComplete);
+}
+
+function spasmSeries(elm){
+	var obj = document.getElementById("testSpasm2CahrBox");
+	var objInfo = {
+		scaleX:1.0,
+		scaleY:1.0,
+		mode:spasm2Ctx.PHASE_SPASM_OUT,
+		nmSpasmLeft:testSp2Ctx.initNmSpasms
+	};
+	startSpasmSP2(obj, objInfo, 1/5, 5, 0.1,fSpasmComplete);
 }
 
 
+function fSpasmComplete(obj,objInfo){
+	switch(objInfo.mode) {
+		case spasm2Ctx.PHASE_SPASM_OUT:
+			handlePulseOutComplete(obj,objInfo);
+			return;
+		case spasm2Ctx.PAHSE_SPASM_IN:
+			handlePulseInComplete(obj,objInfo);
+		 	return;
+		default:
+			console.log("error, invalid mode:" + objInfo.mode);
+	  }
+	console.log("spasm fComplete");
 
+}
+
+
+function handlePulseOutComplete(obj,objInfo){
+	console.log("handlePulseOutComplete()");
+	objInfo.mode=spasm2Ctx.PAHSE_SPASM_IN;
+	normalize(obj, objInfo, 0.2);
+}
+
+function handlePulseInComplete(){
+	console.log("handlePulseInComplete()");
+}
 
 
 
