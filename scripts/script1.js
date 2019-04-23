@@ -3756,7 +3756,7 @@ function spasmSeries(elm){
 		scaleX:1.0,
 		scaleY:1.0,
 		mode:spasm2Ctx.PHASE_SPASM_OUT,
-		nmSpasmLeft:testSp2Ctx.initNmSpasms
+		nmSpasmLeft:spasm2Ctx.initNmSpasms
 	};
 	startSpasmSP2(obj, objInfo, 1/5, 5, 0.1,fSpasmComplete);
 }
@@ -3784,8 +3784,13 @@ function handlePulseOutComplete(obj,objInfo){
 	normalize(obj, objInfo, 0.2);
 }
 
-function handlePulseInComplete(){
+function handlePulseInComplete(obj,objInf){
 	console.log("handlePulseInComplete()");
+	if(objInf.nmSpasmLeft > 0){
+		objInf.nmSpasmLeft = objInf.nmSpasmLeft-1;
+		objInf.mode=spasm2Ctx.PHASE_SPASM_OUT;
+		startSpasmSP2(obj, objInf, 1/5, 5, 0.1,fSpasmComplete);
+	}
 }
 
 
