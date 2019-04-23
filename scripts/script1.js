@@ -3684,7 +3684,15 @@ const spasm2Ctx = {
 	initNmSpasms:4,
 	initNmHammers:4,
 	randSpasmMin:3,
-	randSpasmMax:12
+	randSpasmMax:12,
+
+	preHammerTimeMs:1200,
+	preHammerYScale:7,
+
+	hammerDownScaleX: 1 / 0.6, 
+	hammerDownScaleY:0.6,
+	hammerDownHitTimeSec:0.2,
+	hammerDownHitRestSec:0.4,
 
 }
 
@@ -3730,23 +3738,6 @@ function startSpasmSP2(obj, objInfo, targetScaleX, targetScaleY,spasmTimeSec){
 	const dScaleXframe= (targetScaleX - objInfo.scaleX) / nmFrames;
 	const dScaleYframe= (targetScaleY - objInfo.scaleY) / nmFrames;
 	spasmScaleSp2Step(obj, dScaleXframe, dScaleYframe, objInfo, nmFrames);
-}
-
-function testSP2(){
-	var obj = document.getElementById("testSpasm2CahrBox");
-	var trxInfo = {
-		scaleX:1.0,
-		scaleY:1.0,
-		mode:testSp2Ctx.PHASE_SPASM_OUT,
-		nmSpasmLeft:testSp2Ctx.initNmSpasms
-	};
-	startSpasmSP2(obj, trxInfo, 1/5, 5, 0.1);
-}
-
-
-
-function testNormalize(){
-	normalize(testSp2Ctx.obj,testSp2Ctx.objInfo, 0.2);
 }
 
 function normalize(obj, objInfo, timeSec){
@@ -3830,7 +3821,8 @@ function randSpasmParams(){
 function startPreHammer(obj,objInf){
 	objInf.nmSpasmLeft = objInf.nmSpasmLeft-1;
 	objInf.mode=spasm2Ctx.PHASE_PRE_HAMMER;
-	startSpasmSP2(obj, objInf, 1, 8, 0.8);
+	//startSpasmSP2(obj, objInf, 1, 8, 0.8);
+	startSpasmSP2(obj, objInf, 1, spasm2Ctx.preHammerYScale, spasm2Ctx.preHammerTimeMs / 1000);
 }
 
 function handlePreHammerComplete(obj,objInf){
@@ -3847,9 +3839,9 @@ function startHammeringDown(obj,objInf){
 
 function hammerHit(obj,objInf){
 	console.log("hammerHit()");
-	const trgScaleX = objInf.scaleX / 0.6;
-	const trgScaleY = objInf.scaleY * 0.6;
-	startSpasmSP2(obj, objInf, trgScaleX, trgScaleY, 0.2);
+	const trgScaleX = objInf.scaleX * spasm2Ctx.hammerDownScaleX;
+	const trgScaleY = objInf.scaleY * spasm2Ctx.hammerDownScaleY;
+	startSpasmSP2(obj, objInf, trgScaleX, trgScaleY, spasm2Ctx.hammerDownHitTimeSec);
 }
 
 function handleHammerHitComplete(obj,objInf){
@@ -3860,7 +3852,7 @@ function handleHammerHitComplete(obj,objInf){
 	objInf.nmHammerLeft= objInf.nmHammerLeft- 1;
 	setTimeout(() => {
 		hammerHit(obj,objInf);
-	}, 400);
+	}, spasm2Ctx.hammerDownHitRestSec * 1000);
 }
 
 function handleHammerSeriesComplete(){
