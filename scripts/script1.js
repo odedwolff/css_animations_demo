@@ -3681,7 +3681,9 @@ const spasm2Ctx = {
 	PHASE_HAMMER_DOWN:3,
 	currentPahse:null,
 	initNmSpasms:4,
-	initNmHammers:4
+	initNmHammers:4,
+	randSpasmMin:3,
+	randSpasmMax:12
 
 }
 
@@ -3789,10 +3791,31 @@ function handlePulseInComplete(obj,objInf){
 	if(objInf.nmSpasmLeft > 0){
 		objInf.nmSpasmLeft = objInf.nmSpasmLeft-1;
 		objInf.mode=spasm2Ctx.PHASE_SPASM_OUT;
-		startSpasmSP2(obj, objInf, 1/5, 5, 0.1,fSpasmComplete);
+		const spasmParams = randSpasmParams();
+		//startSpasmSP2(obj, objInf, 1/5, 5, 0.1,fSpasmComplete);
+		startSpasmSP2(obj, objInf, spasmParams.scaleX, spasmParams.scaleY, 0.1,fSpasmComplete);
 	}
 }
 
+
+function randSpasmParams(){
+	var spasmParams = {};
+	//choose strectch orientation, in 50% prob 
+	const orientation = Math.random() > .5 ? "hor" : "ver";
+	rndValue = (spasm2Ctx.randSpasmMax - spasm2Ctx.randSpasmMin) * Math.random() + spasm2Ctx.randSpasmMin;
+	if(orientation == "hor"){
+		spasmParams.scaleX = rndValue;
+		spasmParams.scaleY = 1/rndValue;
+
+	}
+	//orientation is vertical 
+	else{
+		spasmParams.scaleY = rndValue;
+		spasmParams.scaleX = 1/rndValue;
+	}
+
+	return spasmParams;
+}
 
 
 
