@@ -3679,6 +3679,7 @@ const spasm2Ctx = {
 	PHASE_SPASM_OUT:1,
 	PAHSE_SPASM_IN:2,
 	PHASE_HAMMER_DOWN:3,
+	PHASE_PRE_HAMMER:4,
 	currentPahse:null,
 	initNmSpasms:4,
 	initNmHammers:4,
@@ -3699,18 +3700,18 @@ const testScalePerFrameExp = Math.pow(spasm2Ctx.testMaxScaleHor, 1/(spasm2Ctx.te
 const testScalePerFrameLine = (spasm2Ctx.testMaxScaleHor - 1.0) / (spasm2Ctx.testTrxTimeSec*spasm2Ctx.fps);
 
 
-function spasmScaleSp2Step(obj, dScalePerFramX, dScalePerFramY, objInfo, remainingFrames, fComplete){
+function spasmScaleSp2Step(obj, dScalePerFramX, dScalePerFramY, objInfo, remainingFrames){
 	if(remainingFrames == 0){
 		//console.log("spasm complete");
 		/* testSp2Ctx.objInfo = objInfo;
 		testSp2Ctx.obj = obj; */
-		fComplete(obj, objInfo);
+		fSpasmComplete(obj, objInfo);
 		return;
 	}
 	updateObjInfoSp2(objInfo,dScalePerFramX, dScalePerFramY);
 	applyTranform(obj, objInfo);
 	setTimeout(() => {
-		spasmScaleSp2Step(obj, dScalePerFramX, dScalePerFramY, objInfo, remainingFrames - 1, fComplete);
+		spasmScaleSp2Step(obj, dScalePerFramX, dScalePerFramY, objInfo, remainingFrames - 1);
 	}, animTimeoutMsSp2);
 }
 
@@ -3724,11 +3725,11 @@ function applyTranform(obj, objInfo){
 	obj.style.transform = "scale(" + objInfo.scaleX +","+  + objInfo.scaleY + ")";
 }
 
-function startSpasmSP2(obj, objInfo, targetScaleX, targetScaleY,spasmTimeSec, fComplete){
+function startSpasmSP2(obj, objInfo, targetScaleX, targetScaleY,spasmTimeSec){
 	var nmFrames= spasmTimeSec * spasm2Ctx.fps;
 	const dScaleXframe= (targetScaleX - objInfo.scaleX) / nmFrames;
 	const dScaleYframe= (targetScaleY - objInfo.scaleY) / nmFrames;
-	spasmScaleSp2Step(obj, dScaleXframe, dScaleYframe, objInfo, nmFrames, fComplete);
+	spasmScaleSp2Step(obj, dScaleXframe, dScaleYframe, objInfo, nmFrames);
 }
 
 function testSP2(){
@@ -3739,7 +3740,7 @@ function testSP2(){
 		mode:testSp2Ctx.PHASE_SPASM_OUT,
 		nmSpasmLeft:testSp2Ctx.initNmSpasms
 	};
-	startSpasmSP2(obj, trxInfo, 1/5, 5, 0.1,fSpasmComplete);
+	startSpasmSP2(obj, trxInfo, 1/5, 5, 0.1);
 }
 
 
@@ -3749,7 +3750,7 @@ function testNormalize(){
 }
 
 function normalize(obj, objInfo, timeSec){
-	startSpasmSP2(obj, objInfo, 1, 1 ,timeSec, fSpasmComplete);
+	startSpasmSP2(obj, objInfo, 1, 1 ,timeSec);
 }
 
 function spasmSeries(elm){
@@ -3760,7 +3761,7 @@ function spasmSeries(elm){
 		mode:spasm2Ctx.PHASE_SPASM_OUT,
 		nmSpasmLeft:spasm2Ctx.initNmSpasms
 	};
-	startSpasmSP2(obj, objInfo, 1/5, 5, 0.1,fSpasmComplete);
+	startSpasmSP2(obj, objInfo, 1/5, 5, 0.1);
 }
 
 
@@ -3771,7 +3772,14 @@ function fSpasmComplete(obj,objInfo){
 			return;
 		case spasm2Ctx.PAHSE_SPASM_IN:
 			handlePulseInComplete(obj,objInfo);
-		 	return;
+			 return;
+		case spasm2Ctx.PHASE_PRE_HAMMER:
+			handlePreHammerComplete(obj,objInfo);
+			return;
+		case spasm2Ctx.PHASE_HAMMER_DOWN:
+			handleHammerHitComplete(obj,objInfo);
+			return;
+			
 		default:
 			console.log("error, invalid mode:" + objInfo.mode);
 	  }
@@ -3793,7 +3801,9 @@ function handlePulseInComplete(obj,objInf){
 		objInf.mode=spasm2Ctx.PHASE_SPASM_OUT;
 		const spasmParams = randSpasmParams();
 		//startSpasmSP2(obj, objInf, 1/5, 5, 0.1,fSpasmComplete);
-		startSpasmSP2(obj, objInf, spasmParams.scaleX, spasmParams.scaleY, 0.1,fSpasmComplete);
+		startSpasmSP2(obj, objInf, spasmParams.scaleX, spasmParams.scaleY, 0.1);
+	}else{
+		startPreHammer(obj,objInf);
 	}
 }
 
@@ -3816,6 +3826,50 @@ function randSpasmParams(){
 
 	return spasmParams;
 }
+
+function startPreHammer(obj,objInf){
+	objInf.nmSpasmLeft = objInf.nmSpasmLeft-1;
+	objInf.mode=spasm2Ctx.PHASE_PRE_HAMMER;
+	startSpasmSP2(obj, objInf, 1, 8, 0.8);
+}
+
+function handlePreHammerComplete(obj,objInf){
+	console.log("pre hammer complete");
+	startHammeringDown(obj,objInf);
+}
+
+function startHammeringDown(obj,objInf){
+	objInf.nmHammerLeft = spasm2Ctx.initNmHammers;
+	objInf.mode = spasm2Ctx.PHASE_HAMMER_DOWN;
+	hammerHit(obj,objInf);
+
+}
+
+function hammerHit(obj,objInf){
+	console.log("hammerHit()");
+	const trgScaleX = objInf.scaleX / 0.6;
+	const trgScaleY = objInf.scaleY * 0.6;
+	startSpasmSP2(obj, objInf, trgScaleX, trgScaleY, 0.2);
+}
+
+function handleHammerHitComplete(obj,objInf){
+	if(objInf.nmHammerLeft==0){
+		handleHammerSeriesComplete();
+		return;
+	}
+	objInf.nmHammerLeft= objInf.nmHammerLeft- 1;
+	setTimeout(() => {
+		hammerHit(obj,objInf);
+	}, 400);
+}
+
+function handleHammerSeriesComplete(){
+	console.log("handle HammerSeries Complete()");
+}
+
+
+
+
 
 
 
