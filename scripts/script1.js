@@ -3680,6 +3680,7 @@ const spasm2Ctx = {
 	PAHSE_SPASM_IN:2,
 	PHASE_HAMMER_DOWN:3,
 	PHASE_PRE_HAMMER:4,
+	PHASE_BOUNCE_BACK:5,
 	currentPahse:null,
 	initNmSpasms:4,
 	initNmHammers:4,
@@ -3689,11 +3690,15 @@ const spasm2Ctx = {
 	preHammerTimeMs:1200,
 	preHammerYScale:7,
 
+	preHammerComleteWaitSec:0.9,
+
 	hammerDownScaleX: 1 / 0.6, 
 	hammerDownScaleY:0.6,
 	hammerDownHitTimeSec:0.2,
 	hammerDownHitRestSec:0.4,
 
+	preBounceBackTimeSec:0.4,
+	bounceBackTimeSec:1.7
 }
 
 
@@ -3770,7 +3775,9 @@ function fSpasmComplete(obj,objInfo){
 		case spasm2Ctx.PHASE_HAMMER_DOWN:
 			handleHammerHitComplete(obj,objInfo);
 			return;
-			
+		case spasm2Ctx.PHASE_BOUNCE_BACK:
+			handleBounceBackComplete(obj,objInfo);
+			return;	
 		default:
 			console.log("error, invalid mode:" + objInfo.mode);
 	  }
@@ -3827,7 +3834,9 @@ function startPreHammer(obj,objInf){
 
 function handlePreHammerComplete(obj,objInf){
 	console.log("pre hammer complete");
-	startHammeringDown(obj,objInf);
+	setTimeout(() => {
+		startHammeringDown(obj,objInf);
+	}, spasm2Ctx.preHammerComleteWaitSec * 1000);
 }
 
 function startHammeringDown(obj,objInf){
@@ -3846,7 +3855,10 @@ function hammerHit(obj,objInf){
 
 function handleHammerHitComplete(obj,objInf){
 	if(objInf.nmHammerLeft==0){
-		handleHammerSeriesComplete();
+		//handleHammerSeriesComplete();
+		setTimeout(() => {
+			startBounceBack(obj,objInf);
+		}, spasm2Ctx.preBounceBackTimeSec * 1000);
 		return;
 	}
 	objInf.nmHammerLeft= objInf.nmHammerLeft- 1;
@@ -3855,8 +3867,18 @@ function handleHammerHitComplete(obj,objInf){
 	}, spasm2Ctx.hammerDownHitRestSec * 1000);
 }
 
-function handleHammerSeriesComplete(){
+function handleHammerSeriesComplete(obj,objInf){
 	console.log("handle HammerSeries Complete()");
+}
+
+function handleBounceBackComplete(obj,objInf){
+	handleHammerSeriesComplete(obj,objInf);
+}
+
+function startBounceBack(obj,objInf){
+	objInf.mode = spasm2Ctx.PHASE_BOUNCE_BACK;
+	startSpasmSP2(obj, objInf, 1.0, 1.0, spasm2Ctx.bounceBackTimeSec);
+
 }
 
 
