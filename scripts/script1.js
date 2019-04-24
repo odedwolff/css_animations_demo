@@ -3628,24 +3628,27 @@ const spasm2Ctx = {
 	PHASE_BOUNCE_BACK:5,
 	currentPahse:null,
 	initNmSpasms:4,
-	initNmHammers:4,
-	randSpasmMin:3,
-	randSpasmMax:12,
+	initNmHammers:8,
+	randSpasmMin:2,
+	randSpasmMax:6,
 
-	pulseOutTimeSec:0.6,
+	pulseOutTimeSec:1.2,
+	pulseInTimeSec:0.1,
 
 	preHammerTimeMs:1200,
 	preHammerYScale:7,
 
 	preHammerComleteWaitSec:0.9,
 
-	hammerDownScaleX: 1 / 0.6, 
+	hammerDownScaleX: 1.10, 
 	hammerDownScaleY:0.6,
-	hammerDownHitTimeSec:0.2,
-	hammerDownHitRestSec:0.4,
+	hammerDownHitTimeSec:0.1,
+	hammerDownHitRestSec:0.2,
 
-	preBounceBackTimeSec:0.4,
-	bounceBackTimeSec:4
+	preBounceBackTimeSec:2,
+	bounceBackTimeSec:.2,
+
+	offsetRangeMs:700
 }
 
 
@@ -3692,8 +3695,8 @@ function startSpasmSP2(obj, objInfo, targetScaleX, targetScaleY,spasmTimeSec){
 	spasmScaleSp2Step(obj, dScaleXframe, dScaleYframe, objInfo, nmFrames);
 }
 
-function normalize(obj, objInfo, timeSec){
-	startSpasmSP2(obj, objInfo, 1, 1 ,timeSec);
+function normalize(obj, objInfo){
+	startSpasmSP2(obj, objInfo, 1, 1 ,spasm2Ctx.pulseInTimeSec);
 }
 
 function spasmSeries(elm){
@@ -3708,6 +3711,25 @@ function spasmSeries(elm){
 	//same funtionality as when pulse in is complete
 	handlePulseInComplete(obj,objInfo);
 }
+
+
+function spasmSeriesBunch(){
+	var elms = document.getElementsByClassName("spasm2CharBox");
+	for(var i = 0 ; i < elms.length ; i++){
+		const timeout = Math.random() * spasm2Ctx.offsetRangeMs;
+		setTimeout(function(elm){	
+			var objInfo = {
+				scaleX:1.0,
+				scaleY:1.0,
+				mode:spasm2Ctx.PHASE_SPASM_OUT,
+				nmSpasmLeft:spasm2Ctx.initNmSpasms
+			};
+			//same funtionality as when pulse in is complete
+			handlePulseInComplete(elm,objInfo);
+		}.bind(null,elms[i]), timeout);
+	}
+}
+
 
 
 function fSpasmComplete(obj,objInfo){
@@ -3738,7 +3760,7 @@ function fSpasmComplete(obj,objInfo){
 function handlePulseOutComplete(obj,objInfo){
 	console.log("handlePulseOutComplete()");
 	objInfo.mode=spasm2Ctx.PAHSE_SPASM_IN;
-	normalize(obj, objInfo, 0.2);
+	normalize(obj, objInfo);
 }
 
 function handlePulseInComplete(obj,objInf){
