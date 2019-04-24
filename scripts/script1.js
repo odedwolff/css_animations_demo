@@ -3614,61 +3614,6 @@ function triggerGiantSteps(){
 
 
 
-/* 
-function testSpasm2exp(){
-	var obj = document.getElementById("testSpasm2CahrBox");
-	var trxInfo = {
-		scale:1.0
-	}
-	sp2StrechHorStep(obj, trxInfo, spasm2Ctx.INC_MODE_EXP);
-}
-
-function testSpasm2Lin(){
-	var obj = document.getElementById("testSpasm2CahrBox");
-	var trxInfo = {
-		scale:1.0
-	}
-	sp2StrechHorStep(obj, trxInfo, spasm2Ctx.INC_MODE_LIN);
-}
-
- */
-
- /* 
-function sp2StrechHorStep(obj, trxInfo,mode){
-	if(trxInfo.scale >= spasm2Ctx.testMaxScaleHor){
-		console.log("spasm complete");
-		return;
-	}
-
-	updateSpasm2Scale(mode, trxInfo);
-	updateObjSp2(obj, trxInfo);
-
-	setTimeout(() => {
-		sp2StrechHorStep(obj, trxInfo, mode);
-	}, animTimeoutMsSp2);
-}
-
-function updateObjSp2(obj, objInfo){
-	obj.style.transform = "scale(" + objInfo.scale + ")";
-}
-
-function updateSpasm2Scale(mode, objectInfo){
-	switch(mode) {
-		case spasm2Ctx.INC_MODE_EXP:
-		 	objectInfo.scale= objectInfo.scale* testScalePerFrameExp;
-		  	break;
-		case spasm2Ctx.INC_MODE_LIN:
-			objectInfo.scale= objectInfo.scale + testScalePerFrameLine;
-			break;
-		default:
-			console.log("invlide scale mode");
-			return;  
-	  }
-
-}	
-
- */
-
 
 const spasm2Ctx = {
 	testMaxScaleHor:3,
@@ -3687,6 +3632,8 @@ const spasm2Ctx = {
 	randSpasmMin:3,
 	randSpasmMax:12,
 
+	pulseOutTimeSec:0.6,
+
 	preHammerTimeMs:1200,
 	preHammerYScale:7,
 
@@ -3698,7 +3645,7 @@ const spasm2Ctx = {
 	hammerDownHitRestSec:0.4,
 
 	preBounceBackTimeSec:0.4,
-	bounceBackTimeSec:1.7
+	bounceBackTimeSec:4
 }
 
 
@@ -3757,7 +3704,9 @@ function spasmSeries(elm){
 		mode:spasm2Ctx.PHASE_SPASM_OUT,
 		nmSpasmLeft:spasm2Ctx.initNmSpasms
 	};
-	startSpasmSP2(obj, objInfo, 1/5, 5, 0.1);
+	//startSpasmSP2(obj, objInfo, 1/5, 5, spasm2Ctx.pulseOutTimeSec);
+	//same funtionality as when pulse in is complete
+	handlePulseInComplete(obj,objInfo);
 }
 
 
@@ -3799,7 +3748,7 @@ function handlePulseInComplete(obj,objInf){
 		objInf.mode=spasm2Ctx.PHASE_SPASM_OUT;
 		const spasmParams = randSpasmParams();
 		//startSpasmSP2(obj, objInf, 1/5, 5, 0.1,fSpasmComplete);
-		startSpasmSP2(obj, objInf, spasmParams.scaleX, spasmParams.scaleY, 0.1);
+		startSpasmSP2(obj, objInf, spasmParams.scaleX, spasmParams.scaleY, spasm2Ctx.pulseOutTimeSec);
 	}else{
 		startPreHammer(obj,objInf);
 	}
