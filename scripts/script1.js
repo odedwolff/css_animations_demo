@@ -2279,6 +2279,7 @@ function checkScrollSpeed(){
 	//enableSpasm();
 	enableFocus();
 	enableGiantSteps();
+	enableSpasm2();
 
 	if(currentPos == scrollCtx.lastYposition){
 		return;
@@ -2425,6 +2426,12 @@ function enableFocus(){
 function enableGiantSteps(){
 	if(inViewPort("viewpointDetectorGiantSteps", 300, 600)){
 		triggerGiantSteps();
+	}
+}
+
+function enableSpasm2(){
+	if(inViewPort("viewpointDetectorSpasm2", 0, 1000)){
+		triggerSpasm2();
 	}
 }
 
@@ -3653,7 +3660,9 @@ const spasm2Ctx = {
 	preBounceBackTimeSec:1.5,
 	bounceBackTimeSec:.2,
 
-	offsetRangeMs:300
+	offsetRangeMs:300,
+
+	waitAtEndOfSuquenceSec:1.2
 }
 
 
@@ -3851,13 +3860,32 @@ function handleHammerSeriesComplete(obj,objInf){
 }
 
 function handleBounceBackComplete(obj,objInf){
-	handleHammerSeriesComplete(obj,objInf);
+	handleSequenceComplete(obj,objInf);
 }
 
 function startBounceBack(obj,objInf){
 	objInf.mode = spasm2Ctx.PHASE_BOUNCE_BACK;
 	startSpasmSP2(obj, objInf, 1.0, 1.0, spasm2Ctx.bounceBackTimeSec);
 
+}
+
+var spasm2IsRunning = false;
+
+function triggerSpasm2(){
+	if(spasm2IsRunning){
+		return;
+	}
+	spasm2IsRunning=true;
+	spasmSeriesBunch();
+}
+
+function handleSequenceComplete(obj,objInf){
+	console.log("sequence complete-------");
+	if(obj.id == "triggerSpasmChar"){
+		setTimeout(() => {
+			spasm2IsRunning = false
+		}, spasm2Ctx.waitAtEndOfSuquenceSec * 1000);
+	}
 }
 
 
