@@ -3632,10 +3632,15 @@ const spasm2Ctx = {
 	randSpasmMin:2,
 	randSpasmMax:6,
 
-	pulseOutTimeSec:1.2,
-	pulseInTimeSec:0.1,
+	/* pulseOutTimeSec:1.2,
+	pulseInTimeSec:0.1, */
 
-	preHammerTimeMs:1200,
+	pulseOutTimeSec:0.6,
+	waitBetweenPulsesSec:0.3,
+	pulseInTimeSec:0.6,
+
+	waitBeforePreHammerSec:0.3,
+	preHammerTimeMs:500,
 	preHammerYScale:7,
 
 	preHammerComleteWaitSec:0.9,
@@ -3645,10 +3650,10 @@ const spasm2Ctx = {
 	hammerDownHitTimeSec:0.1,
 	hammerDownHitRestSec:0.2,
 
-	preBounceBackTimeSec:2,
+	preBounceBackTimeSec:1.5,
 	bounceBackTimeSec:.2,
 
-	offsetRangeMs:700
+	offsetRangeMs:300
 }
 
 
@@ -3769,10 +3774,13 @@ function handlePulseInComplete(obj,objInf){
 		objInf.nmSpasmLeft = objInf.nmSpasmLeft-1;
 		objInf.mode=spasm2Ctx.PHASE_SPASM_OUT;
 		const spasmParams = randSpasmParams();
-		//startSpasmSP2(obj, objInf, 1/5, 5, 0.1,fSpasmComplete);
-		startSpasmSP2(obj, objInf, spasmParams.scaleX, spasmParams.scaleY, spasm2Ctx.pulseOutTimeSec);
+		setTimeout(() => {
+			startSpasmSP2(obj, objInf, spasmParams.scaleX, spasmParams.scaleY, spasm2Ctx.pulseOutTimeSec);
+		}, spasm2Ctx.waitBetweenPulsesSec * 1000);
 	}else{
-		startPreHammer(obj,objInf);
+		setTimeout(() => {
+			startPreHammer(obj,objInf);	
+		}, spasm2Ctx.waitBeforePreHammerSec * 1000);
 	}
 }
 
