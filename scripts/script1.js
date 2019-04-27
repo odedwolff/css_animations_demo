@@ -655,7 +655,10 @@ const simpleStepsCtx = {
 	stepsPersSession:12,
 	timeBetweenTespsMs:400, 
 	vanishTimoutMs:2000,
-	traceOpacity:0.3
+	traceOpacity:0.3, 
+
+	fadeOutTimeMs:1000,
+	fps:20,
 }
 
 		 
@@ -716,10 +719,32 @@ function startWalkingNoCss(){
 		var parent = elm.parentElement;
 		traceElm.style.opacity = simpleStepsCtx.traceOpacity;
 		parent.appendChild(traceElm);
-		setTimeout(() => {
-			parent.removeChild(traceElm);
-		}, simpleStepsCtx.vanishTimoutMs);
 		
+		fadeTraceAway(traceElm);
+		/* setTimeout(() => {
+			parent.removeChild(traceElm);
+		}, simpleStepsCtx.vanishTimoutMs); */	
+	}
+
+	function fadeTraceAway(elm){
+		var totalFrames = simpleStepsCtx.fadeOutTimeMs/1000 * simpleStepsCtx.fps;
+		var dOpFrame = 1/totalFrames;
+		traceFadeAwayStep(elm, 1, dOpFrame, totalFrames)
+	}
+
+	
+	
+	const traceFadeTimoutMs = 1000 / simpleStepsCtx.fps;
+	function traceFadeAwayStep(elm, currentOpacity, dOpFrame, nmStepsToGo){
+		if(nmStepsToGo == 0){
+			elm.parentElement.removeChild(elm);
+			return;
+		}
+		elm.style.opacity = currentOpacity;
+		currentOpacity = currentOpacity - dOpFrame;
+		setTimeout(() => {
+			traceFadeAwayStep(elm, currentOpacity, dOpFrame, nmStepsToGo -1);
+		}, traceFadeTimoutMs);
 	}
 
 
