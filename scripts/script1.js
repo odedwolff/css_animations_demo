@@ -653,7 +653,9 @@ function clearSwimming(){
 const simpleStepsCtx = {
 	isRunning:false,
 	stepsPersSession:12,
-	timeBetweenTespsMs:400
+	timeBetweenTespsMs:400, 
+	vanishTimoutMs:2000,
+	traceOpacity:0.3
 }
 
 		 
@@ -712,11 +714,11 @@ function startWalkingNoCss(){
 	function leaveTrace(elm){
 		var traceElm = elm.cloneNode(true);
 		var parent = elm.parentElement;
-		traceElm.style.opacity =0.3;
+		traceElm.style.opacity = simpleStepsCtx.traceOpacity;
 		parent.appendChild(traceElm);
 		setTimeout(() => {
 			parent.removeChild(traceElm);
-		}, 1000);
+		}, simpleStepsCtx.vanishTimoutMs);
 		
 	}
 
