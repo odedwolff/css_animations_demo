@@ -30,7 +30,7 @@ function init(){
 
 	preProcessFlashing();
 
-	spasmPrepare();
+	//spasmPrepare();
 
 	//rainDebry();
 	
