@@ -701,9 +701,25 @@ function startWalkingNoCss(){
 			domDivElm.style.transform= transform;
 			domDivElm.style.opacity=1;
 			latestTransforms[domDivElm.id]['translateX'] = newX;
+
+			leaveTrace(domDivElm);
+
 		},cycleBginMs);
 
 	}
+
+
+	function leaveTrace(elm){
+		var traceElm = elm.cloneNode(true);
+		var parent = elm.parentElement;
+		traceElm.style.opacity =0.3;
+		parent.appendChild(traceElm);
+		setTimeout(() => {
+			parent.removeChild(traceElm);
+		}, 1000);
+		
+	}
+
 
 	function preStep(domElm){
 		domElm.style.transform= "translate("+stepSizePx/2 + "px,0)";
