@@ -3943,10 +3943,30 @@ function handleSequenceComplete(obj,objInf){
 	}
 }
 
+/**********************************overhead wiper********************************* */
 
 
 
 
+function ohWiperSlideIn(){
+	ohWiperSetClassList("overheadWiper ohWiperSlideIn");
+}
 
+function ohWiperSlideOut(){
+	ohWiperSetClassList("overheadWiper ohWiperSlideOut");
+}
+
+function ohWiperRun1(){
+	ohWiperSetClassList("overheadWiper ohWiperRun1");
+}
+
+
+
+function ohWiperSetClassList(classList){
+	var ohWipers = document.getElementsByClassName("overheadWiper");
+	for(i = 0 ; i < ohWipers.length; i++){
+		ohWipers[i].setAttribute("class", classList);
+	}
+}
 
 

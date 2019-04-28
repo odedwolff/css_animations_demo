@@ -1817,3 +1817,74 @@ div#spasm2Content {
 #viewpointDetectorSpasm2{
 	top:200px;
 }
+
+/********************************overhead wiper***********************************************/
+#divOverheadWipers{
+	position: fixed;
+	z-index: 1000;
+}
+
+#overheadWipersControls{
+	position: relative;
+}
+
+.overheadWiper {
+    font-size: 80px;
+    color: white;
+    position: absolute;
+    transform: rotate(0deg);
+    background: green;
+    width: 500px;
+	transform-origin: left center;
+	text-align: end;
+	top: -80px;
+}
+
+#ohWiper1{
+	left:200px;
+}
+#ohWiper2{
+	left:800px;
+}
+
+#btnOhWiperGo{
+	color:black;
+	background: #e75815;
+}
+
+.ohWiperSlideIn{
+	animation-name: kFramesOhWipersSlideIn;
+	animation-duration: 3s;
+	animation-fill-mode: forwards;
+}
+
+@keyframes kFramesOhWipersSlideIn{
+	0%{transform: rotate(0deg);}
+	100%{transform: rotate(20deg);}
+}
+
+.ohWiperSlideOut{
+	animation-name: kFramesOhWipersSlideOut;
+	animation-duration: 3s;
+	animation-fill-mode: forwards;
+}
+
+@keyframes kFramesOhWipersSlideOut{
+	0%{transform: rotate(20deg);}
+	100%{transform: rotate(0deg);}
+}
+
+
+.ohWiperRun1{
+  	animation-name: kFramesOhWipersRun1;
+  	animation-duration: 3s;
+	animation-iteration-count: 2;
+	animation-fill-mode: forwards;
+
+}
+
+@keyframes kFramesOhWipersRun1{
+	0%{transform: rotate(20deg);}
+	50%{transform: rotate(155deg);}
+	100%{transform: rotate(20deg);}
+}
