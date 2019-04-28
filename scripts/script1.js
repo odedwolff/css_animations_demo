@@ -1172,7 +1172,7 @@ function spreadPhsases(elm, delayBetweenPhasesMs){
 function spreadCombined(){
 	elms= document.querySelectorAll("#divWheelContent .divWhellRotatingBox" );
 	for(var i = 0 ; i < elms.length; i++){
-		spreadPhsases(elms[i], 1050);
+		spreadPhsases(elms[i], 900);
 	}
 	
 }
@@ -1250,7 +1250,7 @@ function wheelElmsReset(){
 }
 
 
-function wheelingScript(){
+function wheelingScriptOld(){
 	//const fullPeriodMs= 3150 * 2;
 	const fullPeriodMs= 5800;
 	wheelingSpinAllWords();
@@ -1261,6 +1261,18 @@ function wheelingScript(){
 	setTimeout(spreadCombined, fullPeriodMs * 2);
 	setTimeout(wheelingScriptComplete, fullPeriodMs * 2 + 4000);
 }
+
+
+function wheelingScript(){
+	const fullPeriodMs= 5800;
+	wheelingSpinAllWords();
+	setTimeout(spreadCombined, fullPeriodMs * 1);
+	setTimeout(wheelingScriptComplete, fullPeriodMs * 1 + 2800);
+}
+
+
+
+
 
 function wheelingScriptComplete(){
 	console.log("wheeling script complete");
