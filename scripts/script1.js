@@ -2621,7 +2621,7 @@ function testWeedRandSequence(){
 
 
 function randHop(stepsTogo, obj, startTransPos, startRot){
-	console.log("randStep");
+	//console.log("randStep");
 	if(stepsTogo < 1){
 		return;
 	}
@@ -2736,7 +2736,7 @@ function stopTiltTracking(){
 function handleHighPosition(ret){
 	if(bigSwingCtx.switchEnabled){
 		const curWord = bigSwingCtx.words[bigSwingCtx.idx];
-		console.log("current word=" + curWord);
+		//console.log("current word=" + curWord);
 		document.getElementById("divBigSwingTextContainer").innerHTML = 
 			curWord;
 		bigSwingCtx.idx = (bigSwingCtx.idx + 1) % bigSwingCtx.words.length;
@@ -2904,7 +2904,7 @@ function spasmOut(spasmsToGo, fCompleteAllSpasms, baselineScale, curScalex, curS
 	var scaleOutYPerFrame = randRatioSpasmY();
 	const fCompleteThisSpasm = spasmIn.bind(null, spasmsToGo - 1, fCompleteAllSpasms);
 	
-	console.log("randomal scaling x,y scale=" + scaleOutXPerFrame + "," + scaleOutYPerFrame);
+	//console.log("randomal scaling x,y scale=" + scaleOutXPerFrame + "," + scaleOutYPerFrame);
 	
 	
 	//choose either axis as dominant, make the scaling of the other scale relativ to it 
@@ -3010,7 +3010,7 @@ function hammerPhase1(elm, curXScale, curYScale){
 	const fComplete = 
 		function(elm, curXScale, curYScale){
 			setTimeout(function(){
-				console.log("hammering phase 1 complete");
+				//console.log("hammering phase 1 complete");
 				hammerPhase2(elm, curXScale, curYScale)
 			}, 1500
 			);
@@ -3020,7 +3020,7 @@ function hammerPhase1(elm, curXScale, curYScale){
 
 function hammerPhase2(elm, curXScale, curYScale){
 	const fComplete =function(elm, curScaleX, curScaleY){
-		console.log("hammering phase 2 complete");
+		//console.log("hammering phase 2 complete");
 		hideElm(elm, spasmCtx.timeOutBeforeHideMs);
 	};
 	hammerDown(8, fComplete, elm, curXScale, curYScale);
@@ -3060,14 +3060,15 @@ function testPumpOut(){
 	var fSpasmComplete= function (curScaleX, curScaleY, elm){
 		expend(elm, 15, curScaleX , 1.0, curScaleX, 1.22, 
 		function(elm, curXScale, curYScale){
-			console.log("completed pump out ver");
+			//console.log("completed pump out ver");
 			hammerPhase1(elm, curXScale, curYScale);
 		});
 	}
 
 	const fCompleteInitExp = function(elm, curScaleX, curScaleY){
 		spasmOut(8, fSpasmComplete, 1.0,  curScaleX, curScaleY,elm);
-		console.log("end pump phase")};
+		//console.log("end pump phase")
+	};
 	expend(elm, 30, 0.1 , 1.1, 0.1, 1.1, fCompleteInitExp);
 }
 
@@ -3076,7 +3077,7 @@ function spasmSequence(elm){
 	var fSpasmComplete= function (curScaleX, curScaleY, elm){
 		expend(elm, 15, curScaleX , 1.0, curScaleX, 1.22, 
 		function(elm, curXScale, curYScale){
-			console.log("completed pump out ver");
+			//console.log("completed pump out ver");
 			//hammerPhase1(elm, curXScale, curYScale);
 			setTimeout(
 				function(){hammerPhase1(elm, curXScale, curYScale)}
@@ -3085,7 +3086,8 @@ function spasmSequence(elm){
 	}
 	const fCompleteInitExp = function(elm, curScaleX, curScaleY){
 		spasmOut(8, fSpasmComplete, 1.0,  curScaleX, curScaleY,elm);
-		console.log("end pump phase")};
+		//console.log("end pump phase")
+	};
 	expend(elm, 10, 0.1 , 1.1, 0.1, 1.1, fCompleteInitExp);
 	//expend(elm, 100, 0.1 , 1.1, 0.1, 1.1, fCompleteInitExp);
 
@@ -3821,19 +3823,19 @@ function fSpasmComplete(obj,objInfo){
 		default:
 			console.log("error, invalid mode:" + objInfo.mode);
 	  }
-	console.log("spasm fComplete");
+	//console.log("spasm fComplete");
 
 }
 
 
 function handlePulseOutComplete(obj,objInfo){
-	console.log("handlePulseOutComplete()");
+	//console.log("handlePulseOutComplete()");
 	objInfo.mode=spasm2Ctx.PAHSE_SPASM_IN;
 	normalize(obj, objInfo);
 }
 
 function handlePulseInComplete(obj,objInf){
-	console.log("handlePulseInComplete()");
+	//console.log("handlePulseInComplete()");
 	if(objInf.nmSpasmLeft > 0){
 		objInf.nmSpasmLeft = objInf.nmSpasmLeft-1;
 		objInf.mode=spasm2Ctx.PHASE_SPASM_OUT;
@@ -3876,7 +3878,7 @@ function startPreHammer(obj,objInf){
 }
 
 function handlePreHammerComplete(obj,objInf){
-	console.log("pre hammer complete");
+	//console.log("pre hammer complete");
 	setTimeout(() => {
 		startHammeringDown(obj,objInf);
 	}, spasm2Ctx.preHammerComleteWaitSec * 1000);
@@ -3890,7 +3892,7 @@ function startHammeringDown(obj,objInf){
 }
 
 function hammerHit(obj,objInf){
-	console.log("hammerHit()");
+	//console.log("hammerHit()");
 	const trgScaleX = objInf.scaleX * spasm2Ctx.hammerDownScaleX;
 	const trgScaleY = objInf.scaleY * spasm2Ctx.hammerDownScaleY;
 	startSpasmSP2(obj, objInf, trgScaleX, trgScaleY, spasm2Ctx.hammerDownHitTimeSec);
@@ -3911,7 +3913,7 @@ function handleHammerHitComplete(obj,objInf){
 }
 
 function handleHammerSeriesComplete(obj,objInf){
-	console.log("handle HammerSeries Complete()");
+	//console.log("handle HammerSeries Complete()");
 }
 
 function handleBounceBackComplete(obj,objInf){
@@ -3961,12 +3963,54 @@ function ohWiperRun1(){
 }
 
 
+function ohWiperRun2(){
+	ohWiperSetClassList("overheadWiper ohWiperRun2");
+}
+
+function ohWiperRun3(){
+	ohWiperSetClassList("overheadWiper ohWiperRun3");
+}
+
+
+
+
 
 function ohWiperSetClassList(classList){
 	var ohWipers = document.getElementsByClassName("overheadWiper");
 	for(i = 0 ; i < ohWipers.length; i++){
 		ohWipers[i].setAttribute("class", classList);
 	}
+}
+
+
+function ohWiperSequence1(){
+	ohWiperSlideIn();
+	setTimeout(() => {
+		ohWiperRun1();
+		setTimeout(() => {
+			ohWiperSlideOut();
+		}, 3250);
+	}, 1050);
+}
+
+function ohWiperSequence2(){
+	ohWiperSlideIn();
+	setTimeout(() => {
+		ohWiperRun2();
+		setTimeout(() => {
+			ohWiperSlideOut();
+		}, 3250);
+	}, 1050);
+}
+
+function ohWiperSequence3(){
+	ohWiperSlideIn();
+	setTimeout(() => {
+		ohWiperRun3();
+		setTimeout(() => {
+			ohWiperSlideOut();
+		}, 2700);
+	}, 1050);
 }
 
 
