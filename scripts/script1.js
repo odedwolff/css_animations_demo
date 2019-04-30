@@ -3120,10 +3120,10 @@ function spasmScriptComplete(){
 var bottomCtx = {
 	dyMin:10,
 	dyMax:40,
-	fPs:50,
+	fPs:20,
 	noDerbyElm:20, 
 	//intervalRainMs:1000,
-	intervalRainMs:3000,
+	intervalRainMs:6000,
 	elmId:0,
 	intervalId:null,
 	rotMinDegSec:-30,
@@ -3132,6 +3132,7 @@ var bottomCtx = {
 	xRange:1400, 
 	sinkPx:200,
 	numberOfElm:30000,
+	//multiple values represent mulitple bottom lines 
 	sinkDistancesPx:[300, 350, 400], 
 	/* randSinkMin:300,
 	randSinkMax:400, */

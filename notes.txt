@@ -92,3 +92,5 @@ subject to waves or something
   transform 
 
 
+start local python server:
+python -m http.server
