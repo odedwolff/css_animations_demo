@@ -6,6 +6,7 @@ natonal geographic- 'GeoEditRegular', 'Franklin Gothic Medium', 'Franklin Gothic
 haaretz.com- Georgia,Times,"Times New Roman",serif (applied to body) 
 zeit online- "TabletGothic","Helvetica Neue",Helvetica,Arial,FreeSans,sans-serif (applied to body) ;
 land der ideen- Futura LT W01,HelveticaNeue,Helvetica Neue,Helvetica,Arial,sans-serif;
+Furthermore - graphik-regular for par text, braun-regular for headlines 
 
 Kolbo haifa has nice desigin themes for the top bar 
 

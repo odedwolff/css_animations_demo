@@ -966,6 +966,30 @@ function clearWheeling(){
 	removeClassFromClass("divWhellRotatingBox", "wheeling");
 }
 
+
+/**********************************theme text wheel***************************************************** */
+
+var wheelingConstsCtx = {
+	rangeVr: 250,
+	rangeHor: 250, 
+	// dx: 10,
+	// dy:10,
+	veloPxPSec:300,
+	dtMs:5,
+	distThreshPx:20,
+	isRunning:false
+};
+
+
+function wheelingScript(){
+	const fullPeriodMs= 5800;
+	wheelingSpinAllWords();
+/* 
+	setTimeout(spreadCombined, fullPeriodMs * 1);
+	setTimeout(wheelingScriptComplete, fullPeriodMs * 1 + 2800);
+	 */
+}
+
 //starts elements containted in given word weeling graduatllly
 function wheelReedWorld(wordContainerId){
 	// const timeSpaceingMs = 100;
@@ -978,7 +1002,19 @@ function wheelReedWorld(wordContainerId){
 			elm.classList.add("wheeling");
 		}.bind(null, elms[i])
 		, timeSpaceingMs*i);
+
+		//set animation event handler on last letter
+		if(elms[i].id=="endParagargaphFlag"){
+			elms[i].addEventListener("webkitAnimationEnd", handleAnimationEndSpinning);
+			//standard
+			elms[i].addEventListener("animationend", handleAnimationEndSpinning);
+		}
 	}
+}
+
+function handleAnimationEndSpinning(arg){
+	console.log("spinning complete event handler");
+	spreadAllLettersVer();
 }
 
 function wheelingSpinAllWords(){
@@ -995,18 +1031,127 @@ function wheelingSpinAllWords(){
 	}
 }
 
-/************************************************************************************ */
 
-var wheelingConstsCtx = {
-	rangeVr: 250,
-	rangeHor: 250, 
-	// dx: 10,
-	// dy:10,
-	veloPxPSec:300,
-	dtMs:5,
-	distThreshPx:20,
-	isRunning:false
-};
+function spreadAllLettersVer(){
+	elms= document.querySelectorAll("#divWheelContent .divWhellRotatingBox" );
+	for(i = 0; i < elms.length; i++){
+		//startSpredVer(elms[i], {x:0,y:0});
+		var elmInfo = {x:0,y:0}
+		//keep elms and their animation info, to ahnd over later to the next phase 
+		wordWheelCtx.elms.push(elms[i]);
+		wordWheelCtx.elmInfos.push(elmInfo);
+		startSpredVer(elms[i], elmInfo);
+	}
+}
+
+function spreadAllLettersHor(){
+	elms= wordWheelCtx.elms;
+	elmsInfo = wordWheelCtx.elmInfos;
+	for(i = 0; i < elms.length; i++){
+		//elements are rotated -180 at end of previouse phase 
+		startSpredHor(elms[i], elmsInfo[i]);
+	}
+}
+
+
+
+const wordWheelCtx = {
+	maxHorRandSpread:100, 
+	minHorRandSpread:-100,
+	maxVerRandSpread:100, 
+	minVerRandSpread:-300,
+	horSpreadTimeSec:0.4,
+	verSpreadTimeSec:0.4,
+	fps:20,
+	PHASE_HOR:1, 
+	PHASE_VER:2,
+	preHorSpreadTimoutMs:400,
+	elms:[],
+	elmInfos:[]
+}
+
+const spreadAnimTimout = 1000 / wordWheelCtx.fps;
+
+function startSpredHor(elm, elmInfo){
+	targetDx = Math.random() * (wordWheelCtx.maxHorRandSpread - wordWheelCtx.minHorRandSpread) +  wordWheelCtx.minHorRandSpread;
+	elmInfo.phase = wordWheelCtx.PHASE_HOR;
+	nmFrames = wordWheelCtx.verSpreadTimeSec * wordWheelCtx.fps;
+	elmInfo.nmFramesToGo = nmFrames;
+	elmInfo.dxFr = targetDx / nmFrames;
+	elmInfo.dyFr = 0;
+	moveElmSpreadLetterStep(elm,elmInfo);
+}
+
+
+
+function startSpredVer(elm, elmInfo){
+	targetDy = Math.random() * (wordWheelCtx.maxHorRandSpread - wordWheelCtx.minHorRandSpread) +  wordWheelCtx.minHorRandSpread;
+	elmInfo.phase = wordWheelCtx.PHASE_VER;
+	nmFrames = wordWheelCtx.horSpreadTimeSec * wordWheelCtx.fps;
+	elmInfo.nmFramesToGo = nmFrames;
+	elmInfo.dxFr = 0;
+	elmInfo.dyFr = targetDy / nmFrames;
+	moveElmSpreadLetterStep(elm,elmInfo);
+}
+
+
+
+
+function moveElmSpreadLetterStep(elm,elmInfo){
+	if(elmInfo.nmFramesToGo==0){
+		moveeSpreadLetterComplet(elm,elmInfo);
+		return; 
+	}
+	updateTrans(elmInfo);
+	moveTWheelElm(elm, elmInfo);
+	elmInfo.nmFramesToGo = elmInfo.nmFramesToGo - 1;
+	setTimeout(() => {
+		moveElmSpreadLetterStep(elm,elmInfo);
+	}, spreadAnimTimout);
+}
+
+function moveeSpreadLetterComplet(elm, elmInfo){
+	console.log("moveeSpreadLetterComplet");
+	switch(elmInfo.phase) {
+		case wordWheelCtx.PHASE_HOR:
+			handleHorizontalSpreadComplete(elm, elmInfo);
+			return;
+		case wordWheelCtx.PHASE_VER:
+			handleVerticalSpreadComplete(elm, elmInfo);
+		  	return;
+		default:
+			console.log("error- unexpected phase vaue:" + elmInfo.phase);
+		  // code block
+	  }
+}
+
+
+
+function handleVerticalSpreadComplete(elm, elmInfo){
+	console.log("horizontal spread complete");
+	if(elm.id=="endParagargaphFlag"){
+		setTimeout(() => {
+			//startSpredHor(elm, elmInfo);
+			spreadAllLettersHor();
+		}, wordWheelCtx.preHorSpreadTimoutMs);
+	}
+}
+
+function handleHorizontalSpreadComplete(elm, elmInfo){
+	console.log("horizontal spread complete");	
+}
+
+
+function updateTrans(objInfo){
+	objInfo.x = objInfo.x + objInfo.dxFr;
+	objInfo.y = objInfo.y + objInfo.dyFr;
+}
+
+
+function moveTWheelElm(obj, objInfo){
+	const trnsString = "translate("+ objInfo.x + "px," + objInfo.y +  "px) rotate(180deg)";
+	obj.style.transform = trnsString;
+}
 
 
 
@@ -1092,23 +1237,6 @@ function testMotion(){
 
 	moveThingToPlace(domElm, 100, -20,0,0,1, -0.2, null);
 }
-
-
-/*
-function testTransform(){
-	domObj = document.getElementById("divMovableObject");
-	var trnfParams = {
-		srcTrnsX:0,
-		trgTrnsX:20,
-		srcTrnsY:0,
-		trgTrnsY:-200,
-		srcRotateDeg:0,
-		trgRotateDeg:2800,
-		srcScale:1,
-		trgScale:12
-	}
-	transformCnstSpeed(domObj, trnfParams, 200, 2);
-}*/ 
 
 
 
@@ -1263,12 +1391,7 @@ function wheelingScriptOld(){
 }
 
 
-function wheelingScript(){
-	const fullPeriodMs= 5800;
-	wheelingSpinAllWords();
-	setTimeout(spreadCombined, fullPeriodMs * 1);
-	setTimeout(wheelingScriptComplete, fullPeriodMs * 1 + 2800);
-}
+
 
 
 
@@ -3980,7 +4103,21 @@ function ohWiperSetClassList(classList){
 	var ohWipers = document.getElementsByClassName("overheadWiper");
 	for(i = 0 ; i < ohWipers.length; i++){
 		ohWipers[i].setAttribute("class", classList);
+
+		
+		
+	/* 	//just for testing
+		if(i==0){
+			//opera, chrome
+			ohWipers[i].addEventListener("webkitAnimationEnd", testAnimationEndEvent);
+			//standard
+			ohWipers[i].addEventListener("animationend", testAnimationEndEvent);
+		} */
 	}
+}
+
+function testAnimationEndEvent(arg){
+	console.log(arg["animationName"] == "kFramesOhWipersSlideIn");
 }
 
 
