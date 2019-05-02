@@ -994,7 +994,7 @@ const wordWheelCtx = {
 	preVerSpreadTimoutMs:300,
 	preHorSpreadTimoutMs:400,
 	preFreeFallTimoutMs:400,
-	preResetTimeoutMs:400,
+	preResetTimeoutMs:300,
 	elms:[],
 	elmInfos:[],
 	freeFallDPx:600
@@ -1326,18 +1326,20 @@ function resetWheeling(){
 //----------------------------------------------theme clouds-------------------------------------------------------
 
 
+//const cloudColors = ["hsl(0,0%,0%)", "hsl(0,0%,20%)","hsl(0,0%,40%)", "hsl(0,0%,80%)"];
 
+const cloudColors = ["hsl(0, 0%,15%)", "hsl(0,0%,10%)","hsl(0,0%,5%)", "hsl(0,0%,0%)"];
 
 
 function setUpLayer(layerDomELm, idx){
 	var color;
  	var colorStr;
 	var oldLeftVal = extractLeftVal(layerDomELm.id);
-	//var newLeftVal = oldLeftVal + Math.random() + couldsCtx.initLeftShiftPxRange;
 	var newLeftVal = oldLeftVal + idx * 200;
 	layerDomELm.style.left = newLeftVal + "px";
-	color = rndColor();
- 	colorStr = "hsl(" + color['h'] + "," + color['s'] + "%," + color['l'] + "%)";
+	//color = rndColor();
+	 //colorStr = "hsl(" + color['h'] + "," + color['s'] + "%," + color['l'] + "%)";
+	colorStr = cloudColors[idx % (cloudColors.length + 1)];
  	layerDomELm.style.color = colorStr;
 
 }
@@ -1431,15 +1433,15 @@ function reArmClouds(){
 
 const couldsCtx = {
 	isArmed:true, 
-	minLeftTargetPx:2000,
-	maxLeftTargetPx:3300,
-	minTopTargetPx:-200,
-	maxTopTargetPx:200,
+	minLeftTargetPx:2500,
+	maxLeftTargetPx:2700,
+	minTopTargetPx:-300,
+	maxTopTargetPx:300,
 	initLeftShiftPxRange:800,
 	halfCycleLenMs:11000,
 	cyclePhaseIdle:true,
-	preComebackTimeoutMs:400,
-	preResetTimeoutMs:400,
+	preComebackTimeoutMs:0,
+	preResetTimeoutMs:0,
 	PHASE_SPREAD_OUT:1, 
 	PHASE_GATHER_IN:2,
 	currentPhase:null
