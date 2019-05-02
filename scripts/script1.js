@@ -969,7 +969,7 @@ function clearWheeling(){
 
 /**********************************theme text wheel***************************************************** */
 
-var wheelingConstsCtx = {
+const wheelingConstsCtx = {
 	rangeVr: 250,
 	rangeHor: 250, 
 	// dx: 10,
@@ -979,6 +979,31 @@ var wheelingConstsCtx = {
 	distThreshPx:20,
 	isRunning:false
 };
+
+const wordWheelCtx = {
+	maxHorRandSpread:100, 
+	minHorRandSpread:-100,
+	maxVerRandSpread:100, 
+	minVerRandSpread:-300,
+	horSpreadTimeSec:0.4,
+	verSpreadTimeSec:0.4,
+	fps:20,
+	PHASE_HOR:1, 
+	PHASE_VER:2,
+	preHorSpreadTimoutMs:400,
+	preFreeFallTimoutMs:400,
+	elms:[],
+	elmInfos:[],
+	freeFallDPx:600
+}
+
+const freeFallCtx = {
+	a_PxPerSecSqr:250.0,
+	thrshClosePx: 50
+}
+
+
+const spreadAnimTimout = 1000 / wordWheelCtx.fps;
 
 
 function wheelingScript(){
@@ -1054,23 +1079,22 @@ function spreadAllLettersHor(){
 }
 
 
-
-const wordWheelCtx = {
-	maxHorRandSpread:100, 
-	minHorRandSpread:-100,
-	maxVerRandSpread:100, 
-	minVerRandSpread:-300,
-	horSpreadTimeSec:0.4,
-	verSpreadTimeSec:0.4,
-	fps:20,
-	PHASE_HOR:1, 
-	PHASE_VER:2,
-	preHorSpreadTimoutMs:400,
-	elms:[],
-	elmInfos:[]
+function makeAllElmsFreeFall(){
+	elms= wordWheelCtx.elms;
+	elmsInfo = wordWheelCtx.elmInfos;
+	for(i = 0; i < elms.length; i++){
+		freeFAllingStep(elms[i], 0, elmsInfo[i].x, elmsInfo[i].y,wordWheelCtx.freeFallDPx,180, wordWheelCtx.fps);
+	}
+	
 }
 
-const spreadAnimTimout = 1000 / wordWheelCtx.fps;
+
+
+
+
+
+
+
 
 function startSpredHor(elm, elmInfo){
 	targetDx = Math.random() * (wordWheelCtx.maxHorRandSpread - wordWheelCtx.minHorRandSpread) +  wordWheelCtx.minHorRandSpread;
@@ -1139,6 +1163,9 @@ function handleVerticalSpreadComplete(elm, elmInfo){
 
 function handleHorizontalSpreadComplete(elm, elmInfo){
 	console.log("horizontal spread complete");	
+	setTimeout(() => {
+		makeAllElmsFreeFall();
+	},  wordWheelCtx.preFreeFallTimoutMs);
 }
 
 
@@ -1153,27 +1180,6 @@ function moveTWheelElm(obj, objInfo){
 	obj.style.transform = trnsString;
 }
 
-
-
-//move lineary at set speed toward given target 
-//***taget avlues are in "translate" space -***!!!
-function wheelingStepToTargetOld(domElm, targetX, targetY,currentTranslateX, currentTranslateY,dxMs, dyMs){
-	
-	if(close (targetX, targetY,currentTranslateX, currentTranslateY)){
-		// return {tanslationX:currentTranslateX, translationY:currentTranslateY};
-		//console.log("targetX, targetY,currentTranslateX, currentTranslateY=" + 
-		//	targetX +";" + targetY +";" +  currentTranslateX+";" +  currentTranslateY);
-		return;
-	}
-	repostion(domElm, currentTranslateX, currentTranslateY);
-	currentTranslateX = currentTranslateX + dxMs * wheelingConstsCtx.dtMs;
-	currentTranslateY = currentTranslateY + dyMs * wheelingConstsCtx.dtMs;
-	setTimeout(
-		function(){
-		wheelingStepToTarget(domElm, targetX, targetY,currentTranslateX, currentTranslateY,dxMs, dyMs);
-		},
-		wheelingConstsCtx.dtMs);
-}
 
 
 //move lineary at set speed toward given target 
@@ -1228,90 +1234,12 @@ function calcAxisSpeeds(orgX,orgY,trgX,trgY, veloPxPSec){
 	return {dxPxMs:dx, dyPxMs:dy};
 }
 
-function testMotion(){
-	domElm = document.getElementById("divMovableObject");
-	targetX = 800;
-	targetY = -50;
-	axSpeeds = calcAxisSpeeds(0,0,targetX, targetY, 400);
-	//wheelingStepToTarget(domElm, targetX, targetY,0, 0,axSpeeds["dxPxMs"], axSpeeds["dyPxMs"],180);
-
-	moveThingToPlace(domElm, 100, -20,0,0,1, -0.2, null);
-}
 
 
 
 
-function spreadPhsases(elm, delayBetweenPhasesMs){
-	//spread vertically 
-
-	const targetY= Math.random() * wheelingConstsCtx.rangeVr- wheelingConstsCtx.rangeVr / 2;
-	axSpeeds = calcAxisSpeeds(0,0,0, targetY, wheelingConstsCtx.veloPxPSec);
-	//const endPhaseLocation = wheelingStepToTarget(elm, 0, targetY,0, 0, axSpeeds["dxPxMs"], axSpeeds["dyPxMs"],180);
-	var trnfParams = {
-		srcTrnsX:0,
-		trgTrnsX:0,
-		srcTrnsY:0,
-		trgTrnsY:targetY,
-		srcRotateDeg:180,
-		trgRotateDeg:180,
-		srcScale:1,
-		trgScale:1
-	}
-	transformCnstSpeed(elm, trnfParams, 200, .2);	
 
 
-	var targetX;
-	const f2 = function(){
-		//spraed horizontally  
-		const orgX= 0;
-		//that is, target y of previous stage
-		const orgY= targetY;
-		targetX= Math.random() * wheelingConstsCtx.rangeHor -  wheelingConstsCtx.rangeHor / 2;
-		axSpeeds = calcAxisSpeeds(orgX, orgY,targetX, orgY, wheelingConstsCtx.veloPxPSec);
-		//wheelingStepToTarget(elm, targetX, orgY, orgX, orgY, axSpeeds["dxPxMs"], axSpeeds["dyPxMs"],180);
-
-		var trnfParams = {
-			srcTrnsX:0,
-			trgTrnsX:targetX,
-			srcTrnsY:orgY,
-			trgTrnsY:orgY,
-			srcRotateDeg:180,
-			trgRotateDeg:180,
-			srcScale:1,
-			trgScale:1
-		}
-		transformCnstSpeed(elm, trnfParams, 200, .2);	
-
-
-
-	}
-	setTimeout(f2, delayBetweenPhasesMs);
-
-	const f3 = function(){
-		const initTrnsX = targetX;
-		const initTrnsY = targetY;
-		//console.log("initTrnsY= " + initTrnsX );
-		freeFAllingStep(elm, 0, initTrnsX, initTrnsY, 700, 180, 200);
-	};
-	setTimeout(f3, delayBetweenPhasesMs * 2);
-
-}
-
-function spreadCombined(){
-	elms= document.querySelectorAll("#divWheelContent .divWhellRotatingBox" );
-	for(var i = 0 ; i < elms.length; i++){
-		spreadPhsases(elms[i], 900);
-	}
-	
-}
-
-const freeFallCtx = {
-	a_PxPerSecSqr:25000.0,
-	thrshClosePx: 50
-}
-
-function freeFAll(domElm, remainingFall,trnsX, trnsY){
-}
 
 
 
@@ -1341,26 +1269,7 @@ function freeFAllingStep(domElm,v_PxPSec,trnsX, trnsY,remainingFall,rotate, fps)
 
 
 
-function freeFAllingStepOld(domElm,v_PxPSec,trnsX, trnsY,remainingFall,rotate){
-	if(remainingFall <= freeFallCtx.thrshClosePx){
-		domElm.style.opacity=0;
-		return;
-	}
-	var transStr="translate(" + trnsX + "px," + trnsY + "px)";
-	if(rotate){
-		transStr = transStr + " rotate(" + rotate + "deg)";
-	}
-	domElm.style.transform= transStr;
-	const framStranlateY = v_PxPSec * animationCtx.framesIntervalMs;
-	trnsY = trnsY + framStranlateY;
-	v_PxPSec= v_PxPSec + freeFallCtx.a_PxPerSecSqr * animationCtx.framesIntervalMs / 1000;
-	remainingFall = remainingFall-framStranlateY;
-	setTimeout(
-		function(){
-			freeFAllingStep(domElm,v_PxPSec,trnsX, trnsY,remainingFall, rotate)
-		}
-		,animationCtx.framesIntervalMs);
-}
+
 
 function testFreeFall(){
 	elm=document.getElementById("divMovableObject");
