@@ -990,8 +990,11 @@ const wordWheelCtx = {
 	fps:20,
 	PHASE_HOR:1, 
 	PHASE_VER:2,
-	preHorSpreadTimoutMs:400,
-	preFreeFallTimoutMs:400,
+	PHASE_FREEFALL:3,
+	preVerSpreadTimoutMs:500,
+	preHorSpreadTimoutMs:600,
+	preFreeFallTimoutMs:500,
+	preResetTimeoutMs:600,
 	elms:[],
 	elmInfos:[],
 	freeFallDPx:600
@@ -1039,7 +1042,9 @@ function wheelReedWorld(wordContainerId){
 
 function handleAnimationEndSpinning(arg){
 	console.log("spinning complete event handler");
-	spreadAllLettersVer();
+	setTimeout(() => {
+		spreadAllLettersVer();
+	}, wordWheelCtx.preVerSpreadTimoutMs);
 }
 
 function wheelingSpinAllWords(){
@@ -1087,12 +1092,6 @@ function makeAllElmsFreeFall(){
 	}
 	
 }
-
-
-
-
-
-
 
 
 
@@ -1247,6 +1246,11 @@ function freeFAllingStep(domElm,v_PxPSec,trnsX, trnsY,remainingFall,rotate, fps)
 	const frameIntervalMs = 1000/fps;
 	if(remainingFall <= freeFallCtx.thrshClosePx){
 		domElm.style.opacity=0;
+		if(domElm.id == "endParagargaphFlag"){
+			setTimeout(() => {
+				handleWheelingScriptComplete()	
+			}, wordWheelCtx.preResetTimeoutMs);
+		}
 		return;
 	}
 	var transStr="translate(" + trnsX + "px," + trnsY + "px)";
@@ -1287,30 +1291,11 @@ function wheelElmsReset(){
 }
 
 
-function wheelingScriptOld(){
-	//const fullPeriodMs= 3150 * 2;
-	const fullPeriodMs= 5800;
-	wheelingSpinAllWords();
-	setTimeout(function(){
-		wheelElmsReset();
-		wheelingSpinAllWords();
-	}, fullPeriodMs);
-	setTimeout(spreadCombined, fullPeriodMs * 2);
-	setTimeout(wheelingScriptComplete, fullPeriodMs * 2 + 4000);
-}
 
-
-
-
-
-
-
-
-function wheelingScriptComplete(){
+function handleWheelingScriptComplete(){
 	console.log("wheeling script complete");
 	resetWheeling();
 	wheelingConstsCtx.isRunning = false;
-	
 }
 
 function wheelingOn(){
@@ -1329,6 +1314,9 @@ function resetWheeling(){
 		wheelingElms[i].style.opacity = 1;
 		wheelingElms[i].classList.remove("wheeling");
 	}
+	wordWheelCtx.elms=[];
+	wordWheelCtx.elmInfos=[];
+
 }
 
 
