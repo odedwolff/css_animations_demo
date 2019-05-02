@@ -2344,6 +2344,7 @@ function checkScrollSpeed(){
 	enableFocus();
 	enableGiantSteps();
 	enableSpasm2();
+	enableGH2();
 
 	if(currentPos == scrollCtx.lastYposition){
 		return;
@@ -2496,6 +2497,12 @@ function enableGiantSteps(){
 function enableSpasm2(){
 	if(inViewPort("viewpointDetectorSpasm2", 0, 1000)){
 		triggerSpasm2();
+	}
+}
+
+function enableGH2(){
+	if(inViewPort("viewpointDetectorGh2", 200, 700)){
+		triggerGH2();
 	}
 }
 
@@ -3261,7 +3268,8 @@ const gh2Ctx = {
 	initJuampVyPxSec:-2000,
 	leapsPerCycls:4,
 	initOffsetRange:80,
-	timingPhaseRangeMs:900
+	timingPhaseRangeMs:900,
+	isRunning:false
 }
 const stepIntervalMs = 1000/gh2Ctx.fps;
 const shrinkRatioPerFrame = Math.pow(gh2Ctx.preJumpCompressRatePerSec, 1 / gh2Ctx.fps);
@@ -3320,7 +3328,10 @@ function fullyCompressed(jumpParams){
 
 function hopCompleteGH2(dElm,jumpParams){
 	if(jumpParams.remainingJump==0){
-		rollerCycleComplete(dElm,jumpParams);
+		//rollerCycleComplete(dElm,jumpParams);
+		if(dElm.id=="ghNoTo3"){
+			gh2CycleComplete();
+		}
 		return;
 	}
 	jumpParams.remainingJump=jumpParams.remainingJump-1;
@@ -3366,6 +3377,20 @@ function gh2SequenceBunch(){
 		setTimeout(gh2Cycle.bind(null,elm,0,0), 
 		Math.random() * gh2Ctx.timingPhaseRangeMs);
 	}
+}
+
+function gh2CycleComplete(){
+	console.log("gh2CycleComplete");
+	gh2Ctx.isRunning=false;
+}
+
+
+function triggerGH2(){
+	if(gh2Ctx.isRunning){
+		return;
+	}
+	gh2Ctx.isRunning=true;
+	gh2SequenceBunch();
 }
 
 
