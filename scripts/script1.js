@@ -991,10 +991,10 @@ const wordWheelCtx = {
 	PHASE_HOR:1, 
 	PHASE_VER:2,
 	PHASE_FREEFALL:3,
-	preVerSpreadTimoutMs:500,
-	preHorSpreadTimoutMs:600,
-	preFreeFallTimoutMs:500,
-	preResetTimeoutMs:600,
+	preVerSpreadTimoutMs:300,
+	preHorSpreadTimoutMs:400,
+	preFreeFallTimoutMs:400,
+	preResetTimeoutMs:400,
 	elms:[],
 	elmInfos:[],
 	freeFallDPx:600
@@ -1327,16 +1327,6 @@ function resetWheeling(){
 
 
 
-function setUpLayerOld(layerDomELm){
-	var color;
- 	var colorStr;
- 	const trans = setRandTranslation(300, 0, layerDomELm);
- 	color = rndColor();
- 	colorStr = "hsl(" + color['h'] + "," + color['s'] + "%," + color['l'] + "%)";
- 	//colorStr="black";
- 	layerDomELm.style.color = colorStr;
- 	return trans;
-}
 
 
 function setUpLayer(layerDomELm, idx){
@@ -1399,49 +1389,6 @@ constCloudCtx = {
 
 
 
-function moveCloudLayer(domElm,initX,initY){
-	/* const minDurationSec = 3;
-	const maxDurationSec = 5; */
-
-	const minDurationSec = 5;
-	const maxDurationSec = 7;
-	const durationSec = Math.random() * (maxDurationSec - minDurationSec) + minDurationSec
-
-	
-	const translateYMax = 500;
-	const translateYMin = -500;
-	const translateYFinal = Math.random() * (translateYMax-translateYMin) + translateYMin;
-
-	var trnfParams = {
-		srcTrnsX:initX,
-		//trgTrnsX:2000,
-		trgTrnsX:2750,
-		srcTrnsY:initY,
-		trgTrnsY:translateYFinal,
-		srcRotateDeg:0,
-		trgRotateDeg:0,
-		srcScale:1,
-		trgScale:1
-	}
-	transformCnstSpeed(domElm, trnfParams, 200, durationSec);
-
-}
-
-
-
-
-function moveClouds(){
-		elms= document.querySelectorAll("#divCloudsContent .layer" );
-		 for (var i = 0 ; i < elms.length; i++){
-		 	var trans=setUpLayer(elms[i], i)
-		 	setTimeout(
-		 		function(elm,x,y){
-		 			moveCloudLayer(elm,x,y);
-		 		}.bind(null, elms[i],trans['x'],trans['y']),500
-		 	);
-		 }
-}
-
 
 var movFunctions=[];
 
@@ -1450,10 +1397,6 @@ function setupCloudLayers(){
 	elms= document.querySelectorAll("#divCloudsContent .layer" );
 		 for (var i = 0 ; i < elms.length; i++){
 			setUpLayer(elms[i], i);
-		 	/* trans=setUpLayer(elms[i])
-		 	movFunctions.push(function(elm,x,y){
-		 			moveCloudLayer(elm,x,y);
-		 		}.bind(null, elms[i],trans['x'],trans['y'])); */
 	}
 }
 
@@ -1488,15 +1431,22 @@ function reArmClouds(){
 
 const couldsCtx = {
 	isArmed:true, 
-	minLeftTargetPx:3000,
-	maxLeftTargetPx:3500,
+	minLeftTargetPx:2000,
+	maxLeftTargetPx:3300,
 	minTopTargetPx:-200,
 	maxTopTargetPx:200,
 	initLeftShiftPxRange:800,
 	halfCycleLenMs:11000,
-	cyclePhaseIdle:true
+	cyclePhaseIdle:true,
+	preComebackTimeoutMs:400,
+	preResetTimeoutMs:400,
+	PHASE_SPREAD_OUT:1, 
+	PHASE_GATHER_IN:2,
+	currentPhase:null
 }
 
+
+//make clouds move away 
 function clearCloudsOff(){
 	//document.getElementById("divLayer2").style.left="-800px";
 
@@ -1506,7 +1456,34 @@ function clearCloudsOff(){
 		trnsX = Math.random()* (couldsCtx.maxLeftTargetPx-couldsCtx.minLeftTargetPx) + couldsCtx.minLeftTargetPx;
 		trnsY = Math.random()* (couldsCtx.maxTopTargetPx-couldsCtx.minTopTargetPx) + couldsCtx.minTopTargetPx;
 		elms[i].style.transform = "translate(" + trnsX + "px," + trnsY + "px)";
+
+		if(elms[i].id=="divLayer4"){
+			//elms[i].addEventListener("transitionend", handleCloudShfitComplete);
+			//standard
+			couldsCtx.currentPhase = couldsCtx.PHASE_SPREAD_OUT;
+			elms[i].addEventListener("transitionend", handleCloudShfitComplete);
+		}
 	}
+}
+
+function handleCloudShfitComplete(){
+	console.log("handleCloudShfitComplete()");
+	switch(couldsCtx.currentPhase){
+		case couldsCtx.PHASE_SPREAD_OUT:
+			setTimeout(() => {
+				resetCloudsPositions();
+			}, couldsCtx.preComebackTimeoutMs);
+			return;
+		case couldsCtx.PHASE_GATHER_IN:
+			setTimeout(() => {
+				cloudCyclcComplete();
+			}, couldsCtx.preResetTimeoutMs);
+		return;
+		
+		return;
+		default:
+			console.log("unexpected phase value:" + couldsCtx.currentPhase);
+	}	
 }
 
 function extractLeftVal(elmId){
@@ -1519,13 +1496,14 @@ function extractLeftVal(elmId){
 }
 
 function resetCloudsPositions(){
+	couldsCtx.currentPhase = couldsCtx.PHASE_GATHER_IN;
 	elms= document.getElementsByClassName("clsSlowLeft");
 	for (var i = 0 ; i < elms.length; i++){
 		elms[i].style.transform = "translate(0,0)";
 	}
 }
 
-function cloudsCylce(){
+function cloudsCylceOld(){
 	if(!couldsCtx.cyclePhaseIdle){
 		return;
 	}
@@ -1536,6 +1514,15 @@ function cloudsCylce(){
 		setTimeout(cloudCyclcComplete, couldsCtx.halfCycleLenMs);
 	}, couldsCtx.halfCycleLenMs);
 }
+
+function cloudsCylce(){
+	if(!couldsCtx.cyclePhaseIdle){
+		return;
+	}
+	couldsCtx.cyclePhaseIdle=false;
+	clearCloudsOff();
+}
+
 
 function cloudCyclcComplete(){
 	couldsCtx.cyclePhaseIdle=true;
