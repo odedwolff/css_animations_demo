@@ -5,7 +5,6 @@ const animationCtx ={
 
 function go(){
 	console.log("go");
-	//h1.style("rotateY:30deg")
 	rotateAnimate(0, 180, 50, 100);
 
 }
@@ -13,12 +12,6 @@ function go(){
 
 function init(){
 	console.log("init");
-	// var div = document.getElementById("div1");
-	// setTimeout(function(){div.style="background:yellow";},1000)
-	//test1();
-
-	// testBreakDown();
-
 	
 	initWaves();
 	
@@ -29,10 +22,6 @@ function init(){
 	setupCloudLayers();
 
 	preProcessFlashing();
-
-	//spasmPrepare();
-
-	//rainDebry();
 	
 }
 
@@ -58,7 +47,6 @@ function rotateAnimate(startEngle, endEngle, frameRate, degPerSec){
 
 
 function startWischer1(){
-	//divRotCss.classList.add("cssRotGo");
 	elms = document.getElementsByClassName("wischerMoveObj1");
 	for(var i = 0 ; i< elms.length ; i++){
 		elms[i].classList.add("wischer1Run");	
@@ -73,7 +61,6 @@ function stopWischer1(){
 }
 
 function startWischer2(){
-	//divRotCss.classList.add("cssRotGo");
 	elms = document.getElementsByClassName("wischerMoveObj2");
 	for(var i = 0 ; i< elms.length ; i++){
 		elms[i].classList.add("wischer2Run");	
@@ -88,7 +75,6 @@ function stopWischer2(){
 }
 
 function startWischer3(){
-	//divRotCss.classList.add("cssRotGo");
 	elms = document.getElementsByClassName("wischerMoveObj3");
 	for(var i = 0 ; i< elms.length ; i++){
 		elms[i].classList.add("wischer3Run");	
@@ -114,7 +100,6 @@ function swingStart(){
 		return;
 	}
 	swingCtx.isOn = true;
-	//startSwingingDelta(0.1);
 	startSwingingDelta(0.05);
 }
 
@@ -146,7 +131,6 @@ function startSwingingAynch(periodLenSec){
 	elms = document.getElementsByClassName("swingable");
 	for(var i = 0 ; i< elms.length ; i++){
 		var delay = Math.random() * periodLenSec * 1000;
-		//console.log("delat=" + delay);
 		setTimeout(
 			(function(elm){
 				elm.classList.add("swinging");	
@@ -162,7 +146,6 @@ function startSwingingDelta(dPhaseSec){
 	
 	elms = document.getElementsByClassName("swingable");
 	for(var i = 0 ; i< elms.length ; i++){
-		//console.log("delat=" + delay);
 		setTimeout(
 			(function(elm){
 				elm.classList.add("swinging");	
@@ -180,10 +163,8 @@ const twisterCtx = {
 
 
 function startTwister(dPhaseSec, defuseSec){
-	//setTwissterOpacity(1);
 	elms = document.getElementsByClassName("twistLetterCont");
 		for(var i = 0 ; i< elms.length ; i++){
-			//console.log("delat=" + delay);
 			setTimeout(
 				(function(elm){
 					elm.style.opacity = 1;
@@ -191,8 +172,7 @@ function startTwister(dPhaseSec, defuseSec){
 				}).bind(null, elms[i])
 				,dPhaseSec * 1000 * i);
 			
-			// setTimeout(function(elm){elm.classList.remove("twisting_in")}.bind(null, elms[i]),
-			//  (dPhaseSec * 1000 * i) + (defuseSec * 1000));
+		
 	}
 	
 }
@@ -361,8 +341,7 @@ function resetRollWord(){
 	document.getElementById("divRollerWordDouble").classList.remove("fakeRollerFadeIn");
 
 	ctxRoller.isRunning=false;
-	/* document.querySelectorAll("#divRollerWord *").className ="";
-	document.querySelectorAll("#divRollerWord").className =""; */
+	
 }
 
 function integratedRoll(){
@@ -392,14 +371,7 @@ function transmitRoller(){
 }
 
 function rollerLoop(){
-	/* (function loop(){
-		resetRollWord();
-		setTimeout(transformIn,1000);
-		setTimeout(rollWord, 3000);
-		setTimeout(transformOut, 15000);
-		setTimeout(transmitRoller, 17000);
-		setTimeout(loop, 18000);
-	})();	 */
+	
 
 	(function loop(){
 		//resetRollWord();
@@ -409,7 +381,6 @@ function rollerLoop(){
 		ctxRoller.timedIntervals.push(setTimeout(transmitRoller, 17000));
 		ctxRoller.timedIntervals.push(setTimeout(rollerCycleComplete, 20000));
 		
-		//ctxRoller.timedIntervals.push(setTimeout(loop, 18000));
 	})();	 
 }
 
@@ -720,10 +691,7 @@ function startWalkingNoCss(){
 		traceElm.style.opacity = simpleStepsCtx.traceOpacity;
 		parent.appendChild(traceElm);
 		
-		fadeTraceAway(traceElm);
-		/* setTimeout(() => {
-			parent.removeChild(traceElm);
-		}, simpleStepsCtx.vanishTimoutMs); */	
+		fadeTraceAway(traceElm);	
 	}
 
 	function fadeTraceAway(elm){
@@ -782,7 +750,6 @@ function startGrassHoppersSeq(){
 		return;
 	}
 	grasshoppCtx.sequenceRunning=true;
-	//preJumpTest();
 	grasshopperSequence();
 }
 
@@ -822,8 +789,6 @@ function hopSeq(ghDivId, fComplete){
 
 
 	var gh1 = document.getElementById(ghDivId); 
-	// var gh1 = document.getElementById("divGH1"); 
-	// hopStep(gh1, 0, 0, shootupSpeedPxPerSec);
 	for(var i = 0; i < numHops ; i++){
 		
 		setTimeout(function(){
@@ -837,7 +802,6 @@ function hopSeq(ghDivId, fComplete){
 			}
 			hopStep(gh1, landingX, 0, shootupSpeedPxPerSec, f);
 		}.bind(null,i), pauseBetweenHopsMs * i + 600);
-		// }, pauseBetweenHopsMs * i + 600);
 	}
 }
 
@@ -858,8 +822,6 @@ function preJump(elmId, translateX){
 	const animLenMsShrink=300;
 	const animLenMsPause=200;
 	const animLenMsExpend=50;
-	// const minYscale=0.3;
-	// const maxYscale=0.3;
 	//linear slopes
 	const shrinkSlopePerSec=-1.5;
 	const expendSlopePerSec=12;
@@ -903,9 +865,6 @@ function jumpCombinedPeriod(elmId){
 }
 
 function grasshopperSequence(){
-	//preJump("divGH1");
-	//jumpCombinedPeriod("divGH1");
-	
 	hopSeq("divGH1", null);
 	setTimeout(
 		function(){
@@ -972,8 +931,6 @@ function clearWheeling(){
 const wheelingConstsCtx = {
 	rangeVr: 250,
 	rangeHor: 250, 
-	// dx: 10,
-	// dy:10,
 	veloPxPSec:300,
 	dtMs:5,
 	distThreshPx:20,
@@ -1012,17 +969,11 @@ const spreadAnimTimout = 1000 / wordWheelCtx.fps;
 function wheelingScript(){
 	const fullPeriodMs= 5800;
 	wheelingSpinAllWords();
-/* 
-	setTimeout(spreadCombined, fullPeriodMs * 1);
-	setTimeout(wheelingScriptComplete, fullPeriodMs * 1 + 2800);
-	 */
 }
 
 //starts elements containted in given word weeling graduatllly
 function wheelReedWorld(wordContainerId){
-	// const timeSpaceingMs = 100;
 	const timeSpaceingMs = 150;
-	// elms = document.getElementsByClassName(clsSelect);
 	var querySelector = "#" + wordContainerId + " .divWhellRotatingBox";
 	var elms = document.querySelectorAll(querySelector);
 	for (var i = 0; i < elms.length; i++){
@@ -1048,9 +999,7 @@ function handleAnimationEndSpinning(arg){
 }
 
 function wheelingSpinAllWords(){
-	//wheelReedWorld("word1");
 	var wordIds= ["wheelWord1", "wheelWord2","wheelWord3"];
-	// const intervalMs = 700;
 	const intervalMs = 1050;
 	for(var i = 0; i < wordIds.length ; i++){
 		setTimeout(
@@ -1065,7 +1014,6 @@ function wheelingSpinAllWords(){
 function spreadAllLettersVer(){
 	elms= document.querySelectorAll("#divWheelContent .divWhellRotatingBox" );
 	for(i = 0; i < elms.length; i++){
-		//startSpredVer(elms[i], {x:0,y:0});
 		var elmInfo = {x:0,y:0}
 		//keep elms and their animation info, to ahnd over later to the next phase 
 		wordWheelCtx.elms.push(elms[i]);
@@ -1154,7 +1102,6 @@ function handleVerticalSpreadComplete(elm, elmInfo){
 	console.log("horizontal spread complete");
 	if(elm.id=="endParagargaphFlag"){
 		setTimeout(() => {
-			//startSpredHor(elm, elmInfo);
 			spreadAllLettersHor();
 		}, wordWheelCtx.preHorSpreadTimoutMs);
 	}
@@ -1186,9 +1133,6 @@ function moveTWheelElm(obj, objInfo){
 function wheelingStepToTarget(domElm, targetX, targetY,currentTranslateX, currentTranslateY,dxMs, dyMs, staticRotate){
 	
 	if(close (targetX, targetY,currentTranslateX, currentTranslateY)){
-		// return {tanslationX:currentTranslateX, translationY:currentTranslateY};
-		//console.log("targetX, targetY,currentTranslateX, currentTranslateY=" + 
-		//	targetX +";" + targetY +";" +  currentTranslateX+";" +  currentTranslateY);
 		return;
 	}
 	repostion(domElm, currentTranslateX, currentTranslateY, staticRotate);
@@ -1226,7 +1170,6 @@ function repostionOld2(domElm, transX, transY, staticRotate){
 //claculates dx and dy for given vector 
 //return dx and dy in px per miliSec 
 function calcAxisSpeeds(orgX,orgY,trgX,trgY, veloPxPSec){
-	//var  rawV = [trgX - orgX, trgY- orgY];
 	var rawVMag = Math.sqrt((trgX - orgX)**2 + (trgY- orgY)**2);
 	var dx= ((trgX - orgX) / rawVMag) * (veloPxPSec / 1000);
 	var dy= (trgY - orgY) / rawVMag * (veloPxPSec / 1000);
@@ -1258,7 +1201,6 @@ function freeFAllingStep(domElm,v_PxPSec,trnsX, trnsY,remainingFall,rotate, fps)
 		transStr = transStr + " rotate(" + rotate + "deg)";
 	}
 	domElm.style.transform= transStr;
-	//const framStranlateY = v_PxPSec * animationCtx.framesIntervalMs;
 	const framStranlateY = v_PxPSec * frameIntervalMs / 1000;
 	trnsY = trnsY + framStranlateY;
 	v_PxPSec= v_PxPSec + freeFallCtx.a_PxPerSecSqr * frameIntervalMs / 1000;
@@ -1307,7 +1249,6 @@ function wheelingOn(){
 }
 
 function resetWheeling(){
-	//wheelingElms = document.getElementsByClassName("wheeling");
 	wheelingElms = document.querySelectorAll(".divWheelBox *")
 	for(var i = 0 ; i < wheelingElms.length ; i++){
 		wheelingElms[i].style.transform = "";
@@ -1326,7 +1267,6 @@ function resetWheeling(){
 //----------------------------------------------theme clouds-------------------------------------------------------
 
 
-//const cloudColors = ["hsl(0,0%,0%)", "hsl(0,0%,20%)","hsl(0,0%,40%)", "hsl(0,0%,80%)"];
 
 const cloudColors = ["hsl(0, 0%,15%)", "hsl(0,0%,10%)","hsl(0,0%,5%)", "hsl(0,0%,0%)"];
 
@@ -1337,8 +1277,6 @@ function setUpLayer(layerDomELm, idx){
 	var oldLeftVal = extractLeftVal(layerDomELm.id);
 	var newLeftVal = oldLeftVal + idx * 200;
 	layerDomELm.style.left = newLeftVal + "px";
-	//color = rndColor();
-	 //colorStr = "hsl(" + color['h'] + "," + color['s'] + "%," + color['l'] + "%)";
 	colorStr = cloudColors[idx % (cloudColors.length + 1)];
  	layerDomELm.style.color = colorStr;
 
@@ -1358,26 +1296,7 @@ function f8(){
 	console.log("f8");
 }
 
-//get some random stauration and brightness of - magnetta 
-function rndColor(){
-	
-	/* sort of pale gree 
-	return {
-			'h':146,
-			's': Math.random() * 100,
-			'l': Math.random() * 100
-	} */
 
-	//grayscale 
-	return {/*'h':270,*/
-			'h':0,
-			's': 0,
-			'l': Math.random() * 50
-	}
-}
-
-
-//wheelingStepToTarget(domElm, targetX, targetY,currentTranslateX, currentTranslateY,dxMs, dyMs)
 
 //reuse...
 const moveThingToPlace = wheelingStepToTarget;
@@ -1386,9 +1305,6 @@ constCloudCtx = {
 	dxPxSecMin: 500,
 	dxPxSecMax: 1000
 }
-
-
-
 
 
 
@@ -1460,7 +1376,6 @@ function clearCloudsOff(){
 		elms[i].style.transform = "translate(" + trnsX + "px," + trnsY + "px)";
 
 		if(elms[i].id=="divLayer4"){
-			//elms[i].addEventListener("transitionend", handleCloudShfitComplete);
 			//standard
 			couldsCtx.currentPhase = couldsCtx.PHASE_SPREAD_OUT;
 			elms[i].addEventListener("transitionend", handleCloudShfitComplete);
@@ -1538,11 +1453,7 @@ function cloudCyclcComplete(){
 
 
 function transformCnstSpeed(domObj, trnsfParams, fps, durSec){
-	// const distance = Math.sqrt((tranformParams.trgTrsnsY- tranformParams.srcTrnsY)^^2 + 
-	// 	(tranformParams.trgTrsnsX- tranformParams.srcTrnsX)^^2);
-
 	const numFrames = fps * durSec;
-	
 	var dxPxFr = null;
 	var dyPxFr = null;
 	var dRotDegFr = null;
@@ -1574,7 +1485,6 @@ function transformCnstSpeed(domObj, trnsfParams, fps, durSec){
 	TranformStep(domObj, callParams, 1000/fps, numFrames, fps);
 }
 
-//function TranformStep(domObj, curTrsnslateX, curTranslateY, curRotate, dxPxFr, dyPxFr, dRotDeg, framesToGo, fps){
 function TranformStep(domObj, moveParams, intervalMs, framesToGo, fps){
 	if(framesToGo <= 0){
 		return;
@@ -1592,7 +1502,6 @@ function TranformStep(domObj, moveParams, intervalMs, framesToGo, fps){
 	);
 }
 
-//repostion(domElm, transX, transY, rotate)
 function repostion(domElm, transX, transY, rotate, scale){	
 	if(!transX){
 		transX=0;
@@ -1633,7 +1542,6 @@ const zoomStepConsts = {
 	maxScale:1.5,
 	minScale:.25,
 	
-		//const cycleDurMs = 1400;
 	stepUpDurMs:400,
 	stepDownDurMs:300,
 	postStepDownDurMs:0,
@@ -1767,8 +1675,7 @@ function zoomStep(domElm, orgX, orgY, dxStep, repetitions){
 	}, zoomStepConsts.stepUpDurMs + 100);
 	
 	//invoke next step
-	//orgX = trgX;
-	//orgY = trgY;
+	
 	setTimeout(function () {
 		zoomStep(domElm, trgX, trgY, dxStep, repetitions - 1)
 	}, zoomStepConsts.totalCycleLenMs * 2 + 400);
@@ -1801,7 +1708,6 @@ function shortSuquence(color){
 
 
 const zoomStepColors = {
-	//'colors' :  ["red", "blue"],
 	'colors' :  ["#ffc145", "#9f6900"],
 	'idx': 0
 }
@@ -1817,17 +1723,7 @@ const zoomStepsRunningCtx = {
 	//squenceActive:false
 }
 
-function resetSequenceZoomSteps(){
-
-	/* if(!zoomStepsRunningCtx.squenceActive){
-		return;
-	}
-	console.log("zoom steps reset");
-	zoomStepsRunningCtx.isStopped=true;
-	clearInterval(zoomStepsRunningCtx.walkBackIntervalId);
-	setInterval(reArmZoomStep,1500);
-	 */
-}
+function resetSequenceZoomSteps(){}
 
 function runSequenceZoomSteps(){
 	if(!zoomStepsRunningCtx.isArmed){
@@ -1835,7 +1731,6 @@ function runSequenceZoomSteps(){
 	}
 	console.log("runSequenceZoomSteps started a new squence");
 	zoomStepsRunningCtx.isArmed=false;
-	//zoomStepsRunningCtx.squenceActive=true;
 	repeatWithColorChange();
 }
 
@@ -1845,30 +1740,19 @@ function reArmZoomStep(curColor){
 	zoomStepColors.idx = (zoomStepColors.idx + 1 ) % (zoomStepColors.colors.length);
 	zoomStepsRunningCtx.isStopped=false;
 	zoomStepsRunningCtx.isArmed=true;
-	//zoomStepsRunningCtx.squenceActive=false;
 
 }
 
 
 function repeatWithColorChange(){
 	const curColor = zoomStepColors.colors[zoomStepColors.idx];
-	
-	/* rootSequenceZoomStep(curColor);
-	setTimeout(reArmZoomStep.bind(null,curColor), 12000);
- */
-
 	shortSuquence(curColor);
 	setTimeout(reArmZoomStep.bind(null,curColor), 5800);
-
-
-
 }
 
 function stomp(org){
 	//zoom out
-	//const domElm= document.getElementById("zoomFootL");
 	const domElm= document.getElementById("zoomFootR");
-
 	var trnfParams = {
 		srcTrnsX:org.x,
 		trgTrnsX:org.x,
@@ -1882,7 +1766,6 @@ function stomp(org){
 	transformCnstSpeed(domElm, trnfParams, 200, /*1*/ .8);
 	//zoom in
 	setTimeout(() => {
-		//const domElm= document.getElementById("zoomFootL");
 		var trnfParams = {
 		srcTrnsX:org.x,
 		trgTrnsX:org.x,
@@ -1980,8 +1863,6 @@ function startWavesVer(){
 				return;
 			}
 			waveCtx.flatenned= false;
-			/* var d = new Date(), e = new Date(d);
-			var msSinceMidnight = e - d.setHours(0,0,0,0) */
 			var msSinceMidnight = msSinceMidnightF();
 			drawVerWaves(msSinceMidnight, false);
 		},waveCtx.animIntervalMa);
@@ -2104,13 +1985,8 @@ function prepareWaves(){
 
 	//`physical wave*s such as those we see when a rock is thrown into water `;
 	
-	//var genHtml = split2D(textBlock, 40, 'char1', 'waveArr');
 	var genHtml = split2D(textBlock, waveCtx.charsInLines , 'char1', waveCtx, 'waveArr', 'ver');
-	
-	
 	document.getElementById('divDynContent').innerHTML = genHtml;
-	// drawHorWaves(null);
-	//drawVerWaves(9);
 }
 
 function wavesVerStatic(){
@@ -2125,7 +2001,6 @@ function drawVerWaves(tMs, flatten){
 		for(var j = 0; j < width; j++){
 			elm= document.getElementById(waveCtx.waveArr[i][j]);
 			x=j * waveCtx.spacingXPx;
-			// y = i * 40 + Math.sin( (tMs * waveCtx.periodsPerSec / 1000  +  j/ waveCtx.elementsPerPeriod) * 2*Math.PI) * waveCtx.amp;
 			y = i * waveCtx.spacingYPx;
 			if (!flatten){
 				y= y + Math.sin( (tMs * waveCtx.periodsPerSec / 1000  +  j/ waveCtx.elementsPerPeriod) * 2*Math.PI) * waveCtx.amp;
@@ -2216,12 +2091,7 @@ function drawHorWaves(tMs, flatten){
 			if (!flatten){
 				x= x + Math.sin( (tMs * horWaveCtx.periodsPerSec / 1000  +  j/ horWaveCtx.elementsPerPeriod) * 2*Math.PI) * horWaveCtx.amp;
 			}
-			
 			y = i * 40;
-			// if (!flatten){
-				// y= y + Math.sin( (tMs * horWaveCtx.periodsPerSec / 1000  +  j/ horWaveCtx.elementsPerPeriod) * 2*Math.PI) * horWaveCtx.amp;
-			// }
-
 			if(elm!=null){
 				elm.style.transform="translate(" + x +"px," + y + "px)";
 			}
@@ -2284,14 +2154,7 @@ function  drawStillHor(){
 }
 
 
-
-
-
 //-------------------------------------------scroll utils--------------------------------------------
-
-
-
-
 
 
 //detect dSpeed at constant intervals. wenn motion stops for a while, returns the heighest speed 
@@ -2308,19 +2171,14 @@ const scrollCtx = {
 	
 	varWavesHorMinActive:2200,
 	varWavesHorMaxActive:2700
-	
-	
+
 }
-
-
-
 
 function startScrollSample(){
 	setInterval(
 		checkScrollSpeed, scrollCtx.sampleSpeedIntervalMs
 	)
 }
-
 
 
 function checkScrollSpeed(){
@@ -2555,26 +2413,11 @@ function panelInViewSimpleSteps(){
 	return topPosInViewPort > 0 && topPosInViewPort < 1000;
 }
 
-/* function panelInViewFish(){
-	var topPosInViewPort = document.getElementById("viewpointDetectorFish").getBoundingClientRect().top;
-	return topPosInViewPort > 0 && topPosInViewPort < 1000;
-}
- */
 
 function inViewPort(panelViewName, bottomLimit, topLimit){
 	var topPosInViewPort = document.getElementById(panelViewName).getBoundingClientRect().top;
 	return topPosInViewPort >  bottomLimit && topPosInViewPort < topLimit;
 }
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -2617,22 +2460,12 @@ function testTumbleweedHop(){
 
 
 function testWeedRandSequence(){
-	// var pos1={
-		// 'x':0,
-		// 'y':0
-	// }
-	//var obj = document.getElementById('tumble1');
 	var elms = document.getElementsByClassName("tumbleWeed");
 	for(var i = 0; i< elms.length ; i++){
-	// for(var i = 0; i< 1 ; i++){
 		setTimeout(
-			// (function(obj){
-				// randHop(9, obj, pos1, 0);
-			// }).bind(null, elms[i])
 			randHop.bind(null, 11,  elms[i], {'x':0,'y':0}, 0)
 		, Math.random() * 1500)
 	}
-	//randHop(9, obj, pos1, 0);
 }
 
 
@@ -2694,14 +2527,8 @@ function tumbleHop(elm, rotDegSec, stopYPos, stopXposAbs, vxPxSec,vyPxSec, nextT
 	
 }
 
-
-
-
 //---------------------------------------------------------theme big swing -------------------------
 
-/* const ctxBigSwing = {
-	isRunning:false
-} */
 
 function trackTilt(elm){
 	
@@ -2736,7 +2563,6 @@ function trackTilt(elm){
 
 function initTiltTracking(){
 	const elm = document.getElementById("divBigSwingContainer");
-	//const bigSwingTiltTracker = setInterval(trackTilt.bind(null,elm), 20);
 	bigSwingCtx.trackingIntervalId = setInterval(trackTilt.bind(null,elm), 20);
 }
 
@@ -2784,25 +2610,7 @@ function stopBigSwing(){
 //---------------------------------------theme spasm------------------------------------------------------------
 
 const spasmCtx = {
-	/* transformMinDurMs:100,
-	transformMinMaxMs:700,
-	transformMinRatioPerFrameX:1.4,
-	transformMaxRatioPerFrameX:1.5,
-	transformMinRatioPerFrameY:1.4,
-	transformMaxRatioPerFrameY:1.5,
-	trnasformNmSpasmInSeq:8, 
-	baseLineScalePerFrame:1.1, 
-	fPs:50, 
-	framesPerSpasm:40, 
-	xXpanstionFactor:90,
-	yXpanstionFactor:8, 
-	hammerPauseMs: 200,
-	timeOutBeforeHideMs: 800,
-	startTimeRangeMs: 700,
-	waitTimeStrechedUp:1000,
-	xOffsetPx:250, 
-	yOffsetPx:200 */
-
+	
 	transformMinDurMs:100,
 	transformMinMaxMs:700,
 	transformMinRatioPerFrameX:1.04,
@@ -2826,17 +2634,13 @@ const spasmCtx = {
 
 
 function spasmPrepare(){
-	//const text = "moahve desert";
 	const text = "zur moab";
-	//const text = "d";
 	const letterSpacintPx = 80;
 	var elm;
 	var html = "";
 	for(var i = 0; i < text.length ; i++){
-		//var leftVal = i*letterSpacintPx;
 		var leftVal = i*letterSpacintPx + spasmCtx.xOffsetPx;
 		var topOffset = spasmCtx.yOffsetPx;
-		//elm = "<div class='classSpasmChar' style='top:100px;left:"+ leftVal +"px'>" + text[i] + "</div>";
 		elm = "<div class='classSpasmChar' style='top:" + topOffset + "px;left:"+ leftVal +"px'>" + text[i] + "</div>";
 		html= html.concat(elm);
 	}
@@ -2846,28 +2650,6 @@ function spasmPrepare(){
 
 
 
-function spasmScriptOld(){
-	// fComplete = function(){console.log("all spasms complete")};
-	// elm= document.getElementById("divSpasmChar1Container");
-	// spasmOut(8, fComplete, 1.0, 1.0, 1.0, elm);
-	
-	
-	
-	var waitTime;
-	var elms = document.querySelectorAll(".classSpasmChar");
-	const fComplete= function(){console.log("all spasms complete")};
-	for(var i = 0 ; i < elms.length; i++){
-		waitTime = 1000 * Math.random();
-		//spasmOut(8, fComplete, 1.0, 1.0, 1.0, elms[i]);
-		setTimeout(
-			function(elm){
-				spasmOut(8, fComplete, 1.0, 1.0, 1.0,elm);
-			}.bind(null, elms[i]), waitTime
-		);
-	}
-}
-
-
 function spasmScript(){
 	
 	var waitTime;
@@ -2875,10 +2657,8 @@ function spasmScript(){
 	const fComplete= function(){console.log("all spasms complete")};
 	for(var i = 0 ; i < elms.length; i++){
 		waitTime = spasmCtx.startTimeRangeMs * Math.random();
-		//spasmOut(8, fComplete, 1.0, 1.0, 1.0, elms[i]);
 		setTimeout(
 			function(elm){
-				//spasmOut(8, fComplete, 1.0, 1.0, 1.0,elm);
 				spasmSequence(elm);
 			}.bind(null, elms[i]), waitTime
 		);
@@ -2901,15 +2681,9 @@ function randRatioSpasmY(){
 
 function spasm(spasmsToGo, fCompleteAllSpasms, baselineScale, curScaleX,ratioXPerFrame, curScaleY, ratioYPerFrame, fCompleteThisSpasm, elm){
 	if(spasmsToGo == 0){
-		//fCompleteAllSpasms(absScaleX, absScaleY);
 		fCompleteAllSpasms(curScaleX, curScaleY, elm);
 		return;
 	}	
-	
-	// curScaleX = curScaleX * baselineScale;
-	// curScaleY = curScaleY * baselineScale;
-	// baselineScale = baselineScale * spasmCtx.baseLineScalePerFrame;
-	
 	
 	spasmStep(spasmCtx.framesPerSpasm, baselineScale, curScaleX,ratioXPerFrame, curScaleY, ratioYPerFrame ,fCompleteThisSpasm, elm);
 }
@@ -2940,9 +2714,7 @@ function spasmOut(spasmsToGo, fCompleteAllSpasms, baselineScale, curScalex, curS
 
 //scale back to baseLineScale
 function spasmIn(spasmsToGo, fCompleteAllSpasms, baselineScale, curScalex, curScaleY, elm ){
-	// const scaleOutXPerFrame = Math.pow( (baselineScale/(curScalex * spasmCtx.yXpanstionFactor )), 1/spasmCtx.framesPerSpasm);
-	// const scaleOutYPerFrame = Math.pow( (baselineScale/(curScaleY * spasmCtx.xXpanstionFactor )), 1/spasmCtx.framesPerSpasm);
-	
+		
 	const scaleOutXPerFrame = Math.pow( (baselineScale/(curScalex * 1 )), 1/spasmCtx.framesPerSpasm);
 	const scaleOutYPerFrame = Math.pow( (baselineScale/(curScaleY * 1 )), 1/spasmCtx.framesPerSpasm);
 	const fCompleteThisSpasm = spasmOut.bind(null, spasmsToGo - 1, fCompleteAllSpasms);
@@ -2959,7 +2731,6 @@ function spasmStep(numSpteps, baselineScale, curScaleX, ratioXPerStep, curScaleY
 		return;
 	}
 	
-	//if(elm == null)
 	if (elm==null || typeof elm == 'undefined' || typeof elm.style == 'undefined')
 	{		
 		console.log("elm is nulö");
@@ -2968,13 +2739,7 @@ function spasmStep(numSpteps, baselineScale, curScaleX, ratioXPerStep, curScaleY
 
 	curScaleX = curScaleX * ratioXPerStep;
 	curScaleY = curScaleY * ratioYPerStep;
-	
-	
-	//elm.style.transform = "scale(" + curScaleX *  spasmCtx.xXpanstionFactor + ","  + curScaleY * spasmCtx.yXpanstionFactor +")";
 	elm.style.transform = "scale(" + curScaleX  + ","  + curScaleY  +")";
-
-	
-	
 	setTimeout(
 	function(){
 		spasmStep(numSpteps-1, baselineScale, curScaleX, ratioXPerStep, curScaleY, ratioYPerStep ,fCompleteAllSteps, elm);
@@ -3009,12 +2774,6 @@ function expendStep(elm, stepsLeft, curScaleX , xRatioPerFrame, curScaleY, yRati
 
 
 function testHmmerDown(){
-	// var elm = document.getElementById("divSpasmChar1Container");
-	// const fComplete = function(){
-		// console.log("hammering test complete");
-	// }
-	
-	// hammerDown(4, fComplete, elm, 8.0, 8.0);
 	
 	var elm = document.getElementById("divSpasmChar1Container");
 	hammerPhase1(elm, 8.0, 8.0);
@@ -3094,7 +2853,6 @@ function spasmSequence(elm){
 		expend(elm, 15, curScaleX , 1.0, curScaleX, 1.22, 
 		function(elm, curXScale, curYScale){
 			//console.log("completed pump out ver");
-			//hammerPhase1(elm, curXScale, curYScale);
 			setTimeout(
 				function(){hammerPhase1(elm, curXScale, curYScale)}
 			,spasmCtx.waitTimeStrechedUp);
@@ -3105,8 +2863,6 @@ function spasmSequence(elm){
 		//console.log("end pump phase")
 	};
 	expend(elm, 10, 0.1 , 1.1, 0.1, 1.1, fCompleteInitExp);
-	//expend(elm, 100, 0.1 , 1.1, 0.1, 1.1, fCompleteInitExp);
-
 }
 
 
@@ -3150,9 +2906,6 @@ var bottomCtx = {
 	numberOfElm:30000,
 	//multiple values represent mulitple bottom lines 
 	sinkDistancesPx:[300, 350, 400], 
-	/* randSinkMin:300,
-	randSinkMax:400, */
-
 	randSinkMin:600,
 	randSinkMax:650,
 	//selfDestructionTimeoutMs:1000 * 50
@@ -3160,7 +2913,6 @@ var bottomCtx = {
 };
 
 function randSinkD(){
-	//return bottomCtx.sinkDistancesPx[Math.floor(Math.random() * bottomCtx.sinkDistancesPx.length)];
 	return Math.random() * (bottomCtx.randSinkMax - bottomCtx.randSinkMin) +  bottomCtx.randSinkMin;
 }
 
@@ -3209,7 +2961,6 @@ function rainDebry(){
 function createRandomElmOld(parentElm){
 	var x = Math.random() * bottomCtx.xRange;
 	var rotRate = Math.random() * (bottomCtx.rotMaxDegSec - bottomCtx.rotMinDegSec) + bottomCtx.rotMinDegSec;
-	//var c = 'y';
 	var c= randChar();
 	var id = "divDerbyElm" + bottomCtx.elmId;
 	var newElmHtml = "<div id=" + id + " class=debryElm>" + c + "<div>";
@@ -3231,10 +2982,8 @@ function createRandomElmOld(parentElm){
 function createRandomElm(parentElm){
 	var x = Math.random() * bottomCtx.xRange;
 	var rotRate = Math.random() * (bottomCtx.rotMaxDegSec - bottomCtx.rotMinDegSec) + bottomCtx.rotMinDegSec;
-	//var c = 'y';
 	var c= randChar();
 	var id = "divDerbyElm" + bottomCtx.elmId;
-	//var newElmHtml = "<div id=" + id + " class=debryElm>" + c + "<div>";
 	var newElm = document.createElement("div");
 	newElm.setAttribute("id", id);
 	newElm.setAttribute("class", "debryElm");
@@ -3310,7 +3059,6 @@ function preJumpSteupUpdate(jumpParams){
 
 function moveElm(dElm, jumpParams){
 	var trxStr = 
-	//"scale("+jumpParams.scaleX+","+jumpParams.scaleY+") translate("+jumpParams.x+"px"+","+jumpParams.y +"px)";
 	"translate("+jumpParams.x+"px"+","+jumpParams.y +"px) scale("+jumpParams.scaleX+","+jumpParams.scaleY+")"; 
 	dElm.style.transform=trxStr;
 }
@@ -3328,7 +3076,6 @@ function fullyCompressed(jumpParams){
 
 function hopCompleteGH2(dElm,jumpParams){
 	if(jumpParams.remainingJump==0){
-		//rollerCycleComplete(dElm,jumpParams);
 		if(dElm.id=="ghNoTo3"){
 			gh2CycleComplete();
 		}
@@ -3349,7 +3096,6 @@ function hitTheGround(jumpParams){
 function gh2Cycle(elm,initX, initY1){
 	var jumpParams = {
 		vy:0,
-		//y:0,
 		x:initX,
 		y:initY1,
 		scaleY:1,
@@ -3373,7 +3119,6 @@ function gh2SequenceBunch(){
 	for(var i = 0; i < elms.length; i++){
 		elm=elms[i];
 		elm.style.left = (Math.random() * gh2Ctx.initOffsetRange  - 150) + "px";
-		//gh2Cycle(elm,0,0);
 		setTimeout(gh2Cycle.bind(null,elm,0,0), 
 		Math.random() * gh2Ctx.timingPhaseRangeMs);
 	}
@@ -3515,13 +3260,11 @@ function switchFoot(){
 function liftFootStep(elm){
 	var walkInfo=feetTranformInfos[elm.id];
 	if(footReachedTop(walkInfo)){
-		//dropFootStep(elm, walkInfo)
 		dropFootStep(elm);
 		return;
 	}
 	updateLiftFootWalkInfo(walkInfo);
 	moveFoot(elm, walkInfo);
-	//setTimeout(liftFootStep.bind(null, elm), animIntervalMs);
 	setTimeout(() => {
 		liftFootStep(elm);
 	}, animIntervalMs);
@@ -3545,11 +3288,7 @@ function updateDropFootWalkInfo(walkInfo){
 function  moveFoot(dElm, walkInfo){
 	var x1 = + walkInfo.offset + walkInfo.x;
 	var trxStr = 
-	//"translate("+ walkInfo.x + "px,0px) scale("+ walkInfo.scale + ")"; 
-	
-	
 	"translate("+ x1 + "px,0px) scale("+ walkInfo.scale + ")"; 
-	//"translate("+ walkInfo.x + 700 + "px,0px) scale("+ walkInfo.scale + ")"; 
 	dElm.style.transform=trxStr;
 }
 
@@ -3563,7 +3302,6 @@ function dropFootStep(elm){
 	}
 	updateDropFootWalkInfo(walkInfo);
 	moveFoot(elm, walkInfo);
-	//setTimeout(dropFootStep.bind(null, elm, walkInfo), animIntervalMs);
 	setTimeout(() => {
 		dropFootStep(elm);
 	}, animIntervalMs);
@@ -3731,9 +3469,6 @@ const spasm2Ctx = {
 	randSpasmMin:2,
 	randSpasmMax:6,
 
-	/* pulseOutTimeSec:1.2,
-	pulseInTimeSec:0.1, */
-
 	pulseOutTimeSec:0.6,
 	waitBetweenPulsesSec:0.3,
 	pulseInTimeSec:0.6,
@@ -3772,8 +3507,6 @@ const testScalePerFrameLine = (spasm2Ctx.testMaxScaleHor - 1.0) / (spasm2Ctx.tes
 function spasmScaleSp2Step(obj, dScalePerFramX, dScalePerFramY, objInfo, remainingFrames){
 	if(remainingFrames == 0){
 		//console.log("spasm complete");
-		/* testSp2Ctx.objInfo = objInfo;
-		testSp2Ctx.obj = obj; */
 		fSpasmComplete(obj, objInfo);
 		return;
 	}
@@ -3908,7 +3641,6 @@ function randSpasmParams(){
 function startPreHammer(obj,objInf){
 	objInf.nmSpasmLeft = objInf.nmSpasmLeft-1;
 	objInf.mode=spasm2Ctx.PHASE_PRE_HAMMER;
-	//startSpasmSP2(obj, objInf, 1, 8, 0.8);
 	startSpasmSP2(obj, objInf, 1, spasm2Ctx.preHammerYScale, spasm2Ctx.preHammerTimeMs / 1000);
 }
 
@@ -3935,7 +3667,6 @@ function hammerHit(obj,objInf){
 
 function handleHammerHitComplete(obj,objInf){
 	if(objInf.nmHammerLeft==0){
-		//handleHammerSeriesComplete();
 		setTimeout(() => {
 			startBounceBack(obj,objInf);
 		}, spasm2Ctx.preBounceBackTimeSec * 1000);
@@ -4015,15 +3746,6 @@ function ohWiperSetClassList(classList){
 	for(i = 0 ; i < ohWipers.length; i++){
 		ohWipers[i].setAttribute("class", classList);
 
-		
-		
-	/* 	//just for testing
-		if(i==0){
-			//opera, chrome
-			ohWipers[i].addEventListener("webkitAnimationEnd", testAnimationEndEvent);
-			//standard
-			ohWipers[i].addEventListener("animationend", testAnimationEndEvent);
-		} */
 	}
 }
 
