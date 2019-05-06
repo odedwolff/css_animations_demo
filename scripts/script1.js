@@ -623,7 +623,7 @@ function clearSwimming(){
 /*-------------------------------------------------------simple steps--------------------------------------------------*/
 const simpleStepsCtx = {
 	isRunning:false,
-	stepsPersSession:12,
+	stepsPersSession:9,
 	timeBetweenTespsMs:400, 
 	vanishTimoutMs:2000,
 	traceOpacity:0.3, 
@@ -735,7 +735,7 @@ function startWalkingNoCss(){
 			+ simpleStepsCtx.timeBetweenTespsMs / 2, rightFoot);
 	}
 	setTimeout(sessionComplete,
-		 simpleStepsCtx.timeBetweenTespsMs * simpleStepsCtx.stepsPersSession);
+		 simpleStepsCtx.timeBetweenTespsMs * ( simpleStepsCtx.stepsPersSession - 0));
 }
 
 
@@ -951,7 +951,7 @@ const wordWheelCtx = {
 	preVerSpreadTimoutMs:300,
 	preHorSpreadTimoutMs:400,
 	preFreeFallTimoutMs:400,
-	preResetTimeoutMs:300,
+	preResetTimeoutMs:500,
 	elms:[],
 	elmInfos:[],
 	freeFallDPx:600
