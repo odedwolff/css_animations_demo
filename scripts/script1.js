@@ -22,6 +22,9 @@ function init(){
 	setupCloudLayers();
 
 	preProcessFlashing();
+
+	initOhWipers();
+
 	
 }
 
@@ -3714,7 +3717,19 @@ function handleSequenceComplete(obj,objInf){
 /**********************************overhead wiper********************************* */
 
 
-
+const ohWiperCtx = {
+	isRunning:false, 
+	PROGRAM1:1,
+	PROGRAM2:2,
+	PROGRAM3:3,
+	currentPorgram:null,
+	ANIMATION_NAME_SLIDE_IN:"kFramesOhWipersSlideIn",
+	ANIMATION_NAME_SLIDE_OUT:"kFramesOhWipersSlideOut",
+	ANIMATION_NAME_RUN1:"kFramesOhWipersRun1",
+	ANIMATION_NAME_RUN2:2,
+	ANIMATION_NAME_RUN3:2,
+	
+}
 
 function ohWiperSlideIn(){
 	ohWiperSetClassList("overheadWiper ohWiperSlideIn");
@@ -3737,6 +3752,59 @@ function ohWiperRun3(){
 	ohWiperSetClassList("overheadWiper ohWiperRun3");
 }
 
+
+function initOhWipers(){
+	setEventListenerOhWiper();
+}
+
+
+function setEventListenerOhWiper(){
+	var ohWipers = document.getElementsByClassName("overheadWiper");
+	for(i = 0 ; i < ohWipers.length; i++){
+		ohWipers[i].addEventListener("animationend", handleAnimationEndOhWiper);
+	}
+}
+
+function handleAnimationEndOhWiper(anmInfo){
+	switch(ohWiperCtx.currentPorgram){
+		case ohWiperCtx.PROGRAM1:
+			handleAnimationEndOhWiperProg(anmInfo, ohWiperRun1) ;
+			return;
+		case ohWiperCtx.PROGRAM2:
+		case ohWiperCtx.PROGRAM3:
+		default:
+			console.log("ERROR, unexpected oh wiper program:" + ohWiperCtx.currentPorgram);
+	}
+}
+
+function handleAnimationEndOhWiperProg(anmInfo, runFunc){
+	switch(anmInfo["animationName"]){
+		case ohWiperCtx.ANIMATION_NAME_SLIDE_IN:
+			//ohWiperRun1();
+			runFunc();
+			return;
+		case ohWiperCtx.ANIMATION_NAME_RUN1:
+		case ohWiperCtx.ANIMATION_NAME_RUN2:
+		case ohWiperCtx.ANIMATION_NAME_RUN3:
+			ohWiperSlideOut();
+			return;
+		case ohWiperCtx.ANIMATION_NAME_SLIDE_OUT:
+			handleOhWiperSeqComplete();
+			return;
+		default:
+			console.log("invalide animation name:" + anmInfo["animationName"]);
+	}
+}
+
+function handleOhWiperSeqComplete(){
+	console.log("oh wiper sequence complete");
+}
+
+
+function ohWiperSeqStb1(){
+	ohWiperCtx.currentPorgram=ohWiperCtx.PROGRAM1;
+	ohWiperSlideIn();
+}
 
 
 
@@ -3783,5 +3851,7 @@ function ohWiperSequence3(){
 		}, 2700);
 	}, 1050);
 }
+
+
 
 
