@@ -3739,6 +3739,7 @@ const ohWiperCtx = {
 	PROGRAM2:2,
 	PROGRAM3:3,
 	currentPorgram:null,
+	argNm:null,
 	ANIMATION_NAME_SLIDE_IN:"kFramesOhWipersSlideIn",
 	ANIMATION_NAME_SLIDE_OUT:"kFramesOhWipersSlideOut",
 	ANIMATION_NAME_RUN1:"kFramesOhWipersRun1",
@@ -3819,10 +3820,15 @@ function handleAnimationEndOhWiperProg(anmInfo, runFunc){
 function handleOhWiperSeqComplete(){
 	console.log("oh wiper sequence complete");
 	ohWiperCtx.isRunning=false;
+	//ohWiperCtx.argNm=null;
 }
 
 
 function triggerOhWipers(pogramNm){
+	//don't let the same program run back to back 
+	if(ohWiperCtx.argNm==pogramNm){
+		return;
+	}
 	if(ohWiperCtx.isRunning){
 		return;
 	}
@@ -3842,6 +3848,7 @@ function triggerOhWipers(pogramNm){
 			console.log("ERROR- unexpceted program nummber arg:" + pogramNm);
 	}
 	ohWiperCtx.currentPorgram=prgSymbl;
+	ohWiperCtx.argNm=pogramNm;
 	ohWiperSlideIn();
 }
 
@@ -3850,7 +3857,6 @@ function ohWiperSetClassList(classList){
 	var ohWipers = document.getElementsByClassName("overheadWiper");
 	for(i = 0 ; i < ohWipers.length; i++){
 		ohWipers[i].setAttribute("class", classList);
-
 	}
 }
 
