@@ -3804,7 +3804,7 @@ function handleOhWiperSeqComplete(){
 	console.log("oh wiper sequence complete");
 }
 
-
+/* 
 function ohWiperSeqStb1(){
 	ohWiperCtx.currentPorgram=ohWiperCtx.PROGRAM1;
 	ohWiperSlideIn();
@@ -3819,6 +3819,31 @@ function ohWiperSeqStb3(){
 	ohWiperCtx.currentPorgram=ohWiperCtx.PROGRAM3;
 	ohWiperSlideIn();
 }
+
+ */
+function triggerOhWipers(pogramNm){
+	var prgSymbl;
+	switch(pogramNm){
+		case 1:
+			prgSymbl = ohWiperCtx.PROGRAM1;
+			break;
+		case 2:
+			prgSymbl = ohWiperCtx.PROGRAM2;
+			break;
+		case 3:
+			prgSymbl = ohWiperCtx.PROGRAM3;
+			break;
+		default:
+			console.log("ERROR- unexpceted program nummber arg:" + pogramNm);
+	}
+	ohWiperCtx.currentPorgram=prgSymbl;
+	ohWiperSlideIn();
+}
+
+
+
+
+
 
 
 
@@ -3835,7 +3860,7 @@ function testAnimationEndEvent(arg){
 	console.log(arg["animationName"] == "kFramesOhWipersSlideIn");
 }
 
-
+/* 
 function ohWiperSequence1(){
 	ohWiperSlideIn();
 	setTimeout(() => {
@@ -3867,5 +3892,5 @@ function ohWiperSequence3(){
 }
 
 
-
+ */
 
