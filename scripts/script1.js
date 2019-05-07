@@ -3726,8 +3726,8 @@ const ohWiperCtx = {
 	ANIMATION_NAME_SLIDE_IN:"kFramesOhWipersSlideIn",
 	ANIMATION_NAME_SLIDE_OUT:"kFramesOhWipersSlideOut",
 	ANIMATION_NAME_RUN1:"kFramesOhWipersRun1",
-	ANIMATION_NAME_RUN2:2,
-	ANIMATION_NAME_RUN3:2,
+	ANIMATION_NAME_RUN2:"kFramesOhWipersRun2",
+	ANIMATION_NAME_RUN3:"kFramesOhWipersRun3"
 	
 }
 
@@ -3771,7 +3771,11 @@ function handleAnimationEndOhWiper(anmInfo){
 			handleAnimationEndOhWiperProg(anmInfo, ohWiperRun1) ;
 			return;
 		case ohWiperCtx.PROGRAM2:
+			handleAnimationEndOhWiperProg(anmInfo, ohWiperRun2) ;
+			return;
 		case ohWiperCtx.PROGRAM3:
+			handleAnimationEndOhWiperProg(anmInfo, ohWiperRun3) ;
+			return;
 		default:
 			console.log("ERROR, unexpected oh wiper program:" + ohWiperCtx.currentPorgram);
 	}
@@ -3803,6 +3807,16 @@ function handleOhWiperSeqComplete(){
 
 function ohWiperSeqStb1(){
 	ohWiperCtx.currentPorgram=ohWiperCtx.PROGRAM1;
+	ohWiperSlideIn();
+}
+
+function ohWiperSeqStb2(){
+	ohWiperCtx.currentPorgram=ohWiperCtx.PROGRAM2;
+	ohWiperSlideIn();
+}
+
+function ohWiperSeqStb3(){
+	ohWiperCtx.currentPorgram=ohWiperCtx.PROGRAM3;
 	ohWiperSlideIn();
 }
 
