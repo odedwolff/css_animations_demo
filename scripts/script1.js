@@ -2206,6 +2206,7 @@ function checkScrollSpeed(){
 	enableGiantSteps();
 	enableSpasm2();
 	enableGH2();
+	enableOhWiper();
 
 	if(currentPos == scrollCtx.lastYposition){
 		return;
@@ -2364,6 +2365,21 @@ function enableSpasm2(){
 function enableGH2(){
 	if(inViewPort("viewpointDetectorGh2", 200, 700)){
 		triggerGH2();
+	}
+}
+
+function enableOhWiper(){
+	if(inViewPort("ohScrollDetector1", 200, 700)){
+		triggerOhWipers(1);
+		return;
+	}
+	if(inViewPort("ohScrollDetector2", 200, 700)){
+		triggerOhWipers(2);
+		return;
+	}
+	if(inViewPort("ohScrollDetector3", 200, 700)){
+		triggerOhWipers(3);
+		return;
 	}
 }
 
@@ -3802,26 +3818,15 @@ function handleAnimationEndOhWiperProg(anmInfo, runFunc){
 
 function handleOhWiperSeqComplete(){
 	console.log("oh wiper sequence complete");
+	ohWiperCtx.isRunning=false;
 }
 
-/* 
-function ohWiperSeqStb1(){
-	ohWiperCtx.currentPorgram=ohWiperCtx.PROGRAM1;
-	ohWiperSlideIn();
-}
 
-function ohWiperSeqStb2(){
-	ohWiperCtx.currentPorgram=ohWiperCtx.PROGRAM2;
-	ohWiperSlideIn();
-}
-
-function ohWiperSeqStb3(){
-	ohWiperCtx.currentPorgram=ohWiperCtx.PROGRAM3;
-	ohWiperSlideIn();
-}
-
- */
 function triggerOhWipers(pogramNm){
+	if(ohWiperCtx.isRunning){
+		return;
+	}
+	ohWiperCtx.isRunning=true;
 	var prgSymbl;
 	switch(pogramNm){
 		case 1:
@@ -3841,13 +3846,6 @@ function triggerOhWipers(pogramNm){
 }
 
 
-
-
-
-
-
-
-
 function ohWiperSetClassList(classList){
 	var ohWipers = document.getElementsByClassName("overheadWiper");
 	for(i = 0 ; i < ohWipers.length; i++){
@@ -3860,37 +3858,5 @@ function testAnimationEndEvent(arg){
 	console.log(arg["animationName"] == "kFramesOhWipersSlideIn");
 }
 
-/* 
-function ohWiperSequence1(){
-	ohWiperSlideIn();
-	setTimeout(() => {
-		ohWiperRun1();
-		setTimeout(() => {
-			ohWiperSlideOut();
-		}, 3250);
-	}, 1050);
-}
 
-function ohWiperSequence2(){
-	ohWiperSlideIn();
-	setTimeout(() => {
-		ohWiperRun2();
-		setTimeout(() => {
-			ohWiperSlideOut();
-		}, 3250);
-	}, 1050);
-}
-
-function ohWiperSequence3(){
-	ohWiperSlideIn();
-	setTimeout(() => {
-		ohWiperRun3();
-		setTimeout(() => {
-			ohWiperSlideOut();
-		}, 2700);
-	}, 1050);
-}
-
-
- */
 
