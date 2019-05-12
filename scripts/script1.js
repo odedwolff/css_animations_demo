@@ -25,7 +25,7 @@ function init(){
 
 	initOhWipers();
 
-	
+	rainDebry();
 }
 
 
@@ -2911,10 +2911,10 @@ function spasmScriptComplete(){
 var bottomCtx = {
 	dyMin:10,
 	dyMax:40,
-	fPs:20,
+	fPs:50,
 	noDerbyElm:20, 
 	//intervalRainMs:1000,
-	intervalRainMs:6000,
+	intervalRainMs:3000,
 	elmId:0,
 	intervalId:null,
 	rotMinDegSec:-30,
@@ -2924,9 +2924,10 @@ var bottomCtx = {
 	sinkPx:200,
 	numberOfElm:30000,
 	//multiple values represent mulitple bottom lines 
-	sinkDistancesPx:[300, 350, 400], 
-	randSinkMin:600,
-	randSinkMax:650,
+	//sinkDistancesPx:[300, 350, 400], 
+	sinkDistancesPx:[150, 170, 200], 
+	randSinkMin:250,
+	randSinkMax:350,
 	//selfDestructionTimeoutMs:1000 * 50
 	selfDestructionTimeoutMs:1000 * 150
 };
