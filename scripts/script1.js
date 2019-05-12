@@ -1111,10 +1111,18 @@ function handleVerticalSpreadComplete(elm, elmInfo){
 }
 
 function handleHorizontalSpreadComplete(elm, elmInfo){
+/* 
 	console.log("horizontal spread complete");	
 	setTimeout(() => {
 		makeAllElmsFreeFall();
 	},  wordWheelCtx.preFreeFallTimoutMs);
+ */
+
+	if(elm.id=="endParagargaphFlag"){
+		setTimeout(() => {
+			makeAllElmsFreeFall();
+		}, wordWheelCtx.preFreeFallTimoutMs);
+	}
 }
 
 
