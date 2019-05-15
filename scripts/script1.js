@@ -3873,5 +3873,120 @@ function testAnimationEndEvent(arg){
 	console.log(arg["animationName"] == "kFramesOhWipersSlideIn");
 }
 
+/**----------------theme bottom2------------------------------------ */
 
+const bottom2Ctx = {
+	nmElm:10, 
+	elms:[],
+	elmStates:[],
+	activeElmIdx:0,
+	minRotSpeedDegSec:0, 
+	maxRotSpeedDegSec:180,
+	leftLimit:0,
+	rightLimit:600,
+	minSink:300, 
+	maxSink:320, 
+	minSinkVelPxSec:10, 
+	maxSinkVelPxSec:80,
+	A_pxSecSqr:10, 
+	fps:50, 
+	phaseDiffMs:1000,
+	//the depth at which active element triggers sinking of the following elm 
+	nextElmTriggerDepth:200,
+	
+}
+
+const sink2Timout = 1000 / bottom2Ctx.fps;
+
+function initBottom2(){
+	var parentElm = document.getElementById("divBottom2Content");
+	for (let index = 0; index < bottom2Ctx.nmElm; index++) {
+		const domelm = createBottom2Element();
+		bottom2Ctx.elms.push(domelm);
+		const elmInfo = createBottom2ElmState();
+		bottom2Ctx.elmStates.push(elmInfo);
+		//parentElm.innerHTML.concat(domelm);
+		parentElm.appendChild(domelm);
+	}
+	startSinkNextElm();
+}
+
+function startSinkNextElm(){
+	startSink(bottom2Ctx.elms[bottom2Ctx.activeElmIdx], bottom2Ctx.elmStates[bottom2Ctx.activeElmIdx]);
+	bottom2Ctx.activeElmIdx = (bottom2Ctx.activeElmIdx + 1) % bottom2Ctx.elms.length;
+}
+	
+
+
+function createBottom2Element(){
+	var newElm = document.createElement("div");
+	//newElm.setAttribute("id", id);
+	newElm.setAttribute("class", "bottom2Elm");
+	newElm.innerHTML = randChar();
+	console.log("added new elm:" + newElm);
+	return newElm;
+}
+
+
+
+function createBottom2ElmState(){
+	return {
+		hidden:false,
+		x:0,
+		y:0,
+		rotDeg:0,
+	}
+}
+
+function randRotSpeed(){
+	return (bottom2Ctx.maxRotSpeedDegSec - bottom2Ctx.minRotSpeedDegSec) * Math.random() + bottom2Ctx.minRotSpeedDegSec;
+}
+
+
+function startSink(elm, elmState){
+	elmState.y=0;
+	elmState.x = (bottom2Ctx.rightLimit - bottom2Ctx.leftLimit) * Math.random() + bottom2Ctx.leftLimit;
+	elmState.sinkToGo = (bottom2Ctx.maxSink - bottom2Ctx.minSink) * Math.random() + bottom2Ctx.minSink;
+	elmState.vy = (bottom2Ctx.maxSinkVelPxSec - bottom2Ctx.minSinkVelPxSec) * Math.random() + bottom2Ctx.minSinkVelPxSec;
+	elmState.rotSpeedDegSec=randRotSpeed();
+	elmState.startSinkTime = msSinceMidnight();
+	elmState.alreadyTriggered = false;
+	sinkStep(elm, elmState);
+}
+
+function msSinceMidnight() {
+	d = new Date();
+  var e = new Date(d);
+  return d - e.setHours(0,0,0,0);
+}
+
+
+
+function sinkStep(elm, elmState){
+	if(elmState.sinkToGo <= 0 ){
+		handleSinkComplete(elm, elmState);
+		return;
+	}
+
+	const t = (msSinceMidnight()- elmState.startSinkTime) / 1000;
+	const sinkD = t * elmState.vy + 1/2 * bottom2Ctx.A_pxSecSqr * t;
+	const sinkAmountLastFrame = sinkD - elmState.y;
+	elmState.y = sinkD;
+	if(	sinkD >= bottom2Ctx.nextElmTriggerDepth  && ! elmState.alreadyTriggered){
+		elmState.alreadyTriggered = true;
+		startSinkNextElm();
+	}
+	const rot = t * elmState.rotSpeedDegSec;
+	const transitStr = "translate(" + elmState.x  + "px," + elmState.y + "px) rotate(" + rot + "deg)"
+	elm.style.transform = transitStr;
+	
+	setTimeout(() => {
+		elmState.sinkToGo = elmState.sinkToGo - sinkAmountLastFrame;
+		sinkStep(elm, elmState);
+	}, sink2Timout);
+}
+
+function handleSinkComplete(elm, elmState){
+	console.log("sink2 complete")
+}
 
