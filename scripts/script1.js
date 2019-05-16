@@ -26,6 +26,8 @@ function init(){
 	initOhWipers();
 
 	//rainDebry();
+
+	initBottom2();
 }
 
 
@@ -3876,16 +3878,16 @@ function testAnimationEndEvent(arg){
 /**----------------theme bottom2------------------------------------ */
 
 const bottom2Ctx = {
-	nmElm:10, 
+	nmElm:150, 
 	elms:[],
 	elmStates:[],
 	activeElmIdx:0,
-	minRotSpeedDegSec:0, 
+	minRotSpeedDegSec:-180, 
 	maxRotSpeedDegSec:180,
 	leftLimit:0,
-	rightLimit:600,
-	minSink:300, 
-	maxSink:320, 
+	rightLimit:1000,
+	minSink:400, 
+	maxSink:450, 
 	minSinkVelPxSec:10, 
 	maxSinkVelPxSec:80,
 	A_pxSecSqr:10, 
@@ -3912,7 +3914,9 @@ function initBottom2(){
 }
 
 function startSinkNextElm(){
-	startSink(bottom2Ctx.elms[bottom2Ctx.activeElmIdx], bottom2Ctx.elmStates[bottom2Ctx.activeElmIdx]);
+	var nextElm = bottom2Ctx.elms[bottom2Ctx.activeElmIdx];
+	nextElm.style.opacity=1;
+	startSink(nextElm, bottom2Ctx.elmStates[bottom2Ctx.activeElmIdx]);
 	bottom2Ctx.activeElmIdx = (bottom2Ctx.activeElmIdx + 1) % bottom2Ctx.elms.length;
 }
 	
@@ -3923,6 +3927,7 @@ function createBottom2Element(){
 	//newElm.setAttribute("id", id);
 	newElm.setAttribute("class", "bottom2Elm");
 	newElm.innerHTML = randChar();
+	newElm.style.opacity=0;
 	console.log("added new elm:" + newElm);
 	return newElm;
 }
