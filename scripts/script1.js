@@ -963,7 +963,7 @@ const wordWheelCtx = {
 }
 
 const freeFallCtx = {
-	a_PxPerSecSqr:250.0,
+	a_PxPerSecSqr:0.01,
 	thrshClosePx: 50
 }
 
@@ -1040,8 +1040,10 @@ function spreadAllLettersHor(){
 function makeAllElmsFreeFall(){
 	elms= wordWheelCtx.elms;
 	elmsInfo = wordWheelCtx.elmInfos;
+	const now = msSinceMidnight();
 	for(i = 0; i < elms.length; i++){
-		freeFAllingStep(elms[i], 0, elmsInfo[i].x, elmsInfo[i].y,wordWheelCtx.freeFallDPx,180, wordWheelCtx.fps);
+		//freeFAllingStep(elms[i], 0, elmsInfo[i].x, elmsInfo[i].y,wordWheelCtx.freeFallDPx,180, wordWheelCtx.fps);
+		freeFAllingStep(elms[i],elmsInfo[i].x, elmsInfo[i].y, 0,wordWheelCtx.freeFallDPx,180, wordWheelCtx.fps, now);
 	}
 	
 }
@@ -1198,7 +1200,7 @@ function calcAxisSpeeds(orgX,orgY,trgX,trgY, veloPxPSec){
 
 
 
-function freeFAllingStep(domElm,v_PxPSec,trnsX, trnsY,remainingFall,rotate, fps){
+function freeFAllingStepOld(domElm,v_PxPSec,trnsX, trnsY,remainingFall,rotate, fps){
 	const frameIntervalMs = 1000/fps;
 	if(remainingFall <= freeFallCtx.thrshClosePx){
 		domElm.style.opacity=0;
@@ -1221,6 +1223,37 @@ function freeFAllingStep(domElm,v_PxPSec,trnsX, trnsY,remainingFall,rotate, fps)
 	setTimeout(
 		function(){
 			freeFAllingStep(domElm,v_PxPSec,trnsX, trnsY,remainingFall, rotate, fps)
+		}
+		,animationCtx.framesIntervalMs);
+}
+
+
+function freeFAllingStep(domElm,x0,y0,  trnsY,remainingFall,rotate, fps, startTime){
+	const frameIntervalMs = 1000/fps;
+	if(remainingFall <= freeFallCtx.thrshClosePx){
+		domElm.style.opacity=0;
+		if(domElm.id == "endParagargaphFlag"){
+			setTimeout(() => {
+				handleWheelingScriptComplete()	
+			}, wordWheelCtx.preResetTimeoutMs);
+		}
+		return;
+	}
+	var transStr="translate(" + x0 + "px," + trnsY + "px)";
+	if(rotate){
+		transStr = transStr + " rotate(" + rotate + "deg)";
+	}
+	domElm.style.transform= transStr;
+	const t = msSinceMidnight()-startTime;
+	const newY =y0 +  1/2 * Math.pow(t,2) * freeFallCtx.a_PxPerSecSqr;
+	dYLastFrame = newY - trnsY;
+	//const framStranlateY = v_PxPSec * frameIntervalMs / 1000;
+	//trnsY = trnsY + framStranlateY;
+//	v_PxPSec= v_PxPSec + freeFallCtx.a_PxPerSecSqr * frameIntervalMs / 1000;
+	remainingFall = remainingFall-dYLastFrame;
+	setTimeout(
+		function(){
+			freeFAllingStep(domElm,x0, y0, newY,remainingFall, rotate, fps, startTime );
 		}
 		,animationCtx.framesIntervalMs);
 }
