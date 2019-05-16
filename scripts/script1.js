@@ -2403,7 +2403,7 @@ function enableOhWiper(){
 
 function panelInViewPortWavesHor(){
 	var topPosInViewPort = document.getElementById("viewpointDetectorWavesHor").getBoundingClientRect().top;
-	return topPosInViewPort > -250 && topPosInViewPort < 1200;
+	return topPosInViewPort > 200 && topPosInViewPort < 800;
 }
 
 function panelInViewPortWavesVer(){
@@ -2412,7 +2412,7 @@ function panelInViewPortWavesVer(){
 	
 	//don't block from above, because the engaging is not smooth and should not happen 
 	//insode viewport 
-	return topPosInViewPort < 1300;
+	return topPosInViewPort > 300;
 }
 
 
