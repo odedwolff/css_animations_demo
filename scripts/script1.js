@@ -3918,7 +3918,7 @@ const bottom2Ctx = {
 	minRotSpeedDegSec:-180, 
 	maxRotSpeedDegSec:180,
 	leftLimit:0,
-	rightLimit:1000,
+	rightLimit:1250,
 	minSink:400, 
 	maxSink:450, 
 	minSinkVelPxSec:10, 
