@@ -29,15 +29,21 @@ button {
 	width: 100%;
 }
 //--------------------------------------------------
-#topMenuBar{
-	height: 30px;
-	width: 100%;
-	margin-left: 0px;
-	background: @colorLighter;
-	border-color: @colorDarker;
-	border-width: 1px;
-	border-style: solid;
+
+
+#topMenuBar {
+    height: 25px;
+    width: 100%;
+    margin-left: 0px;
+    background: #ffc145;
+    border-color: #9f6900;
+    border-width: 1px;
+    border-style: solid;
+    padding-top: 7px;
 }
+
+
+
 .topMenuBarItem{
 	display: inline;
 	margin-left: 20px;
@@ -128,7 +134,7 @@ body {
 	}
 
 	div#divHeader h2{
-		font-size: 80px;
+		font-size: 50px;
 	}
  /*-------------------------------------theme wischer 1-------------------------------------------------------------------
 */
@@ -1985,5 +1991,24 @@ div#spasm2Content {
     font-weight: 900;
     z-index: -2;
     transform: rotate(20deg);
+}
+
+
+#divMsgBox {
+    position: absolute;
+    height: 400px;
+    width: 600px;
+    background: black;
+    color: white;
+    z-index: 2;
+    opacity: 0;
+}
+
+.btnTopMenu{
+	color:black;
+}
+
+.btnTopMenu:hover{
+	background:rgb(99, 62, 7);
 }
 

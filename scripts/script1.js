@@ -31,6 +31,38 @@ function init(){
 }
 
 
+const msgBoxCtx = {
+	vanishTimeSec:0.4,
+	onOpacity:0.5, 
+	fps:50
+}
+const msgBoxTO = 1000 / msgBoxCtx.fps;
+const dOpacPerFrame = (msgBoxCtx.onOpacity) / (msgBoxCtx.fps * msgBoxCtx.vanishTimeSec);
+
+function showMsgBox(){
+	document.getElementById("divMsgBox").style.opacity = msgBoxCtx.onOpacity;
+}
+
+function hideMsgBox(){
+	//document.getElementById("divMsgBox").style.opacity = 0;
+	var elm = document.getElementById("divMsgBox");
+	fadeOutMsgBoxStep(elm, 0.5);
+}
+
+
+
+
+function fadeOutMsgBoxStep(elm, opc){
+	elm.style.opacity = opc;
+	if(opc <= 0){
+		return;
+	}
+	setTimeout(() => {
+		fadeOutMsgBoxStep(elm, opc - dOpacPerFrame);
+	}, msgBoxTO);
+}
+
+
 function rotateAnimate(startEngle, endEngle, frameRate, degPerSec){
 	var totalFrames = Math.abs(endEngle - startEngle) / degPerSec * frameRate;
 	var degPerFrame = (endEngle - startEngle) / totalFrames;

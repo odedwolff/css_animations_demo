@@ -49,14 +49,17 @@
 	</div>
 
 	<div id=divHeader>
-		<h2>Riffing</h2>
+<!-- 		<h2>Riffing</h2>
+ -->
+ 		<h2>chladnicky a ponozky</h2>
+		
 	</div>
 
 	<div id=topMenuBar>
-		<div class=topMenuBarItem>options</div>
-		<div class=topMenuBarItem>about</div>
-		<div class=topMenuBarItem>home</div>
-		<div class=topMenuBarItem>contacts</div>
+		<button class=btnTopMenu onclick="showMsgBox()">options</button>
+		<button class=btnTopMenu>about</button>
+		<button class=btnTopMenu>home</button>
+		<button class=btnTopMenu>contacts</button>
 
 			
 		<div id= divTumbelWeedInline>
@@ -73,8 +76,16 @@
 
 		</div>	
 
+		<div id=divMsgBox>
+			messages messages messages messages messages messages
 
+			<button onclick="hideMsgBox()">
+				close
+			</button>
+		</div>
 	</div>
+
+	
  
 	 <!--******************theme panel****************************************  -->
 
