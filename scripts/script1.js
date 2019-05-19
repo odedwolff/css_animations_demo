@@ -1076,12 +1076,14 @@ function startSpredVer(elm, elmInfo){
 
 
 function moveElmSpreadLetterStep(elm,elmInfo){
+	updateTrans(elmInfo);
+	moveTWheelElm(elm, elmInfo);
 	if(elmInfo.nmFramesToGo==0){
 		moveeSpreadLetterComplet(elm,elmInfo);
 		return; 
 	}
-	updateTrans(elmInfo);
-	moveTWheelElm(elm, elmInfo);
+/* 	updateTrans(elmInfo);
+	moveTWheelElm(elm, elmInfo); */
 	elmInfo.nmFramesToGo = elmInfo.nmFramesToGo - 1;
 	setTimeout(() => {
 		moveElmSpreadLetterStep(elm,elmInfo);
