@@ -29,7 +29,42 @@ button {
 	width: 100%;
 }
 //--------------------------------------------------
+/*-------------------------------------divHeader-------------------------------------------------------------------
+*/
 
+div#divHeader {
+	height: 110px;
+	   text-align: center;
+	background:@colorLighter;
+	   margin-left: 0px;
+	width: 100%;
+	//font-family: 'FrankRuehl', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+}
+
+.hTop{
+	font-size: 50px;
+    font-weight: 200;
+    display: inline-block;
+    margin-left: 10px;
+	margin-top: 25px;
+	font-family: 'GeoEditRegular', 'Franklin Gothic Medium', 'Franklin Gothic', 'ITC Franklin Gothic', Helvetica, Arial, sans-serif;
+
+}
+
+#topText_a_{
+	background:black;
+	color:#ffc145;
+}
+
+.sapnTopH{
+	background:black;
+	color:#ffc145;
+}
+
+div#divHeader h2{
+	font-size: 50px;
+	font-weight: 200;
+}
 
 #topMenuBar {
     height: 25px;
@@ -39,7 +74,8 @@ button {
     border-color: #9f6900;
     border-width: 1px;
     border-style: solid;
-    padding-top: 7px;
+	padding-top: 7px;
+	padding-left:50px;
 }
 
 
@@ -48,6 +84,33 @@ button {
 	display: inline;
 	margin-left: 20px;
 }
+
+
+#divMsgBox {
+    position: absolute;
+    height: 400px;
+    width: 600px;
+    background: black;
+    color: white;
+    z-index: 2;
+    opacity: 0;
+}
+
+
+.btnTopMenu:hover{
+	color:black;
+	background:#ffc145;
+}
+
+
+
+.btnTopMenu {
+	background:black;
+	color:#ffc145;
+
+    font-family: 'GeoEditRegular', 'Franklin Gothic Medium', 'Franklin Gothic', 'ITC Franklin Gothic', Helvetica, Arial, sans-serif;
+}
+
 
 //--------------------------------------------------
 
@@ -122,20 +185,7 @@ body {
 
  }
  
- /*-------------------------------------divHeader-------------------------------------------------------------------
-*/
-	div#divHeader {
-		height: 110px;
-   		text-align: center;
-    	background:@colorLighter;
-   		margin-left: 0px;
-		width: 100%;
-		//font-family: 'FrankRuehl', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
-	}
-
-	div#divHeader h2{
-		font-size: 50px;
-	}
+ 
  /*-------------------------------------theme wischer 1-------------------------------------------------------------------
 */
 
@@ -1991,24 +2041,5 @@ div#spasm2Content {
     font-weight: 900;
     z-index: -2;
     transform: rotate(20deg);
-}
-
-
-#divMsgBox {
-    position: absolute;
-    height: 400px;
-    width: 600px;
-    background: black;
-    color: white;
-    z-index: 2;
-    opacity: 0;
-}
-
-.btnTopMenu{
-	color:black;
-}
-
-.btnTopMenu:hover{
-	background:rgb(99, 62, 7);
 }
 
