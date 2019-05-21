@@ -2521,45 +2521,22 @@ function inViewPort(panelViewName, bottomLimit, topLimit){
 
 const tumbleweedCtx = {
 	aPxSecSqr: 70,
-	animIntervalMs:20
+	animIntervalMs:20, 
+	nmHops:15,
+	startFadeoutXpos:200,
+	fadeoutLetSec:2,
+	fps:50
 }
 
-function testTumbleweedRoll(){
-	var obj = document.getElementById('tumble1');
-	
-	//roll on the ground
-	var startTransPos={
-		'x':0,
-		'y':0
-	}
-	tumbleHop(obj, 500, null, 200, 100,0, startTransPos, 0, false, function(){});
-	
-	//hop 	
-}
+const weedTimtoutMs = 1000 / tumbleweedCtx.fps;
 
 
-function testTumbleweedHop(){
-	var obj = document.getElementById('tumble1');
-	
-	//roll on the ground
-	var startTransPos={
-		'x':0,
-		'y':0
-	}
-	tumbleHop(obj, 500, 0, null, 100, -70, startTransPos, 0, true,
-	function(){
-		console.log("complete hop");}
-		);
-	
-	//hop 	
-}
 
-
-function testWeedRandSequence(){
+function weedRandSequence(){
 	var elms = document.getElementsByClassName("tumbleWeed");
 	for(var i = 0; i< elms.length ; i++){
 		setTimeout(
-			randHop.bind(null, 11,  elms[i], {'x':0,'y':0}, 0)
+			randHop.bind(null, tumbleweedCtx.nmHops,  elms[i], {'x':0,'y':0}, 0)
 		, Math.random() * 1500)
 	}
 }
@@ -2602,24 +2579,23 @@ function tumbleHop(elm, rotDegSec, stopYPos, stopXposAbs, vxPxSec,vyPxSec, nextT
 	}
 	var transformStr= elm.style.transform="translate(" + nextTnsfrPos.x +"px," + nextTnsfrPos.y + "px) rotate(" + nextRot+ "deg)";
 	elm.style.transform= transformStr;
-	nextTnsfrPos.x= nextTnsfrPos.x  + vxPxSec * (tumbleweedCtx.animIntervalMs / 1000);
-	nextTnsfrPos.y= nextTnsfrPos.y  + vyPxSec * (tumbleweedCtx.animIntervalMs / 1000);
+	nextTnsfrPos.x= nextTnsfrPos.x  + vxPxSec * (weedTimtoutMs / 1000);
+	nextTnsfrPos.y= nextTnsfrPos.y  + vyPxSec * (weedTimtoutMs / 1000);
 	//if on the ground, roll
 	if(vyPxSec== null || vyPxSec == 0 ){
-		nextRot = nextRot + rotDegSec * (tumbleweedCtx.animIntervalMs / 1000);
+		nextRot = nextRot + rotDegSec * (weedTimtoutMs / 1000);
 	//in air- roll slower
 	}else{
-		nextRot = nextRot + rotDegSec * (tumbleweedCtx.animIntervalMs / 1000) / 2;
+		nextRot = nextRot + rotDegSec * (weedTimtoutMs / 1000) / 2;
 	}
-	//dxToGo = dxToGo + vyPxSec * (tumbleweedCtx.animIntervalMs / 1000)
 	if(gravityActive){
-			vyPxSec = vyPxSec + tumbleweedCtx.aPxSecSqr * (tumbleweedCtx.animIntervalMs / 1000);
+			vyPxSec = vyPxSec + tumbleweedCtx.aPxSecSqr * (weedTimtoutMs / 1000);
 	}
 	
 	
 	setTimeout(function(){
 		tumbleHop(elm, rotDegSec, stopYPos, stopXposAbs, vxPxSec ,vyPxSec, nextTnsfrPos, nextRot,gravityActive, fComplete);
-	}, tumbleweedCtx.animIntervalMs);
+	}, weedTimtoutMs);
 	
 }
 
