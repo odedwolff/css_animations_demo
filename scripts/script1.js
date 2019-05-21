@@ -2522,14 +2522,27 @@ function inViewPort(panelViewName, bottomLimit, topLimit){
 const tumbleweedCtx = {
 	aPxSecSqr: 70,
 	animIntervalMs:20, 
-	nmHops:15,
-	startFadeoutXpos:200,
-	fadeoutLetSec:2,
+	nmHops:13,
+	startFadeoutXpos:700,
+	endFadeInXpos:400,
+	fadeOutDPerPx:0.003,
+	fadeInDPerPx:0.003,
 	fps:50
 }
 
+
+
 const weedTimtoutMs = 1000 / tumbleweedCtx.fps;
 
+function opcPerXpos(x){
+	if(x < tumbleweedCtx.endFadeInXpos){
+		return 1 - (tumbleweedCtx.endFadeInXpos - x) * tumbleweedCtx.fadeInDPerPx;
+	}
+	if(x > tumbleweedCtx.startFadeoutXpos){
+		return 1 - (x - tumbleweedCtx.startFadeoutXpos ) * tumbleweedCtx.fadeOutDPerPx;
+	}
+	return 1;
+}
 
 
 function weedRandSequence(){
@@ -2579,6 +2592,8 @@ function tumbleHop(elm, rotDegSec, stopYPos, stopXposAbs, vxPxSec,vyPxSec, nextT
 	}
 	var transformStr= elm.style.transform="translate(" + nextTnsfrPos.x +"px," + nextTnsfrPos.y + "px) rotate(" + nextRot+ "deg)";
 	elm.style.transform= transformStr;
+	elm.style.opacity = opcPerXpos(nextTnsfrPos.x);
+
 	nextTnsfrPos.x= nextTnsfrPos.x  + vxPxSec * (weedTimtoutMs / 1000);
 	nextTnsfrPos.y= nextTnsfrPos.y  + vyPxSec * (weedTimtoutMs / 1000);
 	//if on the ground, roll
