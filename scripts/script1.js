@@ -33,10 +33,15 @@ function init(){
 	initBackgroundStyle();
 }
 
+
+/*************************************dynamic background style*************************************************/
 const backgroundStyleCtx = {
 	//3 elm array
-	baslineBackgroundColor:null,
-	computedHeigh:null
+	baslineBackgroundColor:"green",
+	computedHeigh:10000,
+	lastUpdate:0,
+	minRefreshMs:800,
+	rlativeMaxDepthOrgShade:0.75
 }
 
 function computePageHeight(){
@@ -61,6 +66,26 @@ function initBackgroundStyle(){
 	backgroundStyleCtx.baslineBackgroundColor= computeBackgroundColorBaseline();
 }
 
+function setBackgroundDarker(factorFromBaseline){
+	/* var rgbStr = window.getComputedStyle( document.body ,null).getPropertyValue('background-color'); 
+
+	rgb = rgbStr.substring(4, rgbStr.length-1)
+					 .replace(/ /g, '')
+					 .split(','); */
+
+	
+	//var rgb=backgroundStyleCtx.baslineBackgroundColor;
+	var rgb = [];
+	for (let index = 0; index < backgroundStyleCtx.baslineBackgroundColor.length; index++) {
+		//rgb[index]= rgb[index] * factorFromBaseline;
+		rgb.push(backgroundStyleCtx.baslineBackgroundColor[index] * factorFromBaseline);
+	}
+	setStr = "rgb(" + rgb[0] + "," + rgb[1] +  "," + rgb[2] + ")";
+	document.body.style.background=setStr;
+}
+
+
+/************************************************************************************** */
 
 const msgBoxCtx = {
 	vanishTimeSec:0.4,
@@ -2331,6 +2356,27 @@ function checkScrollSpeed(){
 	waveCtx.handleScrollSession(scrollV);
 	horWaveCtx.handleScrollSession(scrollV);
 	scrollCtx.lastYposition=currentPos;
+
+
+
+	updateBackground(currentPos);
+}
+
+
+//msSinceMidnight
+
+function updateBackground(currentPos){
+	const now = msSinceMidnight();
+	if(now - backgroundStyleCtx.lastUpdate > backgroundStyleCtx.minRefreshMs){
+		backgroundStyleCtx.lastUpdate=now;
+		var  brightness = 1;
+		if(currentPos / backgroundStyleCtx.computedHeigh >  backgroundStyleCtx.rlativeMaxDepthOrgShade){
+			//brightness= 1 - currentPos / backgroundStyleCtx.computedHeigh;
+	
+			brightness= 1 - (currentPos/backgroundStyleCtx.computedHeigh - backgroundStyleCtx.rlativeMaxDepthOrgShade)/(1-backgroundStyleCtx.rlativeMaxDepthOrgShade);
+		} 
+		setBackgroundDarker(brightness);
+	}
 }
 
 
@@ -4130,18 +4176,6 @@ function testSetBodyColor(){
 }
 
 
-function setBackgroundDarker(factorFromBaseline){
-	/* var rgbStr = window.getComputedStyle( document.body ,null).getPropertyValue('background-color'); 
 
-	rgb = rgbStr.substring(4, rgbStr.length-1)
-					 .replace(/ /g, '')
-					 .split(','); */
-	
-	for (let index = 0; index < rgb.length; index++) {
-		rgb[index]= rgb[index] * factorFromBaseline;
-	}
-	setStr = "rgb(" + rgb[0] + "," + rgb[1] +  "," + rgb[2] + ")";
-	document.body.style.background=setStr;
-}
 
 
