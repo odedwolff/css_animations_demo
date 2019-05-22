@@ -28,6 +28,37 @@ function init(){
 	//rainDebry();
 
 	initBottom2();
+
+
+	initBackgroundStyle();
+}
+
+const backgroundStyleCtx = {
+	//3 elm array
+	baslineBackgroundColor:null,
+	computedHeigh:null
+}
+
+function computePageHeight(){
+	var body = document.body,
+	html = document.documentElement;
+	var height = Math.max( body.scrollHeight, body.offsetHeight, 
+											 html.clientHeight, html.scrollHeight, html.offsetHeight );
+	return height;
+}
+
+function computeBackgroundColorBaseline(){
+	var rgbStr = window.getComputedStyle( document.body ,null).getPropertyValue('background-color'); 
+
+	rgb = rgbStr.substring(4, rgbStr.length-1)
+					 .replace(/ /g, '')
+					 .split(',');
+  return rgb;
+}
+
+function initBackgroundStyle(){
+	backgroundStyleCtx.computedHeigh = computePageHeight();
+	backgroundStyleCtx.baslineBackgroundColor= computeBackgroundColorBaseline();
 }
 
 
@@ -4089,6 +4120,28 @@ function sinkStep(elm, elmState){
 }
 
 function handleSinkComplete(elm, elmState){
-	console.log("sink2 complete")
+	//console.log("sink2 complete")
 }
+
+function testSetBodyColor(){
+	const body1 = document.querySelectorAll("body")[0];
+	body1.style.background="red";
+
+}
+
+
+function setBackgroundDarker(factorFromBaseline){
+	/* var rgbStr = window.getComputedStyle( document.body ,null).getPropertyValue('background-color'); 
+
+	rgb = rgbStr.substring(4, rgbStr.length-1)
+					 .replace(/ /g, '')
+					 .split(','); */
+	
+	for (let index = 0; index < rgb.length; index++) {
+		rgb[index]= rgb[index] * factorFromBaseline;
+	}
+	setStr = "rgb(" + rgb[0] + "," + rgb[1] +  "," + rgb[2] + ")";
+	document.body.style.background=setStr;
+}
+
 
