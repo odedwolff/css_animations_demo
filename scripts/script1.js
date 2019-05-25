@@ -1945,12 +1945,12 @@ const waveCtx={
 	minScrollSpeedPxSec:2,
 	scrollSpeedToAmpFctr: 1 / 50,
 	lastExecMs:null, 
-	spacingXPx:12, 
+	spacingXPx:9, 
 	spacingYPx:30, 
 	marginTopPx:50,
 	marginLeftPx:50, 
 	flatenned:false,
-	charsInLines:90
+	charsInLines:120
 }
 
 function _handleScrollSession(scrollSpeed){
@@ -2114,10 +2114,16 @@ function elmIdStr(i,j, elmSuffix){
 
 function prepareWaves(){
 	const textBlock = 
-	`physical wave*s such as those we see when a rock is thrown into water 
+	/* `physical wave*s such as those we see when a rock is thrown into water 
 	 are what many people think about when they first began to think about waves. These
 	waves have distinct properties specific to their type but also exhibit characteristics
-	in common with more abstract waves such as sound waves and light (electromagnetic) waves.`;
+	in common with more abstract waves such as sound waves and light (electromagnetic) waves.`; */
+
+
+	`Heavy-duty disappearing techniques for those with a need to know. This book tells you how to pull
+	 off a disappearance and how to stay free and never be found. It analyzes all the ways you could
+		be found by whoever might be looking for you. How to plan & new I. D. for disappearance. 
+		Even Pseudocide to make your pursuers think you are dead.`;
 
 	//`physical wave*s such as those we see when a rock is thrown into water `;
 	

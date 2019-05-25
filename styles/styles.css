@@ -1,22 +1,155 @@
+
+/* -----------------------colors constants ---------------------------
+ */
+ 
+/*  //#ffc145:#ffc145;
+//#9f6900:#9f6900;
+ */
+
+
+
+/* @rollerFunctionParmams :cubic-bezier(.31,.01,1,.73);
+ */
+/* @fontFamilyFrankRuhl:'FrankRuehl', 'Franklin Gothic Medium', 'Arial Narrow', 'Arial', 'sans-serif';
+@fontFamilyFutura:'Futura LT W01','HelveticaNeue','Helvetica Neue','Helvetica','Arial','sans-serif'; */
+
+
+button {
+    background:#00000000;
+   	border-style: none;
+   	border-color: #f6a400;
+	color: rgb(96, 131, 96);
+}
+
+
+
+#overTitleSpace {
+    height: 20px;
+    background: #000000;
+    margin-left: 0%;
+    width: 100%;
+}
+
+/*-------------------------------------divHeader-------------------------------------------------------------------
+*/
+
+div#divHeader {
+	height: 110px;
+	   text-align: center;
+	background:#ffc145;
+	   margin-left: 0px;
+	width: 100%;
+}
+
+.hTop{
+	font-size: 50px;
+    font-weight: 200;
+    display: inline-block;
+    margin-left: 10px;
+	margin-top: 25px;
+	font-family: 'GeoEditRegular', 'Franklin Gothic Medium', 'Franklin Gothic', 'ITC Franklin Gothic', Helvetica, Arial, sans-serif;
+
+}
+
+#topText_a_{
+	background:black;
+	color:#ffc145;
+}
+
+.sapnTopH{
+	background:black;
+	color:#ffc145;
+}
+
+div#divHeader h2{
+	font-size: 50px;
+	font-weight: 200;
+}
+
+#topMenuBar {
+    height: 25px;
+    width: 100%;
+    margin-left: 0px;
+    background: #ffc145;
+    border-color: #9f6900;
+    border-width: 1px;
+    border-style: solid;
+	padding-top: 7px;
+	padding-left:50px;
+}
+
+
+
+.topMenuBarItem{
+	display: inline;
+	margin-left: 20px;
+}
+
+
+#divMsgBox {
+    position: absolute;
+    height: 400px;
+    width: 600px;
+    background: black;
+    color: white;
+    z-index: 2;
+    opacity: 0;
+}
+
+
+.btnTopMenu:hover{
+	color:black;
+	background:#ffc145;
+}
+
+
+
+.btnTopMenu {
+	background:black;
+	color:#ffc145;
+
+    font-family: 'GeoEditRegular', 'Franklin Gothic Medium', 'Franklin Gothic', 'ITC Franklin Gothic', Helvetica, Arial, sans-serif;
+}
+
+
+
 body {
     margin: 0;
 	display: block;
-	background: #a194a0;
+	background: #ffc145;
 	max-width: 100%;
-    overflow-x: hidden;
-}
-
-body > *{
- margin-left: 10%;
- margin-right: 10%;
- clip-path: inset(0px 0px 0px 0px);
+	overflow-x: hidden;
+	font-family: 'FrankRuehl', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
 }
 
 
-------------------------------------------------------------------------------------------------
+
+.themePanel{
+	margin-top:  200px;
+	margin-left: 10%;
+ 	margin-right: 10%;
+ 	clip-path: inset(0px 0px 0px 0px);
+}
+
+.divSapcer{
+	margin-left: 10%;
+ 	margin-right: 10%;
+ 	clip-path: inset(0px 0px 0px 0px);
+	height: 5px;
+	background: red;
+}
+
+.simpleFrame{
+	border-style: solid;
+	border-width: 1px;
+	border-color: black;
+	margin-bottom: 5px;
+} 
+
+
 
 #div1{
-	background: blue;
+	background: #f6a400;
 	width: 100px;
 	height: 100px
 }
@@ -34,33 +167,37 @@ body > *{
 
  }
  
- /*-------------------------------------divHeader-------------------------------------------------------------------
-*/
-	div#divHeader {
-		height: 250px;
-		text-align: center;
-		background: white;
-	}
-
-	div#divHeader h2{
-		font-size: 80px;
-	}
- /*-------------------------------------theme wischer-------------------------------------------------------------------
+ 
+ /*-------------------------------------theme wischer 1-------------------------------------------------------------------
 */
 
-#divWischCont{
+#divWischer1{
+
+}
+
+.divThemeWischer{
 	padding-top: 200px;
-	//width:100%;
-	height: 500px;
-	background: #179B55
+	height: 300px;
+	background: #9f6900;
+	color: #ffc145;
+}
+
+
+
+.divWischerContent{
+	left:30%;
+	top:20%;
+	color: white;
+	position: relative;
 }
 
 
 
 
 .wischer h1{
-	font-family: "Georgia", "serif"
+	font-family: "Georgia", "serif";
 	font-size:20px;
+	color: #ffc145;
 }
 
 .wischer{
@@ -71,32 +208,75 @@ body > *{
   	float: left;
 }
 
-.wischerRun{
+.wischer1Run{
 	animation-name: example;
   	animation-duration: 4s;
-  	animation-name: rotText;
+  	animation-name: rotText1;
   	animation-duration: 3s;
   	transform-origin: 100% 50%;
   	transform: rotate(25deg);
   	animation-iteration-count: infinite;
 }
 
-@keyframes rotText{
+@keyframes rotText1{
+	0%{transform: rotate(25deg);}
+	50%{transform: rotate(155deg);}
+	100%{transform: rotate(25deg);}
+}
+
+.wischer2Run{
+	animation-name: example;
+  	animation-duration: 4s;
+  	animation-name: rotText2;
+  	animation-duration: 2s;
+  	transform-origin: 100% 50%;
+  	transform: rotate(25deg);
+  	animation-iteration-count: infinite;
+}
+
+@keyframes rotText2{
 	0%{transform: rotate(25deg);}
 	50%{transform: rotate(155deg);}
 	100%{transform: rotate(25deg);}
 }
 
 
+.wischer3Run{
+	animation-name: example;
+  	animation-duration: 4s;
+  	animation-name: rotText3;
+  	animation-duration: 1s;
+  	transform-origin: 100% 50%;
+  	transform: rotate(25deg);
+  	animation-iteration-count: infinite;
+}
+
+@keyframes rotText3{
+	0%{transform: rotate(25deg);}
+	50%{transform: rotate(155deg);}
+	100%{transform: rotate(25deg);}
+}
+
+
+
 /*-------------------------------------theme swing-------------------------------------------------------------------
 */
 
-#divPendulumCont{
-	padding-top: 200px;
-	//width:100%;
-	height: 500px;
-	background: #DDDF57
+
+
+#divPendulumCont {
+    padding-top: 200px;
+    padding-left: 150px;
+    height: 350px;
+    background: #ffc145;
+    color: #000000;
+    /* border-style: solid; */
+    border-width: 1px;
+	border-color: #000000;
+	position: relative;
 }
+
+
 
 #divPendulum{
 	margin-left: 20%
@@ -147,15 +327,22 @@ body > *{
 	height: 5%;
 }
 
+
+#viewpointDetectorPendel{
+	top:250px;
+}
+
 /*-------------------------------------theme twistter-------------------------------------------------------------------
 */
 
 #divTwisterCont{
+	margin-top: 50px;
 	padding-top: 200px;
-	//width:100%;
-	height: 500px;
-	background: red;
-
+    height: 220px;
+	background: #2a2825;
+	color: #ffc145;
+	position: relative;
+	
 }
 
 
@@ -168,11 +355,11 @@ body > *{
 
 }
 .twisting_in{
-	transform-origin: 50% 50%;
+	transform-origin: -100% 50%;
 	animation-name: twist;
-	animation-duration: 1.5s;
+	animation-duration: 3s;
 	animation-fill-mode: forwards;
-	animation-timing-function: cubic-bezier(.16,.83,.31,.92);
+	opacity: 1;
 }
 
 
@@ -187,15 +374,15 @@ body > *{
 .twist_pre_ride{
 	transform-origin: 50% 50%;
 	animation-name: twist_pre_ride;
-	animation-duration: .2s;
-	animation-iteration-count: infinite;
-	animation-timing-function: linear;
+	animation-duration: .7s;
+	animation-timing-function: cubic-bezier(.82,0,1,.34);
 	transform: scale(4);
+	opacity: 1;
 }
 
 @keyframes twist_pre_ride{
-	from {transform: rotate(0deg) scale(4);}
-    to {transform: rotate(360deg) scale(4);}	
+	from {transform: translate(80px,0px) rotate(0deg) scale(4);}
+    to {transform: translate(80px,0px) rotate(5000deg) scale(4);}	
 }
 
 
@@ -207,14 +394,16 @@ body > *{
 	animation-timing-function: linear;
 	transform: scale(4);
 	animation-fill-mode: forwards;
+	opacity: 1;
 }
 
 @keyframes twist_ride_away{
 	0%{	
-		transform: translate(0,0) scale(4) rotate(0deg);
+		transform: translate(80px,0px) scale(4) rotate(0deg);
 	}	
 	100%{	
-		transform: translate(400px,0px) scale(.1) rotate(500deg);
+		transform: translate(1600px,0px) scale(1) rotate(3000deg);
+
 	}		
 }
 
@@ -229,7 +418,12 @@ body > *{
 }
 
 #divTwistText{
-	margin-left: 10%
+	margin-left: 20%
+}
+
+
+#viewpointDetectorTwistter{
+	top:220px;
 }
 
 
@@ -238,11 +432,13 @@ body > *{
 
 
 
-#divPulsar{
-	padding-top: 200px;
-	//width:100%;
-	height: 500px;
-	background: #1c5e22;
+
+#divPulsar {
+    padding-top: 200px;
+    height: 300px;
+	background: #aaa18e;
+	color: rgb(252, 252, 252);
+	position: relative;
 }
 
 .letterContainerPulsar{
@@ -285,22 +481,46 @@ body > *{
 
 
 #divPulsarContent{
-	padding-left: 10%;
+	padding-left: 18%;
+    padding-top: 2%;
 }
 
+#viewpointDetectorPulsar{
+	top:250px;
+}
+
+
+/*-------------------------------------over wipers-------------------------------------------------------*/
+#overWipers{
+	position: fixed;
+	/* widows: 100%;
+	height: 100%; */
+} 
+.clsOverWiper{
+	position: relative;
+	width:400px;
+	height: 100px;
+	font-size: 60px;
+	transform-origin: 0% 50%;
+	margin-left:300px;
+	display: inline;
+	transform: rotate(30deg);
+}
 
 /*-------------------------------------theme rolling-------------------------------------------------------------------
 */
 #divRollerCont{
-	//width:100%;
+	margin-top: 20px;
 	height: 500px;
-	background: white;
-
+	background: #f6a400;
+	color: white;
+	background: black;
 	position: relative;
-	//left: 200px;
+	font-family:'Futura LT W01','HelveticaNeue','Helvetica Neue','Helvetica','Arial','sans-serif';
 }
 
 #divRollerWord{
+	margin-left: 150px;
 	position: absolute;
 	font-size: 40px;
 	width: 60px;
@@ -310,6 +530,7 @@ body > *{
 }
 
 #divRollerWordDouble{
+	margin-left: 150px;
 	position: relative;
 	font-size: 40px;
 	width: 60px;
@@ -332,30 +553,23 @@ body > *{
 @keyframes rolling{
 	0%{
 		transform: translate(30px, 30px) rotate(0deg) ;
-		/*animation-timing-function: cubic-bezier(.51,.23,.72,.45);*/
-		animation-timing-function:cubic-bezier(.2,.01,1,.88);
-
-		
+		animation-timing-function: cubic-bezier(.31,.01,1,.73);
 	}
-	10%{
+	12%{
 		transform: translate(800px, 100px) rotate(1000deg) ;
-		/*animation-timing-function: linear;*/
-		animation-timing-function:cubic-bezier(.21,.07,.92,.78);
+		animation-timing-function: cubic-bezier(.31,.01,1,.73);
 		
 	}
-	18%{
+	17%{
 		transform: translate(0px, 200px) rotate(0deg) ;
-		/*animation-timing-function: linear;*/
-		animation-timing-function:cubic-bezier(.21,.07,.92,.78);
-		
+		animation-timing-function: cubic-bezier(.31,.01,1,.73);
 	}
-	24%{
+	22%{
 		transform: translate(800px, 300px) rotate(1000deg) ;
-		/*animation-timing-function: linear;*/
-		animation-timing-function:cubic-bezier(.21,.07,.92,.78);
+		animation-timing-function: cubic-bezier(.31,.01,1,.73);
 		
 	}
-	28%{
+	26%{
 		transform: translate(0px, 400px) rotate(0deg) ;
 		animation-timing-function:cubic-bezier(0,.42,.59,.99);	
 	}
@@ -427,17 +641,7 @@ body > *{
 
 @keyframes rollingPhase2{
 	
-	/*0%{
-		transform: translate(755px, 430px) rotate(300deg) ;
-		animation-timing-function:cubic-bezier(.58,.01,.99,.5) 
-	}
-	5%{
-		transform: translate(755px, 430px) rotate(360deg) ;
-	}
-	100%{
-		transform: translate(755px, 430px) rotate(360deg) ;
-		
-	}*/
+	
 
 }
 
@@ -573,15 +777,21 @@ div#divContRollerR2 {
 
 
 
+
+#viewpointDetectorRoller{
+	top:300px;
+}
+
 /*-------------------------------------theme focus lines-------------------------------------------------------------------
 */
 
 
 #divLinesFocusCont{
-	padding-top: 200px;
-	//width:100%;
-	height: 500px;
-	background: #c6a665;
+	
+	padding-top: 30px;
+    height: 350px;
+	background: #f6a400;
+	position: relative;
 }
 
 
@@ -590,7 +800,7 @@ div#divContRollerR2 {
 .textLineFocus {
     display: block;
     margin-left: 300px;
-    text-align: ;
+    text-align:center;
 }
 
 .textLineFocus1 {
@@ -598,7 +808,7 @@ div#divContRollerR2 {
 }
 
 div#divLinesFocosContent {
-    padding-left: 550px;
+    padding-left: 500px;
 }
 
 
@@ -622,7 +832,7 @@ div#divLinesFocosContent {
 
 @keyframes focusAnim{
 	0%{
-		text-shadow: 0 0 20px rgba(0,0,0,0.5);	
+		text-shadow: 0 0 20px rgba(2, 2, 2, 0.5);	
 		/*animation-timing-function: cubic-bezier(1,.01,.72,1);*/
 		color: transparent;
 		line-height: 40px
@@ -633,7 +843,9 @@ div#divLinesFocosContent {
 		/*color: black;*/
 		/*animation-timing-function: cubic-bezier(0,1.02,.73,1);*/
 
-		line-height: 0px
+		line-height: 0px;
+
+
 	}
 	30%{
 		text-shadow: 0 0 20px rgba(0,0,0,0.5);	
@@ -663,11 +875,7 @@ div#divLinesFocosContent {
 
 		line-height: 0px
 	}
-	/* 90%{ */
-		/* text-shadow: 0 0 20px rgba(0,0,0,0.5);	 */
-		/* color: transparent; */
-		/* line-height: 40px */
-	/* } */
+	
 	90%{
 		text-shadow: 0 0 0px rgba(0,0,0,0.5);	
 		color: transparent;
@@ -680,29 +888,35 @@ div#divLinesFocosContent {
 	text-align: center;
 }
 
+#viewpointDetectorFocus{
+	top:200px;
+}
+
 
 /*-------------------------------------theme flashing-------------------------------------------------------------------
 */
 
 
 #divFlashingCont{
-	//width:100%;
-	height: 500px;
-	background: #ff3300;
-	position: relative;
-	
+	margin-top: 20px;
+    height: 350px;
+    color: #ffffff;
+    background: #32514f;
+    position: relative;
+    font-family: Futura LT W01, HelveticaNeue, Helvetica Neue, Helvetica, Arial, sans-serif;
 }
 
 
 
 div#divFashingContent{
-    padding-left: 100px;
-    padding-right: 300px;
+    padding-left: 200px;
+    padding-right: 200px;
     padding-top: 30px;
 }
 
 .classFlashLetter {
-    float: left;
+	float: left;
+	font-size: 30px;
 }
 
 .classFlashLetterTransparent {
@@ -770,7 +984,7 @@ div#divFashingContent{
 
 .snychFlash1{
 	animation-name: snychFlash1;
-	animation-duration: 1s;
+	animation-duration: 0.5s;
 	animation-iteration-count: infinite;
 }
 
@@ -783,28 +997,32 @@ div#divFashingContent{
 
 .snychFlash2{
 	animation-name: snychFlash2;
-	animation-duration: .5s;
+	animation-duration: .25s;
 	animation-iteration-count: infinite;
 }
 
 @keyframes snychFlash2{
 	0%{opacity: 0}
-	50%{opacity: 0}
-	51%{opacity: 1}
+	60%{opacity: 0}
+	61%{opacity: 1}
 	100%{opacity: 1}
 }
 
 .snychFlash3{
 	animation-name: snychFlash3;
-	animation-duration: .25s;
+	animation-duration: .125s;
 	animation-iteration-count: infinite;
 }
 
 @keyframes snychFlash3{
 	0%{opacity: 0}
-	50%{opacity: 0}
-	51%{opacity: 1}
+	80%{opacity: 0}
+	81%{opacity: 1}
 	100%{opacity: 1}
+}
+
+#viewpointDetectorFlashing{
+	top:200px;
 }
 
 
@@ -812,30 +1030,32 @@ div#divFashingContent{
 */
 
 
-#div3fish{
-	//width:100%;
-	height: 300px;
-	background: #042d70;
-	position: relative;
+
+
+#div3fish {
+    height: 300px;
+    background: #75d31266;
+    position: relative;
+    font-family: 'GeoEditRegular', 'Franklin Gothic Medium', 'Franklin Gothic', 'ITC Franklin Gothic', Helvetica, Arial, sans-serif;
 }
 
 .clsFish1{
 	position: absolute;
-	font-size: 15px
-
+	font-size: 15px;
+	transform: translateX(200px);
 }
 
 #fish1{
-	left:90%;
-	top:80%;
+	left: 90%;
+    top: 55%;
 }
 #fish2{
-	left:88%;
-	top:85%;
+	left: 88%;
+    top: 45%;
 }
 #fish3{
-	left:90%;
-	top:90%;
+	left: 90%;
+    top: 35%;
 }
 
 .animFishTransLeft{
@@ -889,33 +1109,39 @@ div#divFashingContent{
 }
 
 
+#viewpointDetectorFish{
+	top:150px;
+}
+
+
 /*-------------------------------------theme feet dragging-------------------------------------------------------------------
 */
 
 
-#divFoosteps{
-	//width:100%;
-	height: 500px;
-	background: pink;
-	position: relative;
-	height: 300px;
+
+
+#divFoosteps {
+    height: 500px;
+    background: #f6a400;
+    position: relative;
+    height: 300px;
+    color: #000000;
 }
 
 .foot{
 	position: absolute;
 	font-size: 25px;
+	left: -400px;
 }
 
 
 
 #leftFoot {
-    top: 72%;
-    left: 1%;
+	top: 50%;
 }
 
 #rightFoot {
-    top: 85%;
-    left: 1%;
+	top: 63%;
 }
 
 .walking{
@@ -987,7 +1213,6 @@ div#divFashingContent{
 */
 .grasshoper{
 	position: absolute;
-	//background: yellow;
 	width: 30px;
 	height: 30px;
 	/*font-size: 20px;*/
@@ -995,8 +1220,8 @@ div#divFashingContent{
 
 
 #divGrasshoppers{
-	height: 500px;
-	background: yellow;
+	height: 400px;
+	background: #f6a400;
 }
 
 
@@ -1020,13 +1245,17 @@ div#divGHcontent {
     height: 80%;
 }
 
+
+#viewpointDetectorGrasshopper{
+	top:180px;
+}
+
 /*-------------------------------------theme gears-------------------------------------------------------------------
 */
 
 #divGears{
-	//width:100%;
-	height: 500px;
-	background: gray;
+	height: 350px;
+	background:#9f6900;
 	position: relative;
 }
 
@@ -1038,11 +1267,13 @@ div#divLetterBox {
     position: relative;
 }
 
+
+
 .gear {
     float: left;
     width: 40px;
     /* height: 40px; */
-    font-size: 35px;
+    font-size: 55px;
     /* background: white; */
     margin-left: 10px;
     text-align: center;
@@ -1111,14 +1342,18 @@ div#divLetterBox {
  100%{transform: rotate(0deg)}
 }
 
+#viewpointDetectorGears{
+	top:150px;
+}
+
 
 /*-------------------------------------theme wheel-------------------------------------------------------------------
 */
 
 #divWheel{
-	//width:100%;
 	height: 500px;
-	background: black;
+	background: #aaa18e;
+	color: rgb(252, 252, 252);
 	position: relative;
 	height: 600px;
 }
@@ -1130,7 +1365,8 @@ div#divLetterBox {
     position: absolute;
     bottom: 2px;
     left: 11px;
-    font-size: 32px;
+	font-size: 32px;
+	color: rgb(252, 252, 252);
 }
 
 
@@ -1141,7 +1377,7 @@ div#divLetterBox {
     width: 30px;
     text-align: center;
     /* background: #ffff002e; */
-    color: darkorange;
+    color: rgb(15, 15, 15);
     left: 500px;
     top: 300px;
     transform-origin: 50% 0%;
@@ -1166,36 +1402,40 @@ div#divLetterBox {
 }
 
 
-
-
-
 #divMovableObject{
 	position: absolute;
 	left: 200px;
 	top: 200px;
 }
 
+div#viewpointDetectorWheel {
+    top: 300px;
+}
+
 /*------------------------theme clouds------------------------------------
 */
 
 #divClouds{
-	//width:100%;
-	height: 500px;
-	background: #4766eb;
+	background: #f6a400;
 	position: relative;
-	height: 1200px;
+	height: 500px;
 }
 
 
 
 .layer {
-    /*left: -250px;*/
-    left: -1500px;
-    top: -200px;
+    
+	left: 0px;
+    top: 50%;
     position: absolute;
-    font-size: 1100px;
-    //width: 10000px;
-    font-weight: 900;
+    
+	font-weight: 900;
+
+	font-size: 1500px;
+    top: -500px;
+	left: -1700px;
+
+	
 }
 
 .prefix{
@@ -1209,8 +1449,9 @@ div#divLetterBox {
 #cloudsMsg{
 	font-size: 50px;
 	position: absolute;
-	left: 300px;
-	top: 550px;
+	left: 400px;
+    top: 230px;
+	color:white;
 }
 
 
@@ -1221,19 +1462,34 @@ div#divLetterBox {
     float: left;
 }
 
+#viewpointDetectorClouds{
+	top:250px;
+}
+
+
+.clsSlowLeft{
+	transition: transform 4s;
+}
+
 
 /*----------------------------------------theme zoom steps--------------------------------------*/
 
 
-#divZoomSteps{
-	padding-top: 10px;
-	//width:100%;
-	height: 500px;
-	background: rgb(95, 151, 121)
+
+
+#divZoomSteps {
+    padding-top: 10px;
+    height: 600px;
+	background: #9f6900;
+	position: relative;
 }
 
 .zoomStep{
 	position: absolute;
+}
+
+#viewpointDetectorZoomSteps{
+	top:300px
 }
 
 
@@ -1243,6 +1499,7 @@ div#divLetterBox {
 .char1{
 	/* display:inline; */
 	position: absolute;
+	font-size: 13px;
 }
 
 .line{
@@ -1251,50 +1508,88 @@ div#divLetterBox {
 }
 
 #divWavesVer{
-	//width:100%;
 	height: 500px;
-	background: green;
-	color:white;
+	background: #f6a400;
+	color:black;
 	position: relative;
 	height: 600px;
 }
 
-
-
-#divWavesHor{
-	//width:100%;
-	height: 500px;
-	background: blue;
-	color:white;
-	position: relative;
-	height: 600px;
+#viewpointDetectorWavesVer{
+	top:300px;
 }
 
 
-/*----------------------------------------theme tumbelweed--------------------------------------*/
 
 
-div#divTumbelWeed {
+
+#divWavesHor {
+    height: 500px;
+    background: #aaa18e;
+    color: white;
+    position: relative;
     height: 400px;
-	position: relative;
-	background: brown;
 }
+
+div#divDynContentHorVave {
+    padding-left: 100px;
+    padding-top: 50px;
+}
+
+#viewpointDetectorWavesHor{
+	
+	top:200px;
+}
+
+
+.viewPortDetector{
+	width:10px;
+	height:10px;
+	background:red;
+	position: absolute;
+}
+
+
+
+
+/***-----------------------------------in title bar tumbelweed-----------------------------*/
+#divTumbelWeedInline{
+	display: inline;
+}
+
 
 .tumbleWeed {
     position: absolute;
-    top: 200px;
-    left: 10px;
-}	
+    top: 7px;
+    left: 0px;
+    color: #1a16d1;
+	/* z-index: 0; */
+	opacity: 0;
+}
+
+div#divTumbelWeedContent {
+    display: inline;
+    position: relative;
+}
+
+div#divTumbelWeedControl {
+    display: inline;
+}
+
+#buttonTembleWeedBar{
+	border-style: none;
+    background:#ffc145;
+}
 
 
 /*----------------------------------------theme big swing--------------------------------------*/
 
 #divBigSwing{
 	padding-top: 10px;
-	//width:100%;
 	height: 500px;
 	background: #332727;
 	clip-path: inset(0px 0px 0px 0px);
+	position: relative;
 }
 
 
@@ -1308,10 +1603,9 @@ div#divTumbelWeed {
 	position:absolute;
 	height:900px;
 	width:200px;
-	background:(0,0,0,0);
-	color: #956770;
+	color: #777374;
 	left:525px;
-	top:-400px;
+	top:-450px;
 }
 
 #divBigSwingTextContainer{
@@ -1346,13 +1640,20 @@ div#divTumbelWeed {
 	}
 }
 
+
+#viewpointDetectorBigSwing{
+	top:250px;
+}
+
 /*----------------------------------------theme spasm--------------------------------------*/
 
 #divSpasm{
 	padding-top: 10px;
-	//width:100%;
-	height: 500px;
-	background: pink;
+	height: 550px;
+	background: #2a2825;
+	color: #ffc145;
+	position: relative;
+
 }
 
 #divSpasmContent{
@@ -1369,18 +1670,272 @@ div#divTumbelWeed {
 }
 
 
-/*----------------------------------theme bottom --------------------------------------------*/
-#divBottom{
-	height: 500px;
-	background: red;
+#viewportDetectorSpasm{
+	top:300px;
 }
 
-/* #divBottomContent{
-	position: absolute;
-} */
+
+/*----------------------------------theme bottom --------------------------------------------*/
+#divBottom{
+	height: 900px;
+	background: #ffc145;
+}
+
+
 
 .debryElm{
 	position: absolute;
 }
 
+
+/************************************  theme gh2 *****************************************************************/
+
+#digGh2{
+	position: relative;
+	height: 500px;
+	background:black;
+	color:white;
+}
+
+
+.grassHopper2Box{
+	top:400px;
+	left:-300px;
+	position: absolute;
+	transform-origin: bottom left;
+	font-size:50px;
+}
+
+
+/**********************************theme giant steps*****************/
+
+
+
+#divGiantSteps{
+	height: 600px;
+	background: #2a2825;
+	color: white;
+	position: relative;
+	font-family: 'GeoEditRegular', 'Franklin Gothic Medium', 'Franklin Gothic', 'ITC Franklin Gothic', Helvetica, Arial, sans-serif;
+
+}
+
+.giantFoot{
+	position: absolute;
+	font-size: 100px;
+	top: 300px;
+	left: -500px;
+	transform-origin: 50% 50%;
+}
+
+#giantFootLeft{
+	top:200px;
+}
+
+#giantFootRigth{
+	top:600px;
+}
+
+#viewpointDetectorGiantSteps{
+	top:300px;
+}
+
+
+/************************************spasm2**********************************************/
+
+#divSpasm2{
+	height: 400px;
+	background: #32514f;
+	color:white;
+	position: relative;
+}
+
+
+
+#testSpasm2CahrBox{
+	top:100px;
+	left:200px;
+}
+
+
+
+.spasm2CharBox {
+    font-size: 70px;
+    margin-left: 30px;
+    position: relative;
+    display: inline-block;
+    transform-origin: 50% 75%;
+}
+
+
+
+div#spasm2Content {
+    padding-top: 150px;
+    padding-left: 400px;
+}
+
+#viewpointDetectorSpasm2{
+	top:200px;
+}
+
+/********************************overhead wiper***********************************************/
+#divOverheadWipers{
+	position: fixed;
+	z-index: 1000;
+}
+
+#overheadWipersControls{
+	position: relative;
+}
+
+.overheadWiper {
+    font-size: 80px;
+    color: white;
+    position: absolute;
+    transform: rotate(0deg);
+    width: 500px;
+	transform-origin: left center;
+	text-align: end;
+	top: -80px;
+}
+
+#ohWiper1{
+	left:400px;
+}
+#ohWiper2{
+	left:1000px;
+}
+
+#btnOhWiperGo{
+	color:black;
+	background: #e75815;
+}
+
+.ohWiperSlideIn{
+	animation-name: kFramesOhWipersSlideIn;
+	animation-duration: 1s;
+	animation-fill-mode: forwards;
+}
+
+@keyframes kFramesOhWipersSlideIn{
+	0%{transform: rotate(0deg);}
+	100%{transform: rotate(20deg);}
+}
+
+.ohWiperSlideOut{
+	animation-name: kFramesOhWipersSlideOut;
+	animation-duration: 1s;
+	animation-fill-mode: forwards;
+}
+
+@keyframes kFramesOhWipersSlideOut{
+	0%{transform: rotate(20deg);}
+	100%{transform: rotate(0deg);}
+}
+
+
+
+.ohWiperRun1 {
+    animation-name: kFramesOhWipersRun1;
+    animation-duration: 3s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-in-out;
+}
+
+
+
+@keyframes kFramesOhWipersRun1{
+	0%{transform: rotate(20deg);}
+	48%{transform: rotate(155deg);}
+	52%{transform: rotate(155deg);}
+	100%{transform: rotate(20deg);}
+}
+
+
+.ohWiperRun2 {
+    animation-name: kFramesOhWipersRun2;
+    animation-duration: 1.5s;
+    animation-iteration-count: 2;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes kFramesOhWipersRun2{
+	0%{transform: rotate(20deg);}
+	48%{transform: rotate(155deg);}
+	52%{transform: rotate(155deg);}
+	100%{transform: rotate(20deg);}
+}
+
+.ohWiperRun3 {
+    animation-name: kFramesOhWipersRun3;
+    animation-duration: 0.75s;
+    animation-iteration-count: 3;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes kFramesOhWipersRun3{
+	0%{transform: rotate(20deg);}
+	48%{transform: rotate(155deg);}
+	52%{transform: rotate(155deg);}
+	100%{transform: rotate(20deg);}
+}
+
+
+.ohScrollDetector{
+	position: absolute;
+	width: 20px;
+	height: 20px;
+	background: #5ffaaa;
+}
+
+#ohScrollDetector1{
+	top:3000px;
+}
+#ohScrollDetector2{
+	top:6000px;
+}
+#ohScrollDetector3{
+	top:9000px;
+}
+
+
+/*************theme GH2 ***********************************************/
+
+
+#viewpointDetectorGh2{
+	top:250px;
+}
+
+
+/**********************theme bottom 2 **************************************************/
+
+
+
+#divBottom2 {
+    background: #07ae07;
+    height: 530px;
+    position: relative;
+    margin-bottom: 100px;
+}
+
+.bottom2Elm{
+	position: absolute;
+}
+
+
+
+#divHolywood {
+    position: absolute;
+    font-size: 60px;
+    font-family: Futura LT W01, HelveticaNeue, Helvetica Neue, Helvetica, Arial, sans-serif;
+    bottom: 1%;
+    left: 40%;
+    color: #c2bcbc;
+    font-weight: 900;
+    z-index: -2;
+    transform: rotate(20deg);
+}
 
