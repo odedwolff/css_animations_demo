@@ -2083,16 +2083,22 @@ function split2D(textBlock, charsPerLine, classToAsign, contextObj, arrKey, elmS
 	var c, line, elmId;
 	for(var i = 0, glb_i=0;  glb_i < textBlock.length ; i++){
 		line = [];
-		outHtml= outHtml + "\t<div class='line'>\r\t"
+		outHtml= outHtml + "\t<div class='line'>\r\t";
 		for(j = 0 ; j < charsPerLine &&  glb_i < textBlock.length; j++){
+			
+			while(glb_i >0 && isWhiteSpace(textBlock[glb_i]) && textBlock[glb_i - 1] == '.'){
+				glb_i++;
+			}
+			
 			c=textBlock[glb_i];
 			elmId = elmIdStr(i,j, elmSuffix);
 			if(isWhiteSpace(c)){
 				c="&nbsp";
+				//c=' ';
 			}
 			outHtml= outHtml + "<div class=" + classToAsign + " id=" + elmId + "> " + c + "</div>";
-			glb_i = glb_i + 1;
 			line.push(elmId);
+			glb_i = glb_i + 1;
 		}
 		outHtml= outHtml + "\r</div>"
 		//waveArr[i,j] should contain the id of the i,j dom element to allow obtaining the 
@@ -2120,10 +2126,13 @@ function prepareWaves(){
 	in common with more abstract waves such as sound waves and light (electromagnetic) waves.`; */
 
 
-	`Heavy-duty disappearing techniques for those with a need to know. This book tells you how to pull
-	 off a disappearance and how to stay free and never be found. It analyzes all the ways you could
-		be found by whoever might be looking for you. How to plan & new I. D. for disappearance. 
-		Even Pseudocide to make your pursuers think you are dead.`;
+	`
+Heavy-duty disappearing techniques for those with a need to know. This book tells you how to pull off a disappearance and how to stay free
+and never be found. It analyzes all the ways you could be found by whoever might be looking for you. How to plan a new I.D. for
+disappearance. Even Pseudocide to make your pursuers think you are dead.There comes a time in every mature person's life when they must
+take stock of themselves and decide whether they should continue on their present course or not. One of the most obvious alternatives
+open to us all is to completely change our identity and start a new life in a new place. Considering how common this is, it
+is a surprise that there are so few quality manuals on the dynamics of changing your identity, and none available in Australia`;
 
 	//`physical wave*s such as those we see when a rock is thrown into water `;
 	

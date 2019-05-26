@@ -125,10 +125,11 @@ body {
 
 
 .themePanel{
-	margin-top:  200px;
-	margin-left: 10%;
+/* 	margin-top:  200px;*/	
+ 	margin-left: 10%;
  	margin-right: 10%;
- 	clip-path: inset(0px 0px 0px 0px);
+	 clip-path: inset(0px 0px 0px 0px);
+	 left: -3%;
 }
 
 .divSapcer{
@@ -1508,11 +1509,13 @@ div#viewpointDetectorWheel {
 }
 
 #divWavesVer{
+	/* margin-top: 40px; */
 	height: 500px;
 	background: #f6a400;
 	color:black;
 	position: relative;
-	height: 600px;
+	height: 300px;
+	z-index: -1;
 }
 
 #viewpointDetectorWavesVer{
@@ -1927,13 +1930,29 @@ div#spasm2Content {
 
 
 
+#divBottom2 {
+    background: #0c0d0c;
+    height: 530px;
+    position: relative;
+    margin-bottom: 100px;
+}
+
+
+
+.bottom2Elm{
+	position: absolute;
+	color:#06b206
+}
+
+
+
 #divHolywood {
     position: absolute;
     font-size: 60px;
     font-family: Futura LT W01, HelveticaNeue, Helvetica Neue, Helvetica, Arial, sans-serif;
     bottom: 1%;
     left: 40%;
-    color: #c2bcbc;
+    color: #0b220a;
     font-weight: 900;
     z-index: -2;
     transform: rotate(20deg);
