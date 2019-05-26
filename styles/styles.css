@@ -1693,20 +1693,22 @@ div#divTumbelWeedControl {
 
 /************************************  theme gh2 *****************************************************************/
 
-#digGh2{
-	position: relative;
-	height: 500px;
-	background:black;
-	color:white;
+
+#digGh2 {
+    margin-top: 70px;
+    position: relative;
+    height: 500px;
+    background: #f6a400;
+    color: rgb(1, 1, 1);
 }
 
 
 .grassHopper2Box{
-	top:400px;
+	top:430px;
 	left:-300px;
 	position: absolute;
 	transform-origin: bottom left;
-	font-size:50px;
+	font-size:25px;
 }
 
 
