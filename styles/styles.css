@@ -266,9 +266,9 @@ body {
 
 
 #divPendulumCont {
-    padding-top: 200px;
+    /* padding-top: 200px; */
     padding-left: 150px;
-    height: 350px;
+    height: 450px;
     background: #ffc145;
     color: #000000;
     /* border-style: solid; */
@@ -280,14 +280,14 @@ body {
 
 
 #divPendulum{
-	margin-left: 20%
+	margin-left: 13%
 }
 
 .clsLetterCont{
 	position: relative;
 	float:left;
 	margin-left: 70px;
-	height: 100px;
+	height: 300px;
 	width:15px;
 }
 
@@ -300,21 +300,34 @@ body {
 .swinging{
 	transform-origin: 100% 0%;
 	animation-name: swing;
-	animation-duration: 2s;
+	animation-duration: 4s;
 	animation-iteration-count: infinite;
 }
 
-@keyframes swing{
-	0%{transform: rotate(-80deg);
+/* @keyframes swing{
+	0%{transform: rotate(-40deg);
 		animation-timing-function:cubic-bezier(.36,.01,.67,1);
 		}
-	50%{transform: rotate(80deg);
+	50%{transform: rotate(40deg);
 		animation-timing-function:cubic-bezier(.36,.01,.67,1);
 		}
-	100%{transform: rotate(-80deg);
+	100%{transform: rotate(-40deg);
 		animation-timing-function:cubic-bezier(.36,.01,.67,1);
 	}
+} */
+
+@keyframes swing{
+	0%{transform: rotate(-60deg);
+		animation-timing-function:cubic-bezier(0.53, 0.01, 0.45, 0.99);
+		}
+	50%{transform: rotate(60deg);
+		animation-timing-function:cubic-bezier(0.53, 0.01, 0.45, 0.99);
+		}
+	100%{transform: rotate(-60deg);
+		animation-timing-function:cubic-bezier(0.53, 0.01, 0.45, 0.99);
+	}
 }
+
 
 
 .clsSwingBtn{

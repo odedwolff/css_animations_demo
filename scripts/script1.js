@@ -193,7 +193,11 @@ function swingStart(){
 		return;
 	}
 	swingCtx.isOn = true;
-	startSwingingDelta(0.05);
+	//startSwingingDelta(0.05);   /**peasent but not very interesting */
+//	startSwingingDelta(0.2);   /**this is sick!! */
+//	startSwingingDelta(0.3);   /** half sick, not quite over the top */
+//	startSwingingDelta(0.4);   /**over the top */
+		startSwingingDelta(0.1);   /*pleasent adn interesting */
 }
 
 function SwingStop(){
