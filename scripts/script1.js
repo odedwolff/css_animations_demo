@@ -184,6 +184,9 @@ function stopWischer3(){
 
 /**-------------------small swing-------------------------------------- */
 
+/* there are 2 swing themes, names map accordinegly!
+ */
+
 const swingCtx ={
 	isOn:false
 }
@@ -193,19 +196,40 @@ function swingStart(){
 		return;
 	}
 	swingCtx.isOn = true;
+	//elms = document.getElementsByClassName("swingable");
+	elms = document.querySelectorAll("#divPendulum > .swingable");
+
 	//startSwingingDelta(0.05);   /**peasent but not very interesting */
 //	startSwingingDelta(0.2);   /**this is sick!! */
 //	startSwingingDelta(0.3);   /** half sick, not quite over the top */
 //	startSwingingDelta(0.4);   /**over the top */
-		startSwingingDelta(0.1);   /*pleasent adn interesting */
+		startSwingingDelta(0.1, elms);   /*pleasent adn interesting */
 }
+
+
+
+function testStartSwing2(){
+		elms = document.querySelectorAll("#divPendulum2 > .swingable");
+		startSwingingDelta(0.3, elms);   /*pleasent adn interesting */
+}
+function testStopSwing2(){
+	elms = document.querySelectorAll("#divPendulum2 > .swingable");
+	for(var i = 0 ; i< elms.length ; i++){
+		elms[i].classList.remove("swinging");	
+	}
+}
+
+
+
+
 
 function SwingStop(){
 	if(!swingCtx.isOn){
 		return;
 	}
 	swingCtx.isOn = false;
-	elms = document.getElementsByClassName("swingable");
+	//elms = document.getElementsByClassName("swingable");
+	elms = document.querySelectorAll("#divPendulum > .swingable");
 	for(var i = 0 ; i< elms.length ; i++){
 		elms[i].classList.remove("swinging");	
 	}
@@ -239,9 +263,9 @@ function startSwingingAynch(periodLenSec){
 
 
 
-function startSwingingDelta(dPhaseSec){
+function startSwingingDelta(dPhaseSec, elms){
 	
-	elms = document.getElementsByClassName("swingable");
+	//elms = document.getElementsByClassName("swingable");
 	for(var i = 0 ; i< elms.length ; i++){
 		setTimeout(
 			(function(elm){
@@ -250,6 +274,9 @@ function startSwingingDelta(dPhaseSec){
 			,dPhaseSec * 1000 * i);
 	}
 }
+
+
+
 
 
 /**********************************twister****************************** */
