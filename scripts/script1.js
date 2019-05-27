@@ -226,15 +226,9 @@ function swingStart(phaseSec, context){
 
 //0.3
 function testStartSwing2(){
-	/* 	elms = document.querySelectorAll("#divPendulum2 > .swingable");
-		startSwingingDelta(0.3, elms);   */ 
 		swingStart(0.3, swingCtx2);
 }
 function testStopSwing2(){
-	/* elms = document.querySelectorAll("#divPendulum2 > .swingable");
-	for(var i = 0 ; i< elms.length ; i++){
-		elms[i].classList.remove("swinging");	
-	} */
 	swingStop(swingCtx2);
 }
 
@@ -2385,6 +2379,7 @@ function checkScrollSpeed(){
 	//enableGrasshoppers();
 	enablePulsar();
 	enablePendel();
+	enablePendel2();
 	enableWheel();
 	enableSimpleSteps();
 	enableFish();
@@ -2479,6 +2474,18 @@ function enablePendel(){
 		swingStop(swingCtx);
 	}
 }
+
+function enablePendel2(){
+	if(panelInViewPendel2()){
+		swingStart(0.3, swingCtx2);
+	}else{
+		swingStop(swingCtx2);
+	}
+}
+
+
+
+
 function enableWheel(){
 	if(panelInViewWheell()){
 		wheelingOn();
@@ -2643,6 +2650,11 @@ function panelInViewPulsar(){
 
 function panelInViewPendel(){
 	var topPosInViewPort = document.getElementById("viewpointDetectorPendel").getBoundingClientRect().top;
+	return topPosInViewPort > 0 && topPosInViewPort < 1100;
+}
+
+function panelInViewPendel2(){
+	var topPosInViewPort = document.getElementById("viewpointDetectorPendel2").getBoundingClientRect().top;
 	return topPosInViewPort > 0 && topPosInViewPort < 1100;
 }
 

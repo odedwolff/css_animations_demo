@@ -277,6 +277,18 @@ body {
 	position: relative;
 }
 
+.divPendRoot2 {
+    /* padding-top: 200px; */
+    padding-left: 220px;
+    height: 450px;
+    background: #ffc145;
+    color: #000000;
+    /* border-style: solid; */
+    border-width: 1px;
+	border-color: #000000;
+	position: relative;
+}
+
 
 
 #divPendulum{
