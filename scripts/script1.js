@@ -29,8 +29,9 @@ function init(){
 
 	initBottom2();
 
-
 	initBackgroundStyle();
+
+	initSwing();
 }
 
 
@@ -187,51 +188,65 @@ function stopWischer3(){
 /* there are 2 swing themes, names map accordinegly!
  */
 
-const swingCtx ={
-	isOn:false
+
+
+
+function initSwing(){
+	swingCtx.elms = document.querySelectorAll("#divPendulum > .swingable");
+	swingCtx2.elms = document.querySelectorAll("#divPendulum2 > .swingable");
 }
 
-function swingStart(){
-	if(swingCtx.isOn){
-		return;
-	}
-	swingCtx.isOn = true;
-	//elms = document.getElementsByClassName("swingable");
-	elms = document.querySelectorAll("#divPendulum > .swingable");
+ //#1 is implicit 
+const swingCtx ={
+	isOn:false, 
+	elms:null
+}
+
+const swingCtx2 ={
+	isOn:false,
+	elms:null
+}
+
 
 	//startSwingingDelta(0.05);   /**peasent but not very interesting */
 //	startSwingingDelta(0.2);   /**this is sick!! */
 //	startSwingingDelta(0.3);   /** half sick, not quite over the top */
 //	startSwingingDelta(0.4);   /**over the top */
-		startSwingingDelta(0.1, elms);   /*pleasent adn interesting */
-}
+//	startSwingingDelta(0.1);   /**harmonic and interesing */
 
 
-
-function testStartSwing2(){
-		elms = document.querySelectorAll("#divPendulum2 > .swingable");
-		startSwingingDelta(0.3, elms);   /*pleasent adn interesting */
-}
-function testStopSwing2(){
-	elms = document.querySelectorAll("#divPendulum2 > .swingable");
-	for(var i = 0 ; i< elms.length ; i++){
-		elms[i].classList.remove("swinging");	
-	}
-}
-
-
-
-
-
-function SwingStop(){
-	if(!swingCtx.isOn){
+function swingStart(phaseSec, context){
+	if(context.isOn){
 		return;
 	}
-	swingCtx.isOn = false;
-	//elms = document.getElementsByClassName("swingable");
-	elms = document.querySelectorAll("#divPendulum > .swingable");
+	context.isOn = true;
+		startSwingingDelta(phaseSec, context.elms);   /*pleasent adn interesting */
+}
+
+
+//0.3
+function testStartSwing2(){
+	/* 	elms = document.querySelectorAll("#divPendulum2 > .swingable");
+		startSwingingDelta(0.3, elms);   */ 
+		swingStart(0.3, swingCtx2);
+}
+function testStopSwing2(){
+	/* elms = document.querySelectorAll("#divPendulum2 > .swingable");
 	for(var i = 0 ; i< elms.length ; i++){
 		elms[i].classList.remove("swinging");	
+	} */
+	swingStop(swingCtx2);
+}
+
+
+
+function swingStop(context){
+	if(!context.isOn){
+		return;
+	}
+	context.isOn = false;
+	for(var i = 0 ; i< context.elms.length ; i++){
+		context.elms[i].classList.remove("swinging");	
 	}
 }
 
@@ -2459,9 +2474,9 @@ function enablePulsar(){
 
 function enablePendel(){
 	if(panelInViewPendel()){
-		swingStart();
+		swingStart(0.1, swingCtx);
 	}else{
-		SwingStop();
+		swingStop(swingCtx);
 	}
 }
 function enableWheel(){
