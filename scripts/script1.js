@@ -194,6 +194,7 @@ function stopWischer3(){
 function initSwing(){
 	swingCtx.elms = document.querySelectorAll("#divPendulum > .swingable");
 	swingCtx2.elms = document.querySelectorAll("#divPendulum2 > .swingable");
+	swingCtx3_1.elms = document.querySelectorAll("#divPendulum3_1 > .swingable");
 }
 
  //#1 is implicit 
@@ -207,12 +208,22 @@ const swingCtx2 ={
 	elms:null
 }
 
+const swingCtx3_1 ={
+	isOn:false,
+	elms:null
+}
+
 
 	//startSwingingDelta(0.05);   /**peasent but not very interesting */
 //	startSwingingDelta(0.2);   /**this is sick!! */
 //	startSwingingDelta(0.3);   /** half sick, not quite over the top */
 //	startSwingingDelta(0.4);   /**over the top */
 //	startSwingingDelta(0.1);   /**harmonic and interesing */
+
+function testStartSwing3(){
+	swingStart(0.1, swingCtx3_1);
+}
+
 
 
 function swingStart(phaseSec, context){

@@ -289,6 +289,32 @@ body {
 	position: relative;
 }
 
+.divPendRoot3_1{
+	padding-left: 220px;
+    height: 450px;
+    background: #ffc145;
+    color: #000000;
+    /* border-style: solid; */
+    border-width: 1px;
+	border-color: #000000;
+	/* position: absolute;
+	left:400px; */
+}
+
+#absPendBase3_1{
+	background:pink;
+	position:absolute;
+	left:400px;
+}
+
+#absPendBase3_2{
+	background:pink;
+	position:absolute;
+	left:700px;
+	top:200px;
+	transform: scale(0.6);
+}
+
 
 
 #divPendulum{

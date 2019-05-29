@@ -30,3 +30,8 @@ some nice gray scale combinnations:
  background 332727 (blackish)  to    fore 777374 (gray)
 
  background aaa18e (gray)  to  fore 777374 (white)
+
+
+ 
+ nice color for background (light blue)- works well with blakc fonts and 
+ musterdy margins - 45e9ff
