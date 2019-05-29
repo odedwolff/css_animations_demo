@@ -211,6 +211,11 @@ const swingCtx2 ={
 	elms:null
 }
 
+
+const swing3BaseCtx = {
+	phaseDiffMs:300
+}
+
 const swingCtx3_1 ={
 	isOn:false,
 	elms:null
@@ -223,7 +228,8 @@ const swingCtx3_2 ={
 
 const swingCtx3_3 ={
 	isOn:false,
-	elms:null
+	elms:null,
+	
 }
 
 
@@ -233,14 +239,29 @@ const swingCtx3_3 ={
 //	startSwingingDelta(0.4);   /**over the top */
 //	startSwingingDelta(0.1);   /**harmonic and interesing */
 
-function testStartSwing3(){
+
+//org delat:300ms
+//will be voided if already running 
+function startSwing3Arr(){
 	swingStart(0.1, swingCtx3_1);
 	setTimeout(() => {
 		swingStart(0.1, swingCtx3_2);
 		setTimeout(() => {
 			swingStart(0.1, swingCtx3_3);
-		}, 300);
-	}, 300);
+		}, swing3BaseCtx.phaseDiffMs);
+	},  swing3BaseCtx.phaseDiffMs);
+}
+
+//all string are assumed to have the same length 
+function stopAndRearmSwing3Arr(){
+	for(var i = 0 ; i< swingCtx3_1.elms.length ; i++){
+		swingCtx3_1.elms[i].classList.remove("swinging");
+		swingCtx3_2.elms[i].classList.remove("swinging");
+		swingCtx3_3.elms[i].classList.remove("swinging");	
+		swingCtx3_1.isOn=false;
+		swingCtx3_2.isOn=false;
+		swingCtx3_3.isOn=false;
+	}
 }
 
 
@@ -254,15 +275,6 @@ function swingStart(phaseSec, context){
 }
 
 
-//0.3
-function testStartSwing2(){
-		swingStart(0.3, swingCtx2);
-}
-function testStopSwing2(){
-	swingStop(swingCtx2);
-}
-
-
 
 function swingStop(context){
 	if(!context.isOn){
@@ -271,31 +283,6 @@ function swingStop(context){
 	context.isOn = false;
 	for(var i = 0 ; i< context.elms.length ; i++){
 		context.elms[i].classList.remove("swinging");	
-	}
-}
-
-
-
-
-
-function startSwinging(){
-	elms = document.getElementsByClassName("swingable");
-	for(var i = 0 ; i< elms.length ; i++){
-		elms[i].classList.add("swinging");	
-	}
-}
-
-
-function startSwingingAynch(periodLenSec){
-	
-	elms = document.getElementsByClassName("swingable");
-	for(var i = 0 ; i< elms.length ; i++){
-		var delay = Math.random() * periodLenSec * 1000;
-		setTimeout(
-			(function(elm){
-				elm.classList.add("swinging");	
-			}).bind(null, elms[i])
-			,delay);
 	}
 }
 
@@ -2410,6 +2397,7 @@ function checkScrollSpeed(){
 	enablePulsar();
 	enablePendel();
 	enablePendel2();
+	enablePendel3();
 	enableWheel();
 	enableSimpleSteps();
 	enableFish();
@@ -2512,6 +2500,16 @@ function enablePendel2(){
 		swingStop(swingCtx2);
 	}
 }
+
+function enablePendel3(){
+	if(panelInViewPendel3()){
+		startSwing3Arr();
+	}else{
+		stopAndRearmSwing3Arr();
+	}
+}
+
+
 
 
 
@@ -2687,6 +2685,14 @@ function panelInViewPendel2(){
 	var topPosInViewPort = document.getElementById("viewpointDetectorPendel2").getBoundingClientRect().top;
 	return topPosInViewPort > 0 && topPosInViewPort < 1100;
 }
+
+function panelInViewPendel3(){
+	var topPosInViewPort = document.getElementById("viewpointDetectorPendel3").getBoundingClientRect().top;
+	return topPosInViewPort > 0 && topPosInViewPort < 1100;
+}
+
+
+
 
 function panelInViewWheell(){
 	var topPosInViewPort = document.getElementById("viewpointDetectorWheel").getBoundingClientRect().top;
