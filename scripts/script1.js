@@ -195,6 +195,7 @@ function initSwing(){
 	swingCtx.elms = document.querySelectorAll("#divPendulum > .swingable");
 	swingCtx2.elms = document.querySelectorAll("#divPendulum2 > .swingable");
 	swingCtx3_1.elms = document.querySelectorAll("#divPendulum3_1 > .swingable");
+	swingCtx3_2.elms = document.querySelectorAll("#divPendulum3_2 > .swingable");
 }
 
  //#1 is implicit 
@@ -213,6 +214,11 @@ const swingCtx3_1 ={
 	elms:null
 }
 
+const swingCtx3_2 ={
+	isOn:false,
+	elms:null
+}
+
 
 	//startSwingingDelta(0.05);   /**peasent but not very interesting */
 //	startSwingingDelta(0.2);   /**this is sick!! */
@@ -222,6 +228,9 @@ const swingCtx3_1 ={
 
 function testStartSwing3(){
 	swingStart(0.1, swingCtx3_1);
+	setTimeout(() => {
+		swingStart(0.1, swingCtx3_2);
+	}, 300);
 }
 
 
