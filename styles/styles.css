@@ -321,6 +321,30 @@ body {
 	transform: scale(0.5);
 }
 
+/* 
+#absPendBase3_1{
+	background:ffc0cb00;
+	position:absolute;
+	left:300px;
+}
+
+#absPendBase3_2{
+	background:ffc0cb00;
+	position:absolute;
+	left:450px;
+	top:-30px;
+	transform: scale(0.7);
+}
+#absPendBase3_3{
+	background:ffc0cb00;
+	position:absolute;
+	left:600px;
+	top:-60px;
+	transform: scale(0.5);
+}
+ */
+
+
 
 
 #divPendulum{
@@ -1311,17 +1335,19 @@ div#divGHcontent {
 /*-------------------------------------theme gears-------------------------------------------------------------------
 */
 
-#divGears{
-	height: 350px;
-	background:#9f6900;
-	position: relative;
+
+#divGears {
+    height: 350px;
+    background: #a5936f;
+    position: relative;
+    color: #b21616;
 }
 
 
 
 div#divLetterBox {
-    left: 400px;
-    top: 100px;
+	left: 470px;
+    top: 150px;
     position: relative;
 }
 
@@ -1334,7 +1360,8 @@ div#divLetterBox {
     font-size: 55px;
     /* background: white; */
     margin-left: 10px;
-    text-align: center;
+	text-align: center;
+	font-weight: 900;
 }
 
 
@@ -1368,7 +1395,7 @@ div#divLetterBox {
 
 .plsClockwiseGoLinear{
 	animation-name: plsClockwiseGoLinear;
-	animation-duration: 2s;
+	animation-duration: 3s;
 	animation-fill-mode: forwards;
 	animation-iteration-count: infinite;
 	animation-timing-function:	linear; 
@@ -1385,7 +1412,7 @@ div#divLetterBox {
  
 .plsAnticlockwiseGoLinear{
 	animation-name: plsAnticlockwiseGoLinear;
-	animation-duration: 2s;
+	animation-duration: 3s;
 	animation-fill-mode: forwards;
 	animation-iteration-count: infinite;
 	animation-timing-function:	linear; 
@@ -1410,7 +1437,7 @@ div#divLetterBox {
 
 #divWheel{
 	height: 500px;
-	background: #aaa18e;
+	background: #518683;
 	color: rgb(252, 252, 252);
 	position: relative;
 	height: 600px;
@@ -1424,7 +1451,7 @@ div#divLetterBox {
     bottom: 2px;
     left: 11px;
 	font-size: 32px;
-	color: rgb(252, 252, 252);
+	color: rgb(5, 5, 5);
 }
 
 

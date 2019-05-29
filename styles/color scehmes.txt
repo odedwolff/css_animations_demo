@@ -35,3 +35,4 @@ some nice gray scale combinnations:
  
  nice color for background (light blue)- works well with blakc fonts and 
  musterdy margins - 45e9ff
+ edit: it's a terrible idea, forget it 
