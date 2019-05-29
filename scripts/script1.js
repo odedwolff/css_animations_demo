@@ -213,21 +213,20 @@ const swingCtx2 ={
 
 
 const swing3BaseCtx = {
-	phaseDiffMs:300
+	phaseDiffMs:300,
+	isOn:false,
+	phaseBtwLettersSec:0.1
 }
 
 const swingCtx3_1 ={
-	isOn:false,
 	elms:null
 }
 
 const swingCtx3_2 ={
-	isOn:false,
 	elms:null
 }
 
 const swingCtx3_3 ={
-	isOn:false,
 	elms:null,
 	
 }
@@ -243,14 +242,24 @@ const swingCtx3_3 ={
 //org delat:300ms
 //will be voided if already running 
 function startSwing3Arr(){
-	swingStart(0.1, swingCtx3_1);
+	if(swing3BaseCtx.isOn){
+		return;
+	}
+	swing3BaseCtx.isOn=true;
+	startSwingingDelta(swing3BaseCtx.phaseBtwLettersSec, swingCtx3_1.elms);
 	setTimeout(() => {
-		swingStart(0.1, swingCtx3_2);
+		startSwingingDelta(swing3BaseCtx.phaseBtwLettersSec, swingCtx3_2.elms);
 		setTimeout(() => {
-			swingStart(0.1, swingCtx3_3);
+			startSwingingDelta(swing3BaseCtx.phaseBtwLettersSec, swingCtx3_3.elms);
 		}, swing3BaseCtx.phaseDiffMs);
 	},  swing3BaseCtx.phaseDiffMs);
 }
+
+/* function addClassToColl(coll,addClass){
+	for (let index = 0; index < coll.length; index++) {
+		coll[index].classList.add(addClass);
+	}
+} */
 
 //all string are assumed to have the same length 
 function stopAndRearmSwing3Arr(){
@@ -258,9 +267,7 @@ function stopAndRearmSwing3Arr(){
 		swingCtx3_1.elms[i].classList.remove("swinging");
 		swingCtx3_2.elms[i].classList.remove("swinging");
 		swingCtx3_3.elms[i].classList.remove("swinging");	
-		swingCtx3_1.isOn=false;
-		swingCtx3_2.isOn=false;
-		swingCtx3_3.isOn=false;
+		swing3BaseCtx.isOn=false;
 	}
 }
 
