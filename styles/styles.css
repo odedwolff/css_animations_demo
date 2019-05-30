@@ -433,8 +433,8 @@ body {
 	margin-top: 50px;
 	padding-top: 200px;
     height: 220px;
-	background: #2a2825;
-	color: #ffc145;
+	color: #b21616;
+    background: #81b6b3;
 	position: relative;
 	
 }
@@ -606,9 +606,8 @@ body {
 #divRollerCont{
 	margin-top: 20px;
 	height: 500px;
-	background: #f6a400;
-	color: white;
-	background: black;
+	color: #b21616;
+    background: #81b6b3;
 	position: relative;
 	font-family:'Futura LT W01','HelveticaNeue','Helvetica Neue','Helvetica','Arial','sans-serif';
 }
@@ -1630,8 +1629,8 @@ div#divWheelContent {
 
 #divWavesHor {
     height: 500px;
-    background: #aaa18e;
-    color: white;
+	background: #ffaa00;
+    color: #783f3f;
     position: relative;
     height: 400px;
 }
