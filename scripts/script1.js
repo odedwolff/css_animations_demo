@@ -2668,7 +2668,7 @@ function panelInViewPortWavesVer(){
 	
 	//don't block from above, because the engaging is not smooth and should not happen 
 	//insode viewport 
-	return topPosInViewPort > 300;
+	return topPosInViewPort > 50;
 }
 
 

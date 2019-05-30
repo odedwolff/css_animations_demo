@@ -533,6 +533,7 @@ body {
 	background: #32514f;
 	color: rgb(252, 252, 252);
 	position: relative;
+	margin-top: 450px;
 }
 
 .letterContainerPulsar{
@@ -1801,7 +1802,8 @@ div#divTumbelWeedControl {
     position: relative;
     height: 500px;
     background: #f6a400;
-    color: rgb(1, 1, 1);
+	color: rgb(1, 1, 1);
+	margin-top: 450px;
 }
 
 
