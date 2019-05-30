@@ -36,3 +36,15 @@ some nice gray scale combinnations:
  nice color for background (light blue)- works well with blakc fonts and 
  musterdy margins - 45e9ff
  edit: it's a terrible idea, forget it 
+
+
+ theme ignite red on gray tones, bofre changing (could be useful elsewhere)
+ background: #a5936f;
+ color: #b21616;
+
+ also works well:
+
+ background: #518683;
+ color: #b21616;
+
+ theme bless your heart background: #518683

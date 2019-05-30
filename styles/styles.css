@@ -1349,10 +1349,10 @@ div#divGHcontent {
 
 
 #divGears {
-    height: 350px;
-    background: #a5936f;
+	height: 350px;
+    background: #75d31266;
     position: relative;
-    color: #b21616;
+    color: #050505
 }
 
 
@@ -1692,7 +1692,8 @@ div#divTumbelWeedControl {
 #divBigSwing{
 	padding-top: 10px;
 	height: 500px;
-	background: #332727;
+	background: #cc9b38;
+	color:#b61414;
 	clip-path: inset(0px 0px 0px 0px);
 	position: relative;
 }
@@ -1708,7 +1709,7 @@ div#divTumbelWeedControl {
 	position:absolute;
 	height:900px;
 	width:200px;
-	color: #777374;
+	/* color: #777374; */
 	left:525px;
 	top:-450px;
 }
