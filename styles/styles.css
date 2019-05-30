@@ -123,13 +123,23 @@ body {
 }
 
 
-
+/* 
 .themePanel{
-/* 	margin-top:  200px;*/	
  	margin-left: 10%;
  	margin-right: 10%;
 	 clip-path: inset(0px 0px 0px 0px);
 	 left: -3%;
+}
+ */
+
+
+.themePanel {
+    /* margin-top: 200px; */
+    margin-left: 13%;
+    /* margin-right: 10%; */
+    width: 80%;
+    clip-path: inset(0px 0px 0px 0px);
+    left: -3%;
 }
 
 .divSapcer{
@@ -290,36 +300,38 @@ body {
 }
 
 .divPendRoot3_1{
-	padding-left: 220px;
-    height: 450px;
-    background: #ffc145;
-    color: #000000;
-    /* border-style: solid; */
-    border-width: 1px;
+	/* padding-left: 220px; */
+	height: 450px;
+	background: #ffc145;
+	color: #000000;
+	/* border-style: solid; */
+	border-width: 1px;
 	border-color: #000000;
 	position: relative;
+	/* left: -120px; */
 }
 
 #absPendBase3_1{
 	background:ffc0cb00;
 	position:absolute;
-	left:300px;
+	left:200px;
 }
 
 #absPendBase3_2{
 	background:ffc0cb00;
 	position:absolute;
-	left:600px;
+	left:370px;
 	top:100px;
 	transform: scale(0.7);
 }
 #absPendBase3_3{
 	background:ffc0cb00;
 	position:absolute;
-	left:750px;
-	top:80px;
+	left:500px;
+	top:170px;
 	transform: scale(0.5);
 }
+
 
 /* 
 #absPendBase3_1{
@@ -1495,6 +1507,12 @@ div#divLetterBox {
 
 div#viewpointDetectorWheel {
     top: 300px;
+}
+
+div#divWheelContent {
+    left: 75px;
+    top: -50px;
+    position: relative;
 }
 
 /*------------------------theme clouds------------------------------------
