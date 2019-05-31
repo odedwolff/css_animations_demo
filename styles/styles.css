@@ -1612,6 +1612,7 @@ div#divWheelContent {
 
 #divWavesVer{
 	/* margin-top: 40px; */
+	top:150px;
 	height: 500px;
 	background: #f6a400;
 	color:black;
@@ -2064,3 +2065,10 @@ div#spasm2Content {
     transform: rotate(20deg);
 }
 
+/* fixed upper section  *********************/
+
+div#divTitleSection {
+    position: fixed;
+    width: 100%;
+    z-index: 11;
+}

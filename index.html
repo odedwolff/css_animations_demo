@@ -40,54 +40,47 @@
 		<div class=ohScrollDetector id=ohScrollDetector3></div>
 	</div>
 	
+	<div id=divTitleSection> 
 
-
-	<div id=overTitleSpace>
-
-	</div>
-
-	<div id=divHeader>
-<!-- 		 <h2>chladnicky a ponozky</h2>
- -->		 
- 		<!-- <div class=hTop>chladnicky</div>
-		<div class=hTop id="topText_a_">a </div>
-		<div class=hTop>ponozky</div>
- -->
-		<div class=hTop >chla<span class=sapnTopH>dnic</span>sky a po<span class=sapnTopH>noz</span >ky</div>
-	</div>
-
-	<div id=topMenuBar>
-		<button class=btnTopMenu onclick="showMsgBox()">options</button>
-		<button class=btnTopMenu>about</button>
-		<button class=btnTopMenu>home</button>
-		<button class=btnTopMenu>contacts</button>
-
-			
-		<div id= divTumbelWeedInline>
-				<div id=divTumbelWeedControl>	
-<!-- 				<button id=buttonTembleWeedBar onclick='triggerWeed2()'>sequene</button>
- -->
-				</div>	
-				<div id= divTumbelWeedContent>
-					<div id='tumble1' class='tumbleWeed'>e</div>	
-					<div class='tumbleWeed'>m</div>	
-					<div class='tumbleWeed'>G</div>	
-					<div class='tumbleWeed'>3</div>	
-				</div>	
-
-				<div id=viewpointDetectorWeedMenu class=viewPortDetector></div>		
+		<div id=overTitleSpace>
 		</div>
 
-		<div id=divMsgBox>
-				messages messages messages messages messages messages
-
-				<button onclick="hideMsgBox()">
-					close
-				</button>
+		<div id=divHeader>
+			<div class=hTop >chla<span class=sapnTopH>dnic</span>sky a po<span class=sapnTopH>noz</span >ky</div>
 		</div>
 
-	</div>
- 
+		<div id=topMenuBar>
+			<button class=btnTopMenu onclick="showMsgBox()">options</button>
+			<button class=btnTopMenu>about</button>
+			<button class=btnTopMenu>home</button>
+			<button class=btnTopMenu>contacts</button>
+
+				
+			<div id= divTumbelWeedInline>
+					<div id=divTumbelWeedControl>	
+	<!-- 				<button id=buttonTembleWeedBar onclick='triggerWeed2()'>sequene</button>
+	-->
+					</div>	
+					<div id= divTumbelWeedContent>
+						<div id='tumble1' class='tumbleWeed'>e</div>	
+						<div class='tumbleWeed'>m</div>	
+						<div class='tumbleWeed'>G</div>	
+						<div class='tumbleWeed'>3</div>	
+					</div>	
+
+					<div id=viewpointDetectorWeedMenu class=viewPortDetector></div>		
+			</div>
+
+			<div id=divMsgBox>
+					messages messages messages messages messages messages
+
+					<button onclick="hideMsgBox()">
+						close
+					</button>
+			</div>
+
+		</div>
+	</div>	
 	 <!--******************theme panels****************************************  -->
 
 	 <div id=divWavesVer class=themePanel>
@@ -191,6 +184,63 @@
 
 		</div>
 	</div>
+
+
+	<div id=divTwisterCont class=themePanel>
+		<div  id=twistControl>
+			<button id=btnGo onclick="startTwister(0.2, 1.0)">twist</button>
+			<button id=btnGo onclick="reloadTwister()">reload</button>
+			<button id=btnPreRide onclick="twisterStage3(0.8, 1.0)">stage 3</button>
+			<button  onclick="twistIntegrated()">integreated</button>
+
+
+
+		</div>
+		<div id=divTwistText> 
+			<div class="twistLetterCont">
+				<div class=clsLetterTwst >
+					t
+				</div>
+			</div>
+			<div class="twistLetterCont">
+				<div class=clsLetterTwst >
+					w
+				</div>
+			</div>
+			<div class="twistLetterCont">
+				<div class=clsLetterTwst >
+					i
+				</div>
+			</div>
+			<div class="twistLetterCont">
+				<div class=clsLetterTwst >
+					s
+				</div>
+			</div>
+			<div class="twistLetterCont">
+				<div class=clsLetterTwst >
+					t
+				</div>
+			</div>
+			<div class="twistLetterCont">
+				<div class=clsLetterTwst >
+					e
+				</div>
+			</div>
+			<div class="twistLetterCont">
+				<div class=clsLetterTwst >
+					r
+				</div>
+			</div>
+		</div>
+
+		<div id=viewpointDetectorTwistter class=viewPortDetector>
+
+		</div>
+</div>	
+
+
+	
 	 
 	
 
@@ -787,58 +837,7 @@
 
 	
 
-	<div id=divTwisterCont class=themePanel>
-			<div  id=twistControl>
-				<button id=btnGo onclick="startTwister(0.2, 1.0)">twist</button>
-				<button id=btnGo onclick="reloadTwister()">reload</button>
-				<button id=btnPreRide onclick="twisterStage3(0.8, 1.0)">stage 3</button>
-				<button  onclick="twistIntegrated()">integreated</button>
 	
-	
-	
-			</div>
-			<div id=divTwistText> 
-				<div class="twistLetterCont">
-					<div class=clsLetterTwst >
-						t
-					</div>
-				</div>
-				<div class="twistLetterCont">
-					<div class=clsLetterTwst >
-						w
-					</div>
-				</div>
-				<div class="twistLetterCont">
-					<div class=clsLetterTwst >
-						i
-					</div>
-				</div>
-				<div class="twistLetterCont">
-					<div class=clsLetterTwst >
-						s
-					</div>
-				</div>
-				<div class="twistLetterCont">
-					<div class=clsLetterTwst >
-						t
-					</div>
-				</div>
-				<div class="twistLetterCont">
-					<div class=clsLetterTwst >
-						e
-					</div>
-				</div>
-				<div class="twistLetterCont">
-					<div class=clsLetterTwst >
-						r
-					</div>
-				</div>
-			</div>
-
-			<div id=viewpointDetectorTwistter class=viewPortDetector>
-
-			</div>
-	</div>	
 
 
 	
