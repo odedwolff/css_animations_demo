@@ -2441,6 +2441,44 @@ function checkScrollSpeed(){
 
 
 	updateBackground(currentPos);
+
+
+	updateUpperSectionPosition(currentPos);
+}
+
+const upperSectionCtx = {
+	maxHeigtForFixed:1000,
+	minHeightOutOfView:2000,
+	outOfViewTopVal:-500,
+	currentTop:0
+}
+
+
+function updateUpperSectionPosition(currentPos){
+	const elm = document.getElementById("divTitleSection");
+	
+	//fully in 
+	if(currentPos < upperSectionCtx.maxHeigtForFixed){
+		if(upperSectionCtx.currentTop!=0){
+			elm.style.top = "0px";
+			upperSectionCtx.currentTop=0;
+		}
+		return;
+	}
+
+	//fully out
+	if(currentPos > upperSectionCtx.minHeightOutOfView){
+		if(upperSectionCtx.currentTop!=upperSectionCtx.outOfViewTopVal){
+			elm.style.top = upperSectionCtx.outOfViewTopVal + "px";
+			upperSectionCtx.currentTop = upperSectionCtx.outOfViewTopVal;
+		}
+		return;
+	}
+
+	//in between 
+	const newTop = upperSectionCtx.maxHeigtForFixed - currentPos;
+	elm.style.top = newTop + "px";
+	upperSectionCtx.currentTop = newTop;
 }
 
 
