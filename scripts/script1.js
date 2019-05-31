@@ -2446,12 +2446,19 @@ function checkScrollSpeed(){
 	updateUpperSectionPosition(currentPos);
 }
 
+
+//"height" - means sometimes "yscroll", probably 
+//not the best naming here 
 const upperSectionCtx = {
 	maxHeigtForFixed:1000,
 	minHeightOutOfView:2000,
 	outOfViewTopVal:-500,
+	minHeightTumbleWeedActivation:300,
 	currentTop:0
 }
+
+upperSectionCtx.minHeightOutOfView =  upperSectionCtx.minHeightOutOfView  + 1000; 
+
 
 
 function updateUpperSectionPosition(currentPos){
@@ -2804,7 +2811,8 @@ function opcPerXpos(x){
 
 
 function triggerWeed2(){
-	if(tumbleweedCtx.isRunning){
+	if(tumbleweedCtx.isRunning || window.scrollY < upperSectionCtx.minHeightTumbleWeedActivation 
+		|| window.scrollY > upperSectionCtx.minHeightOutOfView){
 		return;
 	}
 	tumbleweedCtx.isRunning=true;
