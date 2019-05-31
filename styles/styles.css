@@ -433,8 +433,10 @@ body {
 	margin-top: 50px;
 	padding-top: 200px;
     height: 220px;
-	color: #b21616;
-    background: #81b6b3;
+	/* color: #b21616;
+	background: #81b6b3; */
+	background: #32514f;
+	color:white;
 	position: relative;
 	
 }
@@ -1855,8 +1857,10 @@ div#divTumbelWeedControl {
 
 #divSpasm2{
 	height: 400px;
-	background: #32514f;
-	color:white;
+	/* background: #32514f;
+	color:white; */
+	color: #b21616;
+    background: #81b6b3;
 	position: relative;
 }
 
