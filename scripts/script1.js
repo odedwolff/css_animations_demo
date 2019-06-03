@@ -3853,7 +3853,7 @@ const spasm2Ctx = {
 	preBounceBackTimeSec:1.5,
 	bounceBackTimeSec:.2,
 
-	offsetRangeMs:300,
+	offsetRangeMs:150,
 
 	waitAtEndOfSuquenceSec:1.2
 }
