@@ -49,11 +49,13 @@ themes
 -the main headline should swing slightly, like it was 
 subject to waves or something 
 
-
+* bring back senza!!
   words to use:
 
   machbar 
   nachbar
+
+  vsechno 
 
   topo
 

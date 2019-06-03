@@ -301,7 +301,7 @@ body {
 
 .divPendRoot3_1{
 	/* padding-left: 220px; */
-	height: 450px;
+	height: 350px;
 	background: #ffc145;
 	color: #000000;
 	/* border-style: solid; */
@@ -535,7 +535,7 @@ body {
 	background: #32514f;
 	color: rgb(252, 252, 252);
 	position: relative;
-	margin-top: 450px;
+	margin-top: 100px;
 }
 
 .letterContainerPulsar{
@@ -888,6 +888,7 @@ div#divContRollerR2 {
     height: 350px;
 	background: #f6a400;
 	position: relative;
+	margin-top: 19px;
 }
 
 
@@ -1129,6 +1130,7 @@ div#divFashingContent{
 
 
 #div3fish {
+	margin-top:19px;
     height: 300px;
     background: #75d31266;
     position: relative;
@@ -1221,7 +1223,8 @@ div#divFashingContent{
     background: #f6a400;
     position: relative;
     height: 300px;
-    color: #000000;
+	color: #000000;
+	margin-top:350px;
 }
 
 .foot{
@@ -1354,7 +1357,8 @@ div#divGHcontent {
 	height: 350px;
     background: #75d31266;
     position: relative;
-    color: #050505
+	color: #050505;
+	margin-top: 350px;
 }
 
 
@@ -1455,6 +1459,7 @@ div#divLetterBox {
 	color: rgb(252, 252, 252);
 	position: relative;
 	height: 600px;
+	margin-top: 19px;
 }
 
 
@@ -1524,6 +1529,7 @@ div#divWheelContent {
 	background: #f6a400;
 	position: relative;
 	height: 500px;
+	margin-top: 19px;
 }
 
 
@@ -1615,12 +1621,12 @@ div#divWheelContent {
 #divWavesVer{
 	/* margin-top: 40px; */
 	top:150px;
-	height: 500px;
 	background: #f6a400;
 	color:black;
 	position: relative;
-	height: 300px;
+	height: 400px;
 	z-index: -1;
+	padding-top: 60px;
 }
 
 #viewpointDetectorWavesVer{
@@ -1632,11 +1638,11 @@ div#divWheelContent {
 
 
 #divWavesHor {
-    height: 500px;
 	background: #ffaa00;
     color: #783f3f;
     position: relative;
-    height: 400px;
+	height: 400px;
+	margin-top: 19px;
 }
 
 div#divDynContentHorVave {
@@ -1699,6 +1705,7 @@ div#divTumbelWeedControl {
 	color:#b61414;
 	clip-path: inset(0px 0px 0px 0px);
 	position: relative;
+	margin-top: 19px;
 }
 
 
@@ -1762,6 +1769,7 @@ div#divTumbelWeedControl {
 	background: #2a2825;
 	color: #ffc145;
 	position: relative;
+	margin-top: 19px;
 
 }
 
@@ -1801,12 +1809,12 @@ div#divTumbelWeedControl {
 
 
 #digGh2 {
-    margin-top: 70px;
+    margin-top: 19px;
     position: relative;
     height: 500px;
     background: #f6a400;
 	color: rgb(1, 1, 1);
-	margin-top: 450px;
+	
 }
 
 
@@ -1829,7 +1837,7 @@ div#divTumbelWeedControl {
 	color: white;
 	position: relative;
 	font-family: 'GeoEditRegular', 'Franklin Gothic Medium', 'Franklin Gothic', 'ITC Franklin Gothic', Helvetica, Arial, sans-serif;
-
+	margin-top: 19px;
 }
 
 .giantFoot{
@@ -1862,6 +1870,7 @@ div#divTumbelWeedControl {
 	color: #b21616;
     background: #81b6b3;
 	position: relative;
+	margin-top: 19px;
 }
 
 
@@ -2032,7 +2041,8 @@ div#spasm2Content {
     background: #07ae07;
     height: 530px;
     position: relative;
-    margin-bottom: 100px;
+	margin-bottom: 100px;
+	margin-top: 19px;
 }
 
 .bottom2Elm{
