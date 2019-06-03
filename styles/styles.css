@@ -301,7 +301,7 @@ body {
 
 .divPendRoot3_1{
 	/* padding-left: 220px; */
-	height: 350px;
+	height: 450px;
 	background: #ffc145;
 	color: #000000;
 	/* border-style: solid; */
@@ -535,7 +535,7 @@ body {
 	background: #32514f;
 	color: rgb(252, 252, 252);
 	position: relative;
-	margin-top: 100px;
+	/* margin-top: 100px; */
 }
 
 .letterContainerPulsar{
@@ -607,7 +607,7 @@ body {
 /*-------------------------------------theme rolling-------------------------------------------------------------------
 */
 #divRollerCont{
-	margin-top: 20px;
+	/* margin-top: 20px; */
 	height: 500px;
 	color: #b21616;
     background: #81b6b3;
@@ -888,7 +888,7 @@ div#divContRollerR2 {
     height: 350px;
 	background: #f6a400;
 	position: relative;
-	margin-top: 19px;
+	/* margin-top: 19px; */
 }
 
 
@@ -995,7 +995,7 @@ div#divLinesFocosContent {
 
 
 #divFlashingCont{
-	margin-top: 20px;
+	/* margin-top: 20px; */
     height: 350px;
     color: #ffffff;
     background: #32514f;
@@ -1130,7 +1130,7 @@ div#divFashingContent{
 
 
 #div3fish {
-	margin-top:19px;
+	/* margin-top:19px; */
     height: 300px;
     background: #75d31266;
     position: relative;
@@ -1224,7 +1224,8 @@ div#divFashingContent{
     position: relative;
     height: 300px;
 	color: #000000;
-	margin-top:350px;
+/* 	margin-top:350px;
+ */
 }
 
 .foot{
@@ -1358,7 +1359,7 @@ div#divGHcontent {
     background: #75d31266;
     position: relative;
 	color: #050505;
-	margin-top: 350px;
+	margin-top: 150px;
 }
 
 
@@ -1459,7 +1460,7 @@ div#divLetterBox {
 	color: rgb(252, 252, 252);
 	position: relative;
 	height: 600px;
-	margin-top: 19px;
+	/* margin-top: 19px; */
 }
 
 
@@ -1529,7 +1530,7 @@ div#divWheelContent {
 	background: #f6a400;
 	position: relative;
 	height: 500px;
-	margin-top: 19px;
+	/* margin-top: 19px; */
 }
 
 
@@ -1642,7 +1643,7 @@ div#divWheelContent {
     color: #783f3f;
     position: relative;
 	height: 400px;
-	margin-top: 19px;
+	/* margin-top: 19px; */
 }
 
 div#divDynContentHorVave {
@@ -1705,7 +1706,7 @@ div#divTumbelWeedControl {
 	color:#b61414;
 	clip-path: inset(0px 0px 0px 0px);
 	position: relative;
-	margin-top: 19px;
+	/* margin-top: 19px; */
 }
 
 
@@ -1809,7 +1810,7 @@ div#divTumbelWeedControl {
 
 
 #digGh2 {
-    margin-top: 19px;
+    /* margin-top: 19px; */
     position: relative;
     height: 500px;
     background: #f6a400;
@@ -1837,7 +1838,7 @@ div#divTumbelWeedControl {
 	color: white;
 	position: relative;
 	font-family: 'GeoEditRegular', 'Franklin Gothic Medium', 'Franklin Gothic', 'ITC Franklin Gothic', Helvetica, Arial, sans-serif;
-	margin-top: 19px;
+	/* margin-top: 19px; */
 }
 
 .giantFoot{
@@ -1870,7 +1871,7 @@ div#divTumbelWeedControl {
 	color: #b21616;
     background: #81b6b3;
 	position: relative;
-	margin-top: 19px;
+	/* margin-top: 19px; */
 }
 
 
@@ -2042,7 +2043,7 @@ div#spasm2Content {
     height: 530px;
     position: relative;
 	margin-bottom: 100px;
-	margin-top: 19px;
+	/* margin-top: 19px; */
 }
 
 .bottom2Elm{
