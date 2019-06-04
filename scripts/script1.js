@@ -2632,7 +2632,7 @@ function enableClouds(){
 }
 
 function enableTwister(){
-	if(inViewPort("viewpointDetectorTwistter", 0, 1000)){
+	if(inViewPort("viewpointDetectorTwistter", 100, 700)){
 		//runClouds();
 		triggerTwister();
 	}
