@@ -2753,7 +2753,7 @@ function panelInViewWheell(){
 
 function panelInViewSimpleSteps(){
 	var topPosInViewPort = document.getElementById("viewpointDetectorSimpleSteps").getBoundingClientRect().top;
-	return topPosInViewPort > 0 && topPosInViewPort < 400;
+	return topPosInViewPort > -100 && topPosInViewPort < 400;
 }
 
 
