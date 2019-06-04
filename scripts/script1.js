@@ -2625,7 +2625,7 @@ function enableZoomSteps(){
 }
 
 function enableClouds(){
-	if(inViewPort("viewpointDetectorClouds", 100, 900)){
+	if(inViewPort("viewpointDetectorClouds", 200, 600)){
 		//runClouds();
 		cloudsCylce();
 	}
@@ -2674,7 +2674,7 @@ function enableSpasm2(){
 }
 
 function enableGH2(){
-	if(inViewPort("viewpointDetectorGh2", 200, 700)){
+	if(inViewPort("viewpointDetectorGh2", -100, 1000)){
 		triggerGH2();
 	}
 }
@@ -2719,7 +2719,7 @@ function panelInViewPortWavesVer(){
 
 function panelInViewGrasshoppers(){
 	var topPosInViewPort = document.getElementById("viewpointDetectorGrasshopper").getBoundingClientRect().top;
-	return topPosInViewPort > 50 && topPosInViewPort < 600;
+	return topPosInViewPort > 50 && topPosInViewPort < 350;
 }
 
 
