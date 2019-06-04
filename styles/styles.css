@@ -535,7 +535,7 @@ body {
 	background: #32514f;
 	color: rgb(252, 252, 252);
 	position: relative;
-	/* margin-top: 100px; */
+	margin-top:228px
 }
 
 .letterContainerPulsar{
@@ -1224,8 +1224,8 @@ div#divFashingContent{
     position: relative;
     height: 238px;
 	color: #000000;
-	margin-top:151px;
-
+	/* margin-top:151px;
+ */
 }
 
 .foot{
@@ -1530,7 +1530,7 @@ div#divWheelContent {
 	background: #f6a400;
 	position: relative;
 	height: 500px;
-	/* margin-top: 19px; */
+	margin-top: 19px;
 }
 
 
@@ -1623,7 +1623,7 @@ div#divWheelContent {
 
 #divWavesVer {
     /* margin-top: 40px; */
-    top: 140px;
+	top: 192px;
     background: #f6a400;
     color: black;
     position: relative;

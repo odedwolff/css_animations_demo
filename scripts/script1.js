@@ -2725,7 +2725,7 @@ function panelInViewGrasshoppers(){
 
 function panelInViewPulsar(){
 	var topPosInViewPort = document.getElementById("viewpointDetectorPulsar").getBoundingClientRect().top;
-	return topPosInViewPort > 0 && topPosInViewPort < 1200;
+	return topPosInViewPort > 0 && topPosInViewPort < 600;
 }
 
 function panelInViewPendel(){
