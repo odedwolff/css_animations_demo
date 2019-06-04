@@ -1222,7 +1222,7 @@ div#divFashingContent{
     height: 500px;
     background: #f6a400;
     position: relative;
-    height: 300px;
+    height: 238px;
 	color: #000000;
 	margin-top:151px;
 
@@ -1237,11 +1237,11 @@ div#divFashingContent{
 
 
 #leftFoot {
-	top: 50%;
+	top: 40%;
 }
 
 #rightFoot {
-	top: 63%;
+	top: 50%;
 }
 
 .walking{
@@ -1619,15 +1619,17 @@ div#divWheelContent {
 	position: absolute;
 }
 
-#divWavesVer{
-	/* margin-top: 40px; */
-	top:150px;
-	background: #f6a400;
-	color:black;
-	position: relative;
-	height: 400px;
-	z-index: -1;
-	padding-top: 60px;
+
+
+#divWavesVer {
+    /* margin-top: 40px; */
+    top: 140px;
+    background: #f6a400;
+    color: black;
+    position: relative;
+    height: 282px;
+    z-index: -1;
+    padding-top: 0px;
 }
 
 #viewpointDetectorWavesVer{
@@ -1660,7 +1662,7 @@ div#divDynContentHorVave {
 .viewPortDetector{
 	width:10px;
 	height:10px;
-	background:red;
+	background:rgba(0, 0, 255, 0);
 	position: absolute;
 }
 
