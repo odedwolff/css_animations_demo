@@ -2012,7 +2012,7 @@ const waveCtx={
 	spacingXPx:9, 
 	spacingYPx:30, 
 	marginTopPx:50,
-	marginLeftPx:50, 
+	marginLeftPx:70, 
 	flatenned:false,
 	charsInLines:120
 }
@@ -2713,7 +2713,7 @@ function panelInViewPortWavesVer(){
 	
 	//don't block from above, because the engaging is not smooth and should not happen 
 	//insode viewport 
-	return topPosInViewPort > 50;
+	return topPosInViewPort > 250;
 }
 
 
