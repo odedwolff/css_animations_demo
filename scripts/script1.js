@@ -2587,13 +2587,13 @@ function enableWeedMenu(){
 
 
 function enableFish(){
-	if(inViewPort("viewpointDetectorFish", 0, 1000)){
+	if(inViewPort("viewpointDetectorFish", 0, 700)){
 		startSwimming();
 	}
 }
 
 function enableGears(){
-	if(inViewPort("viewpointDetectorGears", 0, 1000)){
+	if(inViewPort("viewpointDetectorGears", 0, 700)){
 		runGears();
 	}else{
 		stopGears();
@@ -2601,7 +2601,7 @@ function enableGears(){
 }
 
 function enableBigSwing(){
-	if(inViewPort("viewpointDetectorBigSwing", -100, 1200)){
+	if(inViewPort("viewpointDetectorBigSwing", -200, 700)){
 		startBigSwing();
 	}else{
 		stopBigSwing();
@@ -2740,7 +2740,7 @@ function panelInViewPendel2(){
 
 function panelInViewPendel3(){
 	var topPosInViewPort = document.getElementById("viewpointDetectorPendel3").getBoundingClientRect().top;
-	return topPosInViewPort > 0 && topPosInViewPort < 1100;
+	return topPosInViewPort > -400 && topPosInViewPort < 500;
 }
 
 
