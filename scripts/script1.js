@@ -2735,7 +2735,7 @@ function panelInViewPendel(){
 
 function panelInViewPendel2(){
 	var topPosInViewPort = document.getElementById("viewpointDetectorPendel2").getBoundingClientRect().top;
-	return topPosInViewPort > 0 && topPosInViewPort < 1100;
+	return topPosInViewPort > -400 && topPosInViewPort < 600;
 }
 
 function panelInViewPendel3(){
