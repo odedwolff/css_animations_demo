@@ -93,7 +93,8 @@ div#divHeader h2{
     background: black;
     color: white;
     z-index: 2;
-    opacity: 0;
+	opacity: 0;
+	transform: scale(.1);
 }
 
 
@@ -1613,7 +1614,7 @@ div#divWheelContent {
 .char1{
 	/* display:inline; */
 	position: absolute;
-	font-size: 13px;
+	font-size: 21px;
 }
 
 .line{
@@ -1630,7 +1631,7 @@ div#divWheelContent {
     color: black;
     position: relative;
     height: 282px;
-    z-index: -1;
+    /* z-index: -1; */
     padding-top: 0px;
 }
 
@@ -1668,6 +1669,39 @@ div#divDynContentHorVave {
 	position: absolute;
 }
 
+
+div#divWavesVerContent {
+    position: relative;
+}
+
+
+
+div#divDynContent {
+    left: 252px;
+    top: 40px;
+    position: relative;
+}
+
+
+
+
+.divPhaseBtn {
+    width: 110px;
+    height: 110px;
+    background: white;
+    /* display: inline-block; */
+    top: 93px;
+    float: left;
+    position: relative;
+}
+
+div#divBtnInPhase {
+    left: 50px;
+}
+
+div#divOutOfPhase {
+    left: 876px;
+}
 
 
 

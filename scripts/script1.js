@@ -97,7 +97,10 @@ const msgBoxTO = 1000 / msgBoxCtx.fps;
 const dOpacPerFrame = (msgBoxCtx.onOpacity) / (msgBoxCtx.fps * msgBoxCtx.vanishTimeSec);
 
 function showMsgBox(){
-	document.getElementById("divMsgBox").style.opacity = msgBoxCtx.onOpacity;
+	const elm = document.getElementById("divMsgBox");
+	//document.getElementById("divMsgBox").style.opacity = msgBoxCtx.onOpacity;
+	elm.style.opacity = msgBoxCtx.onOpacity;
+	elm.style.transform="scale(1.0)"
 }
 
 function hideMsgBox(){
@@ -112,6 +115,8 @@ function hideMsgBox(){
 function fadeOutMsgBoxStep(elm, opc){
 	elm.style.opacity = opc;
 	if(opc <= 0){
+		//when deactivated the msg box should be shirnked, to avoid blocking other buttons
+		elm.style.transform="scale(0.01)";
 		return;
 	}
 	setTimeout(() => {
@@ -1986,9 +1991,8 @@ function stomp(org){
 
 const waveCtx={
 	enabled:false,
-	// waveLenPerChar : 2*Math.PI / 10,
-	periodsPerSec : .2,
-	elementsPerPeriod: 30,
+	periodsPerSec : 1,
+	elementsPerPeriod: 10,
 	intervalWavesVer:null, 
 	intervalWavesHor:null,
 	waveArr:null,
@@ -1996,26 +2000,44 @@ const waveCtx={
 	animIntervalMa: 20,
 	default_amp:40,
 	amp:0,
-	//ampMin:0.1,
 	ampMin:1,
 	ampMinRel: 1/200,
 	t:0,
 	decayIntervalId:null,
-	//decayRateSec: .05,
 	decayRateSec: .85,
 	fadeInRateSec:1.5,
 	handleScrollSession: _handleScrollSession,
 	/* lower scroll speed to have influence on surface */
 	minScrollSpeedPxSec:2,
-	scrollSpeedToAmpFctr: 1 / 50,
+	//scrollSpeedToAmpFctr: 1 / 50,
+	scrollSpeedToAmpFctr: 3 / 50,
+	scrollSpeedToAmpFctrOOPhase: 5 / 50,
+	scrollSpeedToAmpFctrInPhase: 2 / 50,
 	lastExecMs:null, 
-	spacingXPx:9, 
-	spacingYPx:30, 
+	//spacingXPx:9, 
+	spacingXPx:19,
+	spacingYPx:90, 
 	marginTopPx:50,
 	marginLeftPx:70, 
 	flatenned:false,
-	charsInLines:120
+	//charsInLines:120,
+	charsInLines:30,
+	interLinesOffsetCycles:0.5,
+	interLinesOffsetCyclesOOPhase:0.5,
+	interLinesOffsetCyclesInPhase:0
 }
+
+
+function setPhase(inPhase){
+	if(inPhase){
+		waveCtx.scrollSpeedToAmpFctr = waveCtx.scrollSpeedToAmpFctrInPhase;
+		waveCtx.interLinesOffsetCycles = waveCtx.interLinesOffsetCyclesInPhase;
+	}else{
+		waveCtx.scrollSpeedToAmpFctr = waveCtx.scrollSpeedToAmpFctrOOPhase;
+		waveCtx.interLinesOffsetCycles = waveCtx.interLinesOffsetCyclesOOPhase;
+	}
+}
+
 
 function _handleScrollSession(scrollSpeed){
 	const newAmp = scrollSpeed * waveCtx.scrollSpeedToAmpFctr;
@@ -2189,7 +2211,7 @@ function prepareWaves(){
 	waves have distinct properties specific to their type but also exhibit characteristics
 	in common with more abstract waves such as sound waves and light (electromagnetic) waves.`; */
 
-
+/* 
 	`
 Heavy-duty disappearing techniques for those with a need to know. This book tells you how to pull off a disappearance and how to stay free
 and never be found. It analyzes all the ways you could be found by whoever might be looking for you. How to plan a new I.D. for
@@ -2198,7 +2220,9 @@ take stock of themselves and decide whether they should continue on their presen
 open to us all is to completely change our identity and start a new life in a new place. Considering how common this is, it
 is a surprise that there are so few quality manuals on the dynamics of changing your identity, and none available in Australia`;
 
-	//`physical wave*s such as those we see when a rock is thrown into water `;
+ */
+
+ `physical wave*s such as those we see when a rock as a rock`;
 	
 	var genHtml = split2D(textBlock, waveCtx.charsInLines , 'char1', waveCtx, 'waveArr', 'ver');
 	document.getElementById('divDynContent').innerHTML = genHtml;
@@ -2218,8 +2242,10 @@ function drawVerWaves(tMs, flatten){
 			x=j * waveCtx.spacingXPx;
 			y = i * waveCtx.spacingYPx;
 			if (!flatten){
-				y= y + Math.sin( (tMs * waveCtx.periodsPerSec / 1000  +  j/ waveCtx.elementsPerPeriod) * 2*Math.PI) * waveCtx.amp;
-			}
+/* 				y= y + Math.sin( (tMs * waveCtx.periodsPerSec / 1000  +  j/ waveCtx.elementsPerPeriod) * 2*Math.PI) * waveCtx.amp;
+ */		y= y + Math.sin( (tMs * waveCtx.periodsPerSec / 1000  +  j/ waveCtx.elementsPerPeriod  +  i*waveCtx.interLinesOffsetCycles) * 2*Math.PI) * waveCtx.amp;
+		
+		}
 
 			x = x + waveCtx.marginLeftPx;
 			y = y + waveCtx.marginTopPx;
