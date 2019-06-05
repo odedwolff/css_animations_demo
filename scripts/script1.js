@@ -2729,18 +2729,21 @@ function panelInViewPulsar(){
 }
 
 function panelInViewPendel(){
-	var topPosInViewPort = document.getElementById("viewpointDetectorPendel").getBoundingClientRect().top;
-	return topPosInViewPort > -100 && topPosInViewPort < 700;
+/* 	var topPosInViewPort = document.getElementById("viewpointDetectorPendel").getBoundingClientRect().top;
+	return topPosInViewPort > -100 && topPosInViewPort < 700; */
+	return true;
 }
 
 function panelInViewPendel2(){
-	var topPosInViewPort = document.getElementById("viewpointDetectorPendel2").getBoundingClientRect().top;
-	return topPosInViewPort > -400 && topPosInViewPort < 600;
+	/* var topPosInViewPort = document.getElementById("viewpointDetectorPendel2").getBoundingClientRect().top;
+	return topPosInViewPort > -400 && topPosInViewPort < 600; */
+	return true;
 }
 
 function panelInViewPendel3(){
-	var topPosInViewPort = document.getElementById("viewpointDetectorPendel3").getBoundingClientRect().top;
-	return topPosInViewPort > -400 && topPosInViewPort < 500;
+/* 	var topPosInViewPort = document.getElementById("viewpointDetectorPendel3").getBoundingClientRect().top;
+	return topPosInViewPort > -400 && topPosInViewPort < 500; */
+	return true;
 }
 
 
