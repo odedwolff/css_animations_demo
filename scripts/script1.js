@@ -2025,7 +2025,8 @@ const waveCtx={
 	interLinesOffsetCycles:0.5,
 	interLinesOffsetCyclesOOPhase:0.5,
 	interLinesOffsetCyclesInPhase:0,
-	currentPhaseIn:false
+	currentPhaseIn:false,
+	buttonShiftPx:40
 }
 
 
@@ -2034,10 +2035,12 @@ function setPhase(inPhase){
 		waveCtx.scrollSpeedToAmpFctr = waveCtx.scrollSpeedToAmpFctrInPhase;
 		waveCtx.interLinesOffsetCycles = waveCtx.interLinesOffsetCyclesInPhase;
 		waveCtx.currentPhaseIn=true;
+		shiftPhaseButtons(true);
 	}else{
 		waveCtx.scrollSpeedToAmpFctr = waveCtx.scrollSpeedToAmpFctrOOPhase;
 		waveCtx.interLinesOffsetCycles = waveCtx.interLinesOffsetCyclesOOPhase;
 		waveCtx.currentPhaseIn=false;
+		shiftPhaseButtons(false);
 	}
 }
 
@@ -2120,6 +2123,7 @@ function initWaves(){
 	
 	startScrollSample();
 
+	setPhase(false);
 }
 
 
@@ -2269,6 +2273,24 @@ function drawVerWaves(tMs, flatten){
 			}
 		}
 	}
+}
+
+
+
+
+function shiftPhaseButtons(inPhase){
+	var trxUpperButton, trxLowerButton;
+	if(inPhase){
+		trxUpperButton=0;
+		trxLowerButton=0;
+	}else{
+		trxUpperButton=waveCtx.buttonShiftPx;
+		trxLowerButton=-waveCtx.buttonShiftPx;
+	}
+	const elmUpperButtong = document.getElementById("btnInPhase");
+	const elmLowerButtong = document.getElementById("btnOutOfPhase");
+	elmUpperButtong.style.transform = "translate(" + trxUpperButton +"px , 0px)";
+	elmLowerButtong.style.transform = "translate(" + trxLowerButton +"px , 0px)";
 }
 
 
