@@ -2011,8 +2011,8 @@ const waveCtx={
 	minScrollSpeedPxSec:2,
 	//scrollSpeedToAmpFctr: 1 / 50,
 	scrollSpeedToAmpFctr: 3 / 50,
-	scrollSpeedToAmpFctrOOPhase: 5 / 50,
-	scrollSpeedToAmpFctrInPhase: 2 / 50,
+	scrollSpeedToAmpFctrOOPhase: 20 / 1000,
+	scrollSpeedToAmpFctrInPhase: 20 / 1000,
 	lastExecMs:null, 
 	//spacingXPx:9, 
 	spacingXPx:19,
@@ -2031,16 +2031,23 @@ const waveCtx={
 
 
 function setPhase(inPhase){
+	const btnInPhase= document.getElementById("btnInPhase");
+	const btnOutOfPhase= document.getElementById("btnOutOfPhase");
+	
 	if(inPhase){
 		waveCtx.scrollSpeedToAmpFctr = waveCtx.scrollSpeedToAmpFctrInPhase;
 		waveCtx.interLinesOffsetCycles = waveCtx.interLinesOffsetCyclesInPhase;
 		waveCtx.currentPhaseIn=true;
 		shiftPhaseButtons(true);
+		btnInPhase.classList.add("selectedBtnPhase");
+		btnOutOfPhase.classList.remove("selectedBtnPhase");
 	}else{
 		waveCtx.scrollSpeedToAmpFctr = waveCtx.scrollSpeedToAmpFctrOOPhase;
 		waveCtx.interLinesOffsetCycles = waveCtx.interLinesOffsetCyclesOOPhase;
 		waveCtx.currentPhaseIn=false;
 		shiftPhaseButtons(false);
+		btnOutOfPhase.classList.add("selectedBtnPhase");
+		btnInPhase.classList.remove("selectedBtnPhase");
 	}
 }
 

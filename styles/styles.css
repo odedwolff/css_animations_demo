@@ -1706,16 +1706,22 @@ div#divOutOfPhase {
 }
 
 
-
+/* 
 .btnPhase:focus {
-    background: red;
+	border-width: 4px;
+	border: 5px solid #4CAF50;
 }
+ */
 
+.selectedBtnPhase{
+	border: 2px solid #fffefe;
+}
 
 .btnPhase {
     width: 140px;
     height: 30px;
-    background: #32514f;
+	/* background: #32514f; */
+	background: black;
 	color: #f6a400;
 	position: absolute;
 }
@@ -1733,14 +1739,15 @@ div#phaseControls {
 }
 
 #btnInPhase{
-	left: 150px;
-    top: 83px;
+	left: 79px;
+	top: 86px;
 }
 
 #btnOutOfPhase{
-	left: 146px;
-    top: 169px;
+	left: 79px;
+	top: 175px;
 }
+
 
 
 
