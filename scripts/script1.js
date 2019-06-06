@@ -2293,15 +2293,15 @@ const horWaveCtx={
 	ampMaxAbs:110,
 	t:0,
 	decayIntervalId:null,
-	//decayRateSec: .75,
-	decayRateSec: .5,
+	//decayRateSec: .5,
+	decayRateSec: .85,
 	fadeInRateSec:1.5,
 	handleScrollSession: _handleScrollSessionHor,
 	/* lower scroll speed to have influence on surface */
 	minScrollSpeedPxSec:2,
-	scrollSpeedToAmpFctr: 1 / 20,
+	scrollSpeedToAmpFctr: 9 / 50,
 	lastExec:-1, 
-	charsPerLine:48, 
+	charsPerLine:31, 
 	spacingXPx:20, 
 	spacingYPx:60
 }
