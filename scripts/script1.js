@@ -1997,7 +1997,7 @@ const waveCtx={
 	intervalWavesHor:null,
 	waveArr:null,
 	/**time beetween frames */
-	animIntervalMa: 20,
+	animIntervalMa: 50,
 	default_amp:40,
 	amp:0,
 	ampMin:1,
@@ -2021,10 +2021,11 @@ const waveCtx={
 	marginLeftPx:70, 
 	flatenned:false,
 	//charsInLines:120,
-	charsInLines:30,
+	charsInLines:31,
 	interLinesOffsetCycles:0.5,
 	interLinesOffsetCyclesOOPhase:0.5,
-	interLinesOffsetCyclesInPhase:0
+	interLinesOffsetCyclesInPhase:0,
+	currentPhaseIn:false
 }
 
 
@@ -2032,9 +2033,19 @@ function setPhase(inPhase){
 	if(inPhase){
 		waveCtx.scrollSpeedToAmpFctr = waveCtx.scrollSpeedToAmpFctrInPhase;
 		waveCtx.interLinesOffsetCycles = waveCtx.interLinesOffsetCyclesInPhase;
+		waveCtx.currentPhaseIn=true;
 	}else{
 		waveCtx.scrollSpeedToAmpFctr = waveCtx.scrollSpeedToAmpFctrOOPhase;
 		waveCtx.interLinesOffsetCycles = waveCtx.interLinesOffsetCyclesOOPhase;
+		waveCtx.currentPhaseIn=false;
+	}
+}
+
+function flipPhase(){
+	if(waveCtx.currentPhaseIn){
+		setPhase(false);
+	}else{
+		setPhase(true);
 	}
 }
 
@@ -2043,6 +2054,7 @@ function _handleScrollSession(scrollSpeed){
 	const newAmp = scrollSpeed * waveCtx.scrollSpeedToAmpFctr;
 	//console.log("new amp, waveCtx.amp=" + newAmp + "," + waveCtx.amp );
 	if(newAmp > waveCtx.amp){
+		//flipPhase();
 		waveCtx.amp = newAmp;
 	}
 }
@@ -2222,7 +2234,9 @@ is a surprise that there are so few quality manuals on the dynamics of changing 
 
  */
 
- `physical wave*s such as those we see when a rock as a rock`;
+ //`physical wave*s such as those we see when a rock as a rock`;
+ `Heavy-duty disappearing techniq-ues for those who need to know`;
+ 
 	
 	var genHtml = split2D(textBlock, waveCtx.charsInLines , 'char1', waveCtx, 'waveArr', 'ver');
 	document.getElementById('divDynContent').innerHTML = genHtml;
@@ -2269,7 +2283,7 @@ const horWaveCtx={
 	waveArr:null,
 	/**time beetween frames */
 	//animIntervalMa: 5,
-	animIntervalMa: 20,
+	animIntervalMa: 50,
 	default_amp:40,
 	//amp:50,
 	amp:0,
@@ -2287,7 +2301,9 @@ const horWaveCtx={
 	minScrollSpeedPxSec:2,
 	scrollSpeedToAmpFctr: 1 / 20,
 	lastExec:-1, 
-	charsPerLine:50
+	charsPerLine:48, 
+	spacingXPx:20, 
+	spacingYPx:60
 }
 
 function _handleScrollSessionHor(scrollSpeed){
@@ -2312,8 +2328,11 @@ function prepareWavesHor(){
 	//  waves have distinct properties specific to their type but also exhibit characteristics
 	//   in common with more abstract waves such as sound waves and light (electromagnetic) waves.`;
 
-	`horizontal waves let's see how it goes. we can never pathom how hard it musut be 
-	having green mustard on soft eggs if your mind is wondering the way it does`;
+	/* `horizontal waves let's see how it goes. we can never pathom how hard it musut be 
+	having green mustard on soft eggs if your mind is wondering the way it does`; */
+
+	`this book tells you how to pull off a disappearance and how to st-ay free
+	and never be found`;
 	
 	var genHtml = split2D(textBlock, horWaveCtx.charsPerLine, 'char1', horWaveCtx, 'waveArr', 'hor');
 	document.getElementById('divDynContentHorVave').innerHTML = genHtml;
@@ -2328,11 +2347,11 @@ function drawHorWaves(tMs, flatten){
 	for(var i = 0; i < height; i++){
 		for(var j = 0; j < width; j++){
 			elm= document.getElementById(horWaveCtx.waveArr[i][j]);
-			x=j * 20;
+			x=j * horWaveCtx.spacingXPx;
 			if (!flatten){
 				x= x + Math.sin( (tMs * horWaveCtx.periodsPerSec / 1000  +  j/ horWaveCtx.elementsPerPeriod) * 2*Math.PI) * horWaveCtx.amp;
 			}
-			y = i * 40;
+			y = i * horWaveCtx.spacingYPx;
 			if(elm!=null){
 				elm.style.transform="translate(" + x +"px," + y + "px)";
 			}

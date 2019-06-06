@@ -116,18 +116,26 @@
 
 
 	 <div id=divWavesVer class=themePanel>
-		<div class=divPhaseBtn id=divBtnInPhase>
-			<button class="btnPhase" onclick="setPhase(true)">in phase</button>
-		</div>
+			<div class=divPhaseBtn id=divBtnInPhase>
+				<button class="btnPhase" onclick="setPhase(true)">in phase</button>
+			</div>
+			<div  id=divOutOfPhase class=divPhaseBtn>
+				<button class="btnPhase" onclick="setPhase(false)">out of phase</button>
+			</div>
+
+
+		<!-- <div class=divRadioGroupPhase>
+			<input  type="radio" name="phase" onclick="setPhase(true)" class="btnPhase">in phase<br>
+			<input  type="radio" name="phase" onclick="setPhase(false)" checked="checked" class="btnPhase">out of phase</input>
+		</div>	 -->
+
 		<div id=divWavesVerContent>
 			
 			<div id=divDynContent>
 
 			</div>
 		</div>
-		<div class=divPhaseBtn id=divOutOfPhase>
-			<button class="btnPhase" onclick="setPhase(false)">out of phase</button>
-		</div>
+		
 
 		<div id=viewpointDetectorWavesVer class=viewPortDetector>
 
