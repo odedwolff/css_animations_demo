@@ -2319,7 +2319,7 @@ const horWaveCtx={
 	ampMin:0.1,
 	//ampMin:200,
 	ampMinRel: 1/200,
-	ampMaxAbs:110,
+	ampMaxAbs:210,
 	t:0,
 	decayIntervalId:null,
 	//decayRateSec: .5,
@@ -2328,7 +2328,7 @@ const horWaveCtx={
 	handleScrollSession: _handleScrollSessionHor,
 	/* lower scroll speed to have influence on surface */
 	minScrollSpeedPxSec:2,
-	scrollSpeedToAmpFctr: 9 / 50,
+	scrollSpeedToAmpFctr: .2,
 	lastExec:-1, 
 	charsPerLine:31, 
 	spacingXPx:20, 
@@ -2727,7 +2727,7 @@ function enableSpasm(){
 
 
 function enableFocus(){
-	if(inViewPort("viewpointDetectorFocus", 300, 600)){
+	if(inViewPort("viewpointDetectorFocus", 0, 800)){
 		animFocus();
 	}else{
 		clearFocusAnim();
@@ -2778,7 +2778,7 @@ function enableOhWiper(){
 
 function panelInViewPortWavesHor(){
 	var topPosInViewPort = document.getElementById("viewpointDetectorWavesHor").getBoundingClientRect().top;
-	return topPosInViewPort > 200 && topPosInViewPort < 800;
+	return topPosInViewPort > 0 && topPosInViewPort < 800;
 }
 
 function panelInViewPortWavesVer(){
@@ -2802,21 +2802,34 @@ function panelInViewPulsar(){
 	return topPosInViewPort > 150 && topPosInViewPort < 500;
 }
 
+/* 
 function panelInViewPendel(){
-/* 	var topPosInViewPort = document.getElementById("viewpointDetectorPendel").getBoundingClientRect().top;
-	return topPosInViewPort > -100 && topPosInViewPort < 700; */
+	var topPosInViewPort = document.getElementById("viewpointDetectorPendel").getBoundingClientRect().top;
+	return topPosInViewPort > -100 && topPosInViewPort < 700;
+
+}
+
+function panelInViewPendel2(){
+	var topPosInViewPort = document.getElementById("viewpointDetectorPendel2").getBoundingClientRect().top;
+	return topPosInViewPort > -400 && topPosInViewPort < 600;
+}
+
+function panelInViewPendel3(){
+	var topPosInViewPort = document.getElementById("viewpointDetectorPendel3").getBoundingClientRect().top;
+	return topPosInViewPort > -400 && topPosInViewPort < 500;
+
+}
+ */
+
+function panelInViewPendel(){
 	return true;
 }
 
 function panelInViewPendel2(){
-	/* var topPosInViewPort = document.getElementById("viewpointDetectorPendel2").getBoundingClientRect().top;
-	return topPosInViewPort > -400 && topPosInViewPort < 600; */
 	return true;
 }
 
 function panelInViewPendel3(){
-/* 	var topPosInViewPort = document.getElementById("viewpointDetectorPendel3").getBoundingClientRect().top;
-	return topPosInViewPort > -400 && topPosInViewPort < 500; */
 	return true;
 }
 
