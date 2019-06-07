@@ -1923,6 +1923,8 @@ div#divTumbelWeedControl {
 	position: relative;
 	font-family: 'GeoEditRegular', 'Franklin Gothic Medium', 'Franklin Gothic', 'ITC Franklin Gothic', Helvetica, Arial, sans-serif;
 	/* margin-top: 19px; */
+	margin-top: 200px;
+    margin-bottom: 200px;
 }
 
 .giantFoot{
@@ -1956,6 +1958,8 @@ div#divTumbelWeedControl {
     background: #81b6b3;
 	position: relative;
 	/* margin-top: 19px; */
+	/* font-family: 'GeoEditRegular', 'Franklin Gothic Medium', 'Franklin Gothic', 'ITC Franklin Gothic', Helvetica, Arial, sans-serif
+ */
 }
 
 

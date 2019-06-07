@@ -283,7 +283,7 @@ function swingStart(phaseSec, context){
 		return;
 	}
 	context.isOn = true;
-		startSwingingDelta(phaseSec, context.elms);   /*pleasent adn interesting */
+	startSwingingDelta(phaseSec, context.elms);   
 }
 
 
@@ -2801,6 +2801,8 @@ function panelInViewPulsar(){
 	var topPosInViewPort = document.getElementById("viewpointDetectorPulsar").getBoundingClientRect().top;
 	return topPosInViewPort > 150 && topPosInViewPort < 500;
 }
+
+
 
 /* 
 function panelInViewPendel(){
