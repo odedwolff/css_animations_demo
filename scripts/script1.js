@@ -2804,7 +2804,7 @@ function panelInViewPulsar(){
 
 
 
-/* 
+
 function panelInViewPendel(){
 	var topPosInViewPort = document.getElementById("viewpointDetectorPendel").getBoundingClientRect().top;
 	return topPosInViewPort > -100 && topPosInViewPort < 700;
@@ -2821,8 +2821,10 @@ function panelInViewPendel3(){
 	return topPosInViewPort > -400 && topPosInViewPort < 500;
 
 }
- */
 
+
+
+/* 
 function panelInViewPendel(){
 	return true;
 }
@@ -2835,7 +2837,7 @@ function panelInViewPendel3(){
 	return true;
 }
 
-
+ */
 
 
 function panelInViewWheell(){
