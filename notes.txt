@@ -1,5 +1,11 @@
 
 
+testing:
+didn't notice much of a differnece in frame rate on slower machine 
+on theme giant steps btw constant enables and varying
+
+
+
 
 -twisting, sclaing sideways and upways, then
  becoming form 

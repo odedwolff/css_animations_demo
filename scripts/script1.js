@@ -205,14 +205,23 @@ function initSwing(){
 
 }
 
- //#1 is implicit 
+const swingStates = {
+	STARTING:1,
+	ON:2,
+	OFF:3,
+	STOPPING:4
+} 
+
+//#1 is implicit 
 const swingCtx ={
-	isOn:false, 
+	//isOn:false, 
+	status:swingStates.OFF,
 	elms:null
 }
 
 const swingCtx2 ={
-	isOn:false,
+	//isOn:false, 
+	status:swingStates.OFF,
 	elms:null
 }
 
@@ -279,23 +288,34 @@ function stopAndRearmSwing3Arr(){
 
 
 function swingStart(phaseSec, context){
-	if(context.isOn){
+	if(context.swingStates == swingStates.ON || context.swingStates == swingStates.STARTING
+		|| context.swingStates == swingStates.STOPPING){
 		return;
 	}
-	context.isOn = true;
-	startSwingingDelta(phaseSec, context.elms);   
+	if(context.swingStates == swingStates.OFF){
+		context.swingStates = swingStates.STARTING;
+		startSwingingDelta(phaseSec, context.elms); 
+		setTimeout(() => {
+			context.swingStates = swingStates.ON;
+		}, 3000);
+		return;
+	}
 }
 
 
 
 function swingStop(context){
-	if(!context.isOn){
+if(context.swingStates == swingStates.OFF || context.swingStates == swingStates.STARTING
+		|| context.swingStates == swingStates.STOPPING){
 		return;
 	}
-	context.isOn = false;
+	context.swingStates == swingStates.STOPPING;
 	for(var i = 0 ; i< context.elms.length ; i++){
 		context.elms[i].classList.remove("swinging");	
 	}
+	setTimeout(() => {
+		context.swingStates = swingStates.OFF;
+	}, 2000);
 }
 
 
