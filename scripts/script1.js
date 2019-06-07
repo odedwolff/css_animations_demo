@@ -209,7 +209,12 @@ const swingStates = {
 	STARTING:1,
 	ON:2,
 	OFF:3,
-	STOPPING:4
+	STOPPING:4,
+	startingTimeout:3000,
+	stoppingTimeout:2000,
+	//values for the big constilation at Pendelium 3 theme 
+	startingTimeoutArr3:6000,
+	stoppingTimeoutArr3:2000
 } 
 
 //#1 is implicit 
@@ -229,7 +234,8 @@ const swingCtx2 ={
 const swing3BaseCtx = {
 	phaseDiffMs:300,
 	isOn:false,
-	phaseBtwLettersSec:0.1
+	phaseBtwLettersSec:0.1,
+	status:swingStates.OFF
 }
 
 const swingCtx3_1 ={
@@ -256,36 +262,50 @@ const swingCtx3_3 ={
 //org delat:300ms
 //will be voided if already running 
 function startSwing3Arr(){
-	if(swing3BaseCtx.isOn){
+	
+	if(swing3BaseCtx.swingStates == swingStates.ON || swing3BaseCtx.swingStates == swingStates.STARTING
+		|| swing3BaseCtx.swingStates == swing3BaseCtx.STOPPING){
 		return;
 	}
-	swing3BaseCtx.isOn=true;
-	startSwingingDelta(swing3BaseCtx.phaseBtwLettersSec, swingCtx3_1.elms);
-	setTimeout(() => {
-		startSwingingDelta(swing3BaseCtx.phaseBtwLettersSec, swingCtx3_2.elms);
+	if(swing3BaseCtx.swingStates == swingStates.OFF){
+		swing3BaseCtx.swingStates = swingStates.STARTING;
+		startSwingingDelta(swing3BaseCtx.phaseBtwLettersSec, swingCtx3_1.elms);
 		setTimeout(() => {
-			startSwingingDelta(swing3BaseCtx.phaseBtwLettersSec, swingCtx3_3.elms);
-		}, swing3BaseCtx.phaseDiffMs);
-	},  swing3BaseCtx.phaseDiffMs);
+					startSwingingDelta(swing3BaseCtx.phaseBtwLettersSec, swingCtx3_2.elms);
+					setTimeout(() => {
+						startSwingingDelta(swing3BaseCtx.phaseBtwLettersSec, swingCtx3_3.elms);
+					}, swing3BaseCtx.phaseDiffMs);
+		},  swing3BaseCtx.phaseDiffMs);
+
+		setTimeout(() => {
+			swing3BaseCtx.swingStates = swingStates.ON;
+		}, swingStates.startingTimeout);
+	}
+	
 }
 
-/* function addClassToColl(coll,addClass){
-	for (let index = 0; index < coll.length; index++) {
-		coll[index].classList.add(addClass);
-	}
-} */
+
 
 //all string are assumed to have the same length 
 function stopAndRearmSwing3Arr(){
+	if(swing3BaseCtx.swingStates == swingStates.OFF || swing3BaseCtx.swingStates == swingStates.STARTING
+		|| swing3BaseCtx.swingStates == swingStates.STOPPING){
+		return;
+	}
+
+	swing3BaseCtx.swingStates == swingStates.STOPPING
 	for(var i = 0 ; i< swingCtx3_1.elms.length ; i++){
 		swingCtx3_1.elms[i].classList.remove("swinging");
 		swingCtx3_2.elms[i].classList.remove("swinging");
 		swingCtx3_3.elms[i].classList.remove("swinging");	
-		swing3BaseCtx.isOn=false;
 	}
+	setTimeout(() => {
+		swing3BaseCtx.swingStates = swingStates.OFF;
+	}, swingStates.stoppingTimeout);
+
 }
 
-
+;
 
 function swingStart(phaseSec, context){
 	if(context.swingStates == swingStates.ON || context.swingStates == swingStates.STARTING
@@ -297,7 +317,7 @@ function swingStart(phaseSec, context){
 		startSwingingDelta(phaseSec, context.elms); 
 		setTimeout(() => {
 			context.swingStates = swingStates.ON;
-		}, 3000);
+		}, swingStates.startingTimeout);
 		return;
 	}
 }
@@ -305,7 +325,7 @@ function swingStart(phaseSec, context){
 
 
 function swingStop(context){
-if(context.swingStates == swingStates.OFF || context.swingStates == swingStates.STARTING
+	if(context.swingStates == swingStates.OFF || context.swingStates == swingStates.STARTING
 		|| context.swingStates == swingStates.STOPPING){
 		return;
 	}
@@ -315,7 +335,7 @@ if(context.swingStates == swingStates.OFF || context.swingStates == swingStates.
 	}
 	setTimeout(() => {
 		context.swingStates = swingStates.OFF;
-	}, 2000);
+	}, swingStates.stoppingTimeout);
 }
 
 
