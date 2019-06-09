@@ -1722,6 +1722,7 @@ div#divOutOfPhase {
 	background: black;
 	color: #f6a400;
 	position: absolute;
+	cursor: pointer;
 }
 
 .divRadioGroupPhase{
