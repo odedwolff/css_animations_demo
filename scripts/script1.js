@@ -681,11 +681,11 @@ function showLettersGrad(timeSpectrumMs){
 
 const flashTimeLengths = {
 	fadeIn:500,
-	postFadeIn:500, 
+	postFadeIn:1500, 
 	flash1:2000,
 	flash2:2000,
-	flash3:2000,
-	fullShowStatic:300,
+	flash3:1500,
+	fullShowStatic:1000,
 	fadeOut:200, 
 	fullHideStatic:2000,
 	safetyMargin:0
@@ -708,10 +708,10 @@ function setSequencesToFlasingLetter(rndTimingSpectrumMs){
 				setTimeout(() => {
 					container.classList.remove("snychFlash3");
 					setTimeout(() => {
-						gradualHide(300);
+						gradualHide(flashTimeLengths.fadeOut);
 						setTimeout(() => {
 							flashingComplete();
-						}, flashTimeLengths.fullHideStatic + flashTimeLengths.safetyMargin);
+						}, flashTimeLengths.fadeOut + flashTimeLengths.fullHideStatic + flashTimeLengths.safetyMargin);
 					}, flashTimeLengths.fullShowStatic + flashTimeLengths.safetyMargin);
 				}, flashTimeLengths.flash3 + flashTimeLengths.safetyMargin);
 			}, flashTimeLengths.flash2 + flashTimeLengths.safetyMargin);
