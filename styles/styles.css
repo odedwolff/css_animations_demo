@@ -135,12 +135,10 @@ body {
 
 
 .themePanel {
-    /* margin-top: 200px; */
-    margin-left: 13%;
-    /* margin-right: 10%; */
+    margin-left: 10%;
     width: 80%;
     clip-path: inset(0px 0px 0px 0px);
-    left: -3%;
+    /* left: -3%; */
 }
 
 .divSapcer{

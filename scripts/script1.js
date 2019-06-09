@@ -42,7 +42,8 @@ const backgroundStyleCtx = {
 	computedHeigh:10000,
 	lastUpdate:0,
 	minRefreshMs:800,
-	rlativeMaxDepthOrgShade:0.75
+	rlativeMaxDepthOrgShade:0.8,
+	currentBrightnessVal:1
 }
 
 function computePageHeight(){
@@ -63,7 +64,9 @@ function computeBackgroundColorBaseline(){
 }
 
 function initBackgroundStyle(){
-	backgroundStyleCtx.computedHeigh = computePageHeight();
+	//i am adding constant jst becuse of numeric evaluation, the original compuattion 
+	//seems to come a little short, i am not sure why 
+	backgroundStyleCtx.computedHeigh = computePageHeight() - 1000;
 	backgroundStyleCtx.baslineBackgroundColor= computeBackgroundColorBaseline();
 }
 
@@ -2657,8 +2660,12 @@ function updateBackground(currentPos){
 			//brightness= 1 - currentPos / backgroundStyleCtx.computedHeigh;
 	
 			brightness= 1 - (currentPos/backgroundStyleCtx.computedHeigh - backgroundStyleCtx.rlativeMaxDepthOrgShade)/(1-backgroundStyleCtx.rlativeMaxDepthOrgShade);
-		} 
-		setBackgroundDarker(brightness);
+		}
+		if(brightness != backgroundStyleCtx.currentBrightnessVal){
+			setBackgroundDarker(brightness);
+			backgroundStyleCtx.currentBrightnessVal= brightness;
+		}
+		
 	}
 }
 
