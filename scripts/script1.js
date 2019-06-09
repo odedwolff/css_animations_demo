@@ -678,37 +678,80 @@ function showLettersGrad(timeSpectrumMs){
 }
 
 
+
+const flashTimeLengths = {
+	fadeIn:500,
+	postFadeIn:500, 
+	flash1:2000,
+	flash2:2000,
+	flash3:2000,
+	fullShowStatic:300,
+	fadeOut:200, 
+	fullHideStatic:2000,
+	safetyMargin:0
+} 
+
+
+
 //assign sequence to individual letters
 function setSequencesToFlasingLetter(rndTimingSpectrumMs){
+	var container = document.getElementById("divProcessedP");
+	showLettersGrad(flashTimeLengths.fadeIn);
+	setTimeout(() => {
+		container.classList.add("snychFlash1");
+		setTimeout(() => {
+			container.classList.remove("snychFlash1");
+			container.classList.add("snychFlash2");
+			setTimeout(() => {
+				container.classList.remove("snychFlash2");
+				container.classList.add("snychFlash3");
+				setTimeout(() => {
+					container.classList.remove("snychFlash3");
+					setTimeout(() => {
+						gradualHide(300);
+						setTimeout(() => {
+							flashingComplete();
+						}, flashTimeLengths.fullHideStatic + flashTimeLengths.safetyMargin);
+					}, flashTimeLengths.fullShowStatic + flashTimeLengths.safetyMargin);
+				}, flashTimeLengths.flash3 + flashTimeLengths.safetyMargin);
+			}, flashTimeLengths.flash2 + flashTimeLengths.safetyMargin);
+		}, flashTimeLengths.flash1 + flashTimeLengths.safetyMargin);
+	}, flashTimeLengths.fadeIn  + flashTimeLengths.postFadeIn+ flashTimeLengths.safetyMargin);
+
 	
 
+	
+/* 
 	showLettersGrad(8000);
-
 	//now the entire div flshing 
 	var container = document.getElementById("divProcessedP");
 	setTimeout(function(){
 		container.classList.add("snychFlash1");
-	},/*5000*/8800);
+	},8800);
 	setTimeout(function(){
 		container.classList.remove("snychFlash1");
 		container.classList.add("snychFlash2");
-	},/* 7500 */ 10800);
+	}, 10800);
 	setTimeout(function(){
 		container.classList.remove("snychFlash2");
 		container.classList.add("snychFlash3");
-	},/* 10000 */ 12800);
+	}, 12800);
 	setTimeout(function(){
 		container.classList.remove("snychFlash3");
-	},/* 13000 */14800);
+	},14800);
 
 	setTimeout(function(){
 		gradualHide(300);
-	//},17000);
 	},15600);
 
 	setTimeout(function(){
 		console.log("end Cycle flashing text");
 	},17000);
+
+
+ */
+
+	
 
 	
 }
@@ -786,7 +829,7 @@ function triggerFlashing(){
 	flshingCtx.isRunning=true;
 	console.log("flashing cycle begins");
 	flashingSequence();
-	setTimeout(flashingComplete,18000);
+	//setTimeout(flashingComplete,18000);
 }
 
 function flashingComplete(){
