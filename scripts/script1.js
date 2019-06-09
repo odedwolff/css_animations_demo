@@ -3137,7 +3137,7 @@ function handleHighPosition(ret){
 
 const bigSwingCtx = {
 	archTopDeg:70, 	
-	words: [ 'sunny', 'passing', 'afternoon', 'shower', 'mostly'],
+	words: [ 'sunny', 'passing', 'afternoon', 'showers', 'mostly'],
 	idx:0,
 	reenablingRange:30,
 	switchEnabled:true,
