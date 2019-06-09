@@ -2610,10 +2610,13 @@ function checkScrollSpeed(){
 //"height" - means sometimes "yscroll", probably 
 //not the best naming here 
 const upperSectionCtx = {
-	maxHeigtForFixed:1000,
+	maxHeigtForFixed:1400,
+	//a rough estimate of height over wich no need 
+	//to display upper part (if the values are more on the gray 
+	//area, a more precise claculateion is needed)
 	minHeightOutOfView:2000,
 	outOfViewTopVal:-500,
-	minHeightTumbleWeedActivation:300,
+	minHeightTumbleWeedActivation:600,
 	currentTop:0
 }
 
