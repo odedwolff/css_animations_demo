@@ -32,6 +32,8 @@ function init(){
 	initBackgroundStyle();
 
 	initSwing();
+
+	initPulsar();
 }
 
 
@@ -459,12 +461,21 @@ function triggerTwister(){
 /************************pulsar******************************** */
 
 const pulsarCtx = {
-	isRunning:false
+	isRunning:false,
+	//enablas waiting a couple of moments after page loading, before starting to pound 
+	timeOutBoforeStart:1500,
+	isDisabled:true
+}
+
+function initPulsar(){
+	setTimeout(() => {
+		pulsarCtx.isDisabled=false;
+	}, pulsarCtx.timeOutBoforeStart);
 }
 
 
 function startPulsar(dPhaseSec){
-	if(pulsarCtx.isRunning){
+	if(pulsarCtx.isRunning || pulsarCtx.isDisabled){
 		return;
 	}
 	pulsarCtx.isRunning = true;
