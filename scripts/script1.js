@@ -2966,7 +2966,7 @@ function inViewPort(panelViewName, bottomLimit, topLimit){
 
 const tumbleweedCtx = {
 	aPxSecSqr: 70,
-	animIntervalMs:20, 
+	animIntervalMs:50, 
 	nmHops:12,
 	startFadeoutXpos:700,
 	endFadeInXpos:400,
@@ -3182,7 +3182,7 @@ const spasmCtx = {
 	transformMaxRatioPerFrameY:1.08,
 	trnasformNmSpasmInSeq:8, 
 	baseLineScalePerFrame:1.1, 
-	fPs:50, 
+	fPs:20, 
 	framesPerSpasm:40, 
 	xXpanstionFactor:3,
 	yXpanstionFactor:1, 
@@ -3455,7 +3455,7 @@ function spasmScriptComplete(){
 var bottomCtx = {
 	dyMin:10,
 	dyMax:40,
-	fPs:50,
+	fPs:20,
 	noDerbyElm:20, 
 	//intervalRainMs:1000,
 	intervalRainMs:3000,
@@ -3572,7 +3572,7 @@ function stopRain(){
 /*************************theme grahsshopppers no timeout ******** */
 
 const gh2Ctx = {
-	fps:50,
+	fps:60,
 	//garvity
 	aPxPerSecSqr:4500,
 	preJumpCompressRatePerSec:0.95,
@@ -4019,7 +4019,7 @@ function triggerGiantSteps(){
 const spasm2Ctx = {
 	testMaxScaleHor:3,
 	testTrxTimeSec:0.2,
-	fps:50,
+	fps:20,
 	INC_MODE_EXP:1,
 	INC_MODE_LIN:2,
 	PHASE_SPASM_OUT:1,
@@ -4425,7 +4425,7 @@ const bottom2Ctx = {
 	minSinkVelPxSec:10, 
 	maxSinkVelPxSec:80,
 	A_pxSecSqr:10, 
-	fps:50, 
+	fps:20, 
 	phaseDiffMs:1000,
 	//the depth at which active element triggers sinking of the following elm 
 	nextElmTriggerDepth:200,
