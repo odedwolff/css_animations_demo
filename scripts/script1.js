@@ -311,15 +311,15 @@ function stopAndRearmSwing3Arr(){
 ;
 
 function swingStart(phaseSec, context){
-	if(context.swingStates == swingStates.ON || context.swingStates == swingStates.STARTING
-		|| context.swingStates == swingStates.STOPPING){
+	if(context.status == swingStates.ON || context.status == swingStates.STARTING
+		|| context.status == swingStates.STOPPING){
 		return;
 	}
-	if(context.swingStates == swingStates.OFF){
-		context.swingStates = swingStates.STARTING;
+	if(context.status == swingStates.OFF){
+		context.status = swingStates.STARTING;
 		startSwingingDelta(phaseSec, context.elms); 
 		setTimeout(() => {
-			context.swingStates = swingStates.ON;
+			context.status = swingStates.ON;
 		}, swingStates.startingTimeout);
 		return;
 	}
@@ -328,16 +328,16 @@ function swingStart(phaseSec, context){
 
 
 function swingStop(context){
-	if(context.swingStates == swingStates.OFF || context.swingStates == swingStates.STARTING
-		|| context.swingStates == swingStates.STOPPING){
+	if(context.status == swingStates.OFF || context.status == swingStates.STARTING
+		|| context.status == swingStates.STOPPING){
 		return;
 	}
-	context.swingStates == swingStates.STOPPING;
+	context.status = swingStates.STOPPING;
 	for(var i = 0 ; i< context.elms.length ; i++){
 		context.elms[i].classList.remove("swinging");	
 	}
 	setTimeout(() => {
-		context.swingStates = swingStates.OFF;
+		context.status = swingStates.OFF;
 	}, swingStates.stoppingTimeout);
 }
 
@@ -2900,7 +2900,7 @@ function panelInViewPulsar(){
 
 function panelInViewPendel(){
 	var topPosInViewPort = document.getElementById("viewpointDetectorPendel").getBoundingClientRect().top;
-	return topPosInViewPort > -100 && topPosInViewPort < 700;
+	return topPosInViewPort > 0 && topPosInViewPort < 1300;
 
 }
 
