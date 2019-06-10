@@ -266,12 +266,12 @@ const swingCtx3_3 ={
 //will be voided if already running 
 function startSwing3Arr(){
 	
-	if(swing3BaseCtx.swingStates == swingStates.ON || swing3BaseCtx.swingStates == swingStates.STARTING
-		|| swing3BaseCtx.swingStates == swing3BaseCtx.STOPPING){
+	if(swing3BaseCtx.status == swingStates.ON || swing3BaseCtx.status == swingStates.STARTING
+		|| swing3BaseCtx.status == swing3BaseCtx.STOPPING){
 		return;
 	}
-	if(swing3BaseCtx.swingStates == swingStates.OFF){
-		swing3BaseCtx.swingStates = swingStates.STARTING;
+	if(swing3BaseCtx.status == swingStates.OFF){
+		swing3BaseCtx.status = swingStates.STARTING;
 		startSwingingDelta(swing3BaseCtx.phaseBtwLettersSec, swingCtx3_1.elms);
 		setTimeout(() => {
 					startSwingingDelta(swing3BaseCtx.phaseBtwLettersSec, swingCtx3_2.elms);
@@ -281,8 +281,8 @@ function startSwing3Arr(){
 		},  swing3BaseCtx.phaseDiffMs);
 
 		setTimeout(() => {
-			swing3BaseCtx.swingStates = swingStates.ON;
-		}, swingStates.startingTimeout);
+			swing3BaseCtx.status = swingStates.ON;
+		}, swingStates.startingTimeoutArr3);
 	}
 	
 }
@@ -291,20 +291,20 @@ function startSwing3Arr(){
 
 //all string are assumed to have the same length 
 function stopAndRearmSwing3Arr(){
-	if(swing3BaseCtx.swingStates == swingStates.OFF || swing3BaseCtx.swingStates == swingStates.STARTING
-		|| swing3BaseCtx.swingStates == swingStates.STOPPING){
+	if(swing3BaseCtx.status == swingStates.OFF || swing3BaseCtx.status == swingStates.STARTING
+		|| swing3BaseCtx.status == swingStates.STOPPING){
 		return;
 	}
 
-	swing3BaseCtx.swingStates == swingStates.STOPPING
+	swing3BaseCtx.status = swingStates.STOPPING
 	for(var i = 0 ; i< swingCtx3_1.elms.length ; i++){
 		swingCtx3_1.elms[i].classList.remove("swinging");
 		swingCtx3_2.elms[i].classList.remove("swinging");
 		swingCtx3_3.elms[i].classList.remove("swinging");	
 	}
 	setTimeout(() => {
-		swing3BaseCtx.swingStates = swingStates.OFF;
-	}, swingStates.stoppingTimeout);
+		swing3BaseCtx.status = swingStates.OFF;
+	}, swingStates.stoppingTimeoutArr3);
 
 }
 
