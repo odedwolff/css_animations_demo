@@ -2760,7 +2760,7 @@ function enableFish(){
 }
 
 function enableGears(){
-	if(inViewPort("viewpointDetectorGears", 0, 700)){
+	if(inViewPort("viewpointDetectorGears", -200, 800)){
 		runGears();
 	}else{
 		stopGears();
@@ -2768,7 +2768,7 @@ function enableGears(){
 }
 
 function enableBigSwing(){
-	if(inViewPort("viewpointDetectorBigSwing", -200, 700)){
+	if(inViewPort("viewpointDetectorBigSwing", -200, 900)){
 		startBigSwing();
 	}else{
 		stopBigSwing();
@@ -2776,7 +2776,7 @@ function enableBigSwing(){
 }
 
 function enableRoller(){
-	if(inViewPort("viewpointDetectorRoller", -100, 1200)){
+	if(inViewPort("viewpointDetectorRoller", -100, 900)){
 		runRoller();
 	}else{
 		resetRollWord();
@@ -2810,17 +2810,17 @@ function enableFlashing(){
 		triggerFlashing();
 	}
 }
-
+/* 
 
 function enableSpasm(){
-	if(inViewPort("viewportDetectorSpasm", 300, 600)){
+	if(inViewPort("viewportDetectorSpasm", 300, 500)){
 		triggerSpasm();
 	}
 }
 
-
+ */
 function enableFocus(){
-	if(inViewPort("viewpointDetectorFocus", 0, 800)){
+	if(inViewPort("viewpointDetectorFocus", 100, 700)){
 		animFocus();
 	}else{
 		clearFocusAnim();
@@ -2835,13 +2835,13 @@ function enableGiantSteps(){
 }
 
 function enableSpasm2(){
-	if(inViewPort("viewpointDetectorSpasm2", 0, 1000)){
+	if(inViewPort("viewpointDetectorSpasm2", 0, 600)){
 		triggerSpasm2();
 	}
 }
 
 function enableGH2(){
-	if(inViewPort("viewpointDetectorGh2", -100, 1000)){
+	if(inViewPort("viewpointDetectorGh2", 0, 800)){
 		triggerGH2();
 	}
 }
@@ -2871,7 +2871,7 @@ function enableOhWiper(){
 
 function panelInViewPortWavesHor(){
 	var topPosInViewPort = document.getElementById("viewpointDetectorWavesHor").getBoundingClientRect().top;
-	return topPosInViewPort > 0 && topPosInViewPort < 800;
+	return topPosInViewPort > 0 && topPosInViewPort < 700;
 }
 
 function panelInViewPortWavesVer(){
@@ -2900,7 +2900,7 @@ function panelInViewPulsar(){
 
 function panelInViewPendel(){
 	var topPosInViewPort = document.getElementById("viewpointDetectorPendel").getBoundingClientRect().top;
-	return topPosInViewPort > 0 && topPosInViewPort < 1300;
+	return topPosInViewPort > 100 && topPosInViewPort < 800;
 
 }
 
@@ -2911,7 +2911,7 @@ function panelInViewPendel2(){
 
 function panelInViewPendel3(){
 	var topPosInViewPort = document.getElementById("viewpointDetectorPendel3").getBoundingClientRect().top;
-	return topPosInViewPort > -400 && topPosInViewPort < 500;
+	return topPosInViewPort > -500 && topPosInViewPort < 900;
 
 }
 
@@ -2935,12 +2935,12 @@ function panelInViewPendel3(){
 
 function panelInViewWheell(){
 	var topPosInViewPort = document.getElementById("viewpointDetectorWheel").getBoundingClientRect().top;
-	return topPosInViewPort > 0 && topPosInViewPort < 1000;
+	return topPosInViewPort > 0 && topPosInViewPort < 800;
 }
 
 function panelInViewSimpleSteps(){
 	var topPosInViewPort = document.getElementById("viewpointDetectorSimpleSteps").getBoundingClientRect().top;
-	return topPosInViewPort > -100 && topPosInViewPort < 400;
+	return topPosInViewPort > -200 && topPosInViewPort < 900;
 }
 
 
