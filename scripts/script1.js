@@ -2852,7 +2852,7 @@ function enableSpasm2(){
 }
 
 function enableGH2(){
-	if(inViewPort("viewpointDetectorGh2", 0, 800)){
+	if(inViewPort("viewpointDetectorGh2", 0, 900)){
 		triggerGH2();
 	}
 }
