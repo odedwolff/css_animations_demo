@@ -2405,7 +2405,7 @@ const horWaveCtx={
 	ampMin:0.1,
 	//ampMin:200,
 	ampMinRel: 1/200,
-	ampMaxAbs:410,
+	ampMaxAbs:310,
 	t:0,
 	decayIntervalId:null,
 	//decayRateSec: .5,
@@ -2414,7 +2414,7 @@ const horWaveCtx={
 	handleScrollSession: _handleScrollSessionHor,
 	/* lower scroll speed to have influence on surface */
 	minScrollSpeedPxSec:2,
-	scrollSpeedToAmpFctr: .3,
+	scrollSpeedToAmpFctr: .4,
 	lastExec:-1, 
 	charsPerLine:31, 
 	spacingXPx:20, 
@@ -2871,7 +2871,7 @@ function enableOhWiper(){
 
 function panelInViewPortWavesHor(){
 	var topPosInViewPort = document.getElementById("viewpointDetectorWavesHor").getBoundingClientRect().top;
-	return topPosInViewPort > 0 && topPosInViewPort < 700;
+	return topPosInViewPort > -200 && topPosInViewPort < 800;
 }
 
 function panelInViewPortWavesVer(){
