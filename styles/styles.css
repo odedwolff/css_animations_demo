@@ -14,6 +14,14 @@
 @fontFamilyFutura:'Futura LT W01','HelveticaNeue','Helvetica Neue','Helvetica','Arial','sans-serif'; */
 
 
+html, body {
+    margin: 0;
+    height: 100%;
+}
+
+
+
+
 button {
     background:#00000000;
    	border-style: none;
@@ -118,7 +126,7 @@ body {
     margin: 0;
 	display: block;
 	background: #ffc145;
-	max-width: 100%;
+	/* max-width: 100%; */
 	overflow-x: hidden;
 	font-family: 'FrankRuehl', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
 }
@@ -1457,8 +1465,10 @@ div#divLetterBox {
 
 #divWheel{
 	height: 500px;
-	background: #518683;
-	color: rgb(252, 252, 252);
+	/* background: #518683;
+	color: rgb(252, 252, 252); */
+	background: #013809;
+    color: #8a8a17;
 	position: relative;
 	height: 600px;
 	/* margin-top: 19px; */
@@ -1472,7 +1482,7 @@ div#divLetterBox {
     bottom: 2px;
     left: 11px;
 	font-size: 32px;
-	color: rgb(5, 5, 5);
+	/* color: rgb(5, 5, 5); */
 }
 
 
@@ -1483,7 +1493,7 @@ div#divLetterBox {
     width: 30px;
     text-align: center;
     /* background: #ffff002e; */
-    color: rgb(15, 15, 15);
+    /* color: rgb(15, 15, 15); */
     left: 500px;
     top: 300px;
     transform-origin: 50% 0%;
