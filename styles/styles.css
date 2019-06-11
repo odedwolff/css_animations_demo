@@ -1018,24 +1018,26 @@ div#divLinesFocosContent {
 
 #divFlashingCont{
 	/* margin-top: 20px; */
-    height: 350px;
+    height: 500px;
     color: #ffffff;
     background: #32514f;
     position: relative;
-    font-family: Futura LT W01, HelveticaNeue, Helvetica Neue, Helvetica, Arial, sans-serif;
+    
 }
 
 
 
 div#divFashingContent{
-    padding-left: 200px;
-    padding-right: 200px;
-    padding-top: 30px;
+    padding-left: 16%;
+    padding-right: 17%;
+    padding-top: 14%;
 }
 
 .classFlashLetter {
 	float: left;
-	font-size: 30px;
+	font-size: 20px;
+	font-family: Georgia,Times,"Times New Roman",serif;
+	margin-top:5px;
 }
 
 .classFlashLetterTransparent {
