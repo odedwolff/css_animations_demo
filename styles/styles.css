@@ -316,50 +316,58 @@ body {
 	/* left: -120px; */
 }
 
+
+/* ***the elment lines  are all centered in the middle, createing an upside down triangle
+ *****/
+/* 
 #absPendBase3_1{
 	background:ffc0cb00;
 	position:absolute;
-	left:200px;
+	left:20%;
 }
 
 #absPendBase3_2{
 	background:ffc0cb00;
 	position:absolute;
-	left:370px;
+	left:20%;
 	top:100px;
 	transform: scale(0.7);
 }
 #absPendBase3_3{
 	background:ffc0cb00;
 	position:absolute;
-	left:500px;
+	left:20%;
 	top:170px;
 	transform: scale(0.5);
 }
+ */
 
+/*** 
+elements line are shifting right as they drop 
+  ***/
 
-/* 
 #absPendBase3_1{
 	background:ffc0cb00;
 	position:absolute;
-	left:300px;
+	left:15%;
 }
 
 #absPendBase3_2{
 	background:ffc0cb00;
 	position:absolute;
-	left:450px;
-	top:-30px;
+	left:24%;
+	top:100px;
 	transform: scale(0.7);
 }
 #absPendBase3_3{
 	background:ffc0cb00;
 	position:absolute;
-	left:600px;
-	top:-60px;
+	left:30%;
+	top:170px;
 	transform: scale(0.5);
 }
- */
+
+
 
 
 

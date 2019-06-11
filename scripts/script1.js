@@ -2923,25 +2923,11 @@ function panelInViewPendel2(){
 function panelInViewPendel3(){
 	var topPosInViewPort = document.getElementById("viewpointDetectorPendel3").getBoundingClientRect().top;
 	return topPosInViewPort > -500 && topPosInViewPort < 900;
-
+	 
 }
 
 
 
-/* 
-function panelInViewPendel(){
-	return true;
-}
-
-function panelInViewPendel2(){
-	return true;
-}
-
-function panelInViewPendel3(){
-	return true;
-}
-
- */
 
 
 function panelInViewWheell(){
