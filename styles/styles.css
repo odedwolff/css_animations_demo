@@ -621,6 +621,8 @@ elements line are shifting right as they drop
 
 /*-------------------------------------theme rolling-------------------------------------------------------------------
 */
+
+ 
 #divRollerCont{
 	/* margin-top: 20px; */
 	height: 500px;
@@ -628,6 +630,11 @@ elements line are shifting right as they drop
     background: #81b6b3;
 	position: relative;
 	font-family:'Futura LT W01','HelveticaNeue','Helvetica Neue','Helvetica','Arial','sans-serif';
+}
+
+div#divRollerContent {
+    left: -5%;
+    position: relative;
 }
 
 #divRollerWord{
