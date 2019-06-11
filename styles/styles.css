@@ -283,12 +283,11 @@ body {
 
 
 .divPendRoot {
-    /* padding-top: 200px; */
-    padding-left: 150px;
+	/* padding-left: 150px; */
+	padding-left: 5%;
     height: 450px;
     background: #ffc145;
     color: #000000;
-    /* border-style: solid; */
     border-width: 1px;
 	border-color: #000000;
 	position: relative;
@@ -1680,15 +1679,18 @@ div#divDynContentHorVave {
 
 
 div#divWavesVerContent {
-    position: relative;
+	position: relative;
+	height: 100%;
 }
 
 
 
 
 div#divDynContent {
-    left: 406px;
-    top: 40px;
+   /*  left: 406px;
+	top: 40px; */
+	left: 31%;
+    top: 12%;
     position: relative;
 }
 
@@ -1733,6 +1735,7 @@ div#divOutOfPhase {
 	color: #f6a400;
 	position: absolute;
 	cursor: pointer;
+	z-index: 12;
 }
 
 .divRadioGroupPhase{
@@ -1748,13 +1751,17 @@ div#phaseControls {
 }
 
 #btnInPhase{
-	left: 79px;
-	top: 86px;
+	/* left: 79px;
+	top: 86px; */
+	left: 78%;
+    top: 28%;
 }
 
 #btnOutOfPhase{
-	left: 79px;
-	top: 175px;
+	/* left: 79px;
+	top: 175px; */
+	top: 60%;
+    left: 78%;
 }
 
 
