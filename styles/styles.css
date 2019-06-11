@@ -2003,6 +2003,7 @@ div#spasm2Content {
 #divOverheadWipers{
 	position: fixed;
 	z-index: 1000;
+	width: 100%
 }
 
 #overheadWipersControls{
@@ -2020,12 +2021,24 @@ div#spasm2Content {
 	top: -80px;
 }
 
-#ohWiper1{
+/* #ohWiper1{
 	left:400px;
+	
 }
 #ohWiper2{
 	left:1000px;
 }
+ */
+
+#ohWiper1{
+	left:30%;
+	
+}
+#ohWiper2{
+	left:65%;
+}
+
+
 
 #btnOhWiperGo{
 	color:black;
