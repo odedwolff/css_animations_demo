@@ -1507,10 +1507,10 @@ div#divLetterBox {
     height: 150px;
     width: 30px;
     text-align: center;
-    /* background: #ffff002e; */
-    /* color: rgb(15, 15, 15); */
-    left: 500px;
-    top: 300px;
+    /* left: 500px;
+	top: 300px; */
+	left: 40%;
+    top: 50%;
     transform-origin: 50% 0%;
     transform: rotate(180deg);
 }
@@ -1546,7 +1546,8 @@ div#viewpointDetectorWheel {
 div#divWheelContent {
     left: 75px;
     top: -50px;
-    position: relative;
+	position: relative;
+	height: 100%;
 }
 
 /*------------------------theme clouds------------------------------------
