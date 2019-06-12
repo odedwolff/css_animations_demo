@@ -2817,7 +2817,7 @@ function enableTwister(){
 }
 
 function enableFlashing(){
-	if(inViewPort("viewpointDetectorFlashing", 300, 600)){
+	if(inViewPort("viewpointDetectorFlashing", 0, 700)){
 		triggerFlashing();
 	}
 }
@@ -2932,7 +2932,8 @@ function panelInViewPendel3(){
 
 function panelInViewWheell(){
 	var topPosInViewPort = document.getElementById("viewpointDetectorWheel").getBoundingClientRect().top;
-	return topPosInViewPort > 0 && topPosInViewPort < 800;
+	return topPosInViewPort > 0  && topPosInViewPort < 800;
+	
 }
 
 function panelInViewSimpleSteps(){
