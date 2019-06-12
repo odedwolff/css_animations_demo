@@ -2225,7 +2225,11 @@ div#divTitleSection {
 
 /* low res notification  */
 
-#divLowRes{
+
+/* look nice on high res, but much too small on mobile 
+ */
+ 
+ /* #divLowRes{
 	position: fixed;
     width: 73%;
     height: 400px;
@@ -2238,9 +2242,24 @@ div#divTitleSection {
 	font-family: "TabletGothic","Helvetica Neue",Helvetica,Arial,FreeSans,sans-serif;
 	display: none;
 	
+} */
+
+#divLowRes {
+    position: fixed;
+    width: 73%;
+    margin-left: 5%;
+    background: rgba(0, 0, 0, 0.74);
+    color: white;
+    z-index: 15;
+    font-size: 90px;
+    padding-left: 5%;
+    padding-right: 5%;
+    height: auto;
+    font-family: "TabletGothic","Helvetica Neue",Helvetica,Arial,FreeSans,sans-serif;
+    display: none;
 }
 
-button#btnUseAnyway {
+/* button#btnUseAnyway {
     width: 217px;
     height: 96px;
     background: black;
@@ -2248,4 +2267,16 @@ button#btnUseAnyway {
     margin-top: 74px;
     cursor: pointer;
     color: white;
+} */
+
+button#btnUseAnyway {
+    width: 217px;
+    height: 96px;
+    background: black;
+    font-size: 33px;
+/*     margin-top: 74px; */
+    cursor: pointer;
+    color: white;
+    float:right
+    
 }
