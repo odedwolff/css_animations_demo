@@ -2221,3 +2221,31 @@ div#divTitleSection {
     width: 100%;
     z-index: 11;
 }
+
+
+/* low res notification  */
+
+#divLowRes{
+	position: fixed;
+    width: 73%;
+    height: 400px;
+    margin-left: 5%;
+	background: rgba(101, 101, 101, 0.75);
+    color: white;
+    z-index: 15;
+    font-size: 41px;
+	padding: 10%;
+	font-family: "TabletGothic","Helvetica Neue",Helvetica,Arial,FreeSans,sans-serif;
+	display: none;
+	
+}
+
+button#btnUseAnyway {
+    width: 217px;
+    height: 96px;
+    background: black;
+    font-size: 33px;
+    margin-top: 74px;
+    cursor: pointer;
+    color: white;
+}

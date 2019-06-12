@@ -34,6 +34,8 @@ function init(){
 	initSwing();
 
 	initPulsar();
+
+	checkResolution();
 }
 
 
@@ -4520,6 +4522,29 @@ function testSetBodyColor(){
 	const body1 = document.querySelectorAll("body")[0];
 	body1.style.background="red";
 
+}
+
+
+/*************check resolution****** */
+const ctxDisplay= {
+	minWidth:900,
+	minHeight:600
+}
+function checkResolution(){
+	const width= window.innerWidth;
+	const height=window.innerHeight;
+	if(width <ctxDisplay.minWidth || height < ctxDisplay.minHeight){
+		showResolutionNotice(true);
+	}
+}
+function showResolutionNotice(show){
+	var elm=  document.getElementById("divLowRes");
+	if(show){
+		elm.style.display="block";
+	}else{
+		elm.style.display="none";
+	}
+	
 }
 
 
