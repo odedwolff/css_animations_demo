@@ -923,10 +923,10 @@ div#divContRollerR2 {
 #divLinesFocusCont{
 	
 	padding-top: 30px;
-    height: 350px;
+   /*  height: 350px; */
+  	 height: 700px;
 	background: #f6a400;
 	position: relative;
-	/* margin-top: 19px; */
 }
 
 

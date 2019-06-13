@@ -60,31 +60,30 @@ subject to waves or something
 
 
   name of inidan tribes 
+  v machbar  
+  v nachbar
+  v vsechno 
 
-  machbar 
-  nachbar
-
-  vsechno 
-
-  tweak 
+  v tweak 
   dial in 
   topo
 
   between
 
-  piacere 
+  v piacere 
   
-  wihitle 
-  rotor
+  v wihitle 
+  v rotor
   surface
   toxicity 
   instrument
   
   truth
-  pines
+  v pines
+  
  
   suggest
-  ignite 
+  v ignite 
   log 
   wooden / wood
   
@@ -119,6 +118,15 @@ subject to waves or something
   resonance 
 
   transform 
+
+  native american tribes:
+  Apalachee
+  Dakota 
+  Navajo
+  Yakama
+  Wyoming –
+  Massachusetts 
+  Connecticut 
 
 
 start local python server:

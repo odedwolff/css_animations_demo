@@ -4,8 +4,9 @@ const menuTexts={
     "about": `this page a is a demo for some simple animation ideas of what one might call 
     'motion design' or something along that line, in web context. In essence a programming exercise gone out of control.
     As far as concept goes, i tried to stick as much as i could to latin text characters as the sole grphic element  
-
-    Projects page on Github:
+    <br>
+    The Project's page on Github:
+    <br>
     <a class='aResNote' href="https://github.com/odedwolff/css_animations_demo" target=_blank>https://github.com/odedwolff/css_animations_demo</a>
     `,
 
