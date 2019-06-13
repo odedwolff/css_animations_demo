@@ -103,9 +103,11 @@ const msgBoxCtx = {
 const msgBoxTO = 1000 / msgBoxCtx.fps;
 const dOpacPerFrame = (msgBoxCtx.onOpacity) / (msgBoxCtx.fps * msgBoxCtx.vanishTimeSec);
 
-function showMsgBox(){
+function showMsgBox(html){
 	const elm = document.getElementById("divMsgBox");
-	//document.getElementById("divMsgBox").style.opacity = msgBoxCtx.onOpacity;
+	//the child of the mssage box, the containter for changing messages 
+	const htmlContainer= document.getElementById("divMsgBoxMsg");
+	htmlContainer.innerHTML=html;
 	elm.style.opacity = msgBoxCtx.onOpacity;
 	elm.style.transform="scale(1.0)"
 }

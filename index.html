@@ -5,6 +5,7 @@
 	<link rel="icon" href="images/favicon.png" type="image/png">
 
 	<link rel="stylesheet" href="styles/styles.css">
+	<script src="scripts/strings.js"></script>
 	<script src="scripts/script1.js"></script>
 </head>
 
@@ -62,11 +63,11 @@
 		</div>
 
 		<div id=topMenuBar>
-			<button class=btnTopMenu onclick="showMsgBox()">options</button>
-			<button class=btnTopMenu>about</button>
-			<button class=btnTopMenu>home</button>
-			<button class=btnTopMenu>contacts</button>
-
+			<button class=btnTopMenu onclick="showMsgBox(menuTexts.about)">about</button>
+			<button class=btnTopMenu onclick="showMsgBox(menuTexts.dev_notes)">developement</button>
+			<button class=btnTopMenu onclick="showMsgBox(menuTexts.sys_notes)">system</button>
+			<button class=btnTopMenu onclick="showMsgBox(menuTexts.contact)">contact</button>
+		
 				
 			<div id= divTumbelWeedInline>
 					<div id=divTumbelWeedControl>	
@@ -84,7 +85,9 @@
 			</div>
 
 			<div id=divMsgBox>
-					messages messages messages messages messages messages
+					<div id=divMsgBoxMsg>
+
+					</div>
 
 					<button onclick="hideMsgBox()">
 						close
