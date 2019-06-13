@@ -16,7 +16,9 @@ const menuTexts={
     More complex animation are very hard to achieve with CSS, so i used javascript for every frame on those. 
     I did use LESS for a while, but too briefly to mention. `,
 
-    "sys_notes":`Regretfully mobile platforms are not supported presently. I tried to test with 
+    "sys_notes":
+    `Using Chrome or Firefox is strongly encougreged. With other browsers, all bets are off.
+    Regretfully mobile platforms are not supported presently. I tried to test with 
     a selection of laptop/desktop display resolutions, so hopefully it should work on these, 
     let me know if it looks wrong on your device (please supply device details) 
     <a href = "mailto: odedwolff@gmail.com" class='aResNote'>odedwolff@gmail.com</a>
