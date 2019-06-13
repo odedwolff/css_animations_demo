@@ -4542,9 +4542,13 @@ function checkDevice(){
     	isMobile = true;
 	}
 
+	const isFirefox = typeof InstallTrigger !== 'undefined';
+	const isChrome = !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime);
+
+
 	const width= window.innerWidth;
 	const height=window.innerHeight;
-	if(isMobile || width <ctxDisplay.minWidth || height < ctxDisplay.minHeight){
+	if(isMobile || width <ctxDisplay.minWidth || height < ctxDisplay.minHeight || (!isFirefox && !isChrome)  ){
 		showResolutionNotice(true);
 	}
 }
