@@ -8,9 +8,7 @@ const menuTexts={
     The Project's page on Github:
     <br>
     <a class='aResNote' href="https://github.com/odedwolff/css_animations_demo" target=_blank>https://github.com/odedwolff/css_animations_demo</a>
-    <br>
-    <br>
-    build code:1
+    
     `
     
     ,
@@ -19,7 +17,11 @@ const menuTexts={
     CSS animation is used quite heavily. In fact, the whole thing began as i tried to prove to myself 
     that CSS animation was a terrible idea (wasn't that bad as it turned out).
     More complex animation are very hard to achieve with CSS, so i used javascript for every frame on those. 
-    I did use LESS for a while, but too briefly to mention. `,
+    I did use LESS for a while, but too briefly to mention.
+    <br>
+    <br>
+    build code:3
+    `,
 
     "sys_notes":
     `Using Chrome or Firefox is strongly encougreged. With other browsers, all bets are off.

@@ -2306,7 +2306,7 @@ button#btnUseAnyway {
     color: white;
     /* float: right; */
     position: absolute;
-    left: 50%;
+    /* left: 50%; */
     top: 90%;
 }
 
