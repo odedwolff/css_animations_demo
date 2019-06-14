@@ -8,7 +8,12 @@ const menuTexts={
     The Project's page on Github:
     <br>
     <a class='aResNote' href="https://github.com/odedwolff/css_animations_demo" target=_blank>https://github.com/odedwolff/css_animations_demo</a>
-    `,
+    <br>
+    <br>
+    build code:1
+    `
+    
+    ,
 
     "dev_notes":`I made a point of not using any libraries, so it's basically vanilla javascript and CSS. 
     CSS animation is used quite heavily. In fact, the whole thing began as i tried to prove to myself 
