@@ -2299,15 +2299,17 @@ button#btnUseAnyway {
 button#btnUseAnyway {
     width: 50%;
     height: auto;
-    background: black;
+	background: white;
+	color: black;	
     font-size: 80px;
     /* margin-top: 74px; */
     cursor: pointer;
-    color: white;
+    
     /* float: right; */
     position: absolute;
     /* left: 50%; */
-    top: 90%;
+	top: 90%;
+	/* left:-50%; */
 }
 
 #divLowResCanvas{
