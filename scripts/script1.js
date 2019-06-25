@@ -2844,7 +2844,7 @@ function enableFocus(){
 
 
 function enableGiantSteps(){
-	if(inViewPort("viewpointDetectorGiantSteps", 300, 600)){
+	if(inViewPort("viewpointDetectorGiantSteps", 0, 900)){
 		triggerGiantSteps();
 	}
 }
