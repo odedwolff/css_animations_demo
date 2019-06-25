@@ -2051,8 +2051,8 @@ div#spasm2Content {
 }
 
 .overheadWiper {
-    font-size: 80px;
-    color: white;
+    font-size: 40px;
+    color: rgb(255, 255, 255);
     position: absolute;
     transform: rotate(0deg);
     width: 500px;

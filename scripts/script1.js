@@ -2835,7 +2835,7 @@ function enableSpasm(){
 
  */
 function enableFocus(){
-	if(inViewPort("viewpointDetectorFocus", 100, 700)){
+	if(inViewPort("viewpointDetectorFocus", -200, 700)){
 		animFocus();
 	}else{
 		clearFocusAnim();
@@ -2844,7 +2844,7 @@ function enableFocus(){
 
 
 function enableGiantSteps(){
-	if(inViewPort("viewpointDetectorGiantSteps", 0, 900)){
+	if(inViewPort("viewpointDetectorGiantSteps", -200, 1100)){
 		triggerGiantSteps();
 	}
 }
@@ -3726,7 +3726,8 @@ const giantStepsCtx = {
 	vStropDropRatioSec:100000000,
 
 	pauseBeforeStompMs:170,
-	endCycleTimeoutMs:400,
+	//endCycleTimeoutMs:400,
+	endCycleTimeoutMs:0,
 
 	backGroundColor:"black",
 	foregroundColor:"white",
